@@ -1,13 +1,14 @@
 @import "tailwindcss";
 
 @font-face {
-    font-family: Oswald;
-    font-style: normal;
-    font-weight: 200 700;
-    font-display: swap;
-    src: url("/fonts/Oswald.woff2") format("woff2");
+  font-family: b-yekan;
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+  src: url("./assets/fonts/BYekan+.ttf") format("woff2");
 }
 
 @theme {
-    --font-roboto: "Roboto", sans-serif; 
-  }
+  --font-roboto: "Roboto", sans-serif;
+  --font-b-yekan: "BYekan", b-yekan;
+}

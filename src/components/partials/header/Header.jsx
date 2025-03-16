@@ -4,7 +4,7 @@ import { HiShoppingBag } from "react-icons/hi2"
 
 const Header = () => {
   return (
-    <div className='container bg-[#F7F7F7] w-full h-[120px] flex justify-center items-end'>
+    <div className='container bg-[#F7F7F7] w-full h-[120px] font-b-yekan flex justify-center items-end'>
       <div className='border w-[1247px] h-[50px] flex justify-between flex-row flex-nowrap'>
         <div className='border flex justify-between flex-row flex-nowrap gap-1'>
           <div>
@@ -14,7 +14,7 @@ const Header = () => {
             <button className='relative'>
               <HiShoppingBag  className="text-[#CCCCCC] w-[35px] h-[30px]" strokeWidth={0.1} />
               <div className="w-[14px] h-[14px] bg-[#E48900] text-white text-[10px] rounded-full absolute bottom-0
-                        right-0 flex items-center justify-center ">
+                        right-0 flex items-center justify-center font-b-yekan">
                             4
               </div>
             </button>
