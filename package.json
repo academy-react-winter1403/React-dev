@@ -26,7 +26,6 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.3.0",
     "redux-persist": "^6.0.0",
-    "shadcn-ui": "^0.9.5",
     "slim-js": "^5.0.10",
     "swiper": "^11.2.5",
     "tailwindcss": "^4.0.14"
