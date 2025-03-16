@@ -3,7 +3,7 @@ import RouterProvider from "../config/router/index.router";
 
 const App = () => {
 
-  // my first push everrrrrrr
+  // my first push now
   return (
     <main>
       <RouterProvider />
