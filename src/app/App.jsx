@@ -3,7 +3,7 @@ import RouterProvider from "../config/router/index.router";
 
 const App = () => {
   return (
-    <main>
+    <main dir="rtl">
       <RouterProvider />
     </main>
   );

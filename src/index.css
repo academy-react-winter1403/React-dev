@@ -12,3 +12,7 @@
   --font-roboto: "Roboto", sans-serif;
   --font-b-yekan: "BYekan", b-yekan;
 }
+
+@theme {
+  --breakpoint-xs: 420px;
+}

@@ -2,11 +2,11 @@ import React from "react";
 
 const Logo = () => {
   return (
-    <div className="cursor-pointer">
+    <div className="cursor-pointer w-full h-full ">
       <svg
         // width="135"
         // height="50"
-        className="w-full h-full"
+        className="w-full h-full "
         viewBox="0 0 135 50"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
