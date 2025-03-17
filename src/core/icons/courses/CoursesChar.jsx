@@ -5,7 +5,7 @@ import char from "../../../assets/pics/courses/char.png";
 const CoursesChar = () => {
   return (
     <div
-      className="courses-char relative w-[400px] h-[397px] bg-no-repeat bg-center flex justify-center items-center"
+      className="courses-char relative w-[400px] h-[397px] bg-no-repeat bg-center flex justify-center items-center float-left"
       style={{ backgroundImage: "url(" + charCard + ")", backgroundSize: "419px 94%" }}
     >
       {/* <img src={charCard} alt="" className="absolute"/> */}
