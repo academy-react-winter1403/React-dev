@@ -1,14 +1,14 @@
-import axios from 'axios'
-import React from 'react'
-import { htttp } from '../../../core/services/interceptor'
-import TopSection from './TopSection'
+import React from "react";
+import TopSection from "./TopSection";
 
 const Courses = () => {
   return (
-    <div className='courses-holder'>
-      <TopSection/>
+    <div className="courses-holder flex justify-center">
+      <div className="container w-[80%]">
+        <TopSection />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Courses
+export default Courses;
