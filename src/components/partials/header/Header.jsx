@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <div
       // className="bg-[#F7F7F7] w-full h-[120px] font-b-yekan flex justify-center items-end"
-      className="w-full holder font-b-yekan flex justify-center "
+      className="w-full holder bg-[#F7F7F7]  font-b-yekan flex justify-center "
     >
       <div className="holder header-container w-full 2xl:w-[1536px] mt-[53px] mb-[20px]
         flex justify-center"
