@@ -1,5 +1,5 @@
 import React from "react";
-import CoursesChar from "../../../core/icons/courses/CoursesChar";
+import CoursesCharectorIcon from "../../../core/icons/courses/CoursesChar";
 import Input from "../../common/input/Input";
 
 const TopSection = () => {
@@ -28,7 +28,7 @@ const TopSection = () => {
           </div>
         </div>
       </div>
-      <CoursesChar />
+      <CoursesCharectorIcon />
     </div>
   );
 };
