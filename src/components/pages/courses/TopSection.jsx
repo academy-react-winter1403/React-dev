@@ -1,5 +1,5 @@
 import React from "react";
-import CoursesCharectorIcon from "../../../core/icons/courses/CoursesChar";
+import { CoursesCharectorIcon } from "../../../core/icons/icons";
 import Input from "../../common/input/Input";
 
 const TopSection = () => {
@@ -7,7 +7,7 @@ const TopSection = () => {
     <div className="top-section-contaienr relative w-[80%]">
       <div
         className="top-section-control bg-[#EBF9F982] backdrop-blur-[4px]
-        drop-shadow-[0_2px_2px_#00000040] rounded-[15px] p-[35px]"
+        drop-shadow-[0_2px_2px_#00000040] rounded-[15px] p-[40px]"
       >
         <div className="text-control">
           <div className="top flex items-center">
@@ -28,11 +28,11 @@ const TopSection = () => {
               دوره های آموزشی{" "}
             </h2>
           </div>
-          <p className="font-[400] text-[#AAAAAA] indent-[10px] mt-[3px]">
+          <p className="font-[400] text-[#AAAAAA] indent-[10px] mt-[5px]">
             {" "}
             به روز ترین دوره هایی که میتونید پیدا کنید{" "}
           </p>
-          <div className="input-control w-[40%] mt-[15px] mr-[10px]">
+          <div className="input-control w-[60%] mt-[25px] mr-[10px]">
             <Input type={"text"} placeholder={"چی میخوای یاد بگیری؟..."} />
           </div>
         </div>
