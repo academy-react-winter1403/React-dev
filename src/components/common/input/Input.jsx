@@ -12,12 +12,12 @@ const Input = ({ placeholder, type, change }) => {
         type={type}
         placeholder={placeholder}
         className="w-full bg-[#FAFAFA] backdrop-blur-[5px] outline-0
-        border-[1px] border-[#DFDFDF80] rounded-[35px] py-[8px] px-[4px] indent-[5px] text-[#424242]"
+        border-[1px] border-[#DFDFDF80] rounded-[35px] pt-[10px] pb-[13px] px-[4px] indent-[12px] text-[#424242]"
         onChange={changeHandler}
       />
       <IoSearchCircleSharp
         color="#D47300"
-        size={35}
+        size={42}
         style={{ position: "absolute", top: "3px", left: "0" }}
       />
     </div>
