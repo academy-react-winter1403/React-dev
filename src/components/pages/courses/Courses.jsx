@@ -1,15 +1,12 @@
 import axios from 'axios'
 import React from 'react'
 import { htttp } from '../../../core/services/interceptor'
-
-const endUrl = import.meta.env.VITE_END_URL
-
-htttp.get(endUrl)
+import TopSection from './TopSection'
 
 const Courses = () => {
   return (
-    <div>
-      Courses...
+    <div className='courses-holder'>
+      <TopSection/>
     </div>
   )
 }
