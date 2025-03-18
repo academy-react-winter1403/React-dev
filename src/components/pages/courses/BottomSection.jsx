@@ -1,5 +1,7 @@
 import React from 'react'
 import FilterLabel from './FilterLabel'
+import { technologyData } from '../../../core/constants/courses-datas/filter-data'
+import FilterBox from './FilterBox'
 
 const BottomSection = () => {
   return (
@@ -10,6 +12,7 @@ const BottomSection = () => {
       </div>
       <div className="side p-2 bg-[#FFFFFF] drop-shadow-[0_1px_2px_#0000004D]">
         <FilterLabel/>
+        <FilterBox/>
       </div>
     </div>
   )
