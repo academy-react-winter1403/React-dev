@@ -4,8 +4,9 @@ const FooterBG = () => {
   return (
     <div>
       <svg
-        width="1440"
-        height="364"
+        // width="1440"
+        // height="364"
+        className="w-full h-full"
         viewBox="0 0 1440 364"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -13,7 +14,13 @@ const FooterBG = () => {
         <foreignObject x="-522" y="-10" width="2504" height="516">
           <div
             xmlns="http://www.w3.org/1999/xhtml"
-            style="backdrop-filter:blur(5px);clip-path:url(#bgblur_0_108_109_clip_path);height:100%;width:100%"
+            // style="backdrop-filter:blur(5px);clip-path:url(#bgblur_0_108_109_clip_path);height:100%;width:100%"
+            style={{
+                backdropFilter: "blur(5px)",
+                clipPath: "url(#bgblur_0_108_109_clip_path)",
+                height: "100%",
+                width: "100%",
+              }}
           ></div>
         </foreignObject>
         <path
