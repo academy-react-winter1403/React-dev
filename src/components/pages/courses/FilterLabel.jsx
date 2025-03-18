@@ -4,7 +4,7 @@ import { TrashCanIcon } from "../../../core/icons/icons";
 
 const FilterLabel = () => {
   return (
-    <button className="filter-label-control flex gap-[111px] py-[8px] px-[14px] bg-[#E7E7E7]
+    <button className="filter-label-control flex gap-x-[141px] py-[8px] px-[14px] bg-[#E7E7E7]
         drop-shadow-[0_1px_2px_#00000040] items-center rounded-[5px_5px_1px_1px]"
     >
       <button className="rigth flex items-center gap-x-[5px]">
