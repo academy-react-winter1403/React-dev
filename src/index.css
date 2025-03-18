@@ -1,5 +1,6 @@
 body {
   background: #F9F9F9;
+  user-select: none
 }
 
 @import "tailwindcss";
