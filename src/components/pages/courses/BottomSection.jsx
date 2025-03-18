@@ -8,7 +8,7 @@ const BottomSection = () => {
         <div className="sort-viw-btn-control"></div>
         <div className="product-card-container"></div>
       </div>
-      <div className="side w-[40%]">
+      <div className="side p-2 bg-[#FFFFFF] drop-shadow-[0_1px_2px_#0000004D]">
         <FilterLabel/>
       </div>
     </div>
