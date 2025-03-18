@@ -4,7 +4,7 @@ import Footer from '../../partials/footer/Footer'
 
 const Landing = () => {
   return (
-    <div className='bg-[#F7F7F7] '>
+    <div className='bg-[#F7F7F7]'>
       <Header/>
       Landing...
       <Footer/>
