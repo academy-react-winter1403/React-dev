@@ -2,8 +2,8 @@
 import React from "react";
 import FilterLabel from "./FilterLabel";
 import FilteredBox from "./filter-box/FilteredBox";
-import { sortData } from "../../../core/constants/courses-datas/filter-data";
-import FilterOption from "./filter-box/FilterOption";
+// import { sortData } from "../../../core/constants/courses-datas/filter-data";
+// import FilterOption from "./filter-box/FilterOption";
 =======
 import React from 'react'
 import FilterLabel from './FilterLabel'
