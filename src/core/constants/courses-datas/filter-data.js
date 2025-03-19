@@ -1,4 +1,4 @@
-export const sortData = [
+export const filterData = [
   {
     id: 1,
     sortText: "تکنولوژی",
@@ -37,33 +37,19 @@ export const sortData = [
     id: 4,
     sortText: "سطح",
     sortingData: [
-      { id: 1, text: "مقدماتی" },
-      { id: 2, text: "متوسط" },
-      { id: 3, text: "پیشرفته" },
+      { id: 14, text: "مقدماتی" },
+      { id: 15, text: "متوسط" },
+      { id: 16, text: "پیشرفته" },
     ],
   },
+
+  {
+    id: 5,
+    sortText: "قیمت",
+    sortText2: "(تومان)",
+    sortingData: [
+      { id: 17, text: "رایگان" },
+      { id: 28, text: "غیر رایگان" },
+    ],
+  }
 ];
-
-
-export const technologyData = [
-    "Boot Strap",
-    "React",
-    "java script",
-    ".Net Core",
-    "tailwind",
-]
-
-export const statusData = [
-    "شروع نشده",
-    "در حال برگزاری",
-    "تمام شده",
-]
-
-export const scoreData = [1, 2, 3, 4, 5]
-
-export const levelData = [
-    "مقدماتی",
-    "متوسط",
-    "پیشرفته",
-]
-

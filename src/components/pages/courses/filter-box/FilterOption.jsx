@@ -1,7 +1,6 @@
 import React from "react";
 
-const FilterOption = ({ filterName, id }) => {
-    console.log(id)
+const FilterOption = ({ filterName, id, children }) => {
   return (
     <div className="filter-option-control flex mt-[3px] cursor-pointer items-center">
       <input
@@ -12,9 +11,7 @@ const FilterOption = ({ filterName, id }) => {
         className="cursor-pointer"
       />
       <label htmlFor={"check" + id} className="cursor-pointer">
-        <p className="font-[400] text-[16px] text-[#333333] mr-[8px]">
-          {filterName}
-        </p>
+        {children}
       </label>
     </div>
   );
