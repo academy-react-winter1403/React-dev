@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 export const sortData = [
   {
     id: 1,
@@ -45,9 +43,8 @@ export const sortData = [
     ],
   },
 ];
-=======
-=======
->>>>>>> c498d6d (create branch feature coursesPage)
+
+
 export const technologyData = [
     "Boot Strap",
     "React",
@@ -68,9 +65,5 @@ export const levelData = [
     "مقدماتی",
     "متوسط",
     "پیشرفته",
-<<<<<<< HEAD
 ]
->>>>>>> main
-=======
-]
->>>>>>> c498d6d (create branch feature coursesPage)
+

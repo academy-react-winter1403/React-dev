@@ -1,15 +1,12 @@
-<<<<<<< HEAD
 import React from "react";
 import FilterLabel from "./FilterLabel";
 import FilteredBox from "./filter-box/FilteredBox";
-// import { sortData } from "../../../core/constants/courses-datas/filter-data";
-// import FilterOption from "./filter-box/FilterOption";
-=======
+import { sortData } from "../../../core/constants/courses-datas/filter-data";
+import FilterOption from "./filter-box/FilterOption";
 import React from 'react'
 import FilterLabel from './FilterLabel'
 import { technologyData } from '../../../core/constants/courses-datas/filter-data'
 import FilterBox from './FilterBox'
->>>>>>> main
 
 const BottomSection = () => {
   return (
@@ -33,13 +30,10 @@ const BottomSection = () => {
         <div className="sort-viw-btn-control"></div>
         <div className="product-card-container"></div>
       </div>
-<<<<<<< HEAD
-=======
       <div className="side p-2 bg-[#FFFFFF] drop-shadow-[0_1px_2px_#0000004D]">
         <FilterLabel/>
         <FilterBox/>
       </div>
->>>>>>> main
     </div>
   );
 };
