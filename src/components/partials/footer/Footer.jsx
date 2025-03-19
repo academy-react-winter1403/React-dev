@@ -3,14 +3,13 @@ import { AiOutlineCopyrightCircle } from "react-icons/ai";
 import FooterBG from "../../../core/icons/FooterIcons/FooterBG";
 import FooterStamp from "../../../assets/pics/Bg/samandehi.png";
 import Logo from "../../../core/icons/Logo";
-import { LiaTelegram } from "react-icons/lia";
-import { FaInstagram } from "react-icons/fa";
-import { SlSocialYoutube } from "react-icons/sl";
-import { FaLinkedinIn } from "react-icons/fa";
+
 import {
   FooterItemsP1,
   FooterItemsP2,
 } from "../../../core/constants/LandingMockApi/FooterItemsMockApi";
+import SocialMediaBtn from "../../common/SocialMediaBtn";
+import FooterInfoBtn from "../../common/FooterInfoBtn";
 
 const Footer = () => {
   return (
@@ -37,31 +36,8 @@ const Footer = () => {
               <div className="lg:w-[135px] lg:h-[50px] md:w-[120px] md-[40px] sm:w-[105px] sm:h-[30px] xs:w-[70px] xs-[10px]">
                 <Logo />
               </div>
-              <div className=" bg-[#008D8A] rounded-[20px] flex items-center justify-center
-              lg:w-[204px] lg:h-[35px] md:w-[190px] md:h-[30px] sm:w-[165px] sm:h-[25px] xs:w-[150px] xs:h-[20px]">
-                <p className="font-bold text-white
-                lg:text-[15px] md:text-[13px] sm:text-[11px] xs:text-[9px]">
-                  info@pazhooheshgah.ir
-                </p>
-              </div>
-              <div className="flex flex-row flex-nowrap justify-between w-[159px] h-[35px]">
-                <div className="rounded-full bg-[#008D8A] flex items-center justify-center cursor-pointer
-                lg:w-[35px] lg:h-[35px] xs:w-[23px] xs:h-[23px]">
-                  <FaLinkedinIn className="text-white" />
-                </div>
-                <div className="rounded-full bg-[#008D8A] flex items-center justify-center cursor-pointer
-                lg:w-[35px] lg:h-[35px] xs:w-[23px] xs:h-[23px]">
-                  <SlSocialYoutube className="text-white" />
-                </div>
-                <div className="rounded-full bg-[#008D8A] flex items-center justify-center cursor-pointer
-                lg:w-[35px] lg:h-[35px] xs:w-[23px] xs:h-[23px]">
-                  <FaInstagram className="text-white" />
-                </div>
-                <div className="rounded-full bg-[#008D8A] flex items-center justify-center cursor-pointer
-                lg:w-[35px] lg:h-[35px] xs:w-[23px] xs:h-[23px]">
-                  <LiaTelegram className="text-white" />
-                </div>
-              </div>
+              <FooterInfoBtn/>
+              <SocialMediaBtn/>
             </div>
             <div className="flex flex-row justify-between gap-4">
               <div className="h-[50%] flex flex-row flex-nowrap justify-between font-b-yekan gap-7 items-center">
