@@ -1,5 +1,6 @@
 body {
   background: #F9F9F9;
+  user-select: none
 }
 
 @import "tailwindcss";
@@ -19,4 +20,11 @@ body {
 
 @theme {
   --breakpoint-xs: 420px;
+}
+
+@layer components {
+  .gridBtn {
+    @apply w-[45px] h-[45px] cursor-pointer
+    flex justify-center items-center drop-shadow-[0_1px_2px_#00000040]
+  }
 }
