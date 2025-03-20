@@ -94,9 +94,15 @@ const BottomSection = () => {
           color="success"
           showControls
           classNames={{
-            base: ["cursor-pointer", "text-blue-500",],
-            item: "bg-red-500",
-            prev: "rotate-[180deg]"
+            base: ["cursor-pointer", "rounded-[5px]"],
+            item: "bg-red-500 text-[#333333] w-[25px] h-[25px] bg-[#FAFAFA] drop-shadow-[0_1px_2px_#0000004D] rounded-[50%]",
+            prev: "rotate-[180deg] w-[25px] h-[25px] bg-[#FAFAFA] drop-shadow-[0_1px_2px_#0000004D] text-[#777777] rounded-[50%]",
+            next: "w-[25px] h-[25px] bg-[#FAFAFA] drop-shadow-[0_1px_2px_#0000004D] text-[#777777] rounded-[50%]",
+            // forwardIcon: "text-[25px] z-20 bg-[#FFB800]",
+            // chevronNext: "text-[25px] z-20 bg-[#FFB800]",
+            wrapper: "z-20",
+            ellipsis: "bg-[#FFB800]",
+
           }}
         />
       </div>
