@@ -1,14 +1,18 @@
 import axios from "axios";
 import { requestErrorHandler } from "../../utility/requestErrorHandler";
+// import { baseUrl } from "../api/baseUrl";
 
-const baswUrl = import.meta.env.VITE_BASE_URL
+// const baseUrl = import.meta.env.VITE_BASE_URL
+const baseUrl = "https://classapi.sepehracademy.ir/api"
 
 export const htttp = axios.create({
-    baseURL: baswUrl
+    baseURL: baseUrl
 })
 
 const onSucces = (response) => {
-    return response.data
+    // console.log(response)
+    console.log(baseUrl)
+    return response
 }
 
 const onError = (error) => {
