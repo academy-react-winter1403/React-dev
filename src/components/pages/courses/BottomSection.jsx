@@ -34,20 +34,30 @@ const BottomSection = ({children}) => {
   })
 
   const openFilterBox = () => {
-    filterBoxFlag === true ? setFilterBoxFlag(false) : setFilterBoxFlag(true)
+    setFilterBoxFlag(true)
+  }
+
+  const closeBtnClickHandler = () => {
+    setFilterBoxFlag(false)
+  }
+
+  const setFilterHandler = () => {
+    setFilterBoxFlag(false)
   }
 
   return (
     <div className="bottom-section-container w-full mt-[35px] flex justify-center gap-x-[28px] items-start">
       <div className={windowWidthNum < 1024 ? (filterBoxFlag === true ? 
-        "flex justify-center max-lg:w-full max-lg:fixed max-lg:top-[27px] max-lg:left-0 z-20 max-lg:z-30"
+        "side flex justify-center items-center max-lg:w-full max-lg:h-full max-lg:fixed max-lg:top-[0] max-lg:left-0 z-20 max-lg:z-30 max-lg:backdrop-blur-[4px]"
         : "hidden") : null
       }
       >
-        <div className="filter-box-control p-2 bg-[#FFFFFF] drop-shadow-[0_1px_2px_#0000004D] rounded-[10px]">
-          <FilterLabel />
-          <div className="filter-box-control max-lg:max-h-[522px]
-            overflow-y-auto overflow-x-hidden"
+        <div className="filter-box-control justify-center p-2 bg-[#FFFFFF]
+          drop-shadow-[0_1px_2px_#0000004D] rounded-[10px]"
+        >
+          <FilterLabel closeBtnClick={closeBtnClickHandler}/>
+          <div className="filter-box-control mt-[5px] max-lg:max-h-[522px]
+            overflow-y-auto overflow-x-hidden flex flex-col gap-y-[5px]"
           >
             {filterData.map((item, index) => {
               return (
@@ -68,7 +78,13 @@ const BottomSection = ({children}) => {
                 </FilteredBox>
               );
             })}
-        </div>
+          </div>
+          <h1 className="text-center m-0 fixed w-full mr-[-8.5px]">
+            <button 
+              className="py-[3px] w-full hidden max-lg:block rounded-[0_0_10px_10px] bg-[#DB3838] text-white cursor-pointer"
+              onClick={setFilterHandler}
+            > فیلتر انجام شود </button>
+          </h1>
         </div>
       </div>
       <div className="main w-[80%] max-lg:w-full">
