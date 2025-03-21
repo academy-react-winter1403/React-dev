@@ -21,7 +21,10 @@ const CategorySection = () => {
       {/* category items */}
       <div className="border w-full h-[500px] relative">
         <CategoryBG itemTop={0} itemLeft={0}>
-          <div className="border h-auto md:h-[300px] w-full max-w-[1202px] absolute m-auto grid grid-cols-2 md:grid-cols-4 place-items-center left-0 right-0 top-0 bottom-0">
+          <div
+            // className="border h-auto md:h-[300px] w-full max-w-[1202px] absolute m-auto grid grid-cols-2 md:grid-cols-4 place-items-center left-0 right-0 top-0 bottom-0"
+            className="border h-auto w-full grid grid-cols-2 md:grid-cols-4 place-items-center gap-y-[53px]"
+          >
             {CategorySectionApi.map((item, index) => (
               <div
                 key={index}
