@@ -6,7 +6,7 @@ const FilteredBox = ({ children, filterText, currencyUnit }) => {
     <>
       <div
         className="group filter-box-control bg-[#FAFAFA] drop-shadow-[0_1px_2px_#00000040]
-        pt-[7px] pb-[11px] px-[12px] rounded-[6px] cursor-pointer"
+        pt-[7px] pb-[11px] px-[12px] rounded-[6px] cursor-pointer "
       >
         <input type="checkbox" className="hidden" id="technologyCheck" />
         <label htmlFor="technologyCheck" className="">

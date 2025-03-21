@@ -3,5 +3,6 @@ import { getData } from "./api/get-data/getData";
 import { postData } from "./api/post-data/postData";
 import { putData } from "./api/put-data/putData";
 import { deleteDataApi } from "./api/delete-data/deleteData";
+import { getDataByClick } from "./api/get-data-by-click/getDataByClick";
 
-export { baseUrl, getData, postData, putData, deleteDataApi }
+export { baseUrl, getData, postData, putData, deleteDataApi, getDataByClick }

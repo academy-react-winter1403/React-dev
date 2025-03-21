@@ -6,7 +6,7 @@ const SortingWrapper = ({ children }) => {
   return (
     <div className="group relative z-1">
       <button
-        className="flex items-center justify-around w-[207px] h-[45px] bg-[#FFFFFF]
+        className="flex items-center justify-around w-[207px] max-lg:w-[330px] h-[45px] bg-[#FFFFFF]
         drop-shadow-[0_1px_3px_#00000040] rounded-[13px_13px_0_0]"
       >
         <BiMenuAltRight size={25} style={{color: "#005B58"}}/>

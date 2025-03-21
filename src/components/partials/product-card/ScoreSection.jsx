@@ -8,7 +8,9 @@ const ScoreSection = ({ levelText, timeText, timeFlag }) => {
     <>
       <div className="rigth flex items-center">
         {timeFlag ? <LevelIcon /> : <IoTimeOutline size={18} color="#888888"/>}
-        <p className="text-[#888888] indent-1">{timeFlag ? levelText : timeText}</p>
+        <p className="text-[#888888] indent-1 text-ellipsis text-nowrap w-[80%]
+          overflow-x-hidden"
+        >{timeFlag ? levelText : timeText}</p>
       </div>
 
       <div className="left">

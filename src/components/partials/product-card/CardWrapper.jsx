@@ -14,19 +14,22 @@ const CardWrapper = ({data, timeFlag}) => {
   }
 
   return (
-    <div className='card-container bg-[#FFFFFF] drop-shadow-[0_1px_2px_#00000040] rounded-[15px] px-[12px] pb-[12px]'>
+    <div className='card-container bg-[#FFFFFF] col-span-1 drop-shadow-[0_1px_2px_#00000040] rounded-[15px] px-[12px] pb-[12px]'>
       <div className="item-control mt-[-24px]">
         <div className="image-control overflow-hidden rounded-[10px]
           flex justify-center items-center drop-shadow-[0_1px_4px_#00000040]"
         >
             <img 
-              src={tumbImageAddress ? tumbImageAddress : productPic2}
+              src={tumbImageAddress && tumbImageAddress !== "Not-set" ? tumbImageAddress : productPic2}
               alt=""
               className='h-[159px] w-[246px] cursor-pointer'
               onClick={() => imageClickHandler(courseId)}
             />
         </div>
-        <p className='course-name text-[#444444] font-[800] text-[18px] mt-[8px] indent-[4px]'>{title}</p>
+        <p className='w-[70%] text-ellipsis overflow-hidden text-nowrap course-name text-[#444444]
+          font-[800] text-[18px] mt-[8px] indent-[4px]'
+          title={title}
+        >{title}</p>
         <div className='teacherName-section-container flex items-center justify-between mt-[26px]'>
           <TeacherSection studentsOfNum={likeCount} teacherName={teacherName}/>
         </div>

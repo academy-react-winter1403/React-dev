@@ -1,5 +1,9 @@
 import FilteredBox from "./filter-box/FilteredBox";
-import { filterData, productMockData, sortFilterData } from "../../../core/constants";
+import {
+  filterData,
+  productMockData,
+  sortFilterData,
+} from "../../../core/constants";
 import FilterOption from "./filter-box/FilterOption";
 import React, { useState } from "react";
 import FilterLabel from "./FilterLabel";
@@ -7,11 +11,12 @@ import StarIcon from "../../../core/icons/courses/StarIcon";
 import { GridIcon, MenuIcon } from "../../../core/icons/icons";
 import SortingWrapper from "./sorting-comp/SortingWrapper";
 import { CardLoading, CardWrapper } from "../../partials";
-import { CircularProgress, Pagination } from "@heroui/react";
 import { useSelector } from "react-redux";
 
-const BottomSection = () => {
+const BottomSection = ({children}) => {
   const { productState } = useSelector((state) => state);
+  const [filterBoxFlag, setFilterBoxFlag] = useState(false)
+  const [windowWidthNum, setWindowWidthNum] = useState(window.innerWidth)
 
   const [viwFlag, setViwFlag] = useState(true);
 
@@ -23,32 +28,51 @@ const BottomSection = () => {
     setViwFlag(true);
   };
 
+  window.addEventListener("resize", (event) => {
+    setWindowWidthNum(window.innerWidth)
+    console.log(windowWidthNum)
+  })
+
+  const openFilterBox = () => {
+    filterBoxFlag === true ? setFilterBoxFlag(false) : setFilterBoxFlag(true)
+  }
+
   return (
-    <div className="bottom-section-container w-full mt-[154px] flex justify-center gap-x-[28px] items-start">
-      <div className="side p-2 bg-[#FFFFFF] drop-shadow-[0_1px_2px_#0000004D] rounded-[10px] flex flex-col gap-y-[15px]">
-        <FilterLabel />
-        {filterData.map((item, index) => {
-          return (
-            <FilteredBox filterText={item.sortText} key={index}>
-              {item.sortingData.map((sort, index) => {
-                return (
-                  <FilterOption key={sort.id} id={sort.id}>
-                    {item.sortText === "امتیاز" ? (
-                      <StarIcon repeatNum={sort.text} />
-                    ) : (
-                      <p className="font-[400] text-[16px] text-[#333333] mr-[8px]">
-                        {sort.text}
-                      </p>
-                    )}
-                  </FilterOption>
-                );
-              })}
-            </FilteredBox>
-          );
-        })}
+    <div className="bottom-section-container w-full mt-[35px] flex justify-center gap-x-[28px] items-start">
+      <div className={windowWidthNum < 1024 ? (filterBoxFlag === true ? 
+        "flex justify-center max-lg:w-full max-lg:fixed max-lg:top-[27px] max-lg:left-0 z-20 max-lg:z-30"
+        : "hidden") : null
+      }
+      >
+        <div className="filter-box-control p-2 bg-[#FFFFFF] drop-shadow-[0_1px_2px_#0000004D] rounded-[10px]">
+          <FilterLabel />
+          <div className="filter-box-control max-lg:max-h-[522px]
+            overflow-y-auto overflow-x-hidden"
+          >
+            {filterData.map((item, index) => {
+              return (
+                <FilteredBox filterText={item.sortText} key={index}>
+                  {item.sortingData.map((sort, index) => {
+                    return (
+                      <FilterOption key={sort.id} id={sort.id}>
+                        {item.sortText === "امتیاز" ? (
+                          <StarIcon repeatNum={sort.text} />
+                        ) : (
+                          <p className="font-[400] text-[16px] text-[#333333] mr-[8px]">
+                            {sort.text}
+                          </p>
+                        )}
+                      </FilterOption>
+                    );
+                  })}
+                </FilteredBox>
+              );
+            })}
+        </div>
+        </div>
       </div>
-      <div className="main w-[70%] container">
-        <div className="sort-viw-btn-control flex justify-between">
+      <div className="main w-[80%] max-lg:w-full">
+        <div className="sort-viw-btn-control flex max-lg:flex-col max-lg:items-center max-lg:gap-y-[29px] justify-between">
           <SortingWrapper>
             {sortFilterData.map((item, index) => {
               return (
@@ -61,50 +85,35 @@ const BottomSection = () => {
               );
             })}
           </SortingWrapper>
-          <div className="left-control flex gap-x-[10px]">
-            <MenuIcon click={viwGotoRowClickHandler} />
-            <GridIcon click={viwGotoColomClickHandler} />
+          <div className="btn-control flex max-lg:gap-x-[49px] max-sm:w-full max-sm:justify-center">
+            <button className="hidden max-lg:block w-[138px] max-lg:w-[180px] text-[23px] bg-[#FFB800] text-white
+              rounded-[10px] cursor-pointer transition-colors hover:bg-[#ff8400] drop-shadow-[0_1px_2px_#0000004D]
+              max-sm:py-[5px] max-sm:w-[332px]"
+              onClick={openFilterBox}
+            > فیلتر </button>
+            <div className="left-control flex gap-x-[10px] max-sm:hidden">
+              <MenuIcon click={viwGotoRowClickHandler} />
+              <GridIcon click={viwGotoColomClickHandler} />
+            </div>
           </div>
         </div>
         <div
           className={
             viwFlag
-              ? "product-card-container grid grid-cols-3 mt-[54px] gap-x-[23px] gap-y-[50px] container"
-              : "product-card-container grid grid-rows-3 mt-[54px] gap-x-[23px] gap-y-[50px] container"
+              ? "product-card-container grid grid-cols-3 max-xl:grid-cols-2 max-sm:grid-cols-1 mt-[54px] gap-x-[23px] gap-y-[50px]"
+              : "product-card-container grid grid-rows-3 mt-[54px] gap-x-[23px] gap-y-[50px]"
           }
         >
-          {productState ? productState.map((item, index) => {
-            console.log(item);
-              return (
-                <CardWrapper
-                  timeFlag={true}
-                  data={item}
-                  key={index}
-                />
-              );
-            }):productMockData.map(() => {
-              return <CardLoading/>
-            })
-          }
+          {productState
+            ? productState.map((item, index) => {
+                // console.log(item);
+                return <CardWrapper timeFlag={true} data={item} key={index} />;
+              })
+            : productMockData.map(() => {
+                return <CardLoading />;
+              })}
         </div>
-        <Pagination
-          loop
-          total={5}
-          initialPage={1}
-          color="success"
-          showControls
-          classNames={{
-            base: ["cursor-pointer", "rounded-[5px]"],
-            item: "bg-red-500 text-[#333333] w-[25px] h-[25px] bg-[#FAFAFA] drop-shadow-[0_1px_2px_#0000004D] rounded-[50%]",
-            prev: "rotate-[180deg] w-[25px] h-[25px] bg-[#FAFAFA] drop-shadow-[0_1px_2px_#0000004D] text-[#777777] rounded-[50%]",
-            next: "w-[25px] h-[25px] bg-[#FAFAFA] drop-shadow-[0_1px_2px_#0000004D] text-[#777777] rounded-[50%]",
-            // forwardIcon: "text-[25px] z-20 bg-[#FFB800]",
-            // chevronNext: "text-[25px] z-20 bg-[#FFB800]",
-            wrapper: "z-20",
-            ellipsis: "bg-[#FFB800]",
-
-          }}
-        />
+          {children}
       </div>
     </div>
   );
