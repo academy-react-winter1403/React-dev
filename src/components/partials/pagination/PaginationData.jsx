@@ -12,6 +12,8 @@ const PaginationData = ({ totalNum, initialPageNum, pageChange }) => {
       total={totalNum}
       initialPage={initialPageNum}
       showControls
+
+
       classNames={{
         base: ["cursor-pointer", "rounded-[5px]"],
         item: "w-[25px] h-[25px] text-[#333333] hover:bg-[#FFB800] bg-[#FAFAFA] drop-shadow-[0_1px_2px_#0000004D] rounded-[50%]",
@@ -21,6 +23,9 @@ const PaginationData = ({ totalNum, initialPageNum, pageChange }) => {
           "z-20 flex gap-x-[6px] relative justify-center mt-[22px] transition-colors",
         cursor: "w-[25px] h-[25px] bg-[#FFB800] rounded-[50%]",
       }}
+
+
+
       onChange={paginationChangeHandler}
     />
   );
