@@ -1,9 +1,12 @@
+
 import React from 'react'
 import Header from '../../partials/header/Header'
 import Footer from '../../partials/footer/Footer'
 import HeroSection from './LandingSections/HeroSection'
 import CategorySection from './LandingSections/CategorySection'
 import BestTeacherSection from './LandingSections/BestTeacherSection'
+import { productMockData } from "../../../core/constants/courses-datas/productMockData";
+import SliderOne from "./LandingSections/SliderOne";
 
 const Landing = () => {
   return (
@@ -11,10 +14,15 @@ const Landing = () => {
       {/* <Header/> */}
       <HeroSection/>
       <CategorySection/>
+      <div className="swiper-container flex justify-center">
+          <div className="slider-control relative w-[80%]">
+            <SliderOne dataMapper={productMockData} maxWidth={80}/>
+          </div>
+      </div>
       <BestTeacherSection/>
       {/* <Footer/> */}
     </div>
-  )
-}
+  );
+};
 
-export default Landing
+export default Landing; 
