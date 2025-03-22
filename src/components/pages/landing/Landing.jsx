@@ -3,6 +3,7 @@ import Header from '../../partials/header/Header'
 import Footer from '../../partials/footer/Footer'
 import HeroSection from './LandingSections/HeroSection'
 import CategorySection from './LandingSections/CategorySection'
+import BestTeacherSection from './LandingSections/BestTeacherSection'
 
 const Landing = () => {
   return (
@@ -10,6 +11,7 @@ const Landing = () => {
       {/* <Header/> */}
       <HeroSection/>
       <CategorySection/>
+      <BestTeacherSection/>
       {/* <Footer/> */}
     </div>
   )

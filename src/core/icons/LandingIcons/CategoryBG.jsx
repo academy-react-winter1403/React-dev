@@ -3,7 +3,7 @@ import itemBg from "../../../assets/pics/landing/itemBg.png"
 const CategoryBG = ({ itemTop = 0, itemLeft = 0, children }) => {
     return (
       <div
-        className="relative w-full py-[60px] flex justify-center items-center"
+        className="relative w-full py-[120px] flex justify-center items-center"
         style={{
           background: `url(${itemBg})`,
           backgroundSize: "100% 100%",
