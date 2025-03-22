@@ -6,7 +6,7 @@ import HeroSection from './LandingSections/HeroSection'
 import CategorySection from './LandingSections/CategorySection'
 import BestTeacherSection from './LandingSections/BestTeacherSection'
 import { productMockData } from "../../../core/constants/courses-datas/productMockData";
-import SliderOne from "./LandingSections/SliderOne";
+import CourseSection from './LandingSections/CourseSection'
 
 const Landing = () => {
   return (
@@ -14,11 +14,7 @@ const Landing = () => {
       {/* <Header/> */}
       <HeroSection/>
       <CategorySection/>
-      <div className="swiper-container flex justify-center">
-          <div className="slider-control relative w-[80%]">
-            <SliderOne dataMapper={productMockData} maxWidth={80}/>
-          </div>
-      </div>
+      <CourseSection/>
       <BestTeacherSection/>
       {/* <Footer/> */}
     </div>
