@@ -2,13 +2,13 @@ import React from "react";
 import storeFill from "../../../assets/pics/star/star-fill.png";
 
 const StarIcon = ({ repeatNum }) => {
-  const repeat = repeatNum * 17;
+  const repeat = repeatNum * 14;
 
   return (
     <div className="flex mr-2 relative">
       <svg
-        width="17"
-        height="17"
+        width="14"
+        height="14"
         viewBox="0 0 17 17"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -23,8 +23,8 @@ const StarIcon = ({ repeatNum }) => {
       </svg>
 
       <svg
-        width="17"
-        height="17"
+        width="14"
+        height="14"
         viewBox="0 0 17 17"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -39,8 +39,8 @@ const StarIcon = ({ repeatNum }) => {
       </svg>
 
       <svg
-        width="17"
-        height="17"
+        width="14"
+        height="14"
         viewBox="0 0 17 17"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -55,8 +55,8 @@ const StarIcon = ({ repeatNum }) => {
       </svg>
 
       <svg
-        width="17"
-        height="17"
+        width="14"
+        height="14"
         viewBox="0 0 17 17"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -71,8 +71,8 @@ const StarIcon = ({ repeatNum }) => {
       </svg>
 
       <svg
-        width="17"
-        height="17"
+        width="14"
+        height="14"
         viewBox="0 0 17 17"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -91,6 +91,7 @@ const StarIcon = ({ repeatNum }) => {
           width: repeat + "px",
           backgroundImage: "url(" + storeFill + ")",
           backgroundRepeat: "repeat-x",
+          backgroundSize: "14px 14px"
         }}
       ></div>
     </div>

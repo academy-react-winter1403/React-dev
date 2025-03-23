@@ -1,29 +1,21 @@
 import React from "react";
 import CategoryBG from "../../../../core/icons/LandingIcons/CategoryBG";
 import { CategorySectionApi } from "../../../../core/constants/LandingMockApi/CategoryMockApi";
+import Titles from "./Titles";
 
 const CategorySection = () => {
   return (
     <div className="w-full h-[620px] flex flex-col items-center justify-between font-b-yekan whitespace-nowrap mt-20">
       {/* category title */}
-      <div className="w-[30%] h-[90px]">
-        <div className="w-full h-1/2 flex flex-row flex-nowrap items-center justify-center gap-2">
-          <div className="bg-[#01CEC9] rounded-full md:h-[12px]md:w-[12px] h-[9px] w-[9px]"></div>
-          <p className="font-bold text-xl md:text-2xl lg:text-4xl text-center">
-            محبوب ترین دسته بندی ها
-          </p>
-        </div>
-        <p className="lg:text-xl md:text-[18px] text-[12px] text-[#AAAAAA] text-center">
-          گستره وسیعی از محبوب ترین دوره ها
-        </p>
-      </div>
+      
+      <Titles title={"محبوب ترین دسته بندی ها"} exp={"گستره وسیعی از محبوب ترین دوره ها"}/>
 
       {/* category items */}
       <div className="w-full h-[500px] relative">
         <CategoryBG itemTop={0} itemLeft={0}>
           <div
             // className="border h-auto md:h-[300px] w-full max-w-[1202px] absolute m-auto grid grid-cols-2 md:grid-cols-4 place-items-center left-0 right-0 top-0 bottom-0"
-            className="h-auto w-[80%] max-w-[1202px] grid grid-cols-2 md:grid-cols-4 place-items-center gap-y-[53px]"
+            className="h-auto w-[80%]  grid grid-cols-2 md:grid-cols-4 place-items-center gap-y-[53px]"
           >
             {CategorySectionApi.map((item, index) => (
               <div

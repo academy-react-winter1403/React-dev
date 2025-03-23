@@ -6,14 +6,14 @@ import { MotionComp } from "../../partials";
 
 const TopSection = () => {
   return (
-    <div className="top-section-contaienr relative w-[80%] max-md:flex max-md:flex-col-reverse max-lg:items-center">
+    <div className="top-section-contaienr relative w-[80%] ">
       <MotionComp xInitial={100} xAnimate={0} animDuration={1}>
         <div
           className="top-section-control bg-[#EBF9F982] backdrop-blur-[4px]
-            drop-shadow-[0_2px_2px_#00000040] rounded-[15px] p-[40px]
-            max-md:w-full max-md:flex max-md:flex-col max-md:items-center max-md:mt-[20px]"
+            drop-shadow-[0_2px_2px_#00000040] rounded-[15px] p-[40px] 
+            max-md:w-full max-md:flex max-md:items-center max-md:mt-[20px]"
         >
-          <div className="text-control">
+          <div className="text-control max-md:w-full">
             <div className="top flex items-center max-md:flex max-md:flex-col max-md:items-center">
               <svg
                 width="13"

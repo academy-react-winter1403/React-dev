@@ -1,10 +1,11 @@
+import { Accordion, AccordionItem } from "@heroui/react";
 import React from "react";
 import { IoIosArrowUp } from "react-icons/io";
 
 const FilteredBox = ({ children, filterText, currencyUnit }) => {
   return (
     <>
-      <div
+      {/* <div
         className="group filter-box-control bg-[#FAFAFA] drop-shadow-[0_1px_2px_#00000040]
         pt-[7px] pb-[11px] px-[12px] rounded-[6px] cursor-pointer "
       >
@@ -24,7 +25,26 @@ const FilteredBox = ({ children, filterText, currencyUnit }) => {
         >
           {children}
         </div>
-      </div>
+      </div> */}
+
+      {/* { filterText !== "تکنولوژی" && <hr className="w-full h-[1px] border-0 outline-0 bg-[#000]"/> } */}
+      <Accordion variant="splitted"
+        itemClasses={
+          {base: "filter-box-control bg-[#FAFAFA] drop-shadow-[0_1px_2px_#00000040] pt-[7px] pb-[11px] px-[12px] rounded-[6px] cursor-pointer"}
+        }>
+        <AccordionItem key="1" aria-label="Accordion 1" title={filterText}
+          classNames={{
+            base:"",
+            trigger: "group w-[20px] w-full flex justify-between",
+            title: "30px",
+            indicator: "rtl:-rotate-180 rtl:data-[open=true]:-rotate-90",
+            content: "flex flex-col gap-y-[8px]"
+          }}
+        >
+          <hr className="w-full h-[1px] border-0 outline-0 bg-[#0000001c] mt-[5px]"/>
+          {children}
+        </AccordionItem>
+      </Accordion>
     </>
   );
 };

@@ -14,6 +14,7 @@ const SliderOne = ({ dataMapper }) => {
   return (
     <>
       <Swiper
+      className='mt-[60px] max-h-[400px] overflow-hidden'
         modules={[Pagination, Navigation]}
         spaceBetween={10}
         slidesPerView={4}
@@ -26,7 +27,7 @@ const SliderOne = ({ dataMapper }) => {
         pagination={{ clickable: true }}
         onSwiper={(swiper) => console.log(swiper)}
         onSlideChange={() => console.log("slide change")}
-        className="mt-[60px]"
+        // className="mt-[60px]"
         breakpoints={{
           1284: { spaceBetween: 2 },
           1053: { slidesPerView: 3 },

@@ -12,11 +12,17 @@ import { GridIcon, MenuIcon } from "../../../core/icons/icons";
 import SortingWrapper from "./sorting-comp/SortingWrapper";
 import { CardLoading, CardWrapper } from "../../partials";
 import { useSelector } from "react-redux";
+import { motion } from "framer-motion";
+import { useSearchParams } from "react-router-dom";
 
 const BottomSection = ({children}) => {
   const { productState } = useSelector((state) => state);
   const [filterBoxFlag, setFilterBoxFlag] = useState(false)
   const [windowWidthNum, setWindowWidthNum] = useState(window.innerWidth)
+
+  // search params
+  const [searchParams, setSearchParams] = useSearchParams()
+  // search params
 
   const [viwFlag, setViwFlag] = useState(true);
 
@@ -45,6 +51,22 @@ const BottomSection = ({children}) => {
     setFilterBoxFlag(false)
   }
 
+  const filterItemClickHnadler = (filterId ,filterName) => {
+    if ( 1 <= filterId && filterId <= 5) {
+      searchParams.set("title", filterName)
+    }
+    if ( 6 <= filterId && filterId <= 8 ) {
+      // setSearchParams( searchParams ,{desc: filterName})
+      searchParams.set("desc", filterName)
+    }
+    if ( 9 <= filterId && filterId <= 13 ) {
+      // setSearchParams({title: filterName ,desc: filterName, score: filterName})
+      searchParams.set("score", filterName)
+    }
+    console.log(searchParams.get("title", "desc"), searchParams.get("desc"))
+    console.log(filterId)
+  }
+
   return (
     <div className="bottom-section-container w-full mt-[35px] flex justify-center gap-x-[28px] items-start">
       <div className={windowWidthNum < 1024 ? (filterBoxFlag === true ? 
@@ -64,14 +86,13 @@ const BottomSection = ({children}) => {
                 <FilteredBox filterText={item.sortText} key={index}>
                   {item.sortingData.map((sort, index) => {
                     return (
-                      <FilterOption key={sort.id} id={sort.id}>
-                        {item.sortText === "امتیاز" ? (
-                          <StarIcon repeatNum={sort.text} />
-                        ) : (
-                          <p className="font-[400] text-[16px] text-[#333333] mr-[8px]">
-                            {sort.text}
-                          </p>
-                        )}
+                      <FilterOption
+                        key={sort.id}
+                        id={sort.id}
+                        filterName={sort.text}
+                        filterItemClick={() => filterItemClickHnadler(sort.id, sort.text)}
+                      >
+                        {item.sortText === "امتیاز" && sort.text}
                       </FilterOption>
                     );
                   })}

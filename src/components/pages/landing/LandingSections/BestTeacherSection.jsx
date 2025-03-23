@@ -6,7 +6,7 @@ const BestTeacherSection = () => {
   return (
     <div className='w-full h-[470px] relative'>
       <BestTeacherBG>
-        <div className='w-[80%] h-[90%] max-w-[1202px] flex flex-row flex-nowrap justify-between items-center'>
+        <div className='w-[80%] h-[90%]  flex flex-row flex-nowrap justify-between items-center'>
             {/* text */}
             <div className='w-[40%] h-[120px] font-b-yekan whitespace-nowrap hidden md:block'>
                 <p className='text-[#268582] font-normal

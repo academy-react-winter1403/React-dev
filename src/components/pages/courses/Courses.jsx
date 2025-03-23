@@ -40,7 +40,7 @@ const Courses = () => {
       className="courses-holder flex justify-center mt-10"
       style={{
         background: `url(${bg})`,
-        backgroundSize: "400px 100%",
+        // backgroundSize: "400px 100%",
         backgroundRepeat: "repeat-y",
         backgroundPosition: "50% 80px",
       }}
