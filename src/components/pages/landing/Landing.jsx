@@ -31,6 +31,8 @@ import CategorySection from './LandingSections/CategorySection'
 import BestTeacherSection from './LandingSections/BestTeacherSection'
 import { productMockData } from "../../../core/constants/courses-datas/productMockData";
 import CourseSection from './LandingSections/CourseSection'
+import ServiceSection from './LandingSections/ServiceSection'
+import NewsSection from './LandingSections/NewsSection'
 
 const Landing = () => {
   return (
@@ -40,6 +42,8 @@ const Landing = () => {
       <CategorySection/>
       <CourseSection/>
       <BestTeacherSection/>
+      <ServiceSection/>
+      <NewsSection/>
       {/* <Footer/> */}
     </div>
   );
