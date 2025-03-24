@@ -6,6 +6,7 @@ import {
   rightItem,
 } from "../../../../core/constants/LandingMockApi/NewsMockApi";
 import { MdNavigateBefore } from "react-icons/md";
+import Overlay from "./Overlay";
 const NewsSection = () => {
   return (
     // <div className="w-full h-[700px] mt-7 mb-7 flex flex-col items-center justify-between font-b-yekan">
@@ -59,24 +60,47 @@ const NewsSection = () => {
     //   </div>
     // </div>
 
-    <div className="w-full border flex justify-center">
-      <div className="item-holder border flex">
+    <div className="w-full border flex flex-col justify-center items-center">
+      <Titles title={"اخبار و مقالات"} exp={"خـــودت رو با خـــبر کن !"} />
+      <div className="item-holder flex">
         <div className="right">
           {rightItem.map((item, index) => {
             return (
               <>
-                {item.holderId.map((holderId) => {
+                {item.holderId.map((holderId, index) => {
                   console.log(holderId);
                   return (
                     <>
                       {holderId === 1 ? (
-                        <div className="top flex">
+                        <div className="top flex" key={index}>
                           {item.itemData.map((item, index) => {
                             console.log(item);
                             return (
                               <>
                                 {item.holderId && (
-                                  <img src={item.image} alt="" />
+                                  <div
+                                    className="image-control relative group flex
+                                    justify-center items-center"
+                                    key={index}
+                                  >
+                                    <img src={item.image} alt="" className="" />
+                                    <p
+                                      className="absolute bottom-4 right-6 z-40 text-[#005B58]
+                                      font-extrabold text-[15px] font-b-yekan"
+                                    >
+                                      {item.desc}
+                                    </p>
+                                    <div
+                                      className="w-[98.2%] h-[99%] overlay absolute top-[0] right-[5px] inset-0 bg-gradient-to-b
+                                      from-[#E4E4E400] to-[#00E7E1] rounded-2xl"
+                                    ></div>
+                                    <Overlay
+                                      widthNum={"98.2%"}
+                                      heightNum={"98%"}
+                                      posYNum={"3px"}
+                                      posXNum={"5px"}
+                                    />
+                                  </div>
                                 )}
                               </>
                             );
@@ -89,7 +113,24 @@ const NewsSection = () => {
                             return (
                               <>
                                 {!item.holderId && (
-                                  <img src={item.image} alt="" className=""/>
+                                  <div className="group image-control relative flex justify-center items-center">
+                                    <img src={item.image} alt="" />
+                                    {/* <div className="w-full h-full overlay absolute inset-0 bg-gradient-to-b
+                                      from-[#E4E4E400] to-[#00E7E1] rounded-2xl"
+                                    ></div> */}
+                                    <p
+                                      className="absolute bottom-4 right-6 z-40 text-[#005B58]
+                                      font-extrabold text-[15px] font-b-yekan"
+                                    >
+                                      {item.desc}
+                                    </p>
+                                    <Overlay
+                                      widthNum={"97%"}
+                                      heightNum={"96%"}
+                                      posYNum={"3px"}
+                                      posXNum={"5px"}
+                                    />
+                                  </div>
                                 )}
                               </>
                             );
@@ -119,7 +160,25 @@ const NewsSection = () => {
                             return (
                               <>
                                 {item.holderId && (
-                                  <img src={item.image} alt="" />
+                                  <div className="group imege-control relative flex justify-center items-center">
+                                    <img
+                                      src={item.image}
+                                      alt=""
+                                      className="bg-linear-90"
+                                    />
+                                    <p
+                                      className="absolute bottom-4 right-6 z-40 text-[#005B58]
+                                          font-extrabold text-[15px] font-b-yekan"
+                                    >
+                                      {item.desc}
+                                    </p>
+                                    <Overlay
+                                      widthNum={"97%"}
+                                      heightNum={"96%"}
+                                      posYNum={"3px"}
+                                      posXNum={"5px"}
+                                    />
+                                  </div>
                                 )}
                               </>
                             );
@@ -132,7 +191,21 @@ const NewsSection = () => {
                             return (
                               <>
                                 {!item.holderId && (
-                                  <img src={item.image} alt="" />
+                                  <div className="group image-control relative flex justify-center items-center">
+                                    <img src={item.image} alt="" />
+                                    <p
+                                      className="absolute bottom-4 right-6 z-40 text-[#005B58]
+                                      font-extrabold text-[15px] font-b-yekan"
+                                    >
+                                      {item.desc}
+                                    </p>
+                                    <Overlay
+                                      widthNum={"98.2%"}
+                                      heightNum={"98%"}
+                                      posYNum={"3px"}
+                                      posXNum={"5px"}
+                                    />
+                                  </div>
                                 )}
                               </>
                             );
@@ -146,6 +219,10 @@ const NewsSection = () => {
             );
           })}
         </div>
+      </div>
+      <div className="w-full h-5 flex items-center justify-center flex-row flex-nowrap text-[#AAAAAA] cursor-pointer mt-[28px]">
+        <p>مشاهده بیشتر</p>
+        <MdNavigateBefore size={23} />
       </div>
     </div>
   );
