@@ -49,7 +49,7 @@ export const filterData = [
     sortText2: "(تومان)",
     sortingData: [
       { id: 17, text: "رایگان" },
-      { id: 28, text: "غیر رایگان" },
+      { id: 18, text: "غیر رایگان" },
     ],
   }
 ];

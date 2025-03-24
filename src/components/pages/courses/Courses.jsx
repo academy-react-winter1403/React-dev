@@ -3,7 +3,7 @@ import TopSection from "./TopSection";
 import BottomSection from "./BottomSection";
 import { getData, getDataByClick } from "../../../core/services";
 import { useDispatch } from "react-redux";
-import { firstAddProduct } from "../../../redux/reducer";
+import { firstAddProduct } from "../../../redux/actions";
 import { PaginationData } from "../../partials";
 import bg from "../../../assets/pics/courses/bg1.png";
 import { filterData } from "../../../core/constants";

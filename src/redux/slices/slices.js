@@ -5,7 +5,8 @@ const slices = createSlice({
 
     initialState: {
         productState: null,
-        darkModKey: false
+        darkModKey: false,
+        queryParams: null
     },
 
     reducers: {
@@ -15,6 +16,9 @@ const slices = createSlice({
 
         changeDarkModKey: (state, action) => {
             state.darkModKey = action.payload
+        },
+        addDataTheQueryParams: (state, action) => {
+            state.queryParams = action.payload
         }
     }
 })

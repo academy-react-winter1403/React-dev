@@ -1,0 +1,1 @@
+export const viewData = [1, 2, 3]
