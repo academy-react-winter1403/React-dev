@@ -6,7 +6,7 @@ import Steps5 from './../../components/pages/authorize/steps/Steps5';
 import Steps4 from './../../components/pages/authorize/steps/Steps4';
 
 const LastAuthorizeWrapper = () => {
-  return <Steps2 />;
+  return <Steps4 />;
 };
 
 export default LastAuthorizeWrapper;

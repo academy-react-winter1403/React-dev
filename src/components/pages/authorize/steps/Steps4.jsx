@@ -1,39 +1,70 @@
 import React from "react";
 import LoginBg from "./../../../partials/authorize/LoginBg";
-import GoToOrgPage from "../../../common/texts/GoToOrgPage";
-import BtnGetCode from "../../../common/texts/BtnGetCode";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import GoToOrgPage from "../../../common/BtnText/GoToOrgPage";
+import BtnGetCode from "../../../common/BtnText/BtnGetCode";
+import { Form, Formik } from "formik";
+import BtnTwoAuthorize from "../../../common/BtnText/BtnTwoAuthorize";
+import StageName from "../../../common/StageName";
+import CustomInput from "../../../partials/authorize/CustomInput";
+import * as yup from "yup";
 
 const Steps4 = () => {
+  const onSubmit = (event) => {
+    console.log(event);
+  };
+  const validation = yup.object().shape({
+    EmailOrMobile:yup.string()
+    .test("emailOrPhone", "ایمیل یا شماره تلفن نامعتبر است", (value) => {
+      if (!value) return false;
+  
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (emailRegex.test(value)) return true;
+  
+      const phoneRegex = /^09[0-9]{9}$/;
+      if (phoneRegex.test(value)) return true;
+  
+      return false;
+    })
+    .required("وارد کردن ایمیل یا شماره تلفن الزامی است"),
+    password: yup.string()
+    .min(8, "رمز عبور باید حداقل ۸ کاراکتر باشد")
+    .required("وارد کردن رمز عبور الزامی است")
+  });
   return (
     <LoginBg>
       <div className="w-[437px] h-[350px] flex">
         <div className="w-[377px] h-full bg-[#fcfcfc] rounded-[15px] flex flex-col gap-[20px] justify-center items-center">
-          <h1 className="w-[174px] h-[37px] font-bold text-[25px] font-[BYekan] text-[#005351]">
-            ورود حساب کاربری
-          </h1>
-          <Formik>
+          <StageName stageName={"ورود حساب کاربری"} />
+          <Formik
+            initialValues={{ EmailOrMobile: "", password: "" }}
+            onSubmit={(event) => onSubmit(event)}
+            validationSchema={validation}
+          >
             <Form className="flex flex-col items-center justify-center gap-[15px]">
-              <div>
-              <Field className="w-[266px] h-12 bg-[#f7f7f7] outline-red-600 indent-1.5 rounded-lg inset-shadow-sm text-gray-500 font-bold text-base"/>
-              <ErrorMessage />
+              <CustomInput
+                name={"EmailOrMobile"}
+                placeholder={"شماره همراه یا ایمیل"}
+                type={"text"}
+              />
+              <CustomInput
+                name={"password"}
+                placeholder={"رمز عبور"}
+                type={"password"}
+              />
+              <div className="w-[266px] h-[17px] flex items-center justify-between">
+                <div className="w-[70px] h-[15px] font-normal text-[11px] text-[#aaa] font-b-yekan">
+                  مرا به خاطر بسپار
+                </div>
+                <button className="w-[71px] h-[17px] font-normal text-[11px] text-[#E48900] font-b-yekan">
+                  فراموشی رمز عبور
+                </button>
+              </div>
+              <div className="flex flex-col gap-[10px] justify-center items-center">
+                <BtnGetCode text={"دریافت کد تایید"} />
+                <BtnTwoAuthorize text={"ورود"} />
               </div>
             </Form>
           </Formik>
-          <div className="flex flex-col items-center justify-center gap-[15px]">
-            <div className="w-[266px] h-[45px] bg-[#f7f7f7] rounded-lg"></div>
-            <div className="w-[266px] h-[45px] bg-[#f7f7f7] rounded-lg"></div>
-            <div className="w-[266px] h-[17px] flex items-center justify-between">
-                <div className="w-[70px] h-[15px] font-normal text-[11px] text-[#aaa] font-b-yekan">مرا به خاطر بسپار</div>
-                <button className="w-[71px] h-[17px] font-normal text-[11px] text-[#E48900] font-b-yekan">فراموشی رمز عبور</button>
-            </div>
-          </div>
-          <div className="flex flex-col gap-[10px] justify-center items-center">
-            <BtnGetCode />
-            <button className="w-[21px] h-[17px] font-bold text-[12px] font-b-yekan text-[#008e8b]">
-              ورود
-            </button>
-          </div>
         </div>
         <div className="size-[45px] bg-[#fcfcfc] mt-[100px] rounded-[13px] font-bold text-[#d47300] text-[20px] text-center leading-[2]">
           1
