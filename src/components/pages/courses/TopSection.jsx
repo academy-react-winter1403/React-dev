@@ -5,6 +5,11 @@ import { motion } from "framer-motion";
 import { MotionComp } from "../../partials";
 
 const TopSection = () => {
+
+  const searchHandler = (searchValue) => {
+    console.log(searchValue)
+  }
+
   return (
     <div className="top-section-contaienr relative w-[80%] ">
       <MotionComp xInitial={100} xAnimate={0} animDuration={1}>
@@ -38,7 +43,7 @@ const TopSection = () => {
               به روز ترین دوره هایی که میتونید پیدا کنید{" "}
             </p>
             <div className="input-control w-[60%] mt-[25px] mr-[10px] max-md:w-full">
-              <Input type={"text"} placeholder={"چی میخوای یاد بگیری؟..."} />
+              <Input type={"text"} placeholder={"چی میخوای یاد بگیری؟..."} change={searchHandler}/>
             </div>
           </div>
         </div>

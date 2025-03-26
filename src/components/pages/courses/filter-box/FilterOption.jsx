@@ -1,22 +1,23 @@
 import React, { useState } from "react";
 import { StarIcon } from "../../../../core/icons/icons";
+import { Checkbox } from "@heroui/react";
 
-const FilterOption = ({ filterName, id, children, filterItemClick }) => {
-  const filterOptionClick = (filterName) => {
-    filterItemClick(filterName);
+const FilterOption = ({ filterName, id, children, filterItemClick, itemId }) => {
+  const [checkFlag, setCheckFlag] = useState(false)
+  const inputCheck = (productId) => {
+    checkFlag ? (setCheckFlag(false), filterItemClick(null)) : (setCheckFlag(true), filterItemClick(productId))
+    
   };
   return (
     <div className="filter-option-control flex justify-start">
-      <span
+      {/* <span
         className="flex cursor-pointer items-center"
-        onClick={() => filterOptionClick(filterName)}
       >
         <input
           type="checkbox"
-          id={"check" + id}
-          // className="cursor-pointer appearance-none
-          // w-[17px] h-[17px] border-[2px] border-dotted rounded-[4px] checked:bg-blue-500"
+          id={`check${id}`}
           className="cursor-pointer"
+          onChange={inputCheck}
         />
         <label htmlFor={"check" + id} className="cursor-pointer">
           {!children ? (
@@ -27,7 +28,19 @@ const FilterOption = ({ filterName, id, children, filterItemClick }) => {
             <StarIcon repeatNum={filterName} />
           )}
         </label>
-      </span>
+      </span> */}
+      <Checkbox
+        classNames={{
+          base: "flex w-full indent-[22px] text-[14px]",
+          wrapper: "hidden",
+          label: "flex gap-x-[15px]",
+          hiddenInput: "w-[12px] leading-0",
+        }}
+        onClick={() => inputCheck(itemId, filterName)}
+        checked={checkFlag ? true : false}
+      >
+      {filterName}
+      </Checkbox>
     </div>
   );
 };

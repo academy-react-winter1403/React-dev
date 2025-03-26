@@ -2,21 +2,28 @@ import React from "react";
 import { Select, SelectItem } from "@heroui/react";
 import { viewData } from "../../../core/constants";
 
-const SelectView = () => {
+const SelectView = ({ viewClick }) => {
+  const clickHandler = (value) => {
+    console.log(value)
+    viewClick(value);
+  };
+
   return (
     <>
       {/* <button className="bg-gray-800"></button> */}
       <Select
         classNames={{
-          base: "bg-gray-600 text-white text-[20px] w-full",
+          base: "bg-[#D47300] text-white text-[20px] text-nowrap w-[148px] h-[45px] rounded-[10px]",
           label: "bg-red-500",
           mainWrapper: "h-full",
-          trigger: "w-full h-full flex flex-row-reverse items-center justify-center items-center p-0 h-full",
+          trigger:
+            "h-full flex flex-row-reverse items-center justify-center items-center p-0",
           listbox: "flex flex-row items-center p-0",
-          selectorIcon: "relative"
+          selectorIcon: "relative",
         }}
         value={"title"}
         children={"title"}
+        placeholder="view 1"
       >
         {viewData.map((item, index) => {
           return (
@@ -24,10 +31,11 @@ const SelectView = () => {
               classNames={{
                 wrapper: "bg-gray-900 border border-red-600 m-0 p-0",
                 base: "bg-gray-900 m-0 p-0",
-                title: "w-full text-white transition-all hover:bg-gray-400",
+                title: "text-white transition-all hover:bg-gray-400",
               }}
+              onClick={() => clickHandler(item)}
             >
-              {`item ${item}`}
+              {`view ${item}`}
             </SelectItem>
           );
         })}

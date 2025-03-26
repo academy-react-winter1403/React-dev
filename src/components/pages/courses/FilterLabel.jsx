@@ -1,5 +1,4 @@
 import React from "react";
-// import { LuFilterX } from "react-icons/lu";
 import { TrashCanIcon } from "../../../core/icons/icons";
 import { FaWindowClose } from "react-icons/fa";
 
@@ -18,6 +17,7 @@ const FilterLabel = ({ closeBtnClick }) => {
           style={{color: "#DB3838", margin: "0 -4px 0 5px"}}
           size={25} cursor={"pointer"}
           onClick={closeBtnClickHandler}
+          className="hidden max-lg:block"
         />
         <svg
           width="18"

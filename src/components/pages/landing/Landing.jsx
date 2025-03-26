@@ -23,7 +23,7 @@
 
 
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../../partials/header/Header'
 import Footer from '../../partials/footer/Footer'
 import HeroSection from './LandingSections/HeroSection'
@@ -33,14 +33,28 @@ import { productMockData } from "../../../core/constants/courses-datas/productMo
 import CourseSection from './LandingSections/CourseSection'
 import ServiceSection from './LandingSections/ServiceSection'
 import NewsSection from './LandingSections/NewsSection'
+import { getData } from '../../../core/services'
 
 const Landing = () => {
+  const [courseData, setCourseData] = useState(null)
+
+  getData("landingProduct", "/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=6")
+  .then((response) => {
+    setCourseData(response.data.courseFilterDtos)
+  })
+
+  useEffect(() => {
+    if (courseData) {
+      console.log("courseData ==>",courseData)
+    }
+  }, [courseData])
+
   return (
     <div className='bg-[#F7F7F7]'>
       {/* <Header/> */}
       <HeroSection/>
       <CategorySection/>
-      <CourseSection/>
+      <CourseSection courseData={courseData}/>
       <BestTeacherSection/>
       <ServiceSection/>
       <NewsSection/>
