@@ -1,9 +1,9 @@
 import { useQuery } from "react-query";
 import { htttp } from "../../interceptor";
 
-export const getData = async (endUrl) => {
+export const getData = async (key, endUrl) => {
   return useQuery({
-    queryKey: "product",
+    queryKey: key,
     queryFn: async () => {
       let data = await htttp.get(endUrl)
       return data.data

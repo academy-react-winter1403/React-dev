@@ -10,7 +10,7 @@ import "swiper/css/scrollbar";
 import CardWrapper from "../../../partials/product-card/CardWrapper";
 import { SliderBtn } from "../../../../core/icons/icons";
 
-const SliderOne = ({ dataMapper }) => {
+const SliderOne = ({ dataMapper}) => {
   return (
     <>
       <Swiper
@@ -38,7 +38,7 @@ const SliderOne = ({ dataMapper }) => {
           1: { slidesPerView: 1 },
         }}
       >
-        {dataMapper.map((item, index) => {
+        {dataMapper?.map((item, index) => {
           return (
             <SwiperSlide className="" key={index}>
               <div className="bg w- p-[54px_25px_35px_25px]">
