@@ -4,11 +4,21 @@ const Overlay = ({ widthNum, heightNum, posYNum, posXNum }) => {
   return (
     <>
       <div
-        className="absolute invisible opacity-0 transition-opacity duration-300 
-        group-hover:visible group-hover:opacity-70 
-        backdrop-blur-[2px] bg-[#003e639e] rounded-2xl 
-        group-hover:bg-gradient-to-b from-[#00FCF6] to-[#002B2A]"
-        style={{
+        // className="absolute invisible opacity-0 transition-opacity duration-300 
+        // group-hover:visible group-hover:opacity-70 
+        // backdrop-blur-[2px] bg-[#003e639e] rounded-2xl 
+        // group-hover:bg-gradient-to-b from-[#00FCF6] to-[#002B2A]"
+        // style={{
+        //   width: `${widthNum}px`,
+        //   height: `${heightNum}px`,
+        //   top: `${posYNum}px`,
+        //   right: `${posXNum}px`,
+        // }}
+
+        className={`w-[${widthNum}%] h-[${heightNum}%] absolute invisible opacity-0 transition-opacity duration-300
+          group-hover:visible group-hover:opacity-70 backdrop-blur-[2px] bg-[#003e639e] rounded-2xl
+          group-hover:bg-gradient-to-b from-[#00FCF6] to-[#002B2A]`}
+          style={{
           width: `${widthNum}px`,
           height: `${heightNum}px`,
           top: `${posYNum}px`,
