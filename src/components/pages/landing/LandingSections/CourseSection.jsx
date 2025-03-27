@@ -3,7 +3,7 @@ import { productMockData } from "../../../../core/constants/courses-datas/produc
 import Titles from "./Titles";
 import SliderOne from "../landingSlider/SliderOne";
 
-const CourseSection = ({ courseData }) => {
+const CourseSection = ({courseData}) => {
   return (
     <div className="swiper-container items-center justify-between w-full h-[600px] flex flex-col  font-b-yekan whitespace-nowrap mt-20 overflow-hidden">
       <Titles

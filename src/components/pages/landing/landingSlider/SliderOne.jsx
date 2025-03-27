@@ -10,7 +10,8 @@ import "swiper/css/scrollbar";
 import CardWrapper from "../../../partials/product-card/CardWrapper";
 import { SliderBtn } from "../../../../core/icons/icons";
 
-const SliderOne = ({ dataMapper }) => {
+const SliderOne = ({ dataMapper}) => {
+  console.log(!dataMapper ? dataMapper : null)
   return (
     <>
       <Swiper

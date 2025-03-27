@@ -5,6 +5,7 @@ import n4 from '../../../assets/pics/landing/n4.png'
 import n5 from '../../../assets/pics/landing/n5.png'
 import n6 from '../../../assets/pics/landing/n6.png'
 
+
 export const NewsApi = {
     leftItem: [
         {

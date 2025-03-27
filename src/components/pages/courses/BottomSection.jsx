@@ -20,12 +20,12 @@ import { htttp } from "../../../core/services/interceptor";
 import { Select, SelectItem } from "@heroui/react";
 import SelectView from "./SelectView";
 
-const BottomSection = ({ children }) => {
+const BottomSection = ({ children, pageCount }) => {
   const { productState } = useSelector((state) => state);
   const [filterBoxFlag, setFilterBoxFlag] = useState(false);
   const [windowWidthNum, setWindowWidthNum] = useState(window.innerWidth);
   const [filterFlag, setFilterFlag] = useState(false);
-  const [pageViewNum, setPageViewNum] = useState(3);
+  const [pageViewNum, setPageViewNum] = useState(4);
 
   // select filter option
   const { filterData } = useSelector((state) => state);
@@ -37,7 +37,6 @@ const BottomSection = ({ children }) => {
 
   // search params
   const [searchParams, setSearchParams] = useSearchParams();
-  // const [dataParams, setDataParams] = useState(paramsFilterObj)
   // search params
 
   const [viwFlag, setViwFlag] = useState(true);
@@ -68,20 +67,65 @@ const BottomSection = ({ children }) => {
   };
 
   const filterItemClickHnadler = async (productId, filterName) => {
-    let params = new URLSearchParams();
-    let techId = {productId}
-    if (2 <= productId && productId <= 69) { // technologi
-      techId = {...productId, productId}
-      params.set("TechCount", techId);
-      setSearchParams(params);
-      // searchParams.set("TechCount", productId);
-      console.log(searchParams.get("TechCount"));
-    }
-    console.log(params)
-    const TechCount = params.get("TechCount")
-    console.log(TechCount)
-    const data = await htttp.get(`/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=10&TechCount=2&ListTech=${TechCount}`)
-    console.log(data.data)
+    console.log(filterName)
+    setSearchParams( async (params) => {
+      if (filterName === "تکنولوژی") {
+        if (productId) {
+          params.set("TechCount", 2)
+          params.set("ListTech", productId)
+          dispatch(firstAddProduct(null))
+          const data = await htttp.get(
+            `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&
+            RowsOfPage=6&TechCount=1&ListTech=${searchParams.get("ListTech")}`
+          )
+          dispatch(firstAddProduct(data.data.courseFilterDtos))
+        }else {
+          params.delete("TechCount")
+          params.delete("ListTech")
+          dispatch(firstAddProduct(null))
+          const data = await htttp.get(`/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`)
+          dispatch(firstAddProduct(data.data.courseFilterDtos))
+        }
+      }
+      if (filterName === "وضعیت") {
+        if (productId) {
+          params.set("CourseTypeId", productId)
+          dispatch(firstAddProduct(null))
+          htttp.get(
+            `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&
+            RowsOfPage=6&CourseTypeId=${searchParams.get("CourseTypeId")}`
+          ).then(((response) => {
+            console.log(response.data.courseFilterDtos)
+            dispatch(firstAddProduct(response.data.courseFilterDto))
+          }))
+        }else {
+          params.delete("CourseTypeId")
+        }
+      }
+      if (filterName === "سطح") {
+        if (productId) {
+          params.set("courseLevelId", productId)
+          dispatch(firstAddProduct(null))
+          htttp.get(
+            `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&
+            RowsOfPage=6&courseLevelId=${searchParams.get("courseLevelId")}`
+          ).then(((response) => {
+            console.log(response.data.courseFilterDtos)
+            dispatch(firstAddProduct(response.data.courseFilterDto))
+          }))
+        }else {
+          params.delete("courseLevelId")
+        }
+      }
+      // htttp.get(
+      //   `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&
+      //   RowsOfPage=10&TechCount=2&ListTech=${searchParams.get("ListTech")}&
+      //   courseLevelId=${searchParams.get("courseLevelId")}&CourseTypeId=${searchParams.get("CourseTypeId")}`
+      // ).then((response) => {
+      //   console.log(response)
+      // })
+      return params
+    })
   };
 
   const viewClickHandler = (value) => {
@@ -112,6 +156,7 @@ const BottomSection = ({ children }) => {
             overflow-x-hidden flex flex-col gap-y-[5px]"
           >
             {filterData.map((item, index) => {
+              // console.log(item)
               return (
                 <FilteredBox filterText={item.filterTitle} key={index}>
                   {item.filterChildren?.map((sort, index) => {
@@ -130,7 +175,7 @@ const BottomSection = ({ children }) => {
                           id={filName}
                           itemId={sort.id}
                           filterName={filName}
-                          filterItemClick={filterItemClickHnadler}
+                          filterItemClick={(id) => filterItemClickHnadler(id, item.filterTitle)}
                         >
                           {item.sortText === "امتیاز" && sort.text}
                         </FilterOption>

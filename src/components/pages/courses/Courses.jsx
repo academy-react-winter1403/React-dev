@@ -38,6 +38,7 @@ const Courses = () => {
   };
 
   getData("technologie","/Home/GetTechnologies").then((technologi) => {
+    console.log(technologi.data)
     dispatch(addFirstFilterData({data: technologi.data, type: "technologi"}))
   })
 
@@ -61,7 +62,7 @@ const Courses = () => {
     >
       <div className="min-md:w-[82%] max-md:w-[90%] font-b-yekan flex flex-col items-center">
         <TopSection />
-        <BottomSection>
+        <BottomSection pageCount={pageCount}>
           <PaginationData
             initialPageNum={1}
             totalNum={5}
