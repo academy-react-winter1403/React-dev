@@ -14,7 +14,7 @@ const SliderOne = ({ dataMapper}) => {
   return (
     <>
       <Swiper
-      className='mt-[60px] max-h-[400px] overflow-hidden'
+      className=' max-h-[400px] overflow-hidden'
         modules={[Pagination, Navigation]}
         spaceBetween={10}
         slidesPerView={4}
@@ -41,7 +41,7 @@ const SliderOne = ({ dataMapper}) => {
         {dataMapper?.map((item, index) => {
           return (
             <SwiperSlide className="" key={index}>
-              <div className="bg w- p-[54px_25px_35px_25px]">
+              <div className="p-[54px_25px_35px_25px]">
                 <CardWrapper timeFlag={true} data={item} />
               </div>
             </SwiperSlide>
