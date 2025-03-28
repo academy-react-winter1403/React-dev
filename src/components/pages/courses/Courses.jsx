@@ -11,6 +11,7 @@ import { filterData } from "../../../core/constants";
 const Courses = () => {
   const dispatch = useDispatch();
   const [coursesData, setCoursesData] = useState(1);
+  const [pageCounter, setPageCounter] = useState(null);
 
   let pageCount = 1;
 
@@ -18,7 +19,7 @@ const Courses = () => {
     "product",
     `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`
   ).then((response) => {
-    setCoursesData(response.data.courseFilterDtos);
+    // setCoursesData(response.data.courseFilterDtos);
     setTimeout(() => {
       dispatch(firstAddProduct(response.data.courseFilterDtos));
     }, 3000);
@@ -27,28 +28,29 @@ const Courses = () => {
   // getData("dfg", "/Home/GetCoursesWithPagination?PageNumber=&RowsOfPage=6").then((response) => console.log("no pagination",response))
 
   const pageChangeHandler = async (pageNum) => {
-    pageCount = pageNum;
+    // setPageCounter(pageNum);
+    pageCount = pageNum
     dispatch(firstAddProduct(null));
     let data = await getDataByClick(
-      `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`,
+      `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`
     );
     setTimeout(() => {
       dispatch(firstAddProduct(data.data.courseFilterDtos));
     }, 2000);
   };
 
-  getData("technologie","/Home/GetTechnologies").then((technologi) => {
-    console.log(technologi.data)
-    dispatch(addFirstFilterData({data: technologi.data, type: "technologi"}))
-  })
+  getData("technologie", "/Home/GetTechnologies").then((technologi) => {
+    // console.log(technologi.data)
+    dispatch(addFirstFilterData({ data: technologi.data, type: "technologi" }));
+  });
 
   getData("courseTypes", "/CourseType/GetCourseTypes").then((type) => {
-    dispatch(addFirstFilterData({data: type.data, type: "courseTypes"}))
-  })
+    dispatch(addFirstFilterData({ data: type.data, type: "courseTypes" }));
+  });
 
   getData("courseLevel", "/CourseLevel/GetAllCourseLevel").then((level) => {
-    dispatch(addFirstFilterData({data: level.data, type: "courseLevel"}))
-  })
+    dispatch(addFirstFilterData({ data: level.data, type: "courseLevel" }));
+  });
 
   return (
     <div

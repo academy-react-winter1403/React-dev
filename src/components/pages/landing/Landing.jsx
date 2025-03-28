@@ -21,7 +21,7 @@ const Landing = () => {
     "landingProduct",
     "/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=6"
   ).then((response) => {
-    console.log("response.data ==>",response.data)
+    console.log("",response.data)
     setCoursesData(response.data.courseFilterDtos);
   });
 

@@ -19,13 +19,20 @@ import { getData } from "../../../core/services/api/get-data/getData";
 import { htttp } from "../../../core/services/interceptor";
 import { Select, SelectItem } from "@heroui/react";
 import SelectView from "./SelectView";
+import { setItemLocalStorage } from "../../../core/hooks/local-storage/setItemLocalstorage";
+import { getItemLocalStorage } from "../../../core/hooks/local-storage/getItemLocalStorage";
+import { localItemValidation, localItemValueValidation } from "../../../core/hooks/local-storage/localStorageValidation";
+import { deleteItemLocalStorage } from "../../../core/hooks/local-storage/deleteItemLocalStorage";
+import { localStorageDeleteOneItem, locStorageUpdateItem } from "../../../core/hooks/local-storage/updateItem";
 
 const BottomSection = ({ children, pageCount }) => {
   const { productState } = useSelector((state) => state);
   const [filterBoxFlag, setFilterBoxFlag] = useState(false);
   const [windowWidthNum, setWindowWidthNum] = useState(window.innerWidth);
   const [filterFlag, setFilterFlag] = useState(false);
-  const [pageViewNum, setPageViewNum] = useState(4);
+  const [pageViewNum, setPageViewNum] = useState(3);
+
+  console.log(pageCount)
 
   // select filter option
   const { filterData } = useSelector((state) => state);
@@ -66,64 +73,96 @@ const BottomSection = ({ children, pageCount }) => {
     setFilterBoxFlag(false);
   };
 
-  const filterItemClickHnadler = async (productId, filterName) => {
-    console.log(filterName)
-    setSearchParams( async (params) => {
-      if (filterName === "تکنولوژی") {
-        if (productId) {
-          params.set("TechCount", 2)
-          params.set("ListTech", productId)
-          dispatch(firstAddProduct(null))
-          const data = await htttp.get(
-            `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&
-            RowsOfPage=6&TechCount=1&ListTech=${searchParams.get("ListTech")}`
-          )
-          dispatch(firstAddProduct(data.data.courseFilterDtos))
-        }else {
-          params.delete("TechCount")
-          params.delete("ListTech")
-          dispatch(firstAddProduct(null))
-          const data = await htttp.get(`/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`)
-          dispatch(firstAddProduct(data.data.courseFilterDtos))
+
+  let technologiArray = []
+  let coureTypeArray = []
+  let levelArray = []
+
+  useEffect(() => {
+    if (!filterFlag) {
+      deleteItemLocalStorage("technologi")
+    }
+  }, [filterFlag])
+  const filterHandler = async (params, productId, flag, filterName) => {
+    setFilterFlag(true)
+    // console.log(pageCount)
+    if (filterName === "تکنولوژی") {
+      if (productId && !flag) {
+        let validation = localItemValidation("technologi")
+        if (!validation) {
+          setItemLocalStorage("technologi", [productId])
         }
+        const newData = locStorageUpdateItem("technologi", productId)
+        
+
+        params.set("TechCount", 2)
+        params.set("ListTech", newData)
+        dispatch(firstAddProduct(null))
+        const data = await htttp.get(
+          `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&
+          RowsOfPage=6&TechCount=1&ListTech=${searchParams.get("ListTech")}`
+        )
+        dispatch(firstAddProduct(data.data.courseFilterDtos))
+      }else{
+        dispatch(firstAddProduct(null))
+        const newData = localStorageDeleteOneItem("technologi", productId)
+        params.set("ListTech", newData)
+        const data = await htttp.get(`/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`)
+        dispatch(firstAddProduct(data.data.courseFilterDtos))
       }
-      if (filterName === "وضعیت") {
-        if (productId) {
-          params.set("CourseTypeId", productId)
-          dispatch(firstAddProduct(null))
-          htttp.get(
-            `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&
-            RowsOfPage=6&CourseTypeId=${searchParams.get("CourseTypeId")}`
-          ).then(((response) => {
-            console.log(response.data.courseFilterDtos)
-            dispatch(firstAddProduct(response.data.courseFilterDto))
-          }))
-        }else {
-          params.delete("CourseTypeId")
+    }
+    if (filterName === "وضعیت") {
+      if (productId && !flag) {
+        let validation = localItemValidation("CourseTypeId")
+        if (!validation) {
+          setItemLocalStorage("CourseTypeId", [productId])
         }
+        const newData = locStorageUpdateItem("CourseTypeId", productId)
+        
+        params.set("CourseTypeId", newData)
+        dispatch(firstAddProduct(null))
+        const data = await htttp.get(
+          `/Home/GetCoursesWithPagination?
+          RowsOfPage=6&TechCount=1&ListTech=${searchParams.get("CourseTypeId")}`
+        )
+        dispatch(firstAddProduct(data.data.courseFilterDtos))
+      }else {
+        dispatch(firstAddProduct(null))
+        const newData = localStorageDeleteOneItem("CourseTypeId", productId)
+        params.set("CourseTypeId", newData)
+        const data = await htttp.get(`/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`)
+        dispatch(firstAddProduct(data.data.courseFilterDtos))
       }
-      if (filterName === "سطح") {
-        if (productId) {
-          params.set("courseLevelId", productId)
-          dispatch(firstAddProduct(null))
-          htttp.get(
-            `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&
-            RowsOfPage=6&courseLevelId=${searchParams.get("courseLevelId")}`
-          ).then(((response) => {
-            console.log(response.data.courseFilterDtos)
-            dispatch(firstAddProduct(response.data.courseFilterDto))
-          }))
-        }else {
-          params.delete("courseLevelId")
+    }
+    if (filterName === "سطح") {
+      if (productId && !flag) {
+        let validation = localItemValidation("courseLevelId")
+        if (!validation) {
+          setItemLocalStorage("courseLevelId", [productId])
         }
+        const newData = locStorageUpdateItem("courseLevelId", productId)
+        
+        params.set("courseLevelId", newData)
+        dispatch(firstAddProduct(null))
+        const data = await htttp.get(
+          `/Home/GetCoursesWithPagination?
+          RowsOfPage=6&TechCount=1&ListTech=${searchParams.get("courseLevelId")}`
+        )
+        dispatch(firstAddProduct(data.data.courseFilterDtos))
+      }else {
+        dispatch(firstAddProduct(null))
+        const newData = localStorageDeleteOneItem("courseLevelId", productId)
+        params.set("courseLevelId", newData)
+        const data = await htttp.get(`/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`)
+        dispatch(firstAddProduct(data.data.courseFilterDtos))
       }
-      // htttp.get(
-      //   `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&
-      //   RowsOfPage=10&TechCount=2&ListTech=${searchParams.get("ListTech")}&
-      //   courseLevelId=${searchParams.get("courseLevelId")}&CourseTypeId=${searchParams.get("CourseTypeId")}`
-      // ).then((response) => {
-      //   console.log(response)
-      // })
+    }
+  }
+
+
+  const filterItemClickHnadler = async (productId, flag, filterName) => {
+    setSearchParams( (params) => {
+      filterHandler(params, productId, flag, filterName)
       return params
     })
   };
@@ -131,8 +170,7 @@ const BottomSection = ({ children, pageCount }) => {
   const viewClickHandler = (value) => {
     // console.log(value);
     setPageViewNum(value);
-    alert(pageViewNum);
-    // console.log(pageViewNum)
+    console.log(pageViewNum)
   };
 
   return (
@@ -156,7 +194,7 @@ const BottomSection = ({ children, pageCount }) => {
             overflow-x-hidden flex flex-col gap-y-[5px]"
           >
             {filterData.map((item, index) => {
-              // console.log(item)
+              console.log(item)
               return (
                 <FilteredBox filterText={item.filterTitle} key={index}>
                   {item.filterChildren?.map((sort, index) => {
@@ -175,7 +213,7 @@ const BottomSection = ({ children, pageCount }) => {
                           id={filName}
                           itemId={sort.id}
                           filterName={filName}
-                          filterItemClick={(id) => filterItemClickHnadler(id, item.filterTitle)}
+                          filterItemClick={(id, flag) => filterItemClickHnadler(id, flag, item.filterTitle)}
                         >
                           {item.sortText === "امتیاز" && sort.text}
                         </FilterOption>
@@ -197,12 +235,13 @@ const BottomSection = ({ children, pageCount }) => {
           </h1>
         </div>
       </div>
-      <div className="main w-[80%] max-lg:w-full">
+      <div className="main w-[90%] max-lg:w-full">
         <div className="sort-viw-btn-control flex max-lg:flex-col max-lg:items-center max-lg:gap-y-[29px] justify-between">
           <SortingWrapper>
             {sortFilterData.map((item, index) => {
               return (
                 <p
+                  key={index}
                   className="py-[5px] px-[7px] border border-[#cccccc]
                     rounded-[5px] mt-[12px] cursor-pointer transition-colors hover:bg-[#005B58] hover:text-white"
                 >
@@ -235,7 +274,7 @@ const BottomSection = ({ children, pageCount }) => {
             viwFlag
               ? `transition-colors product-card-container grid grid-cols-${pageViewNum} max-xl:grid-cols-2
                 max-sm:grid-cols-1 mt-[54px] gap-x-[23px] gap-y-[50px]`
-              : `transition-colors product-card-container grid grid-row-${pageViewNum}
+              : `transition-colors product-card-container grid grid-cols-1
                 max-sm:grid-cols-1 mt-[54px] gap-x-[23px] gap-y-[50px]`
             // `transition-colors product-card-container grid grid-cols-${pageViewNum} grid-rows-1 max-xl:grid-cols-2
             //     max-sm:grid-cols-1 mt-[54px] gap-x-[23px] gap-y-[50px]`
@@ -246,8 +285,8 @@ const BottomSection = ({ children, pageCount }) => {
                 // console.log(item);
                 return <CardWrapper timeFlag={true} data={item} key={index} />;
               })
-            : productMockData.map(() => {
-                return <CardLoading />;
+            : productMockData.map((item, index) => {
+                return <CardLoading key={index}/>;
               })}
         </div>
         {children}

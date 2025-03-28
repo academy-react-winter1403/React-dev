@@ -5,7 +5,7 @@ import { Checkbox } from "@heroui/react";
 const FilterOption = ({ filterName, id, children, filterItemClick, itemId }) => {
   const [checkFlag, setCheckFlag] = useState(false)
   const inputCheck = (productId) => {
-    checkFlag ? (setCheckFlag(false), filterItemClick(null)) : (setCheckFlag(true), filterItemClick(productId))
+    checkFlag ? (setCheckFlag(false), filterItemClick(productId, true)) : (setCheckFlag(true), filterItemClick(productId, false))
     
   };
   return (

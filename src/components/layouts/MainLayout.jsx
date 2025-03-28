@@ -9,7 +9,7 @@ const MainLayout = () => {
     <>
       <HeaderWrapper />
       <Outlet />
-      <Themes/>
+      {/* <Themes/> */}
       <FooterWrapper />
     </>
   );

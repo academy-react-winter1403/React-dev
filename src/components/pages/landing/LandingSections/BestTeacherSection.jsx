@@ -10,7 +10,7 @@ const BestTeacherSection = () => {
             {/* text */}
             <div className='w-[40%] h-[120px] font-b-yekan whitespace-nowrap hidden md:block'>
                 <p className='text-[#268582] font-normal
-                lg:text-[25px] md:text-[20px]'>
+                lg:text-[25px] md:text-[18px] md:whitespace-normal lg:whitespace-nowrap'>
                     <h2 className='text-[#003231] font-bold text-[40px] inline'>
                     برترین اساتید
                     </h2>

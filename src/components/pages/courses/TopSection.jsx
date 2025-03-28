@@ -3,11 +3,13 @@ import { CoursesCharectorIcon } from "../../../core/icons/icons";
 import Input from "../../common/input/Input";
 import { motion } from "framer-motion";
 import { MotionComp } from "../../partials";
+import { htttp } from "../../../core/services/interceptor";
 
 const TopSection = () => {
 
-  const searchHandler = (searchValue) => {
-    console.log(searchValue)
+  const searchHandler = async (searchValue) => {
+    let searchData = await htttp.get(`/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=10&Query=${searchValue}`)
+    console.log(searchData.data)
   }
 
   return (
