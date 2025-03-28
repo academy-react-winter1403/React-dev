@@ -5,11 +5,12 @@ import BtnGetCode from "../../../common/BtnText/BtnGetCode";
 import BtnTwoAuthorize from "../../../common/BtnText/BtnTwoAuthorize";
 import StageName from "../../../common/StageName";
 import LoginPassword from "../../../partials/authorize/LoginPassword";
+import BtnNumberStep from "../../../common/BtnText/BtnNumberStep";
 
 const Steps5 = () => {
   return (
     <LoginBg>
-      <div className="w-[437px] h-[350px] flex">
+      <div className="h-[350px] flex relative">
         <div className="w-[377px] h-full bg-[#fcfcfc] rounded-[15px] flex flex-col gap-[20px] justify-center items-center">
           <div className="flex flex-col gap-[10px] justify-center items-center">
             <StageName stageName={"کد تایید"} />
@@ -27,7 +28,9 @@ const Steps5 = () => {
             <BtnTwoAuthorize text={"ارسال دوباره کد"} />
           </div>
         </div>
-        <div className="size-[45px] bg-[#fcfcfc] mt-[215px] rounded-[13px] font-bold text-[#d47300] text-[20px] text-center leading-[2] font-b-yekan">2</div>
+        <div className="size-20 mt-[215px] rounded-xl flex justify-center items-center bg-[#d2cdae] left-[-75px] absolute z-10 rotate-45">
+          <BtnNumberStep number={2} />
+        </div>
       </div>
       <GoToPrevPage />
     </LoginBg>

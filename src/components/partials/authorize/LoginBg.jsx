@@ -1,18 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import BgStep from './../../../assets/pics/authorize/BgAuthorize.png'
 
 const LoginBg = ({ children }) => {
+  const [target, setTarget] = useState("register");
+
+  const handleClick = (position) => {
+    setTarget(position);
+  };
+
   return (
-    <div className="w-[1440px] h-[899px] mx-auto flex justify-center items-center">
+    <div className="w-[1440px] h-[899px] mx-auto flex justify-center items-center" style={{
+      backgroundImage:`url(${BgStep})`,
+      backgroundRepeat:"no-repeat",
+      backgroundPosition: '40% 50%',
+      backgroundSize:'67%'
+      }}>
       <div className="w-[952px] h-[631px] flex justify-between z-[1]">
         <div className="mt-[105px]">
-          <div className="w-[69px] h-[34px] text-[#006865] font-bold text-2xl font-[BYekan]">
+          <button
+            className="w-[69px] h-[34px] text-[#006865] font-bold text-2xl font-[BYekan]"
+            onClick={() => handleClick("register")}
+          >
             ثبت نام
-          </div>
-          <div className="w-[41px] h-[34px] text-[#006865] font-bold text-2xl mx-auto mt-[51px] font-[BYekan]">
+          </button>
+          <button
+            className="w-[41px] h-[34px] text-[#006865] font-bold text-2xl mx-auto mt-[51px] font-[BYekan]"
+            onClick={() => handleClick("login")}
+          >
             ورود
-          </div>
+          </button>
         </div>
-        <div className="w-[869px] h-[631px] flex justify-center items-center relative backdrop-blur-xs bg-gradient-to-tl from-[#01CEC9BF] to-[#E48900BF]/75 rounded-[30px]">{children}</div>
+        <div className="w-[869px] h-[631px] flex justify-center items-center relative backdrop-blur-xs bg-gradient-to-tl from-[#01CEC9BF]/75 to-[#E48900BF]/75 rounded-4xl">
+          <motion.div
+            className="size-20 rounded-3xl absolute right-[0] top-[85px]"
+            initial={{rotate:45, x:15 ,backgroundColor:'#c3d3bd'}}
+            animate={{
+              y: target === "register" ? 0 : target === "login" ? 85 : 0,
+              backgroundColor: target === "register" ? '#c3d3bd' : target === "login" ? '#bbd6c3' : '#c3d3bd',
+              x:15,
+            }}
+            transition={{ duration: 1 }}
+          ></motion.div>
+          {children}
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import React from 'react'
-import { InputOtp } from "@nextui-org/react";
+import { InputOtp } from "@heroui/react";
 
 const LoginPassword = () => {
   return (

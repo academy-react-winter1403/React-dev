@@ -7,6 +7,7 @@ import BtnTwoAuthorize from "../../../common/BtnText/BtnTwoAuthorize";
 import StageName from "../../../common/StageName";
 import CustomInput from "../../../partials/authorize/CustomInput";
 import * as yup from "yup";
+import BtnNumberStep from "../../../common/BtnText/BtnNumberStep";
 
 const Steps4 = () => {
   const onSubmit = (event) => {
@@ -32,7 +33,7 @@ const Steps4 = () => {
   });
   return (
     <LoginBg>
-      <div className="w-[437px] h-[350px] flex">
+      <div className="h-[350px] flex relative">
         <div className="w-[377px] h-full bg-[#fcfcfc] rounded-[15px] flex flex-col gap-[20px] justify-center items-center">
           <StageName stageName={"ورود حساب کاربری"} />
           <Formik
@@ -66,8 +67,8 @@ const Steps4 = () => {
             </Form>
           </Formik>
         </div>
-        <div className="size-[45px] bg-[#fcfcfc] mt-[100px] rounded-[13px] font-bold text-[#d47300] text-[20px] text-center leading-[2]">
-          1
+        <div className="size-20 mt-[100px] rounded-xl flex justify-center items-center bg-[#dac9a4] left-[-75px] absolute z-10 rotate-45">
+          <BtnNumberStep number={1} />
         </div>
       </div>
       <GoToOrgPage />

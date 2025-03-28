@@ -6,6 +6,7 @@ import GoToPrevPage from "../../../common/BtnText/GoToPrevPage";
 import BtnGetCode from "../../../common/BtnText/BtnGetCode";
 import StageName from "../../../common/StageName";
 import CustomInput from "../../../partials/authorize/CustomInput";
+import BtnNumberStep from "../../../common/BtnText/BtnNumberStep";
 
 const Steps3 = () => {
   const onSubmit = (event) => {
@@ -34,7 +35,7 @@ const Steps3 = () => {
   });
   return (
     <LoginBg>
-      <div className="w-[437px] h-[400px] flex">
+      <div className="h-[400px] flex relative">
         <div className="w-[377px] bg-[#fcfcfc] rounded-[15px] flex flex-col gap-3.5 justify-center items-center">
           <StageName stageName={"ایجاد حساب کاربری"} />
           <Formik
@@ -65,8 +66,8 @@ const Steps3 = () => {
             </Form>
           </Formik>
         </div>
-        <div className="size-[45px] bg-[#fcfcfc] mt-[295px] rounded-[13px] font-bold text-[#d47300] text-xl text-center leading-[2]">
-          3
+        <div className="size-20 mt-[295px] rounded-xl flex justify-center items-center bg-[#cdcfb3] left-[-75px] absolute z-10 rotate-45">
+          <BtnNumberStep number={3} />
         </div>
       </div>
       <GoToPrevPage />

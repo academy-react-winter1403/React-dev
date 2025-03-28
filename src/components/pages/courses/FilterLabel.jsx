@@ -1,13 +1,24 @@
 import React from "react";
 // import { LuFilterX } from "react-icons/lu";
 import { TrashCanIcon } from "../../../core/icons/icons";
+import { FaWindowClose } from "react-icons/fa";
 
-const FilterLabel = () => {
+const FilterLabel = ({ closeBtnClick }) => {
+
+  const closeBtnClickHandler = () => {
+    closeBtnClick()
+  }
+
   return (
-    <button className="filter-label-control flex gap-[111px] py-[8px] px-[14px] bg-[#E7E7E7]
+    <button className="filter-label-control flex gap-x-[141px] py-[8px] px-[14px] bg-[#E7E7E7]
         drop-shadow-[0_1px_2px_#00000040] items-center rounded-[5px_5px_1px_1px]"
     >
       <button className="rigth flex items-center gap-x-[5px]">
+        <FaWindowClose
+          style={{color: "#DB3838", margin: "0 -4px 0 5px"}}
+          size={25} cursor={"pointer"}
+          onClick={closeBtnClickHandler}
+        />
         <svg
           width="18"
           height="18"
