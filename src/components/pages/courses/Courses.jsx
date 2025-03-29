@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TopSection from "./TopSection";
 import BottomSection from "./BottomSection";
 import { getData, getDataByClick } from "../../../core/services";
@@ -7,13 +7,25 @@ import { addFirstFilterData, firstAddProduct } from "../../../redux/actions";
 import { PaginationData } from "../../partials";
 import bg from "../../../assets/pics/courses/bg1.png";
 import { filterData } from "../../../core/constants";
+import { useSelect } from "@heroui/react";
+import { deleteItemLocalStorage } from "../../../core/hooks/local-storage/deleteItemLocalStorage";
 
 const Courses = () => {
   const dispatch = useDispatch();
+  const { queryFlag } = useSelect((state) => state.flags.coursesFlag);
   const [coursesData, setCoursesData] = useState(1);
   const [pageCounter, setPageCounter] = useState(null);
 
   let pageCount = 1;
+
+  useEffect(() => {
+    if (!queryFlag) {
+      deleteItemLocalStorage("technologi");
+      deleteItemLocalStorage("courseLevelId");
+      deleteItemLocalStorage("CourseTypeId");
+      deleteItemLocalStorage("searchValue");
+    }
+  }, [queryFlag]);
 
   getData(
     "product",
@@ -29,7 +41,7 @@ const Courses = () => {
 
   const pageChangeHandler = async (pageNum) => {
     // setPageCounter(pageNum);
-    pageCount = pageNum
+    pageCount = pageNum;
     dispatch(firstAddProduct(null));
     let data = await getDataByClick(
       `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`

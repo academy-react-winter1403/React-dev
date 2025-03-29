@@ -8,7 +8,7 @@ const FilteredBox = ({ children, filterText, currencyUnit }) => {
       <Accordion
         variant="splitted"
         itemClasses={{
-          base: `filter-box-control max-h-[200px] overflow-y-auto overflow-x-hidden bg-[#FAFAFA]
+          base: `filter-box-control h-[200px] overflow-y-auto overflow-x-hidden bg-[#FAFAFA]
               drop-shadow-[0_1px_2px_#00000040]
               pt-[7px] pb-[11px] px-[12px] rounded-[6px] cursor-pointer`,
         }}

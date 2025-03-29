@@ -8,10 +8,13 @@ import StageName from "../../../common/StageName";
 import CustomInput from "../../../partials/authorize/CustomInput";
 import * as yup from "yup";
 import BtnNumberStep from "../../../common/BtnText/BtnNumberStep";
+import { postData } from "../../../../core/services";
 
 const Steps4 = () => {
-  const onSubmit = (event) => {
-    console.log(event);
+  const onSubmit = async (event) => {
+    // console.log(event);
+    const data = await postData("/Sign/Login", event)
+    console.log(data)
   };
   const validation = yup.object().shape({
     EmailOrMobile:yup.string()
@@ -38,7 +41,7 @@ const Steps4 = () => {
           <StageName stageName={"ورود حساب کاربری"} />
           <Formik
             initialValues={{ EmailOrMobile: "", password: "" }}
-            onSubmit={(event) => onSubmit(event)}
+            onSubmit={onSubmit}
             validationSchema={validation}
           >
             <Form className="flex flex-col items-center justify-center gap-[15px]">

@@ -21,6 +21,11 @@ const slices = createSlice({
         filterChildren: [],
       },
     ],
+    flags: {
+      coursesFlag: {
+        queryFlag: false
+      }
+    }
   },
 
   reducers: {
@@ -45,6 +50,9 @@ const slices = createSlice({
         state.filterData[2].filterChildren = action.payload.data;
       }
     },
+    changeQueryFlag: (state, action) => {
+      state.flags.coursesFlag.queryFlag = action.payload
+    }
   },
 });
 

@@ -14,7 +14,7 @@ import { CardLoading, CardWrapper } from "../../partials";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import { useSearchParams } from "react-router-dom";
-import { addDataTheQueryParams, firstAddProduct } from "../../../redux/actions";
+import { addDataTheQueryParams, changeQueryFlag, firstAddProduct } from "../../../redux/actions";
 import { getData } from "../../../core/services/api/get-data/getData";
 import { htttp } from "../../../core/services/interceptor";
 import { Select, SelectItem } from "@heroui/react";
@@ -24,15 +24,16 @@ import { getItemLocalStorage } from "../../../core/hooks/local-storage/getItemLo
 import { localItemValidation, localItemValueValidation } from "../../../core/hooks/local-storage/localStorageValidation";
 import { deleteItemLocalStorage } from "../../../core/hooks/local-storage/deleteItemLocalStorage";
 import { localStorageDeleteOneItem, locStorageUpdateItem } from "../../../core/hooks/local-storage/updateItem";
+import { courseFilter } from "../../../core/utility/courseFilter";
+// import { setSearchParams } from "../../../core/hooks/indexHooks";
 
 const BottomSection = ({ children, pageCount }) => {
   const { productState } = useSelector((state) => state);
   const [filterBoxFlag, setFilterBoxFlag] = useState(false);
   const [windowWidthNum, setWindowWidthNum] = useState(window.innerWidth);
-  const [filterFlag, setFilterFlag] = useState(false);
   const [pageViewNum, setPageViewNum] = useState(3);
 
-  console.log(pageCount)
+  // console.log(pageCount)
 
   // select filter option
   const { filterData } = useSelector((state) => state);
@@ -73,65 +74,30 @@ const BottomSection = ({ children, pageCount }) => {
     setFilterBoxFlag(false);
   };
 
-
-  let technologiArray = []
-  let coureTypeArray = []
-  let levelArray = []
-
-  useEffect(() => {
-    if (!filterFlag) {
-      deleteItemLocalStorage("technologi")
-    }
-  }, [filterFlag])
-  const filterHandler = async (params, productId, flag, filterName) => {
-    setFilterFlag(true)
-    // console.log(pageCount)
+  const filterHandler = async (productId, flag, filterName) => {
+    changeQueryFlag(true)
     if (filterName === "تکنولوژی") {
       if (productId && !flag) {
+
         let validation = localItemValidation("technologi")
         if (!validation) {
           setItemLocalStorage("technologi", [productId])
         }
-        const newData = locStorageUpdateItem("technologi", productId)
-        
-
-        params.set("TechCount", 2)
-        params.set("ListTech", newData)
-        dispatch(firstAddProduct(null))
-        const data = await htttp.get(
-          `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&
-          RowsOfPage=6&TechCount=1&ListTech=${searchParams.get("ListTech")}`
-        )
-        dispatch(firstAddProduct(data.data.courseFilterDtos))
+        locStorageUpdateItem("technologi", productId)
       }else{
-        dispatch(firstAddProduct(null))
-        const newData = localStorageDeleteOneItem("technologi", productId)
-        params.set("ListTech", newData)
-        const data = await htttp.get(`/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`)
-        dispatch(firstAddProduct(data.data.courseFilterDtos))
+        localStorageDeleteOneItem("technologi", productId)
       }
     }
     if (filterName === "وضعیت") {
       if (productId && !flag) {
+
         let validation = localItemValidation("CourseTypeId")
         if (!validation) {
           setItemLocalStorage("CourseTypeId", [productId])
         }
-        const newData = locStorageUpdateItem("CourseTypeId", productId)
-        
-        params.set("CourseTypeId", newData)
-        dispatch(firstAddProduct(null))
-        const data = await htttp.get(
-          `/Home/GetCoursesWithPagination?
-          RowsOfPage=6&TechCount=1&ListTech=${searchParams.get("CourseTypeId")}`
-        )
-        dispatch(firstAddProduct(data.data.courseFilterDtos))
+        locStorageUpdateItem("CourseTypeId", productId)
       }else {
-        dispatch(firstAddProduct(null))
-        const newData = localStorageDeleteOneItem("CourseTypeId", productId)
-        params.set("CourseTypeId", newData)
-        const data = await htttp.get(`/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`)
-        dispatch(firstAddProduct(data.data.courseFilterDtos))
+        localStorageDeleteOneItem("CourseTypeId", productId)
       }
     }
     if (filterName === "سطح") {
@@ -140,31 +106,19 @@ const BottomSection = ({ children, pageCount }) => {
         if (!validation) {
           setItemLocalStorage("courseLevelId", [productId])
         }
-        const newData = locStorageUpdateItem("courseLevelId", productId)
+        locStorageUpdateItem("courseLevelId", productId)
         
-        params.set("courseLevelId", newData)
-        dispatch(firstAddProduct(null))
-        const data = await htttp.get(
-          `/Home/GetCoursesWithPagination?
-          RowsOfPage=6&TechCount=1&ListTech=${searchParams.get("courseLevelId")}`
-        )
-        dispatch(firstAddProduct(data.data.courseFilterDtos))
       }else {
-        dispatch(firstAddProduct(null))
-        const newData = localStorageDeleteOneItem("courseLevelId", productId)
-        params.set("courseLevelId", newData)
-        const data = await htttp.get(`/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`)
-        dispatch(firstAddProduct(data.data.courseFilterDtos))
+        localStorageDeleteOneItem("courseLevelId", productId)
       }
     }
   }
-
-
-  const filterItemClickHnadler = async (productId, flag, filterName) => {
-    setSearchParams( (params) => {
-      filterHandler(params, productId, flag, filterName)
-      return params
-    })
+  
+  
+  const filterItemClickHnadler = (productId, flag, filterName) => {
+    console.log(productId)
+      filterHandler(productId, flag, filterName)
+      courseFilter(setSearchParams, dispatch)
   };
 
   const viewClickHandler = (value) => {
@@ -194,7 +148,7 @@ const BottomSection = ({ children, pageCount }) => {
             overflow-x-hidden flex flex-col gap-y-[5px]"
           >
             {filterData.map((item, index) => {
-              console.log(item)
+              // console.log(item)
               return (
                 <FilteredBox filterText={item.filterTitle} key={index}>
                   {item.filterChildren?.map((sort, index) => {
@@ -279,6 +233,7 @@ const BottomSection = ({ children, pageCount }) => {
             // `transition-colors product-card-container grid grid-cols-${pageViewNum} grid-rows-1 max-xl:grid-cols-2
             //     max-sm:grid-cols-1 mt-[54px] gap-x-[23px] gap-y-[50px]`
           }
+          // style={{gridColumn: "3"}}
         >
           {productState
             ? productState.map((item, index) => {

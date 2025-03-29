@@ -4,13 +4,21 @@ import Input from "../../common/input/Input";
 import { motion } from "framer-motion";
 import { MotionComp } from "../../partials";
 import { htttp } from "../../../core/services/interceptor";
+import { useDispatch } from "react-redux";
+import { firstAddProduct } from "../../../redux/actions";
+import { useSearchParams } from "react-router-dom";
+import { setItemLocalStorage } from "../../../core/hooks/local-storage/setItemLocalstorage";
+import { courseFilter } from "../../../core/utility/courseFilter";
+// import { setSearchParams } from "../../../core/hooks/indexHooks";
 
 const TopSection = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const dispatch = useDispatch();
 
-  const searchHandler = async (searchValue) => {
-    let searchData = await htttp.get(`/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=10&Query=${searchValue}`)
-    console.log(searchData.data)
-  }
+  const searchHandler = (searchValue) => {
+    setItemLocalStorage("searchValue", searchValue)
+    courseFilter(setSearchParams, dispatch)
+  };
 
   return (
     <div className="top-section-contaienr relative w-[80%] ">
@@ -45,7 +53,11 @@ const TopSection = () => {
               به روز ترین دوره هایی که میتونید پیدا کنید{" "}
             </p>
             <div className="input-control w-[60%] mt-[25px] mr-[10px] max-md:w-full">
-              <Input type={"text"} placeholder={"چی میخوای یاد بگیری؟..."} change={searchHandler}/>
+              <Input
+                type={"text"}
+                placeholder={"چی میخوای یاد بگیری؟..."}
+                change={searchHandler}
+              />
             </div>
           </div>
         </div>

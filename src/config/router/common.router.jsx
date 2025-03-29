@@ -6,8 +6,9 @@ export const commonRouter = createBrowserRouter([{
     path: "/",
     element: <MainLayout/>,
     children: [
-        {path: "/login", element: <LastAuthorizeWrapper/>},
+        {path: "/", element: <LastLandingWrapper/>},
         {path: "/landing", element: <LastLandingWrapper/>},
+        {path: "/login", element: <LastAuthorizeWrapper/>},
         {path: "/courses", element: <LastCoursesWrapper/>}
     ]
 }])

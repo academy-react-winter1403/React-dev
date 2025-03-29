@@ -2,20 +2,19 @@ import React from "react";
 import LoginBg from "../../../partials/authorize/LoginBg";
 import GoToOrgPage from "../../../common/BtnText/GoToOrgPage";
 import BtnGetCode from "../../../common/BtnText/BtnGetCode";
-import { Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import * as yup from "yup";
 import BtnTwoAuthorize from "../../../common/BtnText/BtnTwoAuthorize";
 import StageName from "../../../common/StageName";
 import CustomInput from "../../../partials/authorize/CustomInput";
 import BtnNumberStep from "./../../../common/BtnText/BtnNumberStep";
 import { postData } from "../../../../core/services/api/post-data/postData";
+import { htttp } from "../../../../core/services/interceptor";
+import axios from "axios";
 
 const Steps1 = () => {
-  const onSubmit = async (values) => {
-    console.log(typeof(values.MNumber));
-    
-    const ApiCall = await postData("/Sign/SendVerifyMessage",values.MNumber);
-    console.log(ApiCall);
+  const submitHandler = async (values) => {
+    console.log(values)
   };
   const validation = yup.object().shape({
     MNumber: yup
@@ -30,7 +29,7 @@ const Steps1 = () => {
           <StageName stageName={"ایجاد حساب کاربری"} />
           <Formik
             initialValues={{ MNumber: "" }}
-            onSubmit={onSubmit}
+            onSubmit={submitHandler}
             validationSchema={validation}
           >
             <Form className="flex flex-col gap-7">
