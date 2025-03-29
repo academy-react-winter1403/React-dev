@@ -9,16 +9,24 @@ import StageName from "../../../common/StageName";
 import CustomInput from "../../../partials/authorize/CustomInput";
 import BtnNumberStep from "./../../../common/BtnText/BtnNumberStep";
 import { postData } from "../../../../core/services/api/post-data/postData";
+import { setItemLocalStorage } from './../../../../core/hooks/local-storage/setItemLocalstorage';
 
 const Steps1 = () => {
   const onSubmit = async (values) => {
-    console.log(typeof(values.MNumber));
-    
-    const ApiCall = await postData("/Sign/SendVerifyMessage",values.MNumber);
-    console.log(ApiCall);
+    console.log(values);
+    try {
+      const ApiCall = await postData(
+        "/Sign/SendVerifyMessage",
+        { phoneNumber:values.phoneNumber }
+      );
+      setItemLocalStorage('phoneNumber',values.phoneNumber)
+      console.log(ApiCall.data);
+    } catch (error) {
+      console.log(error.response ? error.response.data : error.message);
+    }
   };
   const validation = yup.object().shape({
-    MNumber: yup
+    phoneNumber: yup
       .string()
       .matches(/^(\+98|0)?9\d{9}$/, "شماره تلفن معتبر نیست")
       .required("شماره تلفن الزامی است"),
@@ -29,13 +37,13 @@ const Steps1 = () => {
         <div className="w-[377px] h-full bg-[#fcfcfc] rounded-[15px] flex flex-col gap-[35px] justify-center items-center">
           <StageName stageName={"ایجاد حساب کاربری"} />
           <Formik
-            initialValues={{ MNumber: "" }}
+            initialValues={{ phoneNumber: "" }}
             onSubmit={onSubmit}
             validationSchema={validation}
           >
             <Form className="flex flex-col gap-7">
               <CustomInput
-                name={"MNumber"}
+                name={"phoneNumber"}
                 placeholder={"شماره همراه"}
                 type={"text"}
               />
