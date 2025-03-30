@@ -1,7 +1,5 @@
-import { useSearchParams } from "react-router-dom";
 import { getItemLocalStorage } from "../hooks/local-storage/getItemLocalStorage";
 import { htttp } from "../services/interceptor";
-import { useDispatch } from "react-redux";
 import { firstAddProduct } from "../../redux/actions";
 
 export const courseFilter = (searchParams, dispatch) => {
@@ -10,86 +8,48 @@ export const courseFilter = (searchParams, dispatch) => {
   const courseTypeId = getItemLocalStorage("CourseTypeId");
   const searchQuery = getItemLocalStorage("searchValue");
 
+  const sortValue = localStorage.getItem("sortText");
+
   console.log(searchQuery);
 
   const handler = async (params) => {
-    // let data = []
-
     if (technologi) {
       params.set("TechCount", "2");
       params.set("ListTech", technologi);
-      //   dispatch(firstAddProduct(null));
-      //   const newData = await htttp.get(
-      //     `/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=10&TechCount=2&ListTech=${technologi}`
-      //   );
-      //   data = [...data, newData.data.courseFilterDtos]
-      //   dispatch(firstAddProduct(data));
     }
 
     if (courseLevelId) {
       params.set("courseLevelId", courseLevelId);
-      //   const newData = await htttp.get(
-      //     `/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=10&courseLevelId=${courseLevelId}`
-      //   );
     }
 
     if (courseTypeId) {
       params.set("CourseTypeId", courseTypeId);
-      //   const newData = await htttp.get(
-      //     `/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=10&CourseTypeId=${courseTypeId}`
-      //   );
     }
 
     if (searchQuery) {
       params.set("Query", searchQuery);
-      const newData = await htttp.get(
-        `/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=10&Query=${searchQuery}`
-      );
-      //   console.log(newData.data.courseFilterDtos)
-    } else {
+    }else {
       params.set("Query", "");
     }
 
-    if (technologi && courseLevelId && courseTypeId && searchQuery) {
-      //   const newData = await htttp.get(
-      //     `/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=10&
-      //         Query=${searchQuery}&TechCount=2&ListTech=${technologi}&
-      //         courseLevelId=${courseLevelId}&CourseTypeId=${courseTypeId}`
-      //   );
+    if (sortValue) {
+        if (sortValue === "جدیدترین ها") {
+            params.set("SortingCol", "Active")
+        };
     }
 
-    // const data = await htttp.get(
-    //     `/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=10&
-    //     TechCount=2&ListTech=${technologi ? technologi : ''}&
-    //     Query=${searchQuery && searchQuery !== '' ? searchQuery : ''}&
-    //     courseLevelId=${courseLevelId ? courseLevelId : ''}&
-    //     CourseTypeId=${courseTypeId ? courseTypeId : ''}&`
-    // )
-
-    // const data = await htttp.get(
-    //     `/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=10&
-    //     ${technologi && `TechCount=2&ListTech=${technologi}`}&
-    //     ${searchQuery && searchQuery !== '' ? `Query=${searchQuery}` : null}&
-    //     ${courseLevelId && `courseLevelId=${courseLevelId}`}&
-    //     ${courseTypeId && `CourseTypeId=${courseTypeId}`}&`
-    // )
-
-    // const data = await htttp.get(
-    //     `/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=10${
-    //         technologi ? `&ListTech=${technologi}` : '',
-    //         searchQuery ? `&Query=${JSON.stringify(searchQuery)}` : '',
-    //         courseLevelId ? `courseLevelId=${courseLevelId}` : '',
-    //         courseTypeId ? `CourseTypeId=${courseTypeId}` : ''
-    //     }`
-    // )
-
-    console.log("searchQuery ==>", searchQuery);
+    dispatch(firstAddProduct(null))
     const data = await htttp.get(
-        `/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=10
-        &${searchQuery && `Query=${searchQuery}`}
-        `
+        `/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=6&
+        ${sortValue ? `&SortingCol=${params.get("SortingCol")}` : ''}&
+        ${searchQuery && searchQuery !== null ? `&Query=${searchQuery}` : ''}&
+        ${technologi && technologi.length !== 0 ? `ListTech=${technologi}` : ''}&
+        ${courseLevelId && courseLevelId.length !== 0 ? `courseLevelId=${courseLevelId}` : ''}&
+        ${courseTypeId && courseTypeId.length !== 0 ? `CourseTypeId=${courseTypeId}` : ''}`
     );
 
+    
+    dispatch(firstAddProduct(data.data.courseFilterDtos))
     console.log(data.data.courseFilterDtos);
   };
 

@@ -2,48 +2,64 @@ import React, { useEffect, useState } from "react";
 import TopSection from "./TopSection";
 import BottomSection from "./BottomSection";
 import { getData, getDataByClick } from "../../../core/services";
-import { useDispatch } from "react-redux";
-import { addFirstFilterData, firstAddProduct } from "../../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { addFirstFilterData, changePageCounter, changeQueryFlag, firstAddProduct } from "../../../redux/actions";
 import { PaginationData } from "../../partials";
 import bg from "../../../assets/pics/courses/bg1.png";
 import { filterData } from "../../../core/constants";
 import { useSelect } from "@heroui/react";
 import { deleteItemLocalStorage } from "../../../core/hooks/local-storage/deleteItemLocalStorage";
+import { deleteAllItemLocalStorage } from "../../../core/hooks/local-storage/deleteAllItem";
 
 const Courses = () => {
   const dispatch = useDispatch();
-  const { queryFlag } = useSelect((state) => state.flags.coursesFlag);
-  const [coursesData, setCoursesData] = useState(1);
-  const [pageCounter, setPageCounter] = useState(null);
+  const state = useSelector(state => state);
+  const [flag, setFlag] = useState(false)
+  console.log(state)
+
+  let queryFlag = state.flags.coursesFlag.queryFlag
+  // let pageCount = state.coursesData.pageCount
+
+  // console.log(queryFlag)
+
+  // const [coursesData, setCoursesData] = useState(1);
+  // const [pageCounter, setPageCounter] = useState(null);
 
   let pageCount = 1;
 
+  const change = () => {
+    setFlag(true)
+  }
+
   useEffect(() => {
     if (!queryFlag) {
-      deleteItemLocalStorage("technologi");
-      deleteItemLocalStorage("courseLevelId");
-      deleteItemLocalStorage("CourseTypeId");
-      deleteItemLocalStorage("searchValue");
+      deleteAllItemLocalStorage(["technologi", "courseLevelId", "CourseTypeId", "searchValue", "sortText"])
     }
+
   }, [queryFlag]);
 
-  getData(
-    "product",
-    `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`
-  ).then((response) => {
-    // setCoursesData(response.data.courseFilterDtos);
-    setTimeout(() => {
-      dispatch(firstAddProduct(response.data.courseFilterDtos));
-    }, 3000);
-  });
+  useEffect(() => {
+    change()
+  }, [])
 
-  // getData("dfg", "/Home/GetCoursesWithPagination?PageNumber=&RowsOfPage=6").then((response) => console.log("no pagination",response))
+  // if (!flag) {
+    getData(
+      "product",
+      `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`
+    ).then((response) => {
+      setTimeout(() => {
+        dispatch(firstAddProduct(response.data.courseFilterDtos));
+      }, 3000);
+    });
+  // }
+
 
   const pageChangeHandler = async (pageNum) => {
-    // setPageCounter(pageNum);
-    pageCount = pageNum;
+    // dispatch(changePageCounter(pageNum))
+    pageCount = pageNum
+    // console.log(pageCount)
     dispatch(firstAddProduct(null));
-    let data = await getDataByClick(
+    const data = await getDataByClick(
       `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`
     );
     setTimeout(() => {

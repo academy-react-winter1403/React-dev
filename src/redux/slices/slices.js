@@ -23,9 +23,13 @@ const slices = createSlice({
     ],
     flags: {
       coursesFlag: {
-        queryFlag: false
-      }
-    }
+        queryFlag: false,
+      },
+    },
+    coursesData: {
+      pageCount: 1,
+      sortText: " جدیدترین ها ",
+    },
   },
 
   reducers: {
@@ -51,7 +55,13 @@ const slices = createSlice({
       }
     },
     changeQueryFlag: (state, action) => {
-      state.flags.coursesFlag.queryFlag = action.payload
+      state.flags.coursesFlag.queryFlag = action.payload;
+    },
+    changeSortText: (state, action) => {
+      state.coursesData.sortText = action.payload
+    },
+    changePageCounter: (state, action) => {
+      state.coursesData.pageCount = action.payload
     }
   },
 });

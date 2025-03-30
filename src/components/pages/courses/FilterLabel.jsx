@@ -2,10 +2,14 @@ import React from "react";
 import { TrashCanIcon } from "../../../core/icons/icons";
 import { FaWindowClose } from "react-icons/fa";
 
-const FilterLabel = ({ closeBtnClick }) => {
+const FilterLabel = ({ closeBtnClick, removeFilterClick }) => {
 
   const closeBtnClickHandler = () => {
     closeBtnClick()
+  }
+
+  const removeFilterClickHandler = () => {
+    removeFilterClick()
   }
 
   return (
@@ -37,7 +41,7 @@ const FilterLabel = ({ closeBtnClick }) => {
 
         <p className="text-[#333333] text-[16px] font-[400]"> فیلترها </p>
       </button>
-      <TrashCanIcon />
+      <TrashCanIcon TrashCanIconClick={removeFilterClickHandler}/>
     </button>
   );
 };

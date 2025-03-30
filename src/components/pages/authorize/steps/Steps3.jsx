@@ -7,31 +7,47 @@ import BtnGetCode from "../../../common/BtnText/BtnGetCode";
 import StageName from "../../../common/StageName";
 import CustomInput from "../../../partials/authorize/CustomInput";
 import BtnNumberStep from "../../../common/BtnText/BtnNumberStep";
+import { postData } from "../../../../core/services/api/post-data/postData";
+import { htttp } from "../../../../core/services/interceptor";
 
 const Steps3 = () => {
-  const onSubmit = (event) => {
-    console.log(event);
+  const onSubmit = async (values) => {
+    // alert("")
+    console.log(typeof values.phoneNumber)
+    let password = values.password
+    let gmail = values.gmail
+    let phoneNumber = values.phoneNumber
+    console.log(values);
+    // let requestData = {
+    //   "password": "masih1382",
+    //   "gmail": "6536masih@gmail.com",
+    //   "phoneNumber": "09330498868",
+    // }
+    // console.log(requestData)
+    try {
+      // const ApiCall = await postData("/Sign/Register", requestData);
+      let ApiCall = await htttp.post("/Sign/Register", {gmail, password, phoneNumber});
+      // console.log(ApiCall)
+    } catch (error) {
+      console.log(error)
+    }
   };
   const validation = yup.object().shape({
-    Email: yup
+    gmail: yup
       .string()
       .email("ایمیل نامعتبر است")
       .required("وارد کردن ایمیل الزامی است"),
     password: yup
       .string()
-      .min(8, "رمز عبور باید حداقل 8 کاراکتر باشد")
-      .matches(/[A-Z]/, "رمز عبور باید حداقل یک حرف بزرگ داشته باشد")
-      .matches(/[a-z]/, "رمز عبور باید حداقل یک حرف کوچک داشته باشد")
+      .min(6, "رمز عبور باید حداقل 6 کاراکتر باشد")
+      // .matches(/[A-Z]/, "رمز عبور باید حداقل یک حرف بزرگ داشته باشد")
+      // .matches(/[a-z]/, "رمز عبور باید حداقل یک حرف کوچک داشته باشد")
       .matches(/\d/, "رمز عبور باید حداقل یک عدد داشته باشد")
-      .matches(
-        /[@$!%*?&]/,
-        "رمز عبور باید حداقل یک کاراکتر خاص (@$!%*?&) داشته باشد"
-      )
       .required("وارد کردن رمز عبور الزامی است"),
-    ConfirmPassword: yup
+    phoneNumber: yup
       .string()
-      .oneOf([yup.ref("password"), null], "رمز عبور مطابقت ندارد")
-      .required("تایید رمز عبور الزامی است"),
+      .matches(/^(\+98|0)?9\d{9}$/, "شماره تلفن معتبر نیست")
+      .required("شماره تلفن الزامی است"),
   });
   return (
     <LoginBg>
@@ -39,13 +55,13 @@ const Steps3 = () => {
         <div className="w-[377px] bg-[#fcfcfc] rounded-[15px] flex flex-col gap-3.5 justify-center items-center">
           <StageName stageName={"ایجاد حساب کاربری"} />
           <Formik
-            initialValues={{ Email: "", password: "", ConfirmPassword: "" }}
-            onSubmit={(event) => onSubmit(event)}
+            initialValues={{ gmail: "", password: "", phoneNumber: "" }}
+            onSubmit={onSubmit}
             validationSchema={validation}
           >
             <Form className="w-[262px] flex flex-col items-center gap-3">
               <CustomInput
-                name={"Email"}
+                name={"gmail"}
                 placeholder={"ایمیل"}
                 type={"email"}
               />
@@ -55,9 +71,9 @@ const Steps3 = () => {
                 type={"password"}
               />
               <CustomInput
-                name={"ConfirmPassword"}
-                placeholder={"تایید رمز عبور"}
-                type={"password"}
+                name={"phoneNumber"}
+                placeholder={"شماره همراه"}
+                type={"text"}
               />
               <div className="w-[94px] h-[12px] font-normal text-xs font-b-yekan">
                 مرا به خاطر بسپار

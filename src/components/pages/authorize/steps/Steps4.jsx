@@ -11,28 +11,36 @@ import BtnNumberStep from "../../../common/BtnText/BtnNumberStep";
 import { postData } from "../../../../core/services";
 
 const Steps4 = () => {
-  const onSubmit = async (event) => {
-    // console.log(event);
-    const data = await postData("/Sign/Login", event)
-    console.log(data)
+  const handleSendInformation = async (values) => {
+    try {
+      const ApiCall = await postData("/Sign/Login", {
+        EmailOrMobile: values.EmailOrMobile,
+        password: values.password,
+      });
+      console.log(ApiCall);
+    } catch (error) {
+      console.log(error);
+    }
   };
   const validation = yup.object().shape({
-    EmailOrMobile:yup.string()
-    .test("emailOrPhone", "ایمیل یا شماره تلفن نامعتبر است", (value) => {
-      if (!value) return false;
-  
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (emailRegex.test(value)) return true;
-  
-      const phoneRegex = /^09[0-9]{9}$/;
-      if (phoneRegex.test(value)) return true;
-  
-      return false;
-    })
-    .required("وارد کردن ایمیل یا شماره تلفن الزامی است"),
-    password: yup.string()
-    .min(8, "رمز عبور باید حداقل ۸ کاراکتر باشد")
-    .required("وارد کردن رمز عبور الزامی است")
+    EmailOrMobile: yup
+      .string()
+      .test("emailOrPhone", "ایمیل یا شماره تلفن نامعتبر است", (value) => {
+        if (!value) return false;
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (emailRegex.test(value)) return true;
+
+        const phoneRegex = /^09[0-9]{9}$/;
+        if (phoneRegex.test(value)) return true;
+
+        return false;
+      })
+      .required("وارد کردن ایمیل یا شماره تلفن الزامی است"),
+    password: yup
+      .string()
+      .min(6, "رمز عبور باید حداقل 8 کاراکتر باشد")
+      .required("وارد کردن رمز عبور الزامی است"),
   });
   return (
     <LoginBg>
@@ -41,7 +49,7 @@ const Steps4 = () => {
           <StageName stageName={"ورود حساب کاربری"} />
           <Formik
             initialValues={{ EmailOrMobile: "", password: "" }}
-            onSubmit={onSubmit}
+            onSubmit={handleSendInformation}
             validationSchema={validation}
           >
             <Form className="flex flex-col items-center justify-center gap-[15px]">

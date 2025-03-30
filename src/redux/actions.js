@@ -6,4 +6,6 @@ export const {
   addDataTheQueryParams,
   addFirstFilterData,
   changeQueryFlag,
+  changeSortText,
+  changePageCounter
 } = slices.actions;

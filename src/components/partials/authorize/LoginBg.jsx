@@ -19,13 +19,13 @@ const LoginBg = ({ children }) => {
       <div className="w-[952px] h-[631px] flex justify-between z-[1]">
         <div className="mt-[105px]">
           <button
-            className="w-[69px] h-[34px] text-[#006865] font-bold text-2xl font-[BYekan]"
+            className="w-[69px] h-[34px] text-[#006865] font-bold text-2xl font-b-yekan"
             onClick={() => handleClick("register")}
           >
             ثبت نام
           </button>
           <button
-            className="w-[41px] h-[34px] text-[#006865] font-bold text-2xl mx-auto mt-[51px] font-[BYekan]"
+            className="w-[41px] h-[34px] text-[#006865] font-bold text-2xl mx-auto mt-[51px] font-b-yekan"
             onClick={() => handleClick("login")}
           >
             ورود

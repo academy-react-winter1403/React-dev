@@ -14,26 +14,42 @@ import { CardLoading, CardWrapper } from "../../partials";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import { useSearchParams } from "react-router-dom";
-import { addDataTheQueryParams, changeQueryFlag, firstAddProduct } from "../../../redux/actions";
+import {
+  addDataTheQueryParams,
+  changeQueryFlag,
+  changeSortText,
+  firstAddProduct,
+} from "../../../redux/actions";
 import { getData } from "../../../core/services/api/get-data/getData";
 import { htttp } from "../../../core/services/interceptor";
 import { Select, SelectItem } from "@heroui/react";
 import SelectView from "./SelectView";
 import { setItemLocalStorage } from "../../../core/hooks/local-storage/setItemLocalstorage";
 import { getItemLocalStorage } from "../../../core/hooks/local-storage/getItemLocalStorage";
-import { localItemValidation, localItemValueValidation } from "../../../core/hooks/local-storage/localStorageValidation";
+import {
+  localItemValidation,
+  localItemValueValidation,
+} from "../../../core/hooks/local-storage/localStorageValidation";
 import { deleteItemLocalStorage } from "../../../core/hooks/local-storage/deleteItemLocalStorage";
-import { localStorageDeleteOneItem, locStorageUpdateItem } from "../../../core/hooks/local-storage/updateItem";
+import {
+  localStorageDeleteOneItem,
+  locStorageUpdateItem,
+} from "../../../core/hooks/local-storage/updateItem";
 import { courseFilter } from "../../../core/utility/courseFilter";
+import SortItem from "./sorting-comp/SortItem";
+import { deleteSearchParamsItem } from "../../../core/utility/deleteSearchParams";
+import { deleteAllItemLocalStorage } from "../../../core/hooks/local-storage/deleteAllItem";
 // import { setSearchParams } from "../../../core/hooks/indexHooks";
 
 const BottomSection = ({ children, pageCount }) => {
-  const { productState } = useSelector((state) => state);
+  const { productState, coursesData } = useSelector((state) => state);
   const [filterBoxFlag, setFilterBoxFlag] = useState(false);
   const [windowWidthNum, setWindowWidthNum] = useState(window.innerWidth);
   const [pageViewNum, setPageViewNum] = useState(3);
+  // const { pageCount, sourtText } = coursesData
 
-  // console.log(pageCount)
+  const pageCounter = coursesData.pageCount;
+  const sortText = coursesData.sortText;
 
   // select filter option
   const { filterData } = useSelector((state) => state);
@@ -70,61 +86,84 @@ const BottomSection = ({ children, pageCount }) => {
     setFilterBoxFlag(false);
   };
 
+  const removeFilterClickHandler = async () => {
+    deleteAllItemLocalStorage(["technologi", "courseLevelId", "CourseTypeId", "searchValue", "sortText"])
+    deleteSearchParamsItem(
+      [
+        "SortingCol",
+        "Query",
+        "TechCount",
+        "ListTech",
+        "courseLevelId",
+        "CourseTypeId",
+      ],
+      setSearchParams
+    );
+
+    dispatch(firstAddProduct(null));
+    const data = await htttp.get(
+      "/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=6"
+    );
+    dispatch(firstAddProduct(data.data.courseFilterDtos));
+    
+  };
+
   const setFilterHandler = () => {
     setFilterBoxFlag(false);
   };
 
   const filterHandler = async (productId, flag, filterName) => {
-    changeQueryFlag(true)
+    changeQueryFlag(true);
     if (filterName === "تکنولوژی") {
       if (productId && !flag) {
-
-        let validation = localItemValidation("technologi")
+        let validation = localItemValidation("technologi");
         if (!validation) {
-          setItemLocalStorage("technologi", [productId])
+          setItemLocalStorage("technologi", [productId]);
         }
-        locStorageUpdateItem("technologi", productId)
-      }else{
-        localStorageDeleteOneItem("technologi", productId)
+        locStorageUpdateItem("technologi", productId);
+      } else {
+        localStorageDeleteOneItem("technologi", productId);
       }
     }
     if (filterName === "وضعیت") {
       if (productId && !flag) {
-
-        let validation = localItemValidation("CourseTypeId")
+        let validation = localItemValidation("CourseTypeId");
         if (!validation) {
-          setItemLocalStorage("CourseTypeId", [productId])
+          setItemLocalStorage("CourseTypeId", [productId]);
         }
-        locStorageUpdateItem("CourseTypeId", productId)
-      }else {
-        localStorageDeleteOneItem("CourseTypeId", productId)
+        locStorageUpdateItem("CourseTypeId", productId);
+      } else {
+        localStorageDeleteOneItem("CourseTypeId", productId);
       }
     }
     if (filterName === "سطح") {
       if (productId && !flag) {
-        let validation = localItemValidation("courseLevelId")
+        let validation = localItemValidation("courseLevelId");
         if (!validation) {
-          setItemLocalStorage("courseLevelId", [productId])
+          setItemLocalStorage("courseLevelId", [productId]);
         }
-        locStorageUpdateItem("courseLevelId", productId)
-        
-      }else {
-        localStorageDeleteOneItem("courseLevelId", productId)
+        locStorageUpdateItem("courseLevelId", productId);
+      } else {
+        localStorageDeleteOneItem("courseLevelId", productId);
       }
     }
-  }
-  
-  
+  };
+
   const filterItemClickHnadler = (productId, flag, filterName) => {
-    console.log(productId)
-      filterHandler(productId, flag, filterName)
-      courseFilter(setSearchParams, dispatch)
+    console.log(productId);
+    filterHandler(productId, flag, filterName);
+    courseFilter(setSearchParams, dispatch);
   };
 
   const viewClickHandler = (value) => {
-    // console.log(value);
     setPageViewNum(value);
-    console.log(pageViewNum)
+    console.log(pageViewNum);
+  };
+
+  const sortClickHandler = (text) => {
+    localStorage.setItem("sortText", text);
+    dispatch(changeSortText(text));
+    courseFilter(setSearchParams);
   };
 
   return (
@@ -142,7 +181,10 @@ const BottomSection = ({ children, pageCount }) => {
           className="filter-box-control justify-center p-2 bg-[#FFFFFF]
           drop-shadow-[0_1px_2px_#0000004D] rounded-[10px]"
         >
-          <FilterLabel closeBtnClick={closeBtnClickHandler} />
+          <FilterLabel
+            closeBtnClick={closeBtnClickHandler}
+            removeFilterClick={removeFilterClickHandler}
+          />
           <div
             className="filter-box-control mt-[5px] max-lg:max-h-[522px]
             overflow-x-hidden flex flex-col gap-y-[5px]"
@@ -167,7 +209,9 @@ const BottomSection = ({ children, pageCount }) => {
                           id={filName}
                           itemId={sort.id}
                           filterName={filName}
-                          filterItemClick={(id, flag) => filterItemClickHnadler(id, flag, item.filterTitle)}
+                          filterItemClick={(id, flag) =>
+                            filterItemClickHnadler(id, flag, item.filterTitle)
+                          }
                         >
                           {item.sortText === "امتیاز" && sort.text}
                         </FilterOption>
@@ -191,16 +235,14 @@ const BottomSection = ({ children, pageCount }) => {
       </div>
       <div className="main w-[90%] max-lg:w-full">
         <div className="sort-viw-btn-control flex max-lg:flex-col max-lg:items-center max-lg:gap-y-[29px] justify-between">
-          <SortingWrapper>
+          <SortingWrapper title={sortText}>
             {sortFilterData.map((item, index) => {
               return (
-                <p
+                <SortItem
+                  item={item}
                   key={index}
-                  className="py-[5px] px-[7px] border border-[#cccccc]
-                    rounded-[5px] mt-[12px] cursor-pointer transition-colors hover:bg-[#005B58] hover:text-white"
-                >
-                  {item}
-                </p>
+                  sortClick={() => sortClickHandler(item)}
+                />
               );
             })}
           </SortingWrapper>
@@ -241,7 +283,7 @@ const BottomSection = ({ children, pageCount }) => {
                 return <CardWrapper timeFlag={true} data={item} key={index} />;
               })
             : productMockData.map((item, index) => {
-                return <CardLoading key={index}/>;
+                return <CardLoading key={index} />;
               })}
         </div>
         {children}

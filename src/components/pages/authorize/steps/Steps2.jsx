@@ -23,10 +23,6 @@ const Steps2 = () => {
             </div>
           </div>
           <LoginPassword />
-          <div className="flex flex-col gap-[10px] justify-center items-center">
-            <BtnGetCode text={"ایجاد حساب"} />
-            <BtnTwoAuthorize text={"ارسال دوباره کد"} />
-          </div>
         </div>
         <div className="size-20 mt-[165px] rounded-xl flex justify-center items-center bg-[#d7caa8] left-[-75px] absolute z-10 rotate-45">
           <BtnNumberStep number={2} />
