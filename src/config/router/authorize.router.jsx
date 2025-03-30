@@ -1,10 +1,23 @@
-import { createBrowserRouter } from "react-router-dom";
-import { commonRouter } from "./common.router";
+// import { createBrowserRouter } from "react-router-dom";
+// import LoginLayout from "../../components/layouts/LoginLayout";
+// import {
+//   Steps1,
+//   Steps2,
+//   Steps3,
+//   Steps4,
+//   Steps5,
+// } from "../../components/pages/authorize/steps";
+// import RegisterLayout from './../../components/layouts/RegisterLayout';
+import Steps1 from "../../components/pages/authorize/steps/Steps1";
+import Steps2 from "../../components/pages/authorize/steps/Steps2";
+import Steps3 from "../../components/pages/authorize/steps/Steps3";
+import Steps4 from "../../components/pages/authorize/steps/Steps4";
+import Steps5 from "../../components/pages/authorize/steps/Steps5";
 
-export const authorizeRouter = createBrowserRouter([
-    ...commonRouter,
-    {
-        path: "/login",
-        // element: <
-    }
-])
+export const authorizeRouterArray = [
+  { path: "/Register/step1", element: <Steps1 /> },
+  { path: "/Register/step2", element: <Steps2 /> },
+  { path: "/Register/step3", element: <Steps3 /> },
+  { path: "/Register/step4", element: <Steps4 /> },
+  { path: "/Register/step5", element: <Steps5 /> },
+];

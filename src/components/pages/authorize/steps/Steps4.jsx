@@ -1,23 +1,33 @@
-import React from "react";
+// import React, { useState } from "react";
 import LoginBg from "./../../../partials/authorize/LoginBg";
 import GoToOrgPage from "../../../common/BtnText/GoToOrgPage";
 import BtnGetCode from "../../../common/BtnText/BtnGetCode";
-import { Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import BtnTwoAuthorize from "../../../common/BtnText/BtnTwoAuthorize";
 import StageName from "../../../common/StageName";
 import CustomInput from "../../../partials/authorize/CustomInput";
 import * as yup from "yup";
 import BtnNumberStep from "../../../common/BtnText/BtnNumberStep";
 import { postData } from "../../../../core/services/api/post-data/postData";
+// import { setItemLocalStorage } from "../../../../core/hooks/local-storage/setItemLocalstorage";
+import { useNavigate } from "react-router-dom";
 
 const Steps4 = () => {
+  // const [rememberMe, setRememberMe] = useState(false)
+  const navigate = useNavigate();
   const handleSendInformation = async (values) => {
+    // if (!values.target.value) {
+    //   setRememberMe(true)
+    //   console.log("ذخیره شد");
+    // }
     try {
       const ApiCall = await postData("/Sign/Login", {
         EmailOrMobile: values.EmailOrMobile,
         password: values.password,
+        // rememberMe
       });
-      console.log(ApiCall);
+      console.log(ApiCall.data);
+      // setItemLocalStorage(ApiCall.data.token);
     } catch (error) {
       console.log(error);
     }
@@ -42,6 +52,9 @@ const Steps4 = () => {
       .min(6, "رمز عبور باید حداقل 8 کاراکتر باشد")
       .required("وارد کردن رمز عبور الزامی است"),
   });
+  const RegisterPage = () => {
+    navigate("/Register/step1");
+  };
   return (
     <LoginBg>
       <div className="h-[350px] flex relative">
@@ -64,8 +77,14 @@ const Steps4 = () => {
                 type={"password"}
               />
               <div className="w-[266px] h-[17px] flex items-center justify-between">
-                <div className="w-[70px] h-[15px] font-normal text-[11px] text-[#aaa] font-b-yekan">
-                  مرا به خاطر بسپار
+                <div className="flex w-[94px] h-[12px] justify-center items-center">
+                  <Field type="checkbox" name="rememberMe" id="rememberMe" />
+                  <label
+                    className="font-normal text-xs font-b-yekan text-gray-400"
+                    htmlFor="rememberMe"
+                  >
+                    مرا به خاطر بسپار
+                  </label>
                 </div>
                 <button className="w-[71px] h-[17px] font-normal text-[11px] text-[#E48900] font-b-yekan">
                   فراموشی رمز عبور
@@ -73,7 +92,7 @@ const Steps4 = () => {
               </div>
               <div className="flex flex-col gap-[10px] justify-center items-center">
                 <BtnGetCode text={"دریافت کد تایید"} />
-                <BtnTwoAuthorize text={"ورود"} />
+                <BtnTwoAuthorize text={"ثبت نام"} onClick={RegisterPage} />
               </div>
             </Form>
           </Formik>

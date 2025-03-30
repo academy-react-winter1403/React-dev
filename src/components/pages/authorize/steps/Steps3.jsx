@@ -1,6 +1,6 @@
 import React from "react";
 import LoginBg from "../../../partials/authorize/LoginBg";
-import { Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import * as yup from "yup";
 import GoToPrevPage from "../../../common/BtnText/GoToPrevPage";
 import BtnGetCode from "../../../common/BtnText/BtnGetCode";
@@ -8,18 +8,22 @@ import StageName from "../../../common/StageName";
 import CustomInput from "../../../partials/authorize/CustomInput";
 import BtnNumberStep from "../../../common/BtnText/BtnNumberStep";
 import { postData } from "../../../../core/services/api/post-data/postData";
+import { getItemLocalStorage } from "../../../../core/hooks/local-storage/getItemLocalStorage";
+// import { setItemLocalStorage } from "../../../../core/hooks/local-storage/setItemLocalstorage";
 
 const Steps3 = () => {
   const onSubmit = async (values) => {
+    const phoneNumber = getItemLocalStorage("phoneNumber");
     console.log(values);
-    const requestData = {
-      password:values.password,
-      gmail: values.gmail,
-      phoneNumber: values.phoneNumber,
-    }
     try {
-      const ApiCall = await postData("/Sign/Register", requestData);
+      const ApiCall = await postData("/Sign/Register", {
+        password: values.password,
+        gmail: values.gmail,
+        phoneNumber,
+      });
       console.log(ApiCall);
+      // setItemLocalStorage("password",values.password)
+      // setItemLocalStorage("gmail",values.gmail)
     } catch (error) {
       console.log(error.response ? error.response.data : error.message);
     }
@@ -36,10 +40,14 @@ const Steps3 = () => {
       .matches(/[a-z]/, "رمز عبور باید حداقل یک حرف کوچک داشته باشد")
       .matches(/\d/, "رمز عبور باید حداقل یک عدد داشته باشد")
       .required("وارد کردن رمز عبور الزامی است"),
-    phoneNumber: yup
+    confirmPassword: yup
       .string()
-      .matches(/^(\+98|0)?9\d{9}$/, "شماره تلفن معتبر نیست")
-      .required("شماره تلفن الزامی است"),
+      .oneOf([yup.ref("password"), null], "رمز عبور مطابقت ندارد")
+      .required("تأیید رمز عبور الزامی است"),
+      // phoneNumber: yup
+      //   .string()
+      //   .matches(/^(\+98|0)?9\d{9}$/, "شماره تلفن معتبر نیست")
+      //   .required("شماره تلفن الزامی است"),
   });
   return (
     <LoginBg>
@@ -47,7 +55,7 @@ const Steps3 = () => {
         <div className="w-[377px] bg-[#fcfcfc] rounded-[15px] flex flex-col gap-3.5 justify-center items-center">
           <StageName stageName={"ایجاد حساب کاربری"} />
           <Formik
-            initialValues={{ gmail: "", password: "", phoneNumber: "" }}
+            initialValues={{ gmail: "", password: "", confirmPassword: "" }}
             onSubmit={onSubmit}
             validationSchema={validation}
           >
@@ -63,12 +71,13 @@ const Steps3 = () => {
                 type={"password"}
               />
               <CustomInput
-                name={"phoneNumber"}
-                placeholder={"شماره همراه"}
+                name={"confirmPassword"}
+                placeholder={"تایید رمز عبور"}
                 type={"text"}
               />
-              <div className="w-[94px] h-[12px] font-normal text-xs font-b-yekan">
-                مرا به خاطر بسپار
+              <div className="flex w-[94px] h-[12px] ">
+                <Field type="checkbox" name="rememberMe" id="rememberMe"/>
+                <label className="font-normal text-xs font-b-yekan text-gray-400" htmlFor="rememberMe">مرا به خاطر بسپار</label>
               </div>
               <BtnGetCode text={"ورود به حساب کاربری"} />
             </Form>
