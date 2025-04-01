@@ -1,8 +1,21 @@
 import React from "react";
 import { IoBookmarkOutline, IoPersonOutline, IoEyeOutline } from "react-icons/io5";
 import { FiCalendar } from "react-icons/fi";
+import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 const ArticleTitle = () => {
+  const state = useSelector(state => state.articleAndNewDetailData)
+
+  if (state) {
+    var commentDtos = state.commentDtos
+    var detailsNewsDto = state.detailsNewsDto
+    var {title} = detailsNewsDto
+  }
+
+  console.log("commentDtos ==>", commentDtos)
+  console.log("detailsNewsDto ==>", title)
+
   return (
     <div
       className="w-[95%] md:h-[150px] xs:h-[100px] rounded-tl-[10px] rounded-tr-[50px] rounded-br-[10px] rounded-bl-[10px]
@@ -12,7 +25,8 @@ const ArticleTitle = () => {
       <div className="w-[90%] h-1/2 flex flex-row flex-nowrap items-center justify-start gap-2">
         <div className="bg-[#01CEC9] rounded-full md:h-[10px] md:w-[10px] h-[6px] w-[6px]  items-start mt-1"></div>
         <p className="font-bold text-[14px] md:text-[18px] lg:text-[22px]  items-start text-[#005351] lg:whitespace-nowrap">
-        ری اکت چیست و چه کاربرد هایی دارد؟ + ۵ دلیل استفاده از ری اکت
+        {/* ری اکت چیست و چه کاربرد هایی دارد؟ + ۵ دلیل استفاده از ری اکت */}
+        {title}
         </p>
       </div>
       {/* options */}

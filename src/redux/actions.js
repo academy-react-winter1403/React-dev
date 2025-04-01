@@ -8,5 +8,6 @@ export const {
   changeQueryFlag,
   changeSortText,
   changePageCounter,
-  changeAddDataFlag
+  changeAddDataFlag,
+  addArticleAndNewsDetailData
 } = slices.actions;

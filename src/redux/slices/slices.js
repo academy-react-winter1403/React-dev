@@ -5,6 +5,7 @@ const slices = createSlice({
 
   initialState: {
     productState: null,
+    articleAndNewDetailData: false,
     darkModKey: false,
     queryParams: null,
     filterData: [
@@ -38,7 +39,9 @@ const slices = createSlice({
     firstAddProduct: (state, action) => {
       state.productState = action.payload;
     },
-
+    addArticleAndNewsDetailData: (state, action) => {
+      state.articleAndNewDetailData = action.payload
+    },
     changeDarkModKey: (state, action) => {
       state.darkModKey = action.payload;
     },
