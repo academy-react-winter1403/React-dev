@@ -1,16 +1,15 @@
 import { getItemLocalStorage } from "../hooks/local-storage/getItemLocalStorage";
 import { htttp } from "../services/interceptor";
-import { firstAddProduct } from "../../redux/actions";
+import { changeAddDataFlag, firstAddProduct } from "../../redux/actions";
 
-export const courseFilter = (searchParams, dispatch) => {
+export const courseFilter = (searchParams, dispatch, useSelector) => {
   const technologi = getItemLocalStorage("technologi");
   const courseLevelId = getItemLocalStorage("courseLevelId");
   const courseTypeId = getItemLocalStorage("CourseTypeId");
   const searchQuery = getItemLocalStorage("searchValue");
-
   const sortValue = localStorage.getItem("sortText");
 
-  console.log(searchQuery);
+  dispatch(changeAddDataFlag(true))
 
   const handler = async (params) => {
     if (technologi) {
@@ -40,7 +39,7 @@ export const courseFilter = (searchParams, dispatch) => {
 
     dispatch(firstAddProduct(null))
     const data = await htttp.get(
-        `/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=6&
+        `/Home/GetCoursesWithPagination?PageNumber=${1}&RowsOfPage=6&
         ${sortValue ? `&SortingCol=${params.get("SortingCol")}` : ''}&
         ${searchQuery && searchQuery !== null ? `&Query=${searchQuery}` : ''}&
         ${technologi && technologi.length !== 0 ? `ListTech=${technologi}` : ''}&

@@ -1,7 +1,9 @@
-import { CourseDetailWorapper } from "../../components/pages/course-detail"
+import CourseDetail from "../../components/pages/course-detail/CourseDetail"
 
 export const LastCourseDetailWrapper = () => {
     return (
-        <div></div>
+        <>
+            <CourseDetail/>
+        </>
     )
 }

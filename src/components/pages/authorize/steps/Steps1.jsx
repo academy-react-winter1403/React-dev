@@ -12,17 +12,28 @@ import { postData } from "../../../../core/services/api/post-data/postData";
 import { htttp } from "../../../../core/services/interceptor";
 import axios from "axios";
 import { setItemLocalStorage } from './../../../../core/hooks/local-storage/setItemLocalstorage';
+// import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Steps1 = () => {
+  const navigate = useNavigate()
   const onSubmit = async (values) => {
     console.log(values);
     try {
-      const ApiCall = await postData(
-        "/Sign/SendVerifyMessage",
-        { phoneNumber:values.phoneNumber }
-      );
-      setItemLocalStorage('phoneNumber',values.phoneNumber)
-      console.log(ApiCall.data);
+      const ApiCall = await postData("/Sign/SendVerifyMessage", {
+        phoneNumber: values.phoneNumber,
+      });
+      setItemLocalStorage("phoneNumber", values.phoneNumber);
+      
+      console.log(ApiCall.data.success);
+      console.log(ApiCall.data.message);
+      if (ApiCall.data.success == true && ApiCall.data.message == "لطفا  کد تایید را وارد نمایید") {
+        navigate("/Register/step2")
+      }
+      else if (ApiCall.data.success == true && ApiCall.data.message == "درخواست نامعتبر") {
+        alert("شما قبلا ثبت نام کرده ایید")
+        navigate("/Register/step4")
+      }
     } catch (error) {
       console.log(error.response ? error.response.data : error.message);
     }
@@ -33,6 +44,10 @@ const Steps1 = () => {
       .matches(/^(\+98|0)?9\d{9}$/, "شماره تلفن معتبر نیست")
       .required("شماره تلفن الزامی است"),
   });
+  const LoginPage = () =>{
+    navigate("/Register/step4")
+  }
+
   return (
     <LoginBg>
       <div className="h-[400px] flex relative">
@@ -51,7 +66,7 @@ const Steps1 = () => {
               />
               <div className="flex flex-col gap-[10px] justify-center items-center">
                 <BtnGetCode text={"دریافت کد تایید"} />
-                <BtnTwoAuthorize text={"ورود"} />
+                <BtnTwoAuthorize text={"ورود"} onClick={LoginPage} />
               </div>
             </Form>
           </Formik>

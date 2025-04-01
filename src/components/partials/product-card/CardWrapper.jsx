@@ -5,12 +5,12 @@ import TeacherSection from './teacherSection'
 import ScoreSection from './ScoreSection'
 import PriceSection from './PriceSection'
 
-const CardWrapper = ({data, timeFlag}) => {
+const CardWrapper = ({data, timeFlag, cardClick}) => {
 
   const { title, teacherName, levelName, tumbImageAddress, cost, likeCount, courseId } = data
 
   const imageClickHandler = (productId) => {
-    alert(productId)
+    cardClick(productId)
   }
 
   return (

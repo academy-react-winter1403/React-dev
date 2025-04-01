@@ -10,12 +10,13 @@ import FilterLabel from "./FilterLabel";
 import StarIcon from "../../../core/icons/courses/StarIcon";
 import { GridIcon, MenuIcon } from "../../../core/icons/icons";
 import SortingWrapper from "./sorting-comp/SortingWrapper";
-import { CardLoading, CardWrapper } from "../../partials";
+import { CardLoading, CardWrapper, PaginationData } from "../../partials";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   addDataTheQueryParams,
+  changePageCounter,
   changeQueryFlag,
   changeSortText,
   firstAddProduct,
@@ -39,13 +40,16 @@ import { courseFilter } from "../../../core/utility/courseFilter";
 import SortItem from "./sorting-comp/SortItem";
 import { deleteSearchParamsItem } from "../../../core/utility/deleteSearchParams";
 import { deleteAllItemLocalStorage } from "../../../core/hooks/local-storage/deleteAllItem";
+import { getDataByClick } from "../../../core/services";
 // import { setSearchParams } from "../../../core/hooks/indexHooks";
 
-const BottomSection = ({ children, pageCount }) => {
+const BottomSection = ({ children }) => {
   const { productState, coursesData } = useSelector((state) => state);
   const [filterBoxFlag, setFilterBoxFlag] = useState(false);
   const [windowWidthNum, setWindowWidthNum] = useState(window.innerWidth);
   const [pageViewNum, setPageViewNum] = useState(3);
+
+  const navigate = useNavigate()
   // const { pageCount, sourtText } = coursesData
 
   const pageCounter = coursesData.pageCount;
@@ -87,7 +91,13 @@ const BottomSection = ({ children, pageCount }) => {
   };
 
   const removeFilterClickHandler = async () => {
-    deleteAllItemLocalStorage(["technologi", "courseLevelId", "CourseTypeId", "searchValue", "sortText"])
+    deleteAllItemLocalStorage([
+      "technologi",
+      "courseLevelId",
+      "CourseTypeId",
+      "searchValue",
+      "sortText",
+    ]);
     deleteSearchParamsItem(
       [
         "SortingCol",
@@ -105,7 +115,6 @@ const BottomSection = ({ children, pageCount }) => {
       "/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=6"
     );
     dispatch(firstAddProduct(data.data.courseFilterDtos));
-    
   };
 
   const setFilterHandler = () => {
@@ -152,7 +161,7 @@ const BottomSection = ({ children, pageCount }) => {
   const filterItemClickHnadler = (productId, flag, filterName) => {
     console.log(productId);
     filterHandler(productId, flag, filterName);
-    courseFilter(setSearchParams, dispatch);
+    courseFilter(setSearchParams, dispatch, useSelector);
   };
 
   const viewClickHandler = (value) => {
@@ -163,8 +172,12 @@ const BottomSection = ({ children, pageCount }) => {
   const sortClickHandler = (text) => {
     localStorage.setItem("sortText", text);
     dispatch(changeSortText(text));
-    courseFilter(setSearchParams);
+    courseFilter(setSearchParams, useSelector);
   };
+
+  const cardClickHandler = (productId) => {
+    navigate(`/detail/${productId}`)
+  }
 
   return (
     <div className="bottom-section-container w-full mt-[35px] flex justify-center gap-x-[28px] items-start">
@@ -190,7 +203,7 @@ const BottomSection = ({ children, pageCount }) => {
             overflow-x-hidden flex flex-col gap-y-[5px]"
           >
             {filterData.map((item, index) => {
-              // console.log(item)
+              console.log(item);
               return (
                 <FilteredBox filterText={item.filterTitle} key={index}>
                   {item.filterChildren?.map((sort, index) => {
@@ -235,7 +248,7 @@ const BottomSection = ({ children, pageCount }) => {
       </div>
       <div className="main w-[90%] max-lg:w-full">
         <div className="sort-viw-btn-control flex max-lg:flex-col max-lg:items-center max-lg:gap-y-[29px] justify-between">
-          <SortingWrapper title={sortText}>
+          <SortingWrapper title={sortText} innerWidth={windowWidthNum}>
             {sortFilterData.map((item, index) => {
               return (
                 <SortItem
@@ -246,11 +259,11 @@ const BottomSection = ({ children, pageCount }) => {
               );
             })}
           </SortingWrapper>
-          <div className="btn-control min-lg:w-[50%] flex max-lg:gap-x-[49px] max-sm:w-full max-sm:justify-center">
+          <div className="btn-control min-lg:w-[50%] flex min-lg:gap-x-[49px] max-lg:w-full max-lg:justify-center">
             <button
-              className="hidden max-lg:block w-[138px] max-lg:w-[180px] text-[23px] bg-[#FFB800] text-white
+              className="hidden max-lg:block w-[138px] text-[23px] bg-[#FFB800] text-white
               rounded-[10px] cursor-pointer transition-colors hover:bg-[#ff8400] drop-shadow-[0_1px_2px_#0000004D]
-              max-sm:py-[5px] max-sm:w-[332px]"
+              max-lg:py-[5px] max-lg:w-[332px]"
               onClick={openFilterBox}
             >
               {" "}
@@ -260,8 +273,10 @@ const BottomSection = ({ children, pageCount }) => {
               <div className="select-view-control max-lg:hidden">
                 <SelectView viewClick={viewClickHandler} />
               </div>
-              <MenuIcon click={viwGotoRowClickHandler} />
-              <GridIcon click={viwGotoColomClickHandler} />
+              <div className="flex gap-x-[15px] max-lg:hidden">
+                <MenuIcon click={viwGotoRowClickHandler} />
+                <GridIcon click={viwGotoColomClickHandler} />
+              </div>
             </div>
           </div>
         </div>
@@ -275,12 +290,12 @@ const BottomSection = ({ children, pageCount }) => {
             // `transition-colors product-card-container grid grid-cols-${pageViewNum} grid-rows-1 max-xl:grid-cols-2
             //     max-sm:grid-cols-1 mt-[54px] gap-x-[23px] gap-y-[50px]`
           }
-          // style={{gridColumn: "3"}}
+          // style={{gridColumn: "3 / 1"}}
         >
           {productState
             ? productState.map((item, index) => {
                 // console.log(item);
-                return <CardWrapper timeFlag={true} data={item} key={index} />;
+                return <CardWrapper timeFlag={true} data={item} key={index} cardClick={cardClickHandler}/>;
               })
             : productMockData.map((item, index) => {
                 return <CardLoading key={index} />;

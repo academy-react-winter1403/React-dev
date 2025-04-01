@@ -24,11 +24,13 @@ const slices = createSlice({
     flags: {
       coursesFlag: {
         queryFlag: false,
+
       },
     },
     coursesData: {
       pageCount: 1,
       sortText: " جدیدترین ها ",
+      addDataFlag: false
     },
   },
 
@@ -62,6 +64,9 @@ const slices = createSlice({
     },
     changePageCounter: (state, action) => {
       state.coursesData.pageCount = action.payload
+    },
+    changeAddDataFlag: (state, action) => {
+      state.coursesData.addDataFlag = action.payload
     }
   },
 });

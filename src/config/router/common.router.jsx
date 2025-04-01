@@ -1,16 +1,29 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../../components/layouts/MainLayout";
-import { LastAuthorizeWrapper, LastCoursesWrapper, LastLandingWrapper, LastArticleDetailWrapper } from "../../screens";
-import { authorizeRoutArray } from "./authorize.router";
+import {
+  LastAuthorizeWrapper,
+  LastCoursesWrapper,
+  LastLandingWrapper,
+  LastArticleDetailWrapper,
+  LastCourseDetailWrapper,
+} from "../../screens";
+import { authorizeRouterArray } from "./authorize.router";
 
-export const commonRouter = createBrowserRouter([{
+export const commonRouter = createBrowserRouter([
+  {
     path: "/",
-    element: <MainLayout/>,
+    element: <MainLayout />,
     children: [
-        {path: "/", element: <LastLandingWrapper/>},
-        {path: "/landing", element: <LastLandingWrapper/>},
-        {path: "/login", element: <LastAuthorizeWrapper/>, children: [...authorizeRoutArray]},
-        {path: "/courses", element: <LastCoursesWrapper/>},
-        {path: "/article-detail", element: <LastArticleDetailWrapper/>}
-    ]
-}])
+      { path: "/", element: <LastLandingWrapper /> },
+      {
+        path: "/Register",
+        element: <LastAuthorizeWrapper />,
+        children: [...authorizeRouterArray],
+      },
+      { path: "/landing", element: <LastLandingWrapper /> },
+      { path: "/courses", element: <LastCoursesWrapper /> },
+      { path: "/detail/:id", element: <LastCourseDetailWrapper /> },
+      { path: "/article-detail", element: <LastArticleDetailWrapper /> },
+    ],
+  },
+]);

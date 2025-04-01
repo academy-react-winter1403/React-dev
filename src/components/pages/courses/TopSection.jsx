@@ -4,7 +4,7 @@ import Input from "../../common/input/Input";
 import { motion } from "framer-motion";
 import { MotionComp } from "../../partials";
 import { htttp } from "../../../core/services/interceptor";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { firstAddProduct } from "../../../redux/actions";
 import { useSearchParams } from "react-router-dom";
 import { setItemLocalStorage } from "../../../core/hooks/local-storage/setItemLocalstorage";
@@ -17,7 +17,7 @@ const TopSection = () => {
 
   const searchHandler = (searchValue) => {
     setItemLocalStorage("searchValue", searchValue)
-    courseFilter(setSearchParams, dispatch)
+    courseFilter(setSearchParams, dispatch, useSelector)
   };
 
   return (
