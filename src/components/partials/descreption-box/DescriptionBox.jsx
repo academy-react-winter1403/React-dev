@@ -14,11 +14,11 @@ const DescriptionBox = ({ initialHeight, children }) => {
         !heightFlag
           ? `h-[${initialHeight}px] transition-[1s]`
           : `h-auto pb-[80px] transition-[1s]`
-      } relative shadow-[0_1px_2px_#00000040]
+      } relative 
         rounded-2xl p-7 overflow-hidden`}
     >
       <div
-        className={`grodient w-full h-full absolute top-0 left-0 bg-linear-to-b
+        className={`gradient w-full h-full absolute top-0 left-0 bg-linear-to-b
             from-[#FFFFFF00] to-[#FFFFFF] transition-all
             ${heightFlag ? `invisible opacity-0` : `visible opacity-100`}`
         }
