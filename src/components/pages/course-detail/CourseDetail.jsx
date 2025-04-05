@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { getData } from "../../../core/services";
+import { getCommentData, getData, getDataByClick } from "../../../core/services";
 import DetailTop from "./DetailTop";
 import DescriptionBox from "../../partials/descreption-box/DescriptionBox";
 import UserCard from "./UserCard";
@@ -10,6 +10,8 @@ import ItemCard from "./ItemCard";
 import { FrontIcon } from "../../../core/icons/icons";
 import HrComp from "../../common/HrComp";
 import teacherPic from "../../../assets/pics/detailCourse/teacher.jpg"
+import CommentBtn from "../../common/CommentBtn";
+import CommentBox from "../../partials/comment-box/CommentBox";
 
 const CourseDetail = () => {
   const { id } = useParams();
@@ -19,6 +21,12 @@ const CourseDetail = () => {
       console.log(response.data);
     }
   );
+
+  // getCommentData("courseComment", `/Course/GetCourseCommnets/${id}`).then(
+  //   (response) => {
+  //     console.log(response.data)
+  //   }
+  // )
 
   return (
     <div className="course-detail-holder w-full flex justify-center mt-4">
@@ -57,8 +65,9 @@ const CourseDetail = () => {
               </DescriptionBox>
             </div>
 
-            <div className="headlines-holder">
-
+            <div className="headlines-holder h-[300px] w-full border rounded-[10px]"></div>
+            <div className="comment-item-holder">
+              <CommentBox/>
             </div>
           </div>
           <div className="left w-[33%]">

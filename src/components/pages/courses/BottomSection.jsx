@@ -182,6 +182,8 @@ const BottomSection = ({ children }) => {
     navigate(`/course-detail/${productId}`)
   }
 
+  useEffect(() => {console.log(pageViewNum)}, [])
+
   return (
     <div className="bottom-section-container w-full mt-[35px] flex justify-center gap-x-[28px] items-start">
       <div
@@ -286,11 +288,11 @@ const BottomSection = ({ children }) => {
         <div
           className={
             viwFlag
-              ? `transition-colors product-card-container grid grid-cols-${pageViewNum} max-xl:grid-cols-2
+              ? `transition-colors product-card-container grid max-xl:grid-cols-2 grid-cols-${pageViewNum}
                 max-sm:grid-cols-1 mt-[54px] gap-x-[23px] gap-y-[50px]`
               : `transition-colors product-card-container grid grid-cols-1
                 max-sm:grid-cols-1 mt-[54px] gap-x-[23px] gap-y-[50px]`
-            // `transition-colors product-card-container grid grid-cols-${pageViewNum} grid-rows-1 max-xl:grid-cols-2
+            // `transition-colors product-card-container grid grid-cols-${cs} grid-rows-1 max-xl:grid-cols-2
             //     max-sm:grid-cols-1 mt-[54px] gap-x-[23px] gap-y-[50px]`
           }
           // style={{gridColumn: "3", gridRow:}}
