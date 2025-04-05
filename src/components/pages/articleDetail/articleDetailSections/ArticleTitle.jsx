@@ -13,8 +13,8 @@ const ArticleTitle = () => {
     var {title} = detailsNewsDto
   }
 
-  console.log("commentDtos ==>", commentDtos)
-  console.log("detailsNewsDto ==>", title)
+  // console.log("commentDtos ==>", commentDtos)
+  // console.log("detailsNewsDto ==>", title)
 
   return (
     <div

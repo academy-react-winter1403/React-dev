@@ -47,7 +47,10 @@ const BottomSection = ({ children }) => {
   const { productState, coursesData } = useSelector((state) => state);
   const [filterBoxFlag, setFilterBoxFlag] = useState(false);
   const [windowWidthNum, setWindowWidthNum] = useState(window.innerWidth);
-  const [pageViewNum, setPageViewNum] = useState(3);
+  const [pageViewNum, setPageViewNum] = useState(3)
+  // const [pageViewNum, setPageViewNum] = useState(3);
+
+  // let pageViewNum = 3
 
   const navigate = useNavigate()
   // const { pageCount, sourtText } = coursesData
@@ -176,7 +179,7 @@ const BottomSection = ({ children }) => {
   };
 
   const cardClickHandler = (productId) => {
-    navigate(`/detail/${productId}`)
+    navigate(`/course-detail/${productId}`)
   }
 
   return (
@@ -290,7 +293,7 @@ const BottomSection = ({ children }) => {
             // `transition-colors product-card-container grid grid-cols-${pageViewNum} grid-rows-1 max-xl:grid-cols-2
             //     max-sm:grid-cols-1 mt-[54px] gap-x-[23px] gap-y-[50px]`
           }
-          // style={{gridColumn: "3 / 1"}}
+          // style={{gridColumn: "3", gridRow:}}
         >
           {productState
             ? productState.map((item, index) => {

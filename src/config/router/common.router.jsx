@@ -22,7 +22,7 @@ export const commonRouter = createBrowserRouter([
       },
       { path: "/landing", element: <LastLandingWrapper /> },
       { path: "/courses", element: <LastCoursesWrapper /> },
-      { path: "/detail/:id", element: <LastCourseDetailWrapper /> },
+      { path: "/course-detail/:id", element: <LastCourseDetailWrapper /> },
       { path: "/article-detail/:id", element: <LastArticleDetailWrapper /> },
     ],
   },

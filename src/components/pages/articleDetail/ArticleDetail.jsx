@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { addArticleAndNewsDetailData } from "../../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import DescriptionBox from "../../partials/descreption-box/DescriptionBox";
+import { htttp } from "../../../core/services/interceptor";
 // import { useSelector } from "react-redux";
 
 const ArticleDetail = () => {
@@ -26,7 +27,7 @@ const ArticleDetail = () => {
   if (state) {
     var commentDtos = state.commentDtos;
     var detailsNewsDto = state.detailsNewsDto;
-    var { googleDescribe } = detailsNewsDto;
+    var { googleDescribe, newsCatregoryId } = detailsNewsDto;
   }
 
   return (
@@ -37,7 +38,8 @@ const ArticleDetail = () => {
           <ArticleTitle />
           {/* text */}
           <div
-            className={`w-[95%]  bg-white rounded-[10px] text-[#555555] text-[18px] leading-7 flex flex-col items-center justify-start gap-3 shadow relative overflow-hidden transition-all duration-500 ${
+            className={`w-[95%]  bg-white rounded-[10px] text-[#555555] text
+              -[18px] leading-7 flex flex-col items-center justify-start gap-3 shadow relative overflow-hidden transition-all duration-500 ${
               isExpanded ? "h-auto" : "h-[755px]"
             }`}
             // className="w-[95%] h-[755px] border bg-white rounded-[10px] text-[#555555] text-[18px] leading-7 flex flex-col items-center justify-start gap-3 shadow relative overflow-hidden"
