@@ -14,7 +14,7 @@ const Courses = () => {
 
   let pageCount = 1;
 
-  getData(
+  getData("pages",
     `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`
   ).then((response) => {
     setCoursesData(response.data.courseFilterDtos);

@@ -9,7 +9,6 @@ import CustomInput from "../../../partials/authorize/CustomInput";
 import BtnNumberStep from "../../../common/BtnText/BtnNumberStep";
 import { postData } from "../../../../core/services/api/post-data/postData";
 import { getItemLocalStorage } from "../../../../core/hooks/local-storage/getItemLocalStorage";
-// import { setItemLocalStorage } from "../../../../core/hooks/local-storage/setItemLocalstorage";
 
 const Steps3 = () => {
   const onSubmit = async (values) => {
@@ -22,12 +21,11 @@ const Steps3 = () => {
         phoneNumber,
       });
       console.log(ApiCall);
-      // setItemLocalStorage("password",values.password)
-      // setItemLocalStorage("gmail",values.gmail)
     } catch (error) {
       console.log(error.response ? error.response.data : error.message);
     }
   };
+  
   const validation = yup.object().shape({
     gmail: yup
       .string()
@@ -44,10 +42,10 @@ const Steps3 = () => {
       .string()
       .oneOf([yup.ref("password"), null], "رمز عبور مطابقت ندارد")
       .required("تأیید رمز عبور الزامی است"),
-      // phoneNumber: yup
-      //   .string()
-      //   .matches(/^(\+98|0)?9\d{9}$/, "شماره تلفن معتبر نیست")
-      //   .required("شماره تلفن الزامی است"),
+    // phoneNumber: yup
+    //   .string()
+    //   .matches(/^(\+98|0)?9\d{9}$/, "شماره تلفن معتبر نیست")
+    //   .required("شماره تلفن الزامی است"),
   });
   return (
     <LoginBg>
@@ -76,8 +74,13 @@ const Steps3 = () => {
                 type={"text"}
               />
               <div className="flex w-[94px] h-[12px] ">
-                <Field type="checkbox" name="rememberMe" id="rememberMe"/>
-                <label className="font-normal text-xs font-b-yekan text-gray-400" htmlFor="rememberMe">مرا به خاطر بسپار</label>
+                <Field type="checkbox" name="rememberMe" id="rememberMe" />
+                <label
+                  className="font-normal text-xs font-b-yekan text-gray-400"
+                  htmlFor="rememberMe"
+                >
+                  مرا به خاطر بسپار
+                </label>
               </div>
               <BtnGetCode text={"ورود به حساب کاربری"} />
             </Form>

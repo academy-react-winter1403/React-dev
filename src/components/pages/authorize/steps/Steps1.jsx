@@ -10,11 +10,10 @@ import CustomInput from "../../../partials/authorize/CustomInput";
 import BtnNumberStep from "./../../../common/BtnText/BtnNumberStep";
 import { postData } from "../../../../core/services/api/post-data/postData";
 import { setItemLocalStorage } from "./../../../../core/hooks/local-storage/setItemLocalstorage";
-// import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const Steps1 = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const onSubmit = async (values) => {
     console.log(values);
     try {
@@ -22,15 +21,20 @@ const Steps1 = () => {
         phoneNumber: values.phoneNumber,
       });
       setItemLocalStorage("phoneNumber", values.phoneNumber);
-      
+
       console.log(ApiCall.data.success);
       console.log(ApiCall.data.message);
-      if (ApiCall.data.success == true && ApiCall.data.message == "لطفا  کد تایید را وارد نمایید") {
-        navigate("/Register/step2")
-      }
-      else if (ApiCall.data.success == true && ApiCall.data.message == "درخواست نامعتبر") {
-        alert("شما قبلا ثبت نام کرده ایید")
-        navigate("/Register/step4")
+      if (
+        ApiCall.data.success == true &&
+        ApiCall.data.message == "لطفا  کد تایید را وارد نمایید"
+      ) {
+        navigate("/Register/step2");
+      } else if (
+        ApiCall.data.success == true &&
+        ApiCall.data.message == "درخواست نامعتبر"
+      ) {
+        alert("شما قبلا ثبت نام کرده ایید");
+        navigate("/Register/step4");
       }
     } catch (error) {
       console.log(error.response ? error.response.data : error.message);
@@ -42,9 +46,9 @@ const Steps1 = () => {
       .matches(/^(\+98|0)?9\d{9}$/, "شماره تلفن معتبر نیست")
       .required("شماره تلفن الزامی است"),
   });
-  const LoginPage = () =>{
-    navigate("/Register/step4")
-  }
+  const LoginPage = () => {
+    navigate("/Register/step4");
+  };
 
   return (
     <LoginBg>

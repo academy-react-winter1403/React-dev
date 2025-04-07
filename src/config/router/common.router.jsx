@@ -1,14 +1,26 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../../components/layouts/MainLayout";
-import { LastAuthorizeWrapper, LastCoursesWrapper, LastLandingWrapper } from "../../screens";
+import {
+  LastAuthorizeWrapper,
+  LastCoursesWrapper,
+  LastLandingWrapper,
+} from "../../screens";
 import { authorizeRouterArray } from "./authorize.router";
+import LastArticlesAndNewsWrapper from "./../../screens/ArticlesAndNews/index";
 
-export const commonRouter = createBrowserRouter([{
+export const commonRouter = createBrowserRouter([
+  {
     path: "/",
-    element: <MainLayout/>,
+    element: <MainLayout />,
     children: [
-        {path: "/Register", element: <LastAuthorizeWrapper/>, children:[...authorizeRouterArray]},
-        {path: "/landing", element: <LastLandingWrapper/>},
-        {path: "/courses", element: <LastCoursesWrapper/>}
-    ]
-}])
+      {
+        path: "/Register",
+        element: <LastAuthorizeWrapper />,
+        children: [...authorizeRouterArray],
+      },
+      { path: "/landing", element: <LastLandingWrapper /> },
+      { path: "/courses", element: <LastCoursesWrapper /> },
+      { path: "/ArticlesAndNews", element: <LastArticlesAndNewsWrapper /> },
+    ],
+  },
+]);

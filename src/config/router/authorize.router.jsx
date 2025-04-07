@@ -1,13 +1,3 @@
-// import { createBrowserRouter } from "react-router-dom";
-// import LoginLayout from "../../components/layouts/LoginLayout";
-// import {
-//   Steps1,
-//   Steps2,
-//   Steps3,
-//   Steps4,
-//   Steps5,
-// } from "../../components/pages/authorize/steps";
-// import RegisterLayout from './../../components/layouts/RegisterLayout';
 import Steps1 from "../../components/pages/authorize/steps/Steps1";
 import Steps2 from "../../components/pages/authorize/steps/Steps2";
 import Steps3 from "../../components/pages/authorize/steps/Steps3";
