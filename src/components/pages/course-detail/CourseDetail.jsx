@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getCommentData, getData, getDataByClick } from "../../../core/services";
+import {
+  getCommentData,
+  getData,
+  getDataByClick,
+} from "../../../core/services";
 import DetailTop from "./DetailTop";
 import DescriptionBox from "../../partials/descreption-box/DescriptionBox";
 import UserCard from "./UserCard";
@@ -9,24 +13,52 @@ import CompletionCourse from "./CompletionCourse";
 import ItemCard from "./ItemCard";
 import { FrontIcon } from "../../../core/icons/icons";
 import HrComp from "../../common/HrComp";
-import teacherPic from "../../../assets/pics/detailCourse/teacher.jpg"
-import CommentBtn from "../../common/CommentBtn";
+import teacherPic from "../../../assets/pics/detailCourse/teacher.jpg";
 import CommentBox from "../../partials/comment-box/CommentBox";
+import { getCourseCommentReplay } from "../../../core/services/api/get-data/getCourseCommentReplays";
+import { htttp } from "../../../core/services/interceptor";
+import { useDispatch, useSelector } from "react-redux";
+import { addCourseDetailCommentData } from "../../../redux/actions";
+import { likeCommentPost } from "../../../core/services/api/post-data/likeCommentPost";
 
 const CourseDetail = () => {
   const { id } = useParams();
+  const [commentData, setCommentData] = useState(null);
+  const [commentFullData, setCommentFullData] = useState(null);
 
   getData("detailProduct", `/Home/GetCourseDetails?CourseId=${id}`).then(
     (response) => {
-      console.log(response.data);
+      // console.log(response.data);
     }
   );
 
-  // getCommentData("courseComment", `/Course/GetCourseCommnets/${id}`).then(
-  //   (response) => {
-  //     console.log(response.data)
-  //   }
-  // )
+
+  // get comment and comment replay data
+  getCommentData("courseComment", `/Course/GetCourseCommnets/${id}`).then(
+    (response) => {
+      setCommentData(response.data);
+      if (commentData) {
+
+        getCourseCommentReplay("/Course/GetCourseReplyCommnets/", commentData).then(
+          (response) => {
+            if (!commentFullData) {
+              setCommentFullData(response)
+            }
+            console.log(response)
+          }
+        )
+      }
+    }
+  );
+  // get comment and comment replay data
+
+  const coomentLikeBtnClickHandler = async (item) => {
+    alert("")
+  };
+
+  const commentDesLikeBtnClickHandler = (item) => {
+    alert("")
+  };
 
   return (
     <div className="course-detail-holder w-full flex justify-center mt-4">
@@ -67,7 +99,13 @@ const CourseDetail = () => {
 
             <div className="headlines-holder h-[300px] w-full border rounded-[10px]"></div>
             <div className="comment-item-holder">
-              <CommentBox/>
+              {commentData ? (
+                <CommentBox
+                  commentData={commentFullData}
+                  coomentLikeBtnClick={coomentLikeBtnClickHandler}
+                  commentDesLikeBtnClick={commentDesLikeBtnClickHandler}
+                />
+              ) : null}
             </div>
           </div>
           <div className="left w-[33%]">
@@ -83,7 +121,7 @@ const CourseDetail = () => {
               <div className="completion-course-control mt-[25px]">
                 <CompletionCourse completionNum={87} />
               </div>
-              <HrComp initialWidth={"full"} mtNum={27}/>
+              <HrComp initialWidth={"full"} mtNum={27} />
               <div className="item-card-container mt-[26px] flex flex-col gap-y-[17px]">
                 <ItemCard title={"دسته بندی"} description={"فرانت اند"}>
                   <FrontIcon />
@@ -98,16 +136,21 @@ const CourseDetail = () => {
                   <FrontIcon />
                 </ItemCard>
               </div>
-              <HrComp initialWidth={"full"} mtNum={27}/>
+              <HrComp initialWidth={"full"} mtNum={27} />
               <div className="teacher-prof-control flex flex-col items-center mt-[10px]">
-                <div className="pic-control w-[100px] h-[100px] rounded-[100px] flex justify-center items-center
+                <div
+                  className="pic-control w-[100px] h-[100px] rounded-[100px] flex justify-center items-center
                   overflow-hidden drop-shadow-[0_4px_4px_#00000040]"
                 >
-                  <img src={teacherPic} alt="" className="scale-150"/>
+                  <img src={teacherPic} alt="" className="scale-150" />
                 </div>
-                <button className="font-b-yekan border py-[6px] px-[20px] rounded-[50px] transition-colors cursor-pointer
+                <button
+                  className="font-b-yekan border py-[6px] px-[20px] rounded-[50px] transition-colors cursor-pointer
                   border-[#E48900] text-[#6B3A00] hover:bg-[#E48900] hover:text-[#ffffff] mt-[13px] text-[14px]"
-                > پروفایل مدرس دوره </button>
+                >
+                  {" "}
+                  پروفایل مدرس دوره{" "}
+                </button>
               </div>
             </div>
             <div className="bottom-section"></div>

@@ -2,39 +2,68 @@ import React from "react";
 import { BiLike } from "react-icons/bi";
 import { BiDislike } from "react-icons/bi";
 import { RiArrowGoBackFill } from "react-icons/ri";
+import ImageFedback from "../image-fedback/imageFedback";
+import CommentPic from "./CommentPic";
+import CommentProfile from "./CommentProfile";
+import CommentUserReaction from "./CommentUserReaction";
+import ReplayWrapper from "./ReplayWrapper";
 
-const CommentWrapper = () => {
+const CommentWrapper = ({
+  data,
+  coomentLikeBtnClick,
+  commentDesLikeBtnClick,
+}) => {
+  const {
+    author,
+    describe,
+    title,
+    pictureAddress,
+    likeCount,
+    disslikeCount,
+    insertDate,
+    commentReplay,
+  } = data;
+
+  console.log(data);
+
   return (
     <div
-      className="comment-card w-full h-[360px] bg-[#F9F9F9] drop-shadow-[0_1px_2px_#00000040]
+      className="comment-card w-full bg-[#F9F9F9] drop-shadow-[0_1px_2px_#00000040]
         rounded-[7px] px-6 py-3 mt-[24px]"
     >
-      <div className="top-item-control flex justify-between items-center">
-        <div className="rigth">
-          <div className="text-control">
-            <h2>
-              ali@gmail.com
-              <span> | کاربر </span>
-            </h2>
-            <span> ۱۴۰۳/۰۱/۲۵ </span>
-          </div>
-          <div className="pic-control"></div>
-        </div>
-        <div className="left flex items-center justify-center gap-x-[15px]">
-          <div className="deslike-control flex items-center gap-x-[10px]">
-            <span className="font-b-yekan text-[#888888]"> 6 </span>
-            <BiDislike size={22} className="text-[#D47300] cursor-pointer"/>
-          </div>
-          <div className="like-control flex items-center gap-x-[10px] ml-[10px]">
-            <span className="font-b-yekan text-[#888888]"> 25 </span>
-            <BiLike size={22} className="text-[#D47300] cursor-pointer"/>
-          </div>
-          <div className="arrow-control">
-            <RiArrowGoBackFill className="text-[#01B4AF] cursor-pointer" size={25}/>
-          </div>
-        </div>
+      <CommentUserReaction
+        likeBtnClick={coomentLikeBtnClick}
+        desLikeClick={commentDesLikeBtnClick}
+        imageAddress={pictureAddress}
+        desLikeCount={disslikeCount}
+        likeCount={likeCount}
+        userElmail={author}
+        commentDate={insertDate}
+      />
+      <div className="hr-control w-full flex justify-center mt-[12px]">
+        <hr className="outline-0 border-0 w-full h-[2px] bg-[#EDEDED]" />
       </div>
-      <hr className="outline-0 border-0 w-[95%]" />
+      <p className="title text-[13px] font-[700] text-[#656565] w-[90%] mt-[8px]">
+        {title}
+      </p>
+      <p className="description text-[13px] font-[700] text-[#656565] w-[90%] mt-[8px]">
+        {describe}
+      </p>
+      <div className="replay-control">
+        {commentReplay?.map((item, index) => {
+          console.log("commentReplay ==>", item);
+          return (
+            <ReplayWrapper
+              key={index}
+              userName={item.author}
+              title={item.title}
+              description={item.describe}
+              likeCount={item.likeCount}
+              disLikeCount={item.disslikeCount}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };

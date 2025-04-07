@@ -12,7 +12,7 @@ export const htttp = axios.create({
 
 const onSucces = (response) => {
   // console.log(response)
-  console.log(baseUrl);
+  // console.log(baseUrl);
   return response;
 };
 

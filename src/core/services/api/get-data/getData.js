@@ -5,8 +5,12 @@ export const getData = async (key, endUrl) => {
   return useQuery({
     queryKey: key,
     queryFn: async () => {
-      let data = await htttp.get(endUrl)
-      return data.data
+      // try {
+        let data = await htttp.get(endUrl)
+        return data.data
+      // }catch (error) {
+        // return error
+      // }
     }
   })
 };

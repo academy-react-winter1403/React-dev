@@ -9,5 +9,6 @@ export const {
   changeSortText,
   changePageCounter,
   changeAddDataFlag,
-  addArticleAndNewsDetailData
+  addArticleAndNewsDetailData,
+  addCourseDetailCommentData
 } = slices.actions;

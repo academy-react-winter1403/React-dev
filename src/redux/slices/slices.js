@@ -33,6 +33,9 @@ const slices = createSlice({
       sortText: " جدیدترین ها ",
       addDataFlag: false
     },
+    courseDetailData: {
+      commentData: []
+    }
   },
 
   reducers: {
@@ -70,6 +73,9 @@ const slices = createSlice({
     },
     changeAddDataFlag: (state, action) => {
       state.coursesData.addDataFlag = action.payload
+    },
+    addCourseDetailCommentData: (state, action) => {
+        state.courseDetailData.commentData = action.payload
     }
   },
 });
