@@ -9,5 +9,6 @@ export const requestErrorHandler = (statusCode, statusMessage) => {
   }
   if (statusCode >= 404 && statusCode < 500) {
     alert("Client Error:", statusMessage);
+    
   }
 };

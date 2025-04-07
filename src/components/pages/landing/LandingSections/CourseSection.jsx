@@ -2,8 +2,11 @@ import React from "react";
 import { productMockData } from "../../../../core/constants/courses-datas/productMockData";
 import Titles from "./Titles";
 import SliderOne from "../landingSlider/SliderOne";
+import { MdNavigateBefore } from "react-icons/md";
 
-const CourseSection = () => {
+
+
+const CourseSection = ({ courseData }) => {
   return (
     <div className="swiper-container items-center justify-between w-full h-[600px] flex flex-col  font-b-yekan whitespace-nowrap mt-20 overflow-hidden">
       <Titles
@@ -11,7 +14,13 @@ const CourseSection = () => {
         exp={"به روز ترین دوره هایی که میتونید پیدا کنید"}
       />
       <div className="slider-control relative w-[80%] h-[500px]">
-        <SliderOne dataMapper={productMockData} maxWidth={80} />
+        <div className="w-full h-5 flex items-end justify-end flex-row flex-nowrap text-[#AAAAAA] cursor-pointer">
+          <p>همه دوره ها</p>
+          <MdNavigateBefore size={23} />
+        </div>
+        <div>
+          <SliderOne dataMapper={courseData} maxWidth={80} />
+        </div>
       </div>
     </div>
   );

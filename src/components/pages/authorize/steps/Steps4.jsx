@@ -8,7 +8,7 @@ import StageName from "../../../common/StageName";
 import CustomInput from "../../../partials/authorize/CustomInput";
 import * as yup from "yup";
 import BtnNumberStep from "../../../common/BtnText/BtnNumberStep";
-import { postData } from "../../../../core/services/api/post-data/postData";
+import { postData } from "../../../../core/services";
 // import { setItemLocalStorage } from "../../../../core/hooks/local-storage/setItemLocalstorage";
 import { useNavigate } from "react-router-dom";
 

@@ -1,12 +1,15 @@
 import React from "react";
-// import { LuFilterX } from "react-icons/lu";
 import { TrashCanIcon } from "../../../core/icons/icons";
 import { FaWindowClose } from "react-icons/fa";
 
-const FilterLabel = ({ closeBtnClick }) => {
+const FilterLabel = ({ closeBtnClick, removeFilterClick }) => {
 
   const closeBtnClickHandler = () => {
     closeBtnClick()
+  }
+
+  const removeFilterClickHandler = () => {
+    removeFilterClick()
   }
 
   return (
@@ -18,6 +21,7 @@ const FilterLabel = ({ closeBtnClick }) => {
           style={{color: "#DB3838", margin: "0 -4px 0 5px"}}
           size={25} cursor={"pointer"}
           onClick={closeBtnClickHandler}
+          className="hidden max-lg:block"
         />
         <svg
           width="18"
@@ -37,7 +41,7 @@ const FilterLabel = ({ closeBtnClick }) => {
 
         <p className="text-[#333333] text-[16px] font-[400]"> فیلترها </p>
       </button>
-      <TrashCanIcon />
+      <TrashCanIcon TrashCanIconClick={removeFilterClickHandler}/>
     </button>
   );
 };

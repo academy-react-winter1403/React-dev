@@ -10,4 +10,4 @@ export const authorizeRouterArray = [
   { path: "/Register/step3", element: <Steps3 /> },
   { path: "/Register/step4", element: <Steps4 /> },
   { path: "/Register/step5", element: <Steps5 /> },
-];
+]

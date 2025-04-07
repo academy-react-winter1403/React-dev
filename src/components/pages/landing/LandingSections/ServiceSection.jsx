@@ -16,18 +16,18 @@ const ServiceSection = () => {
               ServiceApi.map((item, index) => ( 
                   <div 
                   key={index}
-                  className="lg:w-[200px] lg:h-[210px] md:w-[150px] md:h-[190px] sm:w-[120px] sm:h-[170px] flex flex-col"
+                  className="lg:w-[200px] lg:h-[210px] md:w-[150px] md:h-[150px] sm:w-[120px] sm:h-[170px] xs:w-[100px] xs:h-[150px] flex flex-col relative"
                   style={{ transform: `translateY(${item.posYFlag ? "20px" : "100px"})` }}
                   >
                     <div className='flex items-center justify-center'>
                       <img 
-                      className=''
+                      className='lg:w-[70px] lg:h-[70px] md:w-[60px] md:h-[60px] sm:w-[55px] sm:h-[55px] xs:w-[45px] xs:h-[45px]'
                       src={item.imageT} 
                       alt="#"
                       />
                       {item.icon}
                     </div>
-                    <div className='flex justify-center items-center'>
+                    <div className='flex justify-center items-center absolute top-13'>
                       <img 
                       className='lg:w-[211px] lg:h-[170px] md:h-[160px] md:w-[200px]'
                       src={item.imageB} 
@@ -36,14 +36,14 @@ const ServiceSection = () => {
                       <div className='absolute'>
                         <h3 
                         className='font-bold  text-center
-                        lg:text-[25px] md:text-[23px] sm:text-[18px] xs:text-[13px] xs:whitespace-pre-line'
+                        lg:text-[25px] md:text-[20px] sm:text-[16px] xs:text-[13px] xs:whitespace-pre-line'
                         style={{ color: item.color }}
                         >
                           {item.title}
                         </h3>
                         <p 
                         className='text-[#AAAAAA] font-bold text-center
-                        lg:text-[12px] md:text-[10px] sm:text-[8px] xs:text-[5px] lg:indent-[-20px] md:indent-[-15px] sm:indent-[-10px] xs:indent-[-2px] '
+                        lg:text-[12px] md:text-[9px] sm:text-[6px] xs:text-[5px] lg:indent-[-20px] md:indent-[-15px] sm:indent-[-10px] xs:indent-[-2px] '
                         style={{ whiteSpace: "pre-line" }}
                         >
                           {item.desc}

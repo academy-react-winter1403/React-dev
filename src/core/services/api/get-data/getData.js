@@ -1,7 +1,11 @@
 import { useQuery } from "react-query";
 import { htttp } from "../../interceptor";
 
-export const getData = async (key,endUrl) => {
+// <<<<<<< HEAD
+// export const getData = async (key,endUrl) => {
+// =======
+export const getData = async (key, endUrl) => {
+// >>>>>>> 3b724a92d4474dfa5230a32c47c56d3ae3f587f3
   return useQuery({
     queryKey: key,
     queryFn: async () => {

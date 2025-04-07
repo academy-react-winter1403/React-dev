@@ -9,6 +9,10 @@ import CustomInput from "../../../partials/authorize/CustomInput";
 import BtnNumberStep from "../../../common/BtnText/BtnNumberStep";
 import { postData } from "../../../../core/services/api/post-data/postData";
 import { getItemLocalStorage } from "../../../../core/hooks/local-storage/getItemLocalStorage";
+// <<<<<<< HEAD
+// =======
+// import { htttp } from "../../../../core/services/interceptor";
+// >>>>>>> 3b724a92d4474dfa5230a32c47c56d3ae3f587f3
 
 const Steps3 = () => {
   const onSubmit = async (values) => {
@@ -22,7 +26,7 @@ const Steps3 = () => {
       });
       console.log(ApiCall);
     } catch (error) {
-      console.log(error.response ? error.response.data : error.message);
+      console.log(error)
     }
   };
   
@@ -34,8 +38,8 @@ const Steps3 = () => {
     password: yup
       .string()
       .min(6, "رمز عبور باید حداقل 6 کاراکتر باشد")
-      .matches(/[A-Z]/, "رمز عبور باید حداقل یک حرف بزرگ داشته باشد")
-      .matches(/[a-z]/, "رمز عبور باید حداقل یک حرف کوچک داشته باشد")
+      // .matches(/[A-Z]/, "رمز عبور باید حداقل یک حرف بزرگ داشته باشد")
+      // .matches(/[a-z]/, "رمز عبور باید حداقل یک حرف کوچک داشته باشد")
       .matches(/\d/, "رمز عبور باید حداقل یک عدد داشته باشد")
       .required("وارد کردن رمز عبور الزامی است"),
     confirmPassword: yup

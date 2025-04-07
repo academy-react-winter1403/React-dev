@@ -1,3 +1,13 @@
-import slices from "./slices/slices"
+import slices from "./slices/slices";
 
-export const { firstAddProduct, changeDarkModKey, addDataTheQueryParams } = slices.actions
+export const {
+  firstAddProduct,
+  changeDarkModKey,
+  addDataTheQueryParams,
+  addFirstFilterData,
+  changeQueryFlag,
+  changeSortText,
+  changePageCounter,
+  changeAddDataFlag,
+  addArticleAndNewsDetailData
+} = slices.actions;

@@ -10,11 +10,12 @@ import "swiper/css/scrollbar";
 import CardWrapper from "../../../partials/product-card/CardWrapper";
 import { SliderBtn } from "../../../../core/icons/icons";
 
-const SliderOne = ({ dataMapper }) => {
+const SliderOne = ({ dataMapper}) => {
+  console.log(!dataMapper ? dataMapper : null)
   return (
     <>
       <Swiper
-      className='mt-[60px] max-h-[400px] overflow-hidden'
+      className=' max-h-[400px] overflow-hidden'
         modules={[Pagination, Navigation]}
         spaceBetween={10}
         slidesPerView={4}
@@ -38,10 +39,10 @@ const SliderOne = ({ dataMapper }) => {
           1: { slidesPerView: 1 },
         }}
       >
-        {dataMapper.map((item, index) => {
+        {dataMapper?.map((item, index) => {
           return (
             <SwiperSlide className="" key={index}>
-              <div className="bg w- p-[54px_25px_35px_25px]">
+              <div className="p-[54px_25px_35px_25px]">
                 <CardWrapper timeFlag={true} data={item} />
               </div>
             </SwiperSlide>

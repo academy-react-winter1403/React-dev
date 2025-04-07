@@ -1,4 +1,9 @@
-const TrashCanIcon = () => {
+const TrashCanIcon = ({TrashCanIconClick}) => {
+
+  const TrashCanIconClickHandler = () => {
+    TrashCanIconClick()
+  }
+
   return (
     <svg
       width="19"
@@ -6,6 +11,7 @@ const TrashCanIcon = () => {
       viewBox="0 0 19 21"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      onClick={TrashCanIconClickHandler}
     >
       <path
         d="M7.15625 3.98959V3.20834C7.15625 1.90626 8.19792 0.864594 9.5 0.864594C10.8021 0.864594 11.8437 1.90626 11.8437 3.20834V3.98959"
