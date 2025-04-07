@@ -9,6 +9,7 @@ import { addArticleAndNewsDetailData } from "../../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import DescriptionBox from "../../partials/descreption-box/DescriptionBox";
 import { htttp } from "../../../core/services/interceptor";
+import articledetailmain from './../../../assets/pics/others/articledetailmain.png'
 
 const ArticleDetail = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -19,6 +20,7 @@ const ArticleDetail = () => {
 
   getData("articleDetail", `/News/${id}`).then((response) => {
     dispatch(addArticleAndNewsDetailData(response.data));
+    console.log("news: ", response.data)
   });
 
   const state = useSelector((state) => state.articleAndNewDetailData);
@@ -32,6 +34,7 @@ const ArticleDetail = () => {
   if (newsCatregoryId && relatedCourses.length === 0) {
     htttp.get(`/News/GetNewsWithCategory/${newsCatregoryId}`).then((response) => {
       setRelatedCourses(response.data);
+      console.log("related: ", response.data)
     });
   }
 
@@ -45,8 +48,11 @@ const ArticleDetail = () => {
             <div className="w-[95%]">
               <p>{googleDescribe}</p>
             </div>
-            <div className="border w-[75%]">
-              <img src={currentImageAddress} alt="#" />
+            <div className="w-[75%]">
+              <img 
+              src={currentImageAddress && currentImageAddress !== 'Not-set' ? currentImageAddress : articledetailmain} 
+              alt="#"
+               />
             </div>
             <div className="w-[95%]">
               <DescriptionBox initialHeight={300}>

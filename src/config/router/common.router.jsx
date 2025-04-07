@@ -8,6 +8,7 @@ import {
   LastCourseDetailWrapper,
 } from "../../screens";
 import { authorizeRouterArray } from "./authorize.router";
+import Error from "../../components/partials/ErrorNotFound/Error";
 
 export const commonRouter = createBrowserRouter([
   {
@@ -24,6 +25,7 @@ export const commonRouter = createBrowserRouter([
       { path: "/courses", element: <LastCoursesWrapper /> },
       { path: "/detail/:id", element: <LastCourseDetailWrapper /> },
       { path: "/article-detail/:id", element: <LastArticleDetailWrapper /> },
+      { path: "*", element: <Error /> }
     ],
   },
 ]);
