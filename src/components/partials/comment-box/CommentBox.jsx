@@ -6,6 +6,8 @@ const CommentBox = ({
   commentData,
   coomentLikeBtnClick,
   commentDesLikeBtnClick,
+  replayLikeBtnClick,
+  replayDeslikeBtnClick,
   commentReplay
 }) => {
   
@@ -25,6 +27,8 @@ const CommentBox = ({
               data={item}
               coomentLikeBtnClick={() => coomentLikeBtnClick(item)}
               commentDesLikeBtnClick={() => commentDesLikeBtnClick(item)}
+              replayLikeBtnClick={replayLikeBtnClick}
+              replayDeslikeBtnClick={replayDeslikeBtnClick}
             />
           );
         })}

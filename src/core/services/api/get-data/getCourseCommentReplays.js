@@ -7,7 +7,7 @@ const myPromise = (endUrl, dataMap) => {
 export const getCommentReplayData = async (endUrl, dataMap) => {  
   try {  
       let result = await myPromise(endUrl, dataMap);
-      console.log(result);
+      // console.log(result);
       return result;  
   } catch (error) {  
       console.error("خطا:", error);  

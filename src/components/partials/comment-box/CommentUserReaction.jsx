@@ -21,7 +21,7 @@ const CommentUserReaction = ({
   };
 
   return (
-    <div className="top-item-control flex justify-between items-center">
+    <div className="top-item-control flex justify-between items-center max-md:flex-col">
       <div className="rigth flex items-center">
         <CommentProfile
           userEmail={userElmail}

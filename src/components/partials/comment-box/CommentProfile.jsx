@@ -3,9 +3,9 @@ import CommentPic from "./CommentPic";
 
 const CommentProfile = ({ userEmail, commentDate, imageAddress }) => {
   return (
-    <div className="comment-profile-container flex items-center">
+    <div className="comment-profile-container flex items-center max-md:flex-col max-md:items-center">
       <CommentPic imageAddress={imageAddress} flag={true} />
-      <div className="text-control mr-[10px]">
+      <div className="text-control mr-[10px] max-md:text-center">
         <h2 className="text-[#003B39]">
           {userEmail}
           <span className="font-b-yekan"> | کاربر </span>

@@ -34,7 +34,8 @@ const slices = createSlice({
       addDataFlag: false
     },
     courseDetailData: {
-      commentData: []
+      commentData: [],
+      detailData: null
     }
   },
 
@@ -73,6 +74,9 @@ const slices = createSlice({
     },
     changeAddDataFlag: (state, action) => {
       state.coursesData.addDataFlag = action.payload
+    },
+    addDetailData: (state, action) => {
+      state.courseDetailData.detailData = action.payload
     },
     addCourseDetailCommentData: (state, action) => {
         state.courseDetailData.commentData = action.payload

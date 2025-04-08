@@ -1,7 +1,7 @@
 import React from "react";
 import CommentUserReaction from "./CommentUserReaction";
 
-const ReplayWrapper = ({ title, description, likeCount, disLikeCount, userName }) => {
+const ReplayWrapper = ({ title, description, likeCount, disLikeCount, userName, replayLikeBtnClick, replayDeslikeBtnClick }) => {
   return (
     <div
       className="replay-container w-full shadow-[inset_0_1px_2px_#00000040]
@@ -12,6 +12,8 @@ const ReplayWrapper = ({ title, description, likeCount, disLikeCount, userName }
         likeCount={likeCount}
         userElmail={userName}
         commentDate={true}
+        desLikeClick={replayDeslikeBtnClick}
+        likeBtnClick={replayLikeBtnClick}
       />
       <div className="hr-control w-full flex justify-center mt-[12px]">
         <hr className="outline-0 border-0 w-full h-[1px] bg-[#dcdcdc]" />

@@ -17,7 +17,13 @@ const onSucces = (response) => {
 };
 
 const onError = (error) => {
-  requestErrorHandler(error.response.status);
+  let errorCode;
+  if (!error.response) {
+    errorCode = requestErrorHandler(401)
+  }else {
+    requestErrorHandler(error.response.status);
+  }
+  return errorCode
 };
 
 htttp.interceptors.response.use(onSucces, onError);

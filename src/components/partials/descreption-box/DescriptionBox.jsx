@@ -10,7 +10,7 @@ const DescriptionBox = ({ initialHeight, children }) => {
 
   return (
     <div
-      className={`description-box-container w-full ${
+      className={`description-box-container w-full shadow-[0_1px_2px_#00000040] ${
         !heightFlag
           ? `h-[${initialHeight}px] transition-[1s]`
           : `h-auto pb-[80px] transition-[1s]`

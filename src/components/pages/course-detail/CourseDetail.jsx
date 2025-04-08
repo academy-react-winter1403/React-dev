@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
+  desLikeCourseCommentPost,
   getCommentData,
   getData,
   getDataByClick,
+  likeCourseCommentPost,
 } from "../../../core/services";
 import DetailTop from "./DetailTop";
 import DescriptionBox from "../../partials/descreption-box/DescriptionBox";
@@ -16,105 +18,126 @@ import HrComp from "../../common/HrComp";
 import teacherPic from "../../../assets/pics/detailCourse/teacher.jpg";
 import CommentBox from "../../partials/comment-box/CommentBox";
 import { getCourseCommentReplay } from "../../../core/services/api/get-data/getCourseCommentReplays";
-import { htttp } from "../../../core/services/interceptor";
 import { useDispatch, useSelector } from "react-redux";
-import { addCourseDetailCommentData } from "../../../redux/actions";
-import { likeCommentPost } from "../../../core/services/api/post-data/likeCommentPost";
+import { addDetailData } from "../../../redux/actions";
+import { MotionComp } from "../../partials";
+import LeftItemCard from "./LeftItemCard";
+import { errorMessageHandler } from "../../../core/utility/errorMessageHandler";
 
 const CourseDetail = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
   const [commentData, setCommentData] = useState(null);
   const [commentFullData, setCommentFullData] = useState(null);
+  // const [detailData, setDetailData] = useState(null)
 
   getData("detailProduct", `/Home/GetCourseDetails?CourseId=${id}`).then(
     (response) => {
       // console.log(response.data);
+      dispatch(addDetailData(response.data));
+      // setDetailData(response.data)
     }
   );
 
+  const { detailData } = useSelector((state) => state.courseDetailData);
 
   // get comment and comment replay data
   getCommentData("courseComment", `/Course/GetCourseCommnets/${id}`).then(
     (response) => {
       setCommentData(response.data);
       if (commentData) {
-
-        getCourseCommentReplay("/Course/GetCourseReplyCommnets/", commentData).then(
-          (response) => {
-            if (!commentFullData) {
-              setCommentFullData(response)
-            }
-            console.log(response)
+        getCourseCommentReplay(
+          "/Course/GetCourseReplyCommnets/",
+          commentData
+        ).then((response) => {
+          if (!commentFullData) {
+            setCommentFullData(response);
           }
-        )
+          // console.log(response)
+        });
       }
     }
   );
   // get comment and comment replay data
 
   const coomentLikeBtnClickHandler = async (item) => {
-    alert("")
+    console.log(item)
+    const resData = await likeCourseCommentPost(`/Course/AddCourseCommentLike?CourseCommandId`, item.id)
+    errorMessageHandler(resData)
   };
 
-  const commentDesLikeBtnClickHandler = (item) => {
-    alert("")
+  const commentDesLikeBtnClickHandler = async (item) => {
+    // alert("");
+    const resData = await desLikeCourseCommentPost(`/Course/AddCourseCommentDissLike?CourseCommandId`, item.id)
+    // console.log(resData)
+    errorMessageHandler(resData)
   };
+
+  const replayLikeBtnClickHandler = async () => {
+    alert()
+  }
+
+  const replayDeslikeBtnClickHandler = async () => {
+    alert()
+  }
+
+  useEffect(() => {
+    if (detailData) {
+      console.log("detailData ==>", detailData);
+    }
+  }, [detailData]);
 
   return (
     <div className="course-detail-holder w-full flex justify-center mt-4">
-      <div className="container w-[90%] flex flex-col items-center">
+      <div className="w-[95%] flex flex-col items-center">
         <DetailTop />
-        <div className="bottom w-[80%] flex items-start justify-between mt-7">
-          <div className="right w-[65%]">
-            <div className="description-box-control">
+        <div
+          className="bottom w-[80%] flex items-start justify-between mt-7
+          max-my-breakpoint:flex-col-reverse"
+        >
+          <div className="right w-[65%] max-my-breakpoint:w-full max-lg:mt-5">
+            <MotionComp
+              classNames={`description-box-control`}
+              xInitial={"200px"}
+              xAnimate={0}
+              animDuration={2}
+            >
               <h3 className="text-[#005351] font-bold text-[18px]">
                 {" "}
                 توضیحات{" "}
               </h3>
               <DescriptionBox initialHeight={350}>
-                <p className="text-[#7B7B7B]">
-                  قبل از آموزش ری اکت ReactJS ابتدای کار به شما بگیم که تکنولوژی
-                  ری اکت برگ برنده برنامه نویسان در دنیای امروز هست اصلا اغراق
-                  نکردیم. یه غول به تمام معنا و دنیایی بی انتها از پروژه هایی که
-                  میشه با اون نوشت، اون هم خیلی سریع و راحت! تکنولوژی که دنیای
-                  وب رو دگرگون کرد و دستپخت شرکت فیسبوک هست که اینستاگرام رو هم
-                  با اون طراحی کرده! کامپوننت محور بودن ری اکت باعث میشه شما با
-                  کدنویسی یک بخش بتونید بی نهایت بار در بخش های مختلف پروژه از
-                  اون استفاده کنید و از طرفی میتونید پروژه هایی بسازید که بدون
-                  نیاز به رفرش، هر دیتا و بخشی از صفحه رو تغییر بدید اون هم با
-                  سرعت نور! برای همین ری اکت، زمان کدنویسی و به اتمام پروژه رو
-                  خیلی کوتاهتر از قبل کرده! خلاصه به شما تبریک میگیم که خیلی
-                  دقیق مطالعه کردید و به این نتیجه رسیدید که الان بهترین زمان
-                  برای یادگیری ری اکت هست. پس از الان با تمام اطمینان خیالتون رو
-                  راحت می کنیم : شما با دوره آموزش ری اکت سبزلرن، نه تنها به این
-                  تکنولوژی به تسلط 100 درصد می رسید، بلکه طوری آموزش عملی می
-                  بینید و راهنمایی می گیرید که یک راست وارد بازار کار بشید. بی
-                  حرف و حدیث. بی ترس و تردید! اگه به حوزه برنامه نویسی سمت
-                  کاربر، طراحی رابط کاربری (UI) و به طور کلی پروژه های تعامل
-                  محور و سریع علاقه دارید، ری اکت یکی از بهترین دستیاران شما
-                  برای شما
-                </p>
+                <p className="text-[#7B7B7B]">{detailData?.miniDescribe}</p>
               </DescriptionBox>
-            </div>
-
-            <div className="headlines-holder h-[300px] w-full border rounded-[10px]"></div>
+            </MotionComp>
+            <div className="headlines-holder h-[300px] w-full border rounded-[10px] mt-3"></div>
             <div className="comment-item-holder">
               {commentData ? (
                 <CommentBox
                   commentData={commentFullData}
                   coomentLikeBtnClick={coomentLikeBtnClickHandler}
                   commentDesLikeBtnClick={commentDesLikeBtnClickHandler}
+                  replayLikeBtnClick={replayLikeBtnClickHandler}
+                  replayDeslikeBtnClick={replayDeslikeBtnClickHandler}
                 />
               ) : null}
             </div>
           </div>
-          <div className="left w-[33%]">
-            <div className="top-section bg-[#FFFFFF] drop-shadow-[0_1px_2px_#00000040] py-[40px] px-[20px] rounded-[15px]">
-              <div className="student-and-score-holder flex justify-between">
-                <UserCard text={"دانشجو"} num={219}>
+          <div className="left w-[33%] max-my-breakpoint:w-full ">
+            <MotionComp
+              classNames={`top-section bg-[#FFFFFF] drop-shadow-[0_1px_2px_#00000040] py-[40px] px-[20px] rounded-[15px]`}
+              xInitial={"-100px"}
+              xAnimate={0}
+              animDuration={2}
+            >
+              <div className="student-and-score-holder flex justify-center gap-x-[12px] max-my-breakpoint:gap-x-[20px]">
+                <UserCard
+                  text={"دانشجو"}
+                  num={detailData?.currentUserRateNumber}
+                >
                   <HiUserGroup className="text-[#006865]" size={35} />
                 </UserCard>
-                <UserCard text={"رضایت"} num={4.7}>
+                <UserCard text={"رضایت"} num={detailData?.currentRate}>
                   <HiStar className="text-[#FFC700]" size={35} />
                 </UserCard>
               </div>
@@ -122,20 +145,7 @@ const CourseDetail = () => {
                 <CompletionCourse completionNum={87} />
               </div>
               <HrComp initialWidth={"full"} mtNum={27} />
-              <div className="item-card-container mt-[26px] flex flex-col gap-y-[17px]">
-                <ItemCard title={"دسته بندی"} description={"فرانت اند"}>
-                  <FrontIcon />
-                </ItemCard>
-                <ItemCard title={" پیشنباز "} description={"HTML, CSS, JS"}>
-                  <FrontIcon />
-                </ItemCard>
-                <ItemCard title={"نوع آموزش"} description={"حضوری و غیرحضوری"}>
-                  <FrontIcon />
-                </ItemCard>
-                <ItemCard title={"وضعیت دوره"} description={"درحال برگزاری"}>
-                  <FrontIcon />
-                </ItemCard>
-              </div>
+              <LeftItemCard detailData={detailData} />
               <HrComp initialWidth={"full"} mtNum={27} />
               <div className="teacher-prof-control flex flex-col items-center mt-[10px]">
                 <div
@@ -152,7 +162,7 @@ const CourseDetail = () => {
                   پروفایل مدرس دوره{" "}
                 </button>
               </div>
-            </div>
+            </MotionComp>
             <div className="bottom-section"></div>
           </div>
         </div>

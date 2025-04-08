@@ -6,5 +6,18 @@ import { deleteDataApi } from "./api/delete-data/deleteData";
 import { getDataByClick } from "./api/get-data-by-click/getDataByClick";
 import { getCommentData } from "./api/get-data/getCommentData";
 import { getFilterData } from "./api/get-data/getFiilterData";
+import { likeCourseCommentPost } from "./api/post-data/likeCourseCommentPost";
+import { desLikeCourseCommentPost } from "./api/post-data/desLikeCourseCommentPost";
 
-export { baseUrl, getData, postData, putData, deleteDataApi, getDataByClick, getCommentData, getFilterData }
+export {
+  baseUrl,
+  getData,
+  postData,
+  putData,
+  deleteDataApi,
+  getDataByClick,
+  getCommentData,
+  getFilterData,
+  likeCourseCommentPost,
+  desLikeCourseCommentPost
+};

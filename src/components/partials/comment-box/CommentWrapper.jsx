@@ -12,6 +12,8 @@ const CommentWrapper = ({
   data,
   coomentLikeBtnClick,
   commentDesLikeBtnClick,
+  replayLikeBtnClick,
+  replayDeslikeBtnClick,
 }) => {
   const {
     author,
@@ -24,7 +26,7 @@ const CommentWrapper = ({
     commentReplay,
   } = data;
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <div
@@ -51,7 +53,7 @@ const CommentWrapper = ({
       </p>
       <div className="replay-control">
         {commentReplay?.map((item, index) => {
-          console.log("commentReplay ==>", item);
+          // console.log("commentReplay ==>", item);
           return (
             <ReplayWrapper
               key={index}
@@ -60,6 +62,8 @@ const CommentWrapper = ({
               description={item.describe}
               likeCount={item.likeCount}
               disLikeCount={item.disslikeCount}
+              replayLikeBtnClick={replayLikeBtnClick}
+              replayDeslikeBtnClick={replayDeslikeBtnClick}
             />
           );
         })}

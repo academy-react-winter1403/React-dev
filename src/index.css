@@ -20,6 +20,7 @@ body {
 
 @theme {
   --breakpoint-xs: 420px;
+  --breakpoint-my-breakpoint: 1118px;
 }
 
 @layer components {
