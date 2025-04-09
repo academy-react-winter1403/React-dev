@@ -37,18 +37,12 @@ const Steps3 = () => {
     password: yup
       .string()
       .min(6, "رمز عبور باید حداقل 6 کاراکتر باشد")
-      // .matches(/[A-Z]/, "رمز عبور باید حداقل یک حرف بزرگ داشته باشد")
-      // .matches(/[a-z]/, "رمز عبور باید حداقل یک حرف کوچک داشته باشد")
       .matches(/\d/, "رمز عبور باید حداقل یک عدد داشته باشد")
       .required("وارد کردن رمز عبور الزامی است"),
     confirmPassword: yup
       .string()
       .oneOf([yup.ref("password"), null], "رمز عبور مطابقت ندارد")
       .required("تأیید رمز عبور الزامی است"),
-    // phoneNumber: yup
-    //   .string()
-    //   .matches(/^(\+98|0)?9\d{9}$/, "شماره تلفن معتبر نیست")
-    //   .required("شماره تلفن الزامی است"),
   });
   return (
     <LoginBg>

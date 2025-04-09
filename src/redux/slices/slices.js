@@ -33,9 +33,13 @@ const slices = createSlice({
       sortText: " جدیدترین ها ",
       addDataFlag: false
     },
+    articleNews:null
   },
 
   reducers: {
+    ArticlesNews:(state, action) => {
+      state.articleNews = action.payload
+    },
     firstAddProduct: (state, action) => {
       state.productState = action.payload;
     },

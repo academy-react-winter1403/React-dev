@@ -11,13 +11,6 @@ import BtnNumberStep from "./../../../common/BtnText/BtnNumberStep";
 import { postData } from "../../../../core/services/api/post-data/postData";
 import { setItemLocalStorage } from "./../../../../core/hooks/local-storage/setItemLocalstorage";
 import { useNavigate } from "react-router-dom";
-// <<<<<<< HEAD
-// =======
-// import { htttp } from "../../../../core/services/interceptor";
-// import axios from "axios";
-// import { setItemLocalStorage } from './../../../../core/hooks/local-storage/setItemLocalstorage';
-// import { toast } from "react-toastify";
-// >>>>>>> 3b724a92d4474dfa5230a32c47c56d3ae3f587f3
 
 const Steps1 = () => {
   const navigate = useNavigate();

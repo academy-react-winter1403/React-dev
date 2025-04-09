@@ -48,6 +48,7 @@ export const courseFilter = (searchParams, dispatch, useSelector) => {
     );
 
     
+    
     dispatch(firstAddProduct(data.data.courseFilterDtos))
     console.log(data.data.courseFilterDtos);
   };

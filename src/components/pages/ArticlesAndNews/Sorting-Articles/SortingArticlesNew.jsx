@@ -61,7 +61,7 @@ export default function Sorting({selectData}) {
 
       {sortingArticlesNews.map((article) => (
         <SelectItem
-          onClick={selectHandler}
+          onClick={() => selectHandler(article.label)}
           key={article.key}
           classNames={{
             base: "bg-white flex justify-center items-center  text-lg text-[#333] font-b-yekan font-normal",

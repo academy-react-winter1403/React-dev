@@ -3,7 +3,7 @@ import ArticlesCard from "../../partials/ArticlesCard/ArticlesCard";
 import CardArticlesOther from "./CardArticlesOther/CardArticlesOther";
 import TextPagesArticlesNew from "./TextPagesArticlesNew";
 import TopSectionArticlesNew from "./TopSectionArticlesNew";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getData } from "../../../core/services/api/get-data/getData";
 import { PaginationData } from "../../partials";
 import { getDataByClick } from "../../../core/services";
@@ -13,52 +13,58 @@ import BgSix from "./../../../assets/pics/articles/03.png";
 import BgThree from "./../../../assets/pics/articles/01.jfif";
 import BgFour from "./../../../assets/pics/articles/02.jfif";
 import BgFive from "./../../../assets/pics/articles/03.jfif";
+import { useDispatch, useSelector } from "react-redux";
+import { filterDataArticles } from "../../../core";
+import { ArticlesNews } from "../../../redux/actions";
+import { setItemLocalStorage } from './../../../core/hooks/local-storage/setItemLocalstorage';
+import { useSearchParams } from "react-router-dom";
 
 const ArticlesAndNews = () => {
-  const [articles, setArticles] = useState([]);
+  const [searchParams , setSearchParams] = useSearchParams()
   const [pagination, setPagination] = useState(1);
   const [flag, setFlag] = useState(true);
   const [length, setLength] = useState(0);
-  const [searchArticles, setSearchArticles] = useState([]);
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.articleNews);
 
   getData("ArticlesNews", `/News?PageNumber=${pagination}&RowsOfPage=6`).then(
     (responseArticles) => {
       if (flag) {
-        setArticles(responseArticles.data.news);
+        // console.log(responseArticles.data.news);
+        dispatch(ArticlesNews(responseArticles.data.news));
         setLength(responseArticles.data.totalCount);
         setFlag(false);
-        // console.log(responseArticles.data.totalCount);
       }
     }
   );
+
+  useEffect(() => {
+    if (state) {
+      console.log(state);
+    }
+  }, [state]);
 
   const totalItems = length;
   const totalPages = Math.ceil(totalItems / 6);
   const pageChangeHandler = async (pageNum) => {
     setPagination(pageNum);
-
+    localStorage.setItem("PaginationNumber", pageNum);
     getDataByClick(`/News?PageNumber=${pageNum}&RowsOfPage=6`).then(
       (responseArticles) => {
-        setArticles(responseArticles.data.news);
-        // console.log(responseArticles.data.news);
-        // console.log(flag);
+        dispatch(ArticlesNews(responseArticles.data.news));
       }
     );
-    // console.log(pageNum);
   };
 
   const changeFilterHandler = async (filter) => {
-    // console.log(filter.target.value);
-    setSearchArticles(filter.target.value);
-    // console.log(filter.target);
-    
-    getDataByClick(
-      `/News?PageNumber=${pagination}&RowsOfPage=6&SortingCol=InsertDate&Query=${searchArticles}`
-    ).then((responseFilterArticles) => {
-      setArticles(responseFilterArticles.data.news);
-      console.log(searchArticles);
-    });
+    localStorage.setItem("SearchArticles", filter.target.value);
+    filterDataArticles(setSearchParams , dispatch);
   };
+
+  const sortFilter = async (name) => {
+    setItemLocalStorage("sortArticle", name)
+    filterDataArticles(setSearchParams , dispatch);
+  }
 
   return (
     <div className="max-w-7xl flex flex-row flex-wrap justify-center m-auto gap-5">
@@ -68,11 +74,11 @@ const ArticlesAndNews = () => {
           <h1 className="w-[400px] font-b-yekan font-bold text-[#005351] text-[27px] text-center">
             جدیدترین اخبار و مقالات
           </h1>
-          <SortingArticlesNew selectData={changeFilterHandler}/>
+          <SortingArticlesNew selectData={sortFilter} />
         </div>
         <div className="flex flex-row flex-wrap gap-2.5">
-          {articles
-            ? articles.map((index) => {
+          {/* {state
+            ? state.map((index) => {
                 return (
                   <div key={index.id}>
                     <ArticlesCard
@@ -85,7 +91,19 @@ const ArticlesAndNews = () => {
                   </div>
                 );
               })
-            : 0}
+            : 0} */}
+          {state?.map((item, index) => {
+            return (
+              <ArticlesCard
+                key={index}
+                title={item.title}
+                Describe={item.miniDescribe}
+                src={item.addUserProfileImage}
+                currentView={item.currentView}
+                // insertDate={index.insertDate}
+              />
+            );
+          })}
         </div>
         <PaginationData
           initialPageNum={1}
