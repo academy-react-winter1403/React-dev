@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import LoginBg from "../../../partials/authorize/LoginBg";
 import { Field, Form, Formik } from "formik";
 import * as yup from "yup";
@@ -9,12 +9,10 @@ import CustomInput from "../../../partials/authorize/CustomInput";
 import BtnNumberStep from "../../../common/BtnText/BtnNumberStep";
 import { postData } from "../../../../core/services/api/post-data/postData";
 import { getItemLocalStorage } from "../../../../core/hooks/local-storage/getItemLocalStorage";
-// <<<<<<< HEAD
-// =======
-// import { htttp } from "../../../../core/services/interceptor";
-// >>>>>>> 3b724a92d4474dfa5230a32c47c56d3ae3f587f3
 
 const Steps3 = () => {
+    const [rememberMe, setRememberMe] = useState(false)
+  
   const onSubmit = async (values) => {
     const phoneNumber = getItemLocalStorage("phoneNumber");
     console.log(values);
@@ -23,6 +21,7 @@ const Steps3 = () => {
         password: values.password,
         gmail: values.gmail,
         phoneNumber,
+        rememberMe:rememberMe
       });
       console.log(ApiCall);
     } catch (error) {
@@ -78,11 +77,13 @@ const Steps3 = () => {
                 type={"text"}
               />
               <div className="flex w-[94px] h-[12px] ">
-                <Field type="checkbox" name="rememberMe" id="rememberMe" />
                 <label
                   className="font-normal text-xs font-b-yekan text-gray-400"
                   htmlFor="rememberMe"
                 >
+                {/* <input type="checkbox" name="rememberMe" id="rememberMe" /> */}
+                <input type="checkbox" name="rememberMe" id="rememberMe" onChange={() => setRememberMe(!rememberMe)}/>
+
                   مرا به خاطر بسپار
                 </label>
               </div>
@@ -90,7 +91,7 @@ const Steps3 = () => {
             </Form>
           </Formik>
         </div>
-        <div className="size-20 mt-[295px] rounded-xl flex justify-center items-center bg-[#cdcfb3] left-[-75px] absolute z-10 rotate-45">
+        <div className="size-16 mt-[295px] rounded-xl flex justify-center items-center bg-[#cdcfb3] left-[-50px] absolute z-10 rotate-45">
           <BtnNumberStep number={3} />
         </div>
       </div>

@@ -4,7 +4,7 @@ import SocialMediaBtn from '../../common/SocialMediaBtn'
 
 const FooterAuthorize = () => {
   return (
-    <div className='flex gap-1.5 flex-row-reverse ml-20'>
+    <div className='flex gap-1.5 flex-row-reverse ml-20 mb-12'>
       <FooterInfoBtn />
       <SocialMediaBtn />
     </div>

@@ -80,7 +80,7 @@ const Steps1 = () => {
             </Form>
           </Formik>
         </div>
-        <div className="size-20 mt-[55px] rounded-xl flex justify-center items-center bg-[#dcc7a0] left-[-75px] absolute z-10 rotate-45">
+        <div className="size-16 mt-[55px] rounded-xl flex justify-center items-center bg-[#dcc7a0] left-[-50px] absolute z-10 rotate-45">
           <BtnNumberStep number={1} />
         </div>
       </div>
