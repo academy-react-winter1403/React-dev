@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TopSection from "./TopSection";
 import BottomSection from "./BottomSection";
-import { getData, getDataByClick } from "../../../core/services";
+import { getData, getDataByClick, getFilterData } from "../../../core/services";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addFirstFilterData,
@@ -50,11 +50,15 @@ const Courses = () => {
     dispatch(addFirstFilterData({ data: technologi.data, type: "technologi" }));
   });
 
-  getData("courseTypes", "/CourseType/GetCourseTypes").then((type) => {
+  getFilterData("technologie", "/Home/GetTechnologies").then((technologi) => {
+    dispatch(addFirstFilterData({ data: technologi.data, type: "technologi" }));
+  });
+
+  getFilterData("courseTypes", "/CourseType/GetCourseTypes").then((type) => {
     dispatch(addFirstFilterData({ data: type.data, type: "courseTypes" }));
   });
 
-  getData("courseLevel", "/CourseLevel/GetAllCourseLevel").then((level) => {
+  getFilterData("courseLevel", "/CourseLevel/GetAllCourseLevel").then((level) => {
     dispatch(addFirstFilterData({ data: level.data, type: "courseLevel" }));
   });
 

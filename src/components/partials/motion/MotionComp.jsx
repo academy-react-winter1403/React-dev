@@ -1,12 +1,23 @@
 import { motion } from "framer-motion";
 import React from "react";
 
-const MotionComp = ({ xInitial, xAnimate, animDuration, effex, children }) => {
+const MotionComp = ({
+  classNames,
+  xInitial,
+  xAnimate,
+  yInitial,
+  yAnimate,
+  animDuration,
+  effex,
+  children,
+  delay
+}) => {
   return (
     <motion.div
-      initial={{ opacity: 0, x: xInitial }}
-      animate={{ opacity: 1, x: xAnimate }}
-      transition={{ duration: animDuration, ease: effex }}
+      className={classNames}
+      initial={{ opacity: 0, x: xInitial, y: yInitial }}
+      animate={{ opacity: 1, x: xAnimate, y: yAnimate }}
+      transition={{ duration: animDuration, ease: effex, delay: delay }}
     >
       {children}
     </motion.div>

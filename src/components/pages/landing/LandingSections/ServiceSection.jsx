@@ -11,7 +11,7 @@ const ServiceSection = () => {
           {/* title */}
           <Titles title={"خدمات ما"} exp={"مجموعه ای از تمام آنچه شما نیاز دارید"}/>
            {/* service */}
-           <div className='w-[80%] h-[400px] flex flex-row flex-nowrap justify-between  relative'>
+           <div className='w-[80%] h-[400px] flex flex-row flex-nowrap justify-between  relative' data-aos="fade-up-right">
             {
               ServiceApi.map((item, index) => ( 
                   <div 

@@ -23,7 +23,7 @@ const SelectView = ({ viewClick }) => {
         }}
         value={"title"}
         children={"title"}
-        placeholder="view 1"
+        placeholder="view 3"
       >
         {viewData.map((item, index) => {
           return (

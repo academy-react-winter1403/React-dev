@@ -9,7 +9,7 @@ import { MdNavigateBefore } from "react-icons/md";
 import Overlay from "./Overlay";
 const NewsSection = () => {
   return (
-    <div className="w-full flex flex-col justify-center items-center mt-7 mb-7 gap-2 font-b-yekan">
+    <div className="w-full flex flex-col justify-center items-center mt-7 mb-7 gap-2 font-b-yekan" data-aos="zoom-in">
       <Titles title={"اخبار و مقالات"} exp={"خـــودت رو با خـــبر کن !"} />
       <div className="item-holder flex xs:flex-col md:flex-row">
         <div className="right lg:px-0 md:px-6 sm:p-0 xs:px-6">

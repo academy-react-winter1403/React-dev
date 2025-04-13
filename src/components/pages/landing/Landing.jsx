@@ -12,6 +12,8 @@ import NewsSection from "./LandingSections/NewsSection";
 import { useDispatch } from "react-redux";
 import { getData } from "../../../core/services";
 import { firstAddProduct } from "../../../redux/actions";
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 const Landing = () => {
   
@@ -31,23 +33,21 @@ const Landing = () => {
     }
   }, [coursesData]);
 
+  useEffect(() => {
+    AOS.init({
+      duration: 2000, 
+      once: true,     
+    })
+  }, [])
+
   return (
     <div className="bg-[#F7F7F7]">
-      {/* <Header/> */}
       <HeroSection/>
       <CategorySection/>
       <CourseSection courseData={coursesData}/>
       <BestTeacherSection/>
       <ServiceSection/>
       <NewsSection/>
-
-      {/* <HeroSection />
-      <CategorySection />
-      <CourseSection coursesData={coursesData} />
-      <BestTeacherSection />
-      <ServiceSection />
-      <NewsSection /> */}
-      {/* <Footer/> */}
     </div>
   );
 };

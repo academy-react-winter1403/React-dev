@@ -23,7 +23,7 @@ const BestTeacherSection = () => {
                 </p>
             </div>
             {/* slider */}
-            <div className='w-[40%] h-full xs:m-auto'>
+            <div className='w-[40%] h-full xs:m-auto' data-aos="fade-right">
                 <BestTeacherSlider/>
             </div>
         </div>
