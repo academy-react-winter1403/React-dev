@@ -3,7 +3,7 @@ import { IoSearchCircleSharp } from "react-icons/io5";
 
 const Input = ({ placeholder, type, change }) => {
   const changeHandler = (event) => {
-    change(event);
+    change(event.target.value);
   };
 
   return (
@@ -11,7 +11,7 @@ const Input = ({ placeholder, type, change }) => {
       <input
         type={type}
         placeholder={placeholder}
-        className="w-full bg-[#FAFAFA] backdrop-blur-[5px] outline-0
+        className="w-full bg-[#FAFAFA] backdrop-blur-[5px] outline-0 shadow-sm
         border-[1px] border-[#DFDFDF80] rounded-[35px] pt-[10px] pb-[13px] px-[4px] indent-[12px] text-[#424242]"
         onChange={changeHandler}
       />

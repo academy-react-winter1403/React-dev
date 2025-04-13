@@ -1,13 +1,32 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../../components/layouts/MainLayout";
-import { LastAuthorizeWrapper, LastCoursesWrapper, LastLandingWrapper } from "../../screens";
+import {
+  LastAuthorizeWrapper,
+  LastCoursesWrapper,
+  LastLandingWrapper,
+  LastArticleDetailWrapper,
+  LastCourseDetailWrapper,
+  LastUsserPanelWrapper,
+} from "../../screens";
+import { authorizeRouterArray } from "./authorize.router";
+import { userPanelRoute } from "./userPanel.router";
 
-export const commonRouter = createBrowserRouter([{
+export const commonRouter = createBrowserRouter([
+  {
     path: "/",
-    element: <MainLayout/>,
+    element: <MainLayout />,
     children: [
-        {path: "/login", element: <LastAuthorizeWrapper/>},
-        {path: "/landing", element: <LastLandingWrapper/>},
-        {path: "/courses", element: <LastCoursesWrapper/>}
-    ]
-}])
+      { path: "/", element: <LastLandingWrapper /> },
+      {
+        path: "/Register",
+        element: <LastAuthorizeWrapper />,
+        children: [...authorizeRouterArray],
+      },
+      { path: "/landing", element: <LastLandingWrapper /> },
+      { path: "/courses", element: <LastCoursesWrapper /> },
+      { path: "/course-detail/:id", element: <LastCourseDetailWrapper /> },
+      { path: "/article-detail/:id", element: <LastArticleDetailWrapper /> },
+      { path: "/user-panel", element: <LastUsserPanelWrapper />, children: [...userPanelRoute] },
+    ],
+  },
+]);

@@ -1,5 +1,6 @@
 body {
-  background: #F9F9F9;
+  background: #f9f9f9;
+  user-select: none;
 }
 
 @import "tailwindcss";
@@ -19,4 +20,36 @@ body {
 
 @theme {
   --breakpoint-xs: 420px;
+  --breakpoint-my-breakpoint: 1118px;
+}
+
+@layer components {
+  .gridBtn {
+    @apply w-[45px] h-[45px] cursor-pointer
+    flex justify-center items-center drop-shadow-[0_1px_2px_#00000040];
+  }
+}
+
+.swiper-button-prev {
+  display: none;
+}
+
+.swiper-slide-active > .bg {
+  background: url(./assets/pics/landing/productActiveBg.svg) no-repeat;
+  background-size: cover;
+}
+
+.swiper-pagination-bullet {
+  width: 12px !important;
+  height: 12px !important;
+  background: #ff2727 !important;
+  transition: 0.2s !important;
+}
+
+.swiper-pagination-bullet:not(.swiper-pagination-bullet-active):hover {
+  width: 20px !important;
+}
+
+.swiper-pagination-bullet-active {
+  border: 2px solid rgb(255, 0, 0);
 }
