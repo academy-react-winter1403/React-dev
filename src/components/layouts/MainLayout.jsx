@@ -4,6 +4,7 @@ import FooterWrapper from "../partials/footer/FooterWrapper";
 import { Outlet } from "react-router-dom";
 import { Themes } from "../partials";
 import { useLocation } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 const MainLayout = () => {
   const Location = useLocation();
@@ -13,11 +14,15 @@ const MainLayout = () => {
       <HeaderWrapper />
       <Outlet />
       {/* <Themes/> */}
-      {currentPath !== "/Register/step1" &&
-        currentPath !== "/Register/step2" &&
-        currentPath !== "/Register/step3" &&
-        currentPath !== "/Register/step4" &&
-        currentPath !== "/Register/step5" && <FooterWrapper />}
+      {currentPath !== "/Authorize/Register/step1" &&
+        currentPath !== "/Authorize/Register/step2" &&
+        currentPath !== "/Authorize/Register/step3" &&
+        currentPath !== "/Authorize/Login/step1" &&
+        currentPath !== "/Authorize/Login/step2" &&
+        currentPath !== "/Authorize/forget-password/step1" &&
+        currentPath !== "/Authorize/forget-password/step2" && <FooterWrapper />}
+      <ToastContainer />
+      {/* <FooterWrapper /> */}
     </>
   );
 };

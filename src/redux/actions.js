@@ -10,5 +10,7 @@ export const {
   changePageCounter,
   changeAddDataFlag,
   addArticleAndNewsDetailData,
-  ArticlesNews
+  ArticlesNews,
+  addDetailData,
+  addCourseDetailCommentData,
 } = slices.actions;

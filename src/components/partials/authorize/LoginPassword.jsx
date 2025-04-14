@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { InputOtp } from "@heroui/react";
+// import { InputOtp } from "@heroui/react";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import OTPInput from "../../common/OtpInput/OtpInput";
 import BtnGetCode from "../../common/BtnText/BtnGetCode";
 import BtnTwoAuthorize from "../../common/BtnText/BtnTwoAuthorize";
 import { postData } from "../../../core/services/api/post-data/postData";
@@ -12,15 +13,16 @@ const LoginPassword = () => {
   const navigate = useNavigate();
   const Location = useLocation();
   const phoneNumber = getItemLocalStorage("phoneNumber");
+
   const ResendCode = async () => {
     try {
       const Resend = await postData("/Sign/SendVerifyMessage", {
-        phoneNumber
+        phoneNumber,
       });
       console.log(Resend);
-      console.log(Resend.data.message)
+      console.log(Resend.data.message);
       if (Resend.data.message == "لطفا  کد تایید را وارد نمایید") {
-        alert("لطفا کد جدیدرا وارد نمایید")
+        alert("لطفا کد جدیدرا وارد نمایید");
       }
     } catch (error) {
       console.log(error.response ? error.response.data : error.message);
@@ -35,19 +37,17 @@ const LoginPassword = () => {
       });
       if (
         ApiCall.data.success == true &&
-        location.pathname === "/Register/step2"
+        location.pathname === "/Authorize/Register/step2"
       ) {
-        navigate("/Register/step3");
+        navigate("/Authorize/Register/step3");
         console.log(ApiCall.data.message);
-      } 
-      else if (
+      } else if (
         ApiCall.data.success == true &&
-        location.pathname === "/Register/step5"
+        location.pathname === "/Authorize/Login/step2"
       ) {
-        navigate("/landing");
+        navigate("/");
         console.log(ApiCall.data.message);
-      } 
-      else {
+      } else {
         alert("کد صحیح  نمی باشد");
       }
 
@@ -86,7 +86,8 @@ const LoginPassword = () => {
     validationSchema: yup.object().shape({
       verifyCode: yup
         .string()
-        .matches(/^\d{5}$/, "کد باید 5 رقمی باشد")
+        // .matches(/^\d{5}$/, "کد باید 5 رقمی باشد")
+        .length(5,"کد باید 5 رقمی باشد")
         .required("وارد کردن کد الزامی است"),
     }),
     onSubmit: (values) => {
@@ -95,20 +96,13 @@ const LoginPassword = () => {
     },
   });
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-8">
       <form
         onSubmit={formik.handleSubmit}
-        className="flex flex-col justify-center  w-[266px] h-[59px]"
+        className="flex flex-col justify-center w-[266px] h-[59px]"
       >
-        <input
-          name="verifyCode"
-          value={formik.values.verifyCode}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          maxLength={5}
-          autoFocus
-          className="bg-[#f7f7f7] h-[59px]"
-        />
+        {/* onChange={formik.setFieldValue}  */}
+        <OTPInput length={5} name="verifyCode" setFieldValue={formik.setFieldValue} />
         {formik.errors.verifyCode && (
           <p className="text-red-600">{formik.errors.verifyCode}</p>
         )}
@@ -120,10 +114,7 @@ const LoginPassword = () => {
           <BtnGetCode text={"ایجاد حساب"} />
         </div>
       </form>
-          <BtnTwoAuthorize
-            text={"ارسال دوباره کد"}
-            onClick={ResendCode}
-          />
+      <BtnTwoAuthorize text={"ارسال دوباره کد"} onClick={ResendCode} />
     </div>
   );
 };

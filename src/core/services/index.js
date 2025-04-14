@@ -4,5 +4,20 @@ import { postData } from "./api/post-data/postData";
 import { putData } from "./api/put-data/putData";
 import { deleteDataApi } from "./api/delete-data/deleteData";
 import { getDataByClick } from "./api/get-data-by-click/getDataByClick";
+import { getCommentData } from "./api/get-data/getCommentData";
+import { getFilterData } from "./api/get-data/getFiilterData";
+import { likeCourseCommentPost } from "./api/post-data/likeCourseCommentPost";
+import { desLikeCourseCommentPost } from "./api/post-data/desLikeCourseCommentPost";
 
-export { baseUrl, getData, postData, putData, deleteDataApi, getDataByClick }
+export {
+  baseUrl,
+  getData,
+  postData,
+  putData,
+  deleteDataApi,
+  getDataByClick,
+  getCommentData,
+  getFilterData,
+  likeCourseCommentPost,
+  desLikeCourseCommentPost
+};

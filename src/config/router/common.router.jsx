@@ -11,7 +11,6 @@ import{
   LastArticleDetailWrapper,
   LastCourseDetailWrapper,
 } from "../../screens";
-// import { authorizeRouterArray } from "./authorize.router";
 import Error from "../../components/partials/ErrorNotFound/Error";
 
 export const commonRouter = createBrowserRouter([
@@ -21,7 +20,7 @@ export const commonRouter = createBrowserRouter([
     children: [
       { path: "/", element: <LastLandingWrapper /> },
       {
-        path: "/Register",
+        path: "/Authorize",
         element: <LastAuthorizeWrapper />,
         children: [...authorizeRouterArray],
       },
@@ -29,6 +28,7 @@ export const commonRouter = createBrowserRouter([
       { path: "/courses", element: <LastCoursesWrapper /> },
       { path: "/ArticlesAndNews", element: <LastArticlesAndNewsWrapper /> },
       { path: "/detail/:id", element: <LastCourseDetailWrapper /> },
+      { path: "/course-detail/:id", element: <LastCourseDetailWrapper /> },
       { path: "/article-detail/:id", element: <LastArticleDetailWrapper /> },
       { path: "*", element: <Error /> }
     ],

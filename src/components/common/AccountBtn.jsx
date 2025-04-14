@@ -1,9 +1,11 @@
 import React from 'react'
 import { MdPerson } from "react-icons/md"
+import { useNavigate } from 'react-router-dom'
 
 const AccountBtn = () => {
+  const navigate = useNavigate()
   return (
-    <button className=' bg-[#01CEC9] rounded-[26px] text-white font-b-yekan 
+    <button onClick={()=> navigate("/Authorize/Register/step1")} className=' bg-[#01CEC9] rounded-[26px] text-white font-b-yekan 
     flex flex-row-reverse flex-nowrap justify-center gap-1 items-center cursor-pointer whitespace-nowrap
     lg:w-[145px] lg:h-[44px] md:w-[40px] md:h-[40px] sm:w-[30px] sm:h-[30px] xs:w-[25px] xs:h-[25px]'>
       <MdPerson className=' mt-0.5

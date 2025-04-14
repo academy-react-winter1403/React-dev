@@ -1,5 +1,4 @@
 import { ArticlesNews } from "../../redux/actions";
-// import { getItemLocalStorage } from "../hooks/local-storage/getItemLocalStorage"
 import { htttp } from "../services/interceptor"
 
 export const filterDataArticles = (searchParams,dispatch) => {
@@ -16,16 +15,12 @@ export const filterDataArticles = (searchParams,dispatch) => {
       }
       if (sortArticle) {
         if (sortArticle === "جدید ترین") {
-         params.set("SortingCol" , "currentView")
-         console.log(sortArticle);
-         
+         params.set("SortingCol" , "insertDate")
         }
         else if (sortArticle === "پرطرفدار ترین") {
          params.set("SortingCol" , "currentLikeCount") 
         }
       }
-
-
 
         dispatch(ArticlesNews(null))
         const data = await htttp.get(
@@ -33,9 +28,6 @@ export const filterDataArticles = (searchParams,dispatch) => {
           ${sortArticle ? `&SortingCol=${params.get("SortingCol")}` : ''}&
           ${SearchArticles && SearchArticles !== '' ? `&Query=${SearchArticles}` : ''}&`
         )
-        
-      
-
         console.log(data.data.news)
         dispatch(ArticlesNews(data.data.news))
     }

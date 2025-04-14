@@ -5,7 +5,7 @@ import TextPagesArticlesNew from "./TextPagesArticlesNew";
 import TopSectionArticlesNew from "./TopSectionArticlesNew";
 import React, { useEffect, useState } from "react";
 import { getData } from "../../../core/services/api/get-data/getData";
-import { PaginationData } from "../../partials";
+import { CardLoading, PaginationData } from "../../partials";
 import { getDataByClick } from "../../../core/services";
 import BgOne from "./../../../assets/pics/articles/01.png";
 import BgTwo from "./../../../assets/pics/articles/02.png";
@@ -16,11 +16,14 @@ import BgFive from "./../../../assets/pics/articles/03.jfif";
 import { useDispatch, useSelector } from "react-redux";
 import { filterDataArticles } from "../../../core";
 import { ArticlesNews } from "../../../redux/actions";
-import { setItemLocalStorage } from './../../../core/hooks/local-storage/setItemLocalstorage';
+import { setItemLocalStorage } from "./../../../core/hooks/local-storage/setItemLocalstorage";
 import { useSearchParams } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { productMockData } from "../../../core/constants";
 
 const ArticlesAndNews = () => {
-  const [searchParams , setSearchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams();
   const [pagination, setPagination] = useState(1);
   const [flag, setFlag] = useState(true);
   const [length, setLength] = useState(0);
@@ -30,7 +33,6 @@ const ArticlesAndNews = () => {
   getData("ArticlesNews", `/News?PageNumber=${pagination}&RowsOfPage=6`).then(
     (responseArticles) => {
       if (flag) {
-        // console.log(responseArticles.data.news);
         dispatch(ArticlesNews(responseArticles.data.news));
         setLength(responseArticles.data.totalCount);
         setFlag(false);
@@ -56,18 +58,25 @@ const ArticlesAndNews = () => {
     );
   };
 
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+    });
+  }, []);
+
   const changeFilterHandler = async (filter) => {
     localStorage.setItem("SearchArticles", filter.target.value);
-    filterDataArticles(setSearchParams , dispatch);
+    filterDataArticles(setSearchParams, dispatch);
   };
 
   const sortFilter = async (name) => {
-    setItemLocalStorage("sortArticle", name)
-    filterDataArticles(setSearchParams , dispatch);
-  }
+    setItemLocalStorage("sortArticle", name);
+    filterDataArticles(setSearchParams, dispatch);
+  };
 
   return (
-    <div className="max-w-7xl flex flex-row flex-wrap justify-center m-auto gap-5">
+    <div className="max-w-7xl flex flex-row flex-wrap justify-center m-auto gap-3">
       <TopSectionArticlesNew changeFilterHandler={changeFilterHandler} />
       <div className="w-[900px] flex flex-col gap-7">
         <div className="h-[45px] flex gap-7">
@@ -76,34 +85,26 @@ const ArticlesAndNews = () => {
           </h1>
           <SortingArticlesNew selectData={sortFilter} />
         </div>
-        <div className="flex flex-row flex-wrap gap-2.5">
-          {/* {state
-            ? state.map((index) => {
+        <div className="flex flex-row flex-wrap gap-3">
+          {state
+            ? state.map((item, index) => {
                 return (
-                  <div key={index.id}>
-                    <ArticlesCard
-                      title={index.title}
-                      Describe={index.miniDescribe}
-                      src={index.addUserProfileImage}
-                      currentView={index.currentView}
-                      // insertDate={index.insertDate}
-                    />
-                  </div>
+                  <ArticlesCard
+                    key={index}
+                    title={item.title}
+                    Describe={item.miniDescribe}
+                    src={item.addUserProfileImage}
+                    currentView={item.currentView}
+                    // insertDate={index.insertDate}
+                  />
                 );
               })
-            : 0} */}
-          {state?.map((item, index) => {
-            return (
-              <ArticlesCard
-                key={index}
-                title={item.title}
-                Describe={item.miniDescribe}
-                src={item.addUserProfileImage}
-                currentView={item.currentView}
-                // insertDate={index.insertDate}
-              />
-            );
-          })}
+            : 0
+            // productMockData.map((item, index) => {
+            //     return <CardLoading key={index} />;
+            //   
+            }
+            {/* )} */}
         </div>
         <PaginationData
           initialPageNum={1}
@@ -112,7 +113,10 @@ const ArticlesAndNews = () => {
         />
       </div>
       <div className="w-[298px] h-[900px] flex flex-col justify-center items-center gap-6 mt-15">
-        <div className="w-full h-[408px] flex flex-col gap-7 shadow-sm items-center justify-center">
+        <div
+          className="w-full h-[408px] flex flex-col gap-7 shadow-sm items-center justify-center"
+          data-aos="zoom-in-down"
+        >
           <TextPagesArticlesNew
             title={"مطالب پیشنهادی"}
             explan={"این مطالب هم میتونه براتون جالب باشه"}
@@ -129,7 +133,10 @@ const ArticlesAndNews = () => {
             />
           </div>
         </div>
-        <div className="w-full h-[408px] flex flex-col gap-7 shadow-sm items-center justify-center">
+        <div
+          className="w-full h-[408px] flex flex-col gap-7 shadow-sm items-center justify-center"
+          data-aos="zoom-in-down"
+        >
           <TextPagesArticlesNew
             title={"محبوب ترین دوره ها"}
             explan={"بهترین چیزهایی که میتونید یاد بگیرید"}
@@ -140,17 +147,6 @@ const ArticlesAndNews = () => {
             <CardArticlesOther title={"دوره جامع ری اکت"} image={BgSix} />
           </div>
         </div>
-        {/* <div className="w-full h-[408px] flex flex-col gap-7 shadow-sm items-center justify-center">
-          <TextPagesArticlesNew
-            title={"محبوب ترین دوره ها"}
-            explan={"بهترین چیزهایی که میتونید یاد بگیرید"}
-          />
-          <div className="flex flex-col justify-center items-center gap-10">
-            <CardArticlesOther title={"دوره جامع انگولار"} />
-            <CardArticlesOther title={"دوره جامع فیگما"} />
-            <CardArticlesOther title={"دوره جامع ری اکت"} />
-          </div>
-        </div> */}
       </div>
     </div>
   );
