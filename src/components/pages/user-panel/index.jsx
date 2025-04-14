@@ -1,5 +1,5 @@
-import DashboardPage from "./pages/DashboardPage";
+import DashboardSection from "./pages/DashboardSection";
 import UserInformationPage from "./pages/UserInformationPage";
-import MyCoursePage from "./pages/MyCoursePage";
+import MyCourseSection from "./pages/MyCourseSection";
 
-export { DashboardPage, UserInformationPage, MyCoursePage };
+export { DashboardSection, UserInformationPage, MyCourseSection };

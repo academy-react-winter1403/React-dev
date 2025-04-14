@@ -1,8 +1,8 @@
 import React from "react";
-import { dashboardMockApi } from "../../../core/constants";
+import { dashboardMockApi } from "../../../../core/constants";
 import { TbLayoutDashboardFilled } from "react-icons/tb";
 import { FaUserPen } from "react-icons/fa6";
-import ImageFedback from "../../partials/image-fedback/imageFedback";
+import ImageFedback from "../../../partials/image-fedback/imageFedback";
 import { isAction } from "@reduxjs/toolkit";
 import { useLocation, useNavigate } from "react-router-dom";
 import { RadioGroup, Radio } from "@heroui/react";

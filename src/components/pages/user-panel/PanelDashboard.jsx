@@ -1,7 +1,7 @@
 import React from "react";
 import ImageFedback from "../../partials/image-fedback/imageFedback";
 import userPic from "../../../assets/pics/userPanel/user-pic.png";
-import DashboardOption from "./DashboardOption";
+import DashboardOption from "./dosboard/DashboardOption";
 
 const PanelDashboard = () => {
   return (

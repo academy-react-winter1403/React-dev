@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MyCoursePage = () => {
+const MyCourseSection = () => {
   return (
     <div>
       <h1>my course page...</h1>
@@ -8,4 +8,4 @@ const MyCoursePage = () => {
   )
 }
 
-export default MyCoursePage
+export default MyCourseSection
