@@ -7,7 +7,13 @@ import {
   filterDataSlice,
   coursesFlagsSlice,
   coursesSortSlice,
-  coursesQueryParams
+  coursesQueryParams,
+  userProfileInfoSlice,
+  latestSserPanelNewsSlice,
+  suggested1courseUserPanel,
+  courseActivedDataUserPanel,
+  courseReserved,
+  myCoursesUserPanel
 } from "./slices";
 
 export const store = configureStore({
@@ -19,6 +25,12 @@ export const store = configureStore({
     coursesFlags: coursesFlagsSlice.reducer,
     courseComment: courseCommentSlice.reducer,
     coursesSort: coursesSortSlice.reducer,
-    courseQueryParams: coursesQueryParams.reducer
+    courseQueryParams: coursesQueryParams.reducer,
+    userProfileInfo: userProfileInfoSlice.reducer,
+    latestSserPanelNews: latestSserPanelNewsSlice.reducer,
+    suggestedCourseUserPanel: suggested1courseUserPanel.reducer,
+    courseActivedDataUserPanel: courseActivedDataUserPanel.reducer,
+    courseReserved: courseReserved.reducer,
+    myCourseUserPanel: myCoursesUserPanel.reducer
   },
 });

@@ -10,12 +10,21 @@ body {
   font-style: normal;
   font-weight: 200 700;
   font-display: swap;
-  src: url("./assets/fonts/BYekan+.ttf") format("woff2");
+  src: url("./assets/fonts/BYekan+/BYekan+Bold.ttf") format("woff2");
+}
+
+@font-face {
+  font-family: iran-sans;
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+  src: url("./assets/fonts/IranianSans.ttf") format("woff2");
 }
 
 @theme {
   --font-roboto: "Roboto", sans-serif;
   --font-b-yekan: "BYekan", b-yekan;
+  --font-iran-sans: "iranSans", iran-sans;
 }
 
 @theme {

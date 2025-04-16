@@ -16,6 +16,13 @@ import bg from "../../../assets/pics/courses/bg1.png";
 import { deleteAllItemLocalStorage } from "../../../core/hooks/local-storage/deleteAllItem";
 import { getDataByClick } from "../../../core/services/api/get-data-by-click/getDataByClick";
 import Aos from "aos";
+// import { filterData } from "../../../core/constants";
+// import { useSelect } from "@heroui/react";
+// import { deleteItemLocalStorage } from "../../../core/hooks/local-storage/deleteItemLocalStorage";
+// import { htttp } from "../../../core/services/interceptor";
+// import { setItemLocalStorage } from "../../../core/hooks/local-storage/setItemLocalstorage";
+// import { locStorageUpdateItem } from "../../../core/hooks/local-storage/updateItem";
+// import { getItemLocalStorage } from "../../../core/hooks/local-storage/getItemLocalStorage";
 
 const Courses = () => {
   const dispatch = useDispatch();
@@ -24,6 +31,14 @@ const Courses = () => {
   const { addDataFlag, queryFlag } = coursesFlags
   const { RowsOfPage } = courseQueryParams
 
+  // getData("pages",
+  //   `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`
+  // ).then((response) => {
+  //   setCoursesData(response.data.courseFilterDtos);
+  //   setTimeout(() => {
+  //     dispatch(firstAddProduct(response.data.courseFilterDtos));
+  //   }, 3000);
+  // })
 
   useEffect(() => {
     if (!queryFlag) {
@@ -48,17 +63,19 @@ const Courses = () => {
     Aos.refresh()
   }, [])
 
-  getData(
+  const {data, isLoading} = getData(
     "product",
     `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=${RowsOfPage}`
-  ).then((response) => {
+  )
+
+  if (!isLoading) {
     if (!addDataFlag) {
       setTimeout(() => {
-        dispatch(firstAddCourseProduct(response.data.courseFilterDtos));
+        dispatch(firstAddCourseProduct(data.courseFilterDtos));
         dispatch(changeAddDataFlag(true))
       }, 3000);
     }
-  });
+  }
 
 
   getFilterData("technologie", "/Home/GetTechnologies").then((technologi) => {
@@ -82,6 +99,7 @@ const Courses = () => {
     const data = await getDataByClick2(`/Home/GetCoursesWithPagination?PageNumber=${pageNum}&RowsOfPage=6`)
     console.log("mutation ==>",data)
     setTimeout(() => {dispatch(firstAddCourseProduct(data.courseFilterDtos))}, 2000)
+    dispatch(firstAddProduct(data.data.courseFilterDtos))
   };
 
   return (

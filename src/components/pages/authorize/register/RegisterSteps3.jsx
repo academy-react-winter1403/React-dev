@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import LoginBg from "../../../partials/authorize/LoginBg";
 import { Field, Form, Formik } from "formik";
 import * as yup from "yup";
@@ -8,9 +8,14 @@ import StageName from "../../../common/StageName";
 import CustomInput from "../../../partials/authorize/CustomInput";
 import BtnNumberStep from "../../../common/BtnText/BtnNumberStep";
 import { postData } from "../../../../core/services/api/post-data/postData";
-import { htttp } from "../../../../core/services/interceptor";
+import { getItemLocalStorage } from "../../../../core/hooks/local-storage/getItemLocalStorage";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
-const Steps3 = () => {
+const RegisterSteps3 = () => {
+  const [rememberMe, setRememberMe] = useState(false);
+  const navigate = useNavigate();
+
   const onSubmit = async (values) => {
     const phoneNumber = getItemLocalStorage("phoneNumber");
     console.log(values);
@@ -19,14 +24,20 @@ const Steps3 = () => {
         password: values.password,
         gmail: values.gmail,
         phoneNumber,
+        rememberMe: rememberMe,
       });
+      if (ApiCall.data.success) {
+        alert(ApiCall.data.message);
+        navigate("/");
+      } else {
+        alert(ApiCall.data.message);
+      }
       console.log(ApiCall);
-      // setItemLocalStorage("password",values.password)
-      // setItemLocalStorage("gmail",values.gmail)
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
+
   const validation = yup.object().shape({
     gmail: yup
       .string()
@@ -35,23 +46,28 @@ const Steps3 = () => {
     password: yup
       .string()
       .min(6, "رمز عبور باید حداقل 6 کاراکتر باشد")
-      // .matches(/[A-Z]/, "رمز عبور باید حداقل یک حرف بزرگ داشته باشد")
-      // .matches(/[a-z]/, "رمز عبور باید حداقل یک حرف کوچک داشته باشد")
       .matches(/\d/, "رمز عبور باید حداقل یک عدد داشته باشد")
       .required("وارد کردن رمز عبور الزامی است"),
     confirmPassword: yup
       .string()
       .oneOf([yup.ref("password"), null], "رمز عبور مطابقت ندارد")
       .required("تأیید رمز عبور الزامی است"),
-      // phoneNumber: yup
-      //   .string()
-      //   .matches(/^(\+98|0)?9\d{9}$/, "شماره تلفن معتبر نیست")
-      //   .required("شماره تلفن الزامی است"),
   });
   return (
     <LoginBg>
       <div className="h-[400px] flex relative">
-        <div className="w-[377px] bg-[#fcfcfc] rounded-[15px] flex flex-col gap-3.5 justify-center items-center">
+        <motion.div
+          className="w-[377px] bg-[#fcfcfc] rounded-[15px] flex flex-col gap-3.5 justify-center items-center"
+          initial={{ opacity: 0, scale: 0.6 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            type: "spring",
+            stiffness: 250,
+            damping: 12,
+            duration: 0.6,
+            delay: 0.2,
+          }}
+        >
           <StageName stageName={"ایجاد حساب کاربری"} />
           <Formik
             initialValues={{ gmail: "", password: "", confirmPassword: "" }}
@@ -75,14 +91,24 @@ const Steps3 = () => {
                 type={"text"}
               />
               <div className="flex w-[94px] h-[12px] ">
-                <Field type="checkbox" name="rememberMe" id="rememberMe"/>
-                <label className="font-normal text-xs font-b-yekan text-gray-400" htmlFor="rememberMe">مرا به خاطر بسپار</label>
+                <label
+                  className="font-normal text-xs font-b-yekan text-gray-400"
+                  htmlFor="rememberMe"
+                >
+                  <input
+                    type="checkbox"
+                    name="rememberMe"
+                    id="rememberMe"
+                    onChange={() => setRememberMe(!rememberMe)}
+                  />
+                  مرا به خاطر بسپار
+                </label>
               </div>
               <BtnGetCode text={"ورود به حساب کاربری"} />
             </Form>
           </Formik>
-        </div>
-        <div className="size-20 mt-[295px] rounded-xl flex justify-center items-center bg-[#cdcfb3] left-[-75px] absolute z-10 rotate-45">
+        </motion.div>
+        <div className="size-16 mt-[295px] rounded-xl flex justify-center items-center bg-[#cdcfb3] left-[-50px] absolute z-10 rotate-45">
           <BtnNumberStep number={3} />
         </div>
       </div>
@@ -91,4 +117,4 @@ const Steps3 = () => {
   );
 };
 
-export default Steps3;
+export default RegisterSteps3;

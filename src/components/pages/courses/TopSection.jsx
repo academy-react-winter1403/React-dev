@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeQuery, firstAddCourseProduct } from "../../../redux/actions";
 import { useSearchParams } from "react-router-dom";
 import { setItemLocalStorage } from "../../../core/hooks/local-storage/setItemLocalstorage";
-import { courseFilter } from "../../../core/utility/courseFilter";
 import { courseFilterFull } from "../../../core/utility/courseFilterFull";
 // import { setSearchParams } from "../../../core/hooks/indexHooks";
 

@@ -6,7 +6,6 @@ import {
 } from "react-icons/io5";
 import { FiCalendar } from "react-icons/fi";
 import { useSelector } from "react-redux";
-// import { useSelector } from "react-redux";
 
 const ArticleTitle = () => {
   const state = useSelector((state) => state.articleAndNewDetailData);
@@ -31,7 +30,7 @@ const ArticleTitle = () => {
         </p>
       </div>
       {/* options */}
-      <div className="w-[90%] h-1/2 flex flex-row flex-nowrap justify-end md:gap-4 xs:gap-0.5 text-[#AAAAAA] items-center whitespace-nowrap">
+      <div className="w-[90%] h-1/2 flex flex-row flex-nowrap justify-end md:gap-4 xs:gap-0.5 text-[#7d7c7c] items-center whitespace-nowrap">
         <div className="flex flex-row-reverse flex-nowrap md:gap-2 xs:gap-0.5">
           <IoEyeOutline className="lg:text-lg md:text-[16px] xs:text-[14px] mt-1" />
           <p className="md:mb-1.5 md:mt-0 xs:mt-1 xs:mb-0 lg:text-[16px] md:text-[14px] xs:text-[10px]">

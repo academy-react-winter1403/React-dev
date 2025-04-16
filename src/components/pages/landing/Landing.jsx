@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import Header from "../../partials/header/Header";
 import Footer from "../../partials/footer/Footer";
@@ -13,16 +12,19 @@ import { useDispatch } from "react-redux";
 import { getData } from "../../../core/services";
 
 const Landing = () => {
-  
   const [coursesData, setCoursesData] = useState(null);
 
-  getData(
+  const { data, isLoading } = getData(
     "landingProduct",
     "/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=6"
-  ).then((response) => {
-    console.log("",response.data)
-    setCoursesData(response.data.courseFilterDtos);
-  });
+  );
+
+  if (!isLoading) {
+    if (!coursesData) {
+      console.log("landing ",data);
+      setCoursesData(data.courseFilterDtos);
+    }
+  }
 
   useEffect(() => {
     if (coursesData) {
@@ -33,12 +35,12 @@ const Landing = () => {
   return (
     <div className="bg-[#F7F7F7]">
       {/* <Header/> */}
-      <HeroSection/>
-      <CategorySection/>
-      <CourseSection courseData={coursesData}/>
-      <BestTeacherSection/>
-      <ServiceSection/>
-      <NewsSection/>
+      <HeroSection />
+      <CategorySection />
+      <CourseSection courseData={coursesData} />
+      <BestTeacherSection />
+      <ServiceSection />
+      <NewsSection />
 
       {/* <HeroSection />
       <CategorySection />

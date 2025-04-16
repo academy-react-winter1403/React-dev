@@ -1,38 +1,92 @@
 import React from "react";
 import StatusCard from "./StatusCard";
 import { DashStudentIcon, Basket } from "../../../../core/icons/icons";
+import { CircularProgress } from "@heroui/react";
+import { useSelector } from "react-redux";
+import { motion } from "framer-motion";
+import { MotionComp } from "../../../partials";
 
-const TopSection = () => {
+const TopSection = ({ data }) => {
+  const { userProfileInfo, courseReserved, myCourseUserPanel } = useSelector(
+    (state) => state
+  );
+  const { userProfileInfoData } = userProfileInfo;
+  const { courseReserv } = courseReserved;
+  const { myCourse } = myCourseUserPanel;
+
+  // console.log("myCourse ==>", myCourse)
+  const { profileCompletionPercentage } = userProfileInfoData;
+
   return (
-    <div className="top-item-control flex items-start">
-      <StatusCard
-        title={" 4 دوره "}
-        description={"شرکت کرده اید"}
-        textColor={"#00B4AF"}
-        titleChildren={
-          <span className="text-[#00B4AF] text-[19px] font-extrabold font-b-yekan">
-            {" 4 دوره "}
-          </span>
-        }
-      >
-        <DashStudentIcon
-          classNames={`w-[35px] h-[35px] relative top-[-19px]`}
-        />
-      </StatusCard>
-      <StatusCard
-        description={" رزرو کرده اید "}
-        textColor={"#DC0000"}
-        titleChildren={
-          <span className="text-[#FFB800] text-[19px] font-extrabold font-b-yekan">
-            {" 2 دوره "}
-          </span>
-        }
-      >
-        <Basket classNames={`w-[35px] h-[35px] relative top-[-19px]`} />
-      </StatusCard>
-      <p className="text-[15px] font-[400] font-b-yekan text-[#ABABAB] w-[170px] text-center">
-        برای شرکت در دوره ها باید حداقل ٪ ۸۰ از پروفایل خود را تکمیل کنید.
-      </p>
+    <div className="top-item-control flex items-center justify-center gap-x-8 max-lg:gap-0">
+      <div className="right flex items-center gap-x-5">
+        <motion.div
+          initial={{ scale: 0, visibility: "hidden", opacity: 0 }}
+          animate={{ scale: 1.1, visibility: "visible", opacity: 1 }}
+          transition={{ duration: 0.4 }}
+        >
+          <StatusCard
+            title={" 4 دوره "}
+            description={"شرکت کرده اید"}
+            textColor={"#00B4AF"}
+            titleChildren={
+              <p className="text-[#00B4AF] text-[16px] text-start max-xl:text-center font-extrabold font-b-yekan">
+                {myCourse && `${myCourse.totalCount} دوره`}
+              </p>
+            }
+          >
+            <DashStudentIcon
+              classNames={`w-[35px] h-[35px] relative top-[-19px]`}
+            />
+          </StatusCard>
+        </motion.div>
+
+        <motion.div
+          initial={{ scale: 0, visibility: "hidden", opacity: 0 }}
+          animate={{ scale: 1.1, visibility: "visible", opacity: 1 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+        >
+          <StatusCard
+            description={" رزرو کرده اید "}
+            textColor={"#DC0000"}
+            titleChildren={
+              <p className="text-[#FFB800] text-[16px] text-start max-xl:text-center font-extrabold font-b-yekan">
+                {`${courseReserv.length} دوره `}
+              </p>
+            }
+          >
+            <Basket classNames={`w-[35px] h-[35px] relative top-[-19px]`} />
+          </StatusCard>
+        </motion.div>
+      </div>
+
+      <div className="left flex items-center gap-x-5">
+        <motion.div
+          initial={{ scale: 0, visibility: "hidden", opacity: 0 }}
+          animate={{ scale: 1.1, visibility: "visible", opacity: 1 }}
+          transition={{ duration: 0.4, delay: 0.4 }}
+        >
+          <p className="text-[15px] font-[400] font-b-yekan text-[#ABABAB] w-[170px] text-center max-xl:text-xs">
+            برای شرکت در دوره ها باید حداقل ٪ ۸۰ از پروفایل خود را تکمیل کنید.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ scale: 0, visibility: "hidden", opacity: 0 }}
+          animate={{ scale: 1.1, visibility: "visible", opacity: 1 }}
+          transition={{ duration: 0.4, delay: 0.6 }}
+        >
+          <CircularProgress
+            classNames={{
+              svg: "w-[80px] h-[80px]  stroke-[1.5px] stroke-[#FFFFFF] drop-shadow-[0_1px_1px_#00000040] transition-[5s]",
+              indicator: "stroke-[#E48900]",
+              value: "font-iran-sans text-[17px]",
+            }}
+            value={profileCompletionPercentage}
+            showValueLabel={true}
+          />
+        </motion.div>
+      </div>
     </div>
   );
 };

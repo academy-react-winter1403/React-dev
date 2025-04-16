@@ -34,11 +34,10 @@ const CourseDetail = () => {
   const { commentData, commentReplay } = courseComment;
   const { detailData } = courseDetail;
 
-  getData("detailProduct", `/Home/GetCourseDetails?CourseId=${id}`).then(
-    (response) => {
-      dispatch(addCourseDetailData(response.data));
-    }
-  );
+  const {data, isLoading} = getData("detailProduct", `/Home/GetCourseDetails?CourseId=${id}`)
+  if (!isLoading) {
+    dispatch(addCourseDetailData(data.data));
+  }
 
   getCommentData("courseComment", `/Course/GetCourseCommnets/${id}`).then(
     (response) => {

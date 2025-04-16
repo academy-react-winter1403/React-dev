@@ -9,6 +9,12 @@ import {
   filterDataSlice,
   coursesSortSlice,
   coursesQueryParams,
+  userProfileInfoSlice,
+  latestSserPanelNewsSlice,
+  suggested1courseUserPanel,
+  courseActivedDataUserPanel,
+  courseReserved,
+  myCoursesUserPanel
 } from "./slices";
 
 export const { firstAddCourseProduct } = coursesSlice.actions;
@@ -20,6 +26,12 @@ export const { changeCoursesPageCounter } = coursesPageCounterSlice.actions;
 export const { changeDarkModKey } = dorkModeSlice.actions;
 export const { addFirstFilterData } = filterDataSlice.actions;
 export const { changeSortText } = coursesSortSlice.actions;
+export const { addUserProfileInfoData } = userProfileInfoSlice.actions
+export const { addLatestSserPanelNewsSlice } = latestSserPanelNewsSlice.actions
+export const { addSuggestedCourseUserPanel } = suggested1courseUserPanel.actions
+export const { addCourseActivedDataUserPanel } = courseActivedDataUserPanel.actions
+export const { addDataTheCourseReserved } = courseReserved.actions
+export const { addMyCourse } = myCoursesUserPanel.actions
 export const {
   changeQuery,
   changeRowOfPageNum,

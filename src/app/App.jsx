@@ -3,8 +3,8 @@ import RouterProvider from "../config/router/index.router";
 
 const App = () => {
   return (
-    <main dir="rtl" className="w-full min-2xl:w-[1536px] m-auto">
-      <div className="control">
+    <main dir="rtl" className={`w-full min-2xl:w-[1536px] m-auto`}>
+      <div className="control darkMode">
         <RouterProvider />
       </div>
     </main>

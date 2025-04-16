@@ -1,26 +1,69 @@
-import React from 'react'
-import PanelDashboard from './PanelDashboard'
-import { Outlet } from 'react-router-dom'
+import React, { useEffect } from "react";
+import PanelDashboard from "./PanelDashboard";
+import { Outlet } from "react-router-dom";
 import { TiHome } from "react-icons/ti";
+import { getDataUserPanel, getNewData } from "../../../core/services";
+import { htttp } from "../../../core/services/interceptor";
+import { getItemLocalStorage } from "../../../core/hooks/local-storage/getItemLocalStorage";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addLatestSserPanelNewsSlice,
+  addUserProfileInfoData,
+} from "../../../redux/actions";
+import Aos from "aos";
+import { motion } from "framer-motion";
 
 const UserPanelWrapper = () => {
-  return (
-    <div className='user-panel-holder w-full flex justify-center'>
-        <div className="dashboard-container w-[70%] rounded-[10px] bg-[#FFFFFF]
-            drop-shadow-[0_1px_2px_#00000040] flex items-start my-11 overflow-x-hidden"
-        >
-            <div className="rigth-item-control w-[30%]">
-                <PanelDashboard/>
-            </div>
-            <div className="left-item-control w-[70%] h-full p-5">
-                <div className="home-icon-control w-full flex justify-end">
-                    <TiHome size={25} className='text-[#01B4AF] cursor-pointer'/>
-                </div>
-                <Outlet/>
-            </div>
-        </div>
-    </div>
-  )
-}
+  const dispatch = useDispatch();
+  const token = getItemLocalStorage("token");
 
-export default UserPanelWrapper
+  useEffect(() => {
+    Aos.init({
+      duration: 800,
+      once: false,
+    });
+    Aos.refresh();
+  }, []);
+
+  const { isError, isLoading, data } = getDataUserPanel(
+    "userPanelProfileInformation",
+    "/SharePanel/GetProfileInfo",
+    token
+  );
+
+  if (!isLoading) {
+    console.log(data);
+    dispatch(addUserProfileInfoData(data));
+  }
+
+  return (
+    <div className="user-panel-holder w-full flex justify-center">
+      {/* <motion.div
+        className="w-[70%]"
+        initial={{y: "-50px", opacity: 0}}
+        animate={{y: 0, opacity: 1}}
+        transition={{duration: 2}}
+      > */}
+      <div className="right-item-control w-[30%] fixed hidden right-0 max-lg:block">
+      {/* {!isLoading && <PanelDashboard />} */}
+      </div>
+      <div
+        className="dashboard-container w-[70%] rounded-[10px] bg-[#FFFFFF]
+                drop-shadow-[0_1px_2px_#00000040] flex items-start my-11 overflow-x-hidden"
+      >
+        <div className="rigth-item-control w-[30%]">
+          {!isLoading && <PanelDashboard />}
+        </div>
+        <div className="left-item-control w-[70%] h-full p-5">
+          <div className="home-icon-control w-full flex justify-end">
+            <TiHome size={25} className="text-[#01B4AF] cursor-pointer" />
+          </div>
+          <Outlet />
+        </div>
+      </div>
+      {/* </motion.div> */}
+    </div>
+  );
+};
+
+export default UserPanelWrapper;
