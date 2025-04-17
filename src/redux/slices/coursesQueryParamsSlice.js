@@ -20,6 +20,9 @@ export const coursesQueryParams = createSlice({
   },
 
   reducers: {
+    changePageCounter: (state, action) => {
+      state.PageNumber = action.payload
+    },
     changeRowOfPageNum: (state, action) => {
       state.RowsOfPage = action.payload;
       // state.queryParams = { ...state.queryParams, RowsOfPage: action.payload };

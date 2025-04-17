@@ -31,7 +31,7 @@ const Steps5 = () => {
           </div>
           <LoginPassword />
         </div>
-        <div className="size-20 mt-[215px] rounded-xl flex justify-center items-center bg-[#d2cdae] left-[-75px] absolute z-10 rotate-45">
+        <div className="size-16 mt-[215px] rounded-xl flex justify-center items-center bg-[#d2cdae] left-[-50px] absolute z-10 rotate-45">
           <BtnNumberStep number={2} />
         </div>
       </div>

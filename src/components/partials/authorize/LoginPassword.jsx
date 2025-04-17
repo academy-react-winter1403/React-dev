@@ -12,19 +12,20 @@ const LoginPassword = () => {
   const navigate = useNavigate();
   const Location = useLocation();
   const phoneNumber = getItemLocalStorage("phoneNumber");
-  // const ResendCode = async () => {
-  //   const Resend = await postData("/Sign/SendVerifyMessage", {
-  //     phoneNumber
-  //   });
-  // };
-  const SendVerifyMessage = () => {
-    if (location.pathname === "/Register/step2") {
-      navigate("/Register/step1");
+  const ResendCode = async () => {
+    try {
+      const Resend = await postData("/Sign/SendVerifyMessage", {
+        phoneNumber
+      });
+      console.log(Resend);
+      console.log(Resend.data.message)
+      if (Resend.data.message == "لطفا  کد تایید را وارد نمایید") {
+        alert("لطفا کد جدیدرا وارد نمایید")
+      }
+    } catch (error) {
+      console.log(error.response ? error.response.data : error.message);
     }
-    else if (location.pathname === "/Register/step5") {
-      navigate("/Register/step4");
-    }
-  }
+  };
   const handleSendInformation = async (values) => {
     console.log(values);
     try {
@@ -38,20 +39,20 @@ const LoginPassword = () => {
       ) {
         navigate("/Register/step3");
         console.log(ApiCall.data.message);
-      } else if (
+      } 
+      else if (
         ApiCall.data.success == true &&
         location.pathname === "/Register/step5"
       ) {
         navigate("/landing");
         console.log(ApiCall.data.message);
-      } else {
+      } 
+      else {
         alert("کد صحیح  نمی باشد");
-        // ResendCode(values);
-        // console.log(values)
       }
 
-      console.log(ApiCall.data.success);
-      console.log(ApiCall.data.message);
+      // console.log(ApiCall.data.success);
+      // console.log(ApiCall.data.message);
     } catch (error) {
       console.log(error.response ? error.response.data : error.message);
     }
@@ -80,19 +81,6 @@ const LoginPassword = () => {
     return () => clearInterval(countdown);
   }, []);
 
-  // let timer = 119;
-  // const countdown = setInterval(() => {
-  //   let minute = Math.floor(timer / 60);
-  //   let second = timer % 60 ;
-  //   let CountView = `${minute}:${second}`
-  //   console.log(CountView);
-
-  //   timer -- ;
-  //   if (timer == -1) {
-  //     clearInterval(countdown)
-  //   }
-  // },1000)
-
   const formik = useFormik({
     initialValues: { verifyCode: "" },
     validationSchema: yup.object().shape({
@@ -107,7 +95,7 @@ const LoginPassword = () => {
     },
   });
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-5">
       <form
         onSubmit={formik.handleSubmit}
         className="flex flex-col justify-center  w-[266px] h-[59px]"
@@ -130,32 +118,14 @@ const LoginPassword = () => {
         </span>
         <div className="flex flex-col gap-[10px] justify-center items-center">
           <BtnGetCode text={"ایجاد حساب"} />
-          <BtnTwoAuthorize text={"ارسال دوباره کد"} onClick={SendVerifyMessage}/>
         </div>
       </form>
+          <BtnTwoAuthorize
+            text={"ارسال دوباره کد"}
+            onClick={ResendCode}
+          />
     </div>
   );
 };
 
 export default LoginPassword;
-
-{
-  /* <InputOtp
-    length={5}
-    variant="underlined"
-    value={formik.values.verifyCode}
-    onChange={(value) => formik.setFieldValue("verifyCode", value)}
-    classNames={{
-      segmentWrapper: "flex",
-    }}
-    name="verifyCode"
-    autoFocus
-    /> */
-}
-{
-  /* <div className="w-[266px] h-[59px] rounded-lg flex  items-center gap-4 bg-[#f7f7f7]"> */
-}
-
-{
-  /* </div> */
-}

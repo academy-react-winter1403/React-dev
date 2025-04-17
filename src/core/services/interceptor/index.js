@@ -1,6 +1,6 @@
 import axios from "axios";
 import { requestErrorHandler } from "../../utility/requestErrorHandler";
-// import { getItemLocalStorage } from "../../hooks/local-storage/getItemLocalStorage";
+import { getItemLocalStorage } from "../../hooks/local-storage/getItemLocalStorage";
 // import { baseUrl } from "../api/baseUrl";
 
 // const baseUrl = import.meta.env.VITE_BASE_URL
@@ -28,12 +28,12 @@ const onError = (error) => {
 
 htttp.interceptors.response.use(onSucces, onError);
 
-
-
 /* in redux with statemanegment */
-// htttp.interceptors.request.use((opt) => {
-//   const token = getItemLocalStorage("token");
-//   opt.headers.Authorization = "Bearer " + token;
-//   return opt;
-// });
 
+htttp.interceptors.request.use((opt) => {
+  const token = getItemLocalStorage("token");
+  if (token) {
+    opt.headers.Authorization = "Bearer " + token;
+  }
+  return opt;
+});

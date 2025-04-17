@@ -10,7 +10,7 @@ import {
   coursesSortSlice,
   coursesQueryParams,
   articleDetailSlice,
-  relatedCoursesSlice
+  relatedCoursesSlice,
 } from "./slices";
 
 export const { firstAddCourseProduct } = coursesSlice.actions;
@@ -36,5 +36,6 @@ export const {
   changeTechnologiList,
   changeTechnologiCount,
   changeSortType,
+  changePageCounter
   // addArticleData
 } = coursesQueryParams.actions;
