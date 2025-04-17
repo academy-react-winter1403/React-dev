@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import Header from "../../partials/header/Header";
 import Footer from "../../partials/footer/Footer";
@@ -11,9 +10,10 @@ import ServiceSection from "./LandingSections/ServiceSection";
 import NewsSection from "./LandingSections/NewsSection";
 import { useDispatch } from "react-redux";
 import { getData } from "../../../core/services";
-import { firstAddProduct } from "../../../redux/actions";
+import { firstAddCourseProduct } from "../../../redux/actions";
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+
 
 const Landing = () => {
   

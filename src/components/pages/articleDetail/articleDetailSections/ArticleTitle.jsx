@@ -8,13 +8,13 @@ import { FiCalendar } from "react-icons/fi";
 import { useSelector } from "react-redux";
 
 const ArticleTitle = () => {
-  const state = useSelector((state) => state.articleAndNewDetailData);
+  const { articleDetailSlice } = useSelector((state) => state);
+  const { articleAndNewDetailData } = articleDetailSlice;
 
-  if (state) {
-    var commentDtos = state.commentDtos;
-    var detailsNewsDto = state.detailsNewsDto;
-    var { title, addUserFullName, currentView, insertDate} = detailsNewsDto;
-  }
+  console.log("articleDetailSlice ==>", articleDetailSlice);
+
+  var { title, addUserFullName, currentView, insertDate } =
+    articleAndNewDetailData;
 
   return (
     <div

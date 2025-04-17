@@ -6,9 +6,14 @@ import {
   LastLandingWrapper,
   LastArticleDetailWrapper,
   LastCourseDetailWrapper,
+  LastUsserPanelWrapper,
 } from "../../screens";
 import { authorizeRouterArray } from "./authorize.router";
+
 import Error from "../../components/partials/ErrorNotFound/Error";
+
+import { userPanelRoute } from "./userPanel.router";
+
 
 export const commonRouter = createBrowserRouter([
   {
@@ -25,7 +30,8 @@ export const commonRouter = createBrowserRouter([
       { path: "/courses", element: <LastCoursesWrapper /> },
       { path: "/course-detail/:id", element: <LastCourseDetailWrapper /> },
       { path: "/article-detail/:id", element: <LastArticleDetailWrapper /> },
-      { path: "*", element: <Error /> }
+      { path: "*", element: <Error /> },
+      { path: "/user-panel", element: <LastUsserPanelWrapper />, children: [...userPanelRoute] },
     ],
   },
 ]);

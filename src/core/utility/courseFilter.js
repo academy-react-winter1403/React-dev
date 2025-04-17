@@ -1,13 +1,18 @@
 import { getItemLocalStorage } from "../hooks/local-storage/getItemLocalStorage";
 import { htttp } from "../services/interceptor";
-import { changeAddDataFlag, firstAddProduct } from "../../redux/actions";
+// import { changeAddDataFlag, firstAddProduct } from "../../redux/actions";
+import { changeAddDataFlag, firstAddCourseProduct } from "../../redux/actions";
+// import { getDataByClick } from "../services/api/get-data-by-click/getDataByClick";
 
-export const courseFilter = (searchParams, dispatch, useSelector) => {
+// const {mutate} = getDataByClick()
+export const courseFilter = (searchParams, dispatch) => {
   const technologi = getItemLocalStorage("technologi");
   const courseLevelId = getItemLocalStorage("courseLevelId");
   const courseTypeId = getItemLocalStorage("CourseTypeId");
   const searchQuery = getItemLocalStorage("searchValue");
   const sortValue = localStorage.getItem("sortText");
+
+  // console.log(sortValue)
 
   dispatch(changeAddDataFlag(true))
 
@@ -37,7 +42,7 @@ export const courseFilter = (searchParams, dispatch, useSelector) => {
         };
     }
 
-    dispatch(firstAddProduct(null))
+    dispatch(firstAddCourseProduct(null))
     const data = await htttp.get(
         `/Home/GetCoursesWithPagination?PageNumber=${1}&RowsOfPage=6&
         ${sortValue ? `&SortingCol=${params.get("SortingCol")}` : ''}&
@@ -47,8 +52,7 @@ export const courseFilter = (searchParams, dispatch, useSelector) => {
         ${courseTypeId && courseTypeId.length !== 0 ? `CourseTypeId=${courseTypeId}` : ''}`
     );
 
-    
-    dispatch(firstAddProduct(data.data.courseFilterDtos))
+    dispatch(firstAddCourseProduct(data.data.courseFilterDtos))
     console.log(data.data.courseFilterDtos);
   };
 

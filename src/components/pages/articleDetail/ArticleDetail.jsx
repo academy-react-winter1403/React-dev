@@ -10,7 +10,10 @@ import {
   likeCourseCommentPost,
 } from "../../../core/services";
 import { useParams } from "react-router-dom";
-import { addArticleAndNewsDetailData } from "../../../redux/actions";
+import {
+  addArticleAndNewsDetailData,
+  addRelatedCoursesData,
+} from "../../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import DescriptionBox from "../../partials/descreption-box/DescriptionBox";
 import { htttp } from "../../../core/services/interceptor";
@@ -19,27 +22,26 @@ import CommentBox from "../../partials/comment-box/CommentBox";
 import { getCourseCommentReplay } from "../../../core/services/api/get-data/getCourseCommentReplays";
 import { errorMessageHandler } from "../../../core/utility/errorMessageHandler";
 import { getNewsCommentsReplay } from "../../../core/services/api/get-data/getNewsCommentsReply";
-import AOS from 'aos'
-import 'aos/dist/aos.css'
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const ArticleDetail = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [relatedCourses, setRelatedCourses] = useState([]);
   const [commentData, setCommentData] = useState(null);
   const [commentFullData, setCommentFullData] = useState(null);
 
   const dispatch = useDispatch();
   const { id } = useParams();
 
+  // get data
   getData("articleDetail", `/News/${id}`).then((response) => {
-    dispatch(addArticleAndNewsDetailData(response.data));
+    console.log("response ==>", response.data.detailsNewsDto);
+    dispatch(addArticleAndNewsDetailData(response.data.detailsNewsDto));
     console.log("news: ", response.data);
   });
 
   // get comment and comment replay data
   getCommentData("newsComment", `/News/GetNewsComments?NewsId=${id}`).then(
     (response) => {
-      // console.log("comment data ==>", response);
       setCommentData(response.data);
       if (commentData) {
         getNewsCommentsReplay("/News/GetRepliesComments?Id=", commentData).then(
@@ -59,25 +61,42 @@ const ArticleDetail = () => {
     }
   }, [commentData]);
 
-  const state = useSelector((state) => state.articleAndNewDetailData);
+  // redux
+  const { articleDetailSlice, relatedCoursesSlice } = useSelector(
+    (state) => state
+  );
+  const { articleAndNewDetailData } = articleDetailSlice;
+  var { googleDescribe, describe, currentImageAddress, newsCatregoryId } =
+    articleAndNewDetailData;
+  const { relatedCoursesData } = relatedCoursesSlice;
+  // const {} = 
 
-  if (state) {
-    var commentDtos = state.commentDtos;
-    var detailsNewsDto = state.detailsNewsDto;
-    var { googleDescribe, describe, currentImageAddress, newsCatregoryId } =
-      detailsNewsDto;
-  }
+  console.log("relatedCoursesData ==>", relatedCoursesData);
 
-  if (newsCatregoryId && relatedCourses.length === 0) {
+  console.log("llll", articleAndNewDetailData);
+
+  if (relatedCoursesData.length === 0) {
+    console.log("kk", relatedCoursesData);
     htttp
       .get(`/News/GetNewsWithCategory/${newsCatregoryId}`)
       .then((response) => {
-        setRelatedCourses(response.data);
-        console.log("related: ", response.data);
+        dispatch(addRelatedCoursesData(response.data));
+        console.log("relatedddddddddd: ", response.data);
       });
   }
 
-  // get comment and comment replay data
+  // useEffect(() => {
+  //   if (newsCatregoryId && relatedCourses.length === 0) {
+  //     htttp
+  //       .get(`/News/GetNewsWithCategory/${newsCatregoryId}`)
+  //       .then((response) => {
+  //         dispatch(addRelatedCoursesData(response.data));
+  //         console.log("related: ", response.data);
+  //       });
+  //   }
+  // }, [newsCatregoryId]);
+
+  //  get comment and comment replay data
 
   const coomentLikeBtnClickHandler = async () => {
     // console.log(item);
@@ -106,19 +125,22 @@ const ArticleDetail = () => {
     alert();
   };
 
-//  AOS
+  //  AOS
   useEffect(() => {
-      AOS.init({
-        duration: 1000, 
-        once: true,     
-      })
-    }, [])
+    AOS.init({
+      duration: 1000,
+      once: true,
+    });
+  }, []);
 
   return (
     <div className="w-full bg-[#F7F7F7] font-b-yekan py-10">
       <div className="w-[80%] m-auto flex md:flex-row md:flex-nowrap gap-0.5 xs:flex-col justify-center md:items-start xs:items-center">
         {/* article section */}
-        <div className="md:w-2/3 xs:w-full flex flex-col items-center justify-center gap-2.5" data-aos="fade-left">
+        <div
+          className="md:w-2/3 xs:w-full flex flex-col items-center justify-center gap-2.5"
+          data-aos="fade-left"
+        >
           <ArticleTitle />
           <div className="w-[95%] bg-white rounded-[10px] text-[#555555] text-[18px] leading-7 flex flex-col items-center justify-start gap-3 shadow relative overflow-hidden transition-all duration-500">
             <div className="w-[95%]">
@@ -153,11 +175,14 @@ const ArticleDetail = () => {
         </div>
 
         {/* related courses section */}
-        <div className="md:w-1/3 xs:w-[95%] flex flex-col justify-between items-center gap-4 md:mt-0 xs:mt-5" data-aos="fade-right">
+        <div
+          className="md:w-1/3 xs:w-[95%] flex flex-col justify-between items-center gap-4 md:mt-0 xs:mt-5"
+          data-aos="fade-right"
+        >
           <div className="hidden md:block">
             <img src={character} alt="#" />
           </div>
-          <RelatedCourses data={relatedCourses} />
+          <RelatedCourses data={relatedCoursesData}/>
         </div>
       </div>
     </div>

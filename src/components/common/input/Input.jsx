@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { IoSearchCircleSharp } from "react-icons/io5";
 
 const Input = ({ placeholder, type, change }) => {

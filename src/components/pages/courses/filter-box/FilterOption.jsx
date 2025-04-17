@@ -8,6 +8,7 @@ const FilterOption = ({ filterName, id, children, filterItemClick, itemId }) => 
     checkFlag ? (setCheckFlag(false), filterItemClick(productId, true)) : (setCheckFlag(true), filterItemClick(productId, false))
     
   };
+  console.log(filterName)
   return (
     <div className="filter-option-control flex justify-start">
       {/* <span

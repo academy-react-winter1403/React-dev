@@ -6,22 +6,25 @@ import { HiOutlineUser } from "react-icons/hi2";
 import { useSelector } from "react-redux";
 import { SeparationPrice } from "../../../core/utility/SeparationPrice";
 import { MotionComp } from "../../partials";
+import Aos from "aos";
 
 const DetailTop = () => {
   const [price, setPrice] = useState(null);
 
-  const { detailData } = useSelector((state) => state.courseDetailData);
+  const { courseDetail } = useSelector((state) => state);
+  const { detailData } = courseDetail;
 
   useEffect(() => {
     if (detailData) {
       let price = SeparationPrice(detailData.cost);
       setPrice(price);
     }
-  }, [detailData]);
 
-  if (price) {
-    console.log(price);
-  }
+    Aos.init({
+      duration: 3000,
+    });
+    Aos.refresh();
+  }, [detailData]);
 
   return (
     <div
@@ -39,11 +42,6 @@ const DetailTop = () => {
               min-lg:drop-shadow-[0_1px_2px_#00000040] rounded-[15px] p-[30px] max-md:px-[15px] max-md:pt-[0] max-md:pb-[18px]
               max-lg:w-[90%]`}
       >
-        {/* <div
-          className="info-control w-[40%] min-lg:bg-[#FFFFFF] flex flex-col justify-between
-              min-lg:drop-shadow-[0_1px_2px_#00000040] rounded-[15px] p-[30px] max-md:px-[15px] max-md:pt-[0] max-md:pb-[18px]
-              max-lg:w-[90%]"
-        > */}
         <div className="title-control flex items-center justify-between">
           <h1 className="text-[29px] font-bold text-[#333333] font-b-yekan">
             {detailData?.title}
@@ -106,16 +104,11 @@ const DetailTop = () => {
         classNames={`product-image-control w-[40%] h-[344px] max-xl:h-[302px] overflow-hidden rounded-[10px]
           max-lg:w-[90%]`}
       >
-      {/* <div
-        className="product-image-control w-[40%] h-[344px] max-xl:h-[302px] overflow-hidden rounded-[10px]
-          max-lg:w-[90%]"
-      > */}
         <img
           src={detailData?.imageAddress ? detailData?.imageAddress : pic}
           alt=""
           className="w-full h-full scale-[102%]"
         />
-      {/* </div> */}
       </MotionComp>
     </div>
   );

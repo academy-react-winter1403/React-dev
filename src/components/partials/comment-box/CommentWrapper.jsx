@@ -1,12 +1,8 @@
-import React from "react";
-import { BiLike } from "react-icons/bi";
-import { BiDislike } from "react-icons/bi";
-import { RiArrowGoBackFill } from "react-icons/ri";
-import ImageFedback from "../image-fedback/imageFedback";
-import CommentPic from "./CommentPic";
-import CommentProfile from "./CommentProfile";
+import React, { useEffect } from "react";
 import CommentUserReaction from "./CommentUserReaction";
 import ReplayWrapper from "./ReplayWrapper";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const CommentWrapper = ({
   data,
@@ -26,12 +22,20 @@ const CommentWrapper = ({
     commentReplay,
   } = data;
 
-  // console.log(data);
+  // useEffect(() => {
+  //   AOS.init({
+  //     duration: 800,
+  //   });
+  //   AOS.refresh();
+
+  //   console.log("commentReplay ==>", data)
+  // }, []);
 
   return (
     <div
-      className="comment-card w-full bg-[#F9F9F9] drop-shadow-[0_1px_2px_#00000040]
-        rounded-[7px] px-6 py-3 mt-[24px]"
+      data-aos={commentReplay.length > 2 ? `fade-up` : `flip-up`}
+      className={`comment-card w-full bg-[#F9F9F9] drop-shadow-[0_1px_2px_#00000040]
+        rounded-[7px] px-6 py-3 mt-[24px]`}
     >
       <CommentUserReaction
         likeBtnClick={coomentLikeBtnClick}
@@ -53,7 +57,6 @@ const CommentWrapper = ({
       </p>
       <div className="replay-control">
         {commentReplay?.map((item, index) => {
-          // console.log("commentReplay ==>", item);
           return (
             <ReplayWrapper
               key={index}

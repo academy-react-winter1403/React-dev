@@ -1,6 +1,6 @@
 import React from "react";
 
-const StudentIcon = () => {
+const StudentIcon = ({ classNames }) => {
   return (
     <svg
       width="16"
@@ -8,6 +8,7 @@ const StudentIcon = () => {
       viewBox="0 0 16 17"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={classNames}
     >
       <g clip-path="url(#clip0_133_101)">
         <path
