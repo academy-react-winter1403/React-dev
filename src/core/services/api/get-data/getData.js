@@ -10,3 +10,6 @@ export const getData = async (key, endUrl) => {
     }
   })
 };
+
+
+

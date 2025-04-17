@@ -1,8 +1,18 @@
-import React from "react";
+import Aos from "aos";
+import React, { useEffect } from "react";
 
-const UserCard = ({ num, text, children }) => {
+const UserCard = ({ num, text, children, aosAnim }) => {
+  
+  useEffect(() => {
+    Aos.init({
+      duration: 800,
+    })
+    Aos.refresh()
+  }, [])
+
   return (
     <div
+      data-aos={aosAnim}
       className={`student-card-holder w-[196px] h-[71px] flex justify-center gap-x-[20px] items-center
             bg-[#F7F7F7] rounded-xl drop-shadow-[0_1px_2px_#00000040]`}
     >

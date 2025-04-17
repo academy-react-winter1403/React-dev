@@ -9,7 +9,8 @@ import * as yup from "yup";
 import GoToPrevPage from "../../../common/BtnText/GoToPrevPage";
 import LoginBg from "../../../partials/authorize/LoginBg";
 import { getData, postData } from "../../../../core/services";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
+import { toast, ToastContainer } from "react-toastify";
 
 const ForgetPasswordTwoSteps = () => {
   const [rememberMe, setRememberMe] = useState(false);
@@ -43,7 +44,7 @@ const ForgetPasswordTwoSteps = () => {
         setTimeout(() => {
           navigate("/Authorize/Login/step1");
         }, 1000);
-        alert(ApiCall.data.message);
+        toast(ApiCall.data.message);
       }
     } catch (error) {
       console.log(error);
@@ -63,63 +64,66 @@ const ForgetPasswordTwoSteps = () => {
   });
 
   return (
-    <LoginBg>
-      <div className="h-[400px] flex relative">
-        <motion.div
-          className="w-[377px] h-full bg-[#fcfcfc] rounded-[15px] flex flex-col gap-[35px] justify-center items-center"
-          initial={{ opacity: 0, scale: 0.6 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{
-            type: "spring",
-            stiffness: 250,
-            damping: 12,
-            duration: 0.6,
-            delay: 0.2,
-          }}
-        >
-          <StageName stageName={"بازیابی رمز عبور"} />
-          <Formik
-            initialValues={{ newPassword: "", confirmPassword: "" }}
-            onSubmit={onSubmit}
-            validationSchema={validation}
+    <>
+      <ToastContainer />
+      <LoginBg>
+        <div className="h-[400px] flex relative">
+          <motion.div
+            className="w-[377px] h-full bg-[#fcfcfc] rounded-[15px] flex flex-col gap-[35px] justify-center items-center"
+            initial={{ opacity: 0, scale: 0.6 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 250,
+              damping: 12,
+              duration: 0.6,
+              delay: 0.2,
+            }}
           >
-            <Form className="flex flex-col gap-3">
-              <CustomInput
-                name={"newPassword"}
-                placeholder={"رمز عبور"}
-                type={"text"}
-              />
-              <CustomInput
-                name={"confirmPassword"}
-                placeholder={"تایید رمز عبور"}
-                type={"text"}
-              />
-              <div className="flex w-[94px] h-[12px] ">
-                <label
-                  className="font-normal text-xs font-b-yekan text-gray-400"
-                  htmlFor="rememberMe"
-                >
-                  <input
-                    type="checkbox"
-                    name="rememberMe"
-                    id="rememberMe"
-                    onChange={() => setRememberMe(!rememberMe)}
-                  />
-                  مرا به خاطر بسپار
-                </label>
-              </div>
-              <div className="flex flex-col gap-[10px] justify-center items-center">
-                <BtnGetCode text={"ورود"} />
-              </div>
-            </Form>
-          </Formik>
-        </motion.div>
-        <div className="size-16 mt-[165px] rounded-xl flex justify-center items-center bg-[#d7caa8] left-[-50px] absolute z-10 rotate-45">
-          <BtnNumberStep number={2} />
+            <StageName stageName={"بازیابی رمز عبور"} />
+            <Formik
+              initialValues={{ newPassword: "", confirmPassword: "" }}
+              onSubmit={onSubmit}
+              validationSchema={validation}
+            >
+              <Form className="flex flex-col gap-3">
+                <CustomInput
+                  name={"newPassword"}
+                  placeholder={"رمز عبور"}
+                  type={"text"}
+                />
+                <CustomInput
+                  name={"confirmPassword"}
+                  placeholder={"تایید رمز عبور"}
+                  type={"text"}
+                />
+                <div className="flex w-[94px] h-[12px] ">
+                  <label
+                    className="font-normal text-xs font-b-yekan text-gray-400"
+                    htmlFor="rememberMe"
+                  >
+                    <input
+                      type="checkbox"
+                      name="rememberMe"
+                      id="rememberMe"
+                      onChange={() => setRememberMe(!rememberMe)}
+                    />
+                    مرا به خاطر بسپار
+                  </label>
+                </div>
+                <div className="flex flex-col gap-[10px] justify-center items-center">
+                  <BtnGetCode text={"ورود"} />
+                </div>
+              </Form>
+            </Formik>
+          </motion.div>
+          <div className="size-16 mt-[165px] rounded-xl flex justify-center items-center bg-[#d7caa8] left-[-50px] absolute z-10 rotate-45">
+            <BtnNumberStep number={2} />
+          </div>
         </div>
-      </div>
-      <GoToPrevPage />
-    </LoginBg>
+        <GoToPrevPage />
+      </LoginBg>
+    </>
   );
 };
 

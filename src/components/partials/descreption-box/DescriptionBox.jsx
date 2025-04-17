@@ -1,15 +1,24 @@
-import React, { useState } from "react";
+import Aos from "aos";
+import React, { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 
-const DescriptionBox = ({ initialHeight, children }) => {
+const DescriptionBox = ({ initialHeight, children, aosAnim }) => {
   const [heightFlag, setHeightFlag] = useState(false);
 
   const changeHeightHandler = () => {
     heightFlag ? setHeightFlag(false) : setHeightFlag(true);
   };
 
+  useEffect(() => {
+    Aos.init({
+      duration: 800
+    })
+    Aos.refresh()
+  }, [])
+
   return (
     <div
+      data-aos="fade-left"
       className={`description-box-container w-full shadow-[0_1px_2px_#00000040] ${
         !heightFlag
           ? `h-[${initialHeight}px] transition-[1s]`

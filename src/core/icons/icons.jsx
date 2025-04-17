@@ -9,6 +9,7 @@ import SliderBtn from "./LandingIcons/SliderBtn";
 import CameraIcon from "./camera-icon/CameraIcon";
 import DBasketIcon from "./detail-basket-icon/DBasketIcon";
 import FrontIcon from "./front-icon/FrontIcon";
+import StudentIcon from "./courses/StudentIcon";
 
 export {
   TrashCanIcon,
@@ -21,5 +22,6 @@ export {
   SliderBtn,
   CameraIcon,
   DBasketIcon,
-  FrontIcon
+  FrontIcon,
+  StudentIcon
 };

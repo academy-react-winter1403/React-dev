@@ -1,15 +1,10 @@
 import React from "react";
 import { reandomNum } from "../../../core/utility/randomNum";
 
-const ImageFedback = ({ imageAddress, imageDb }) => {
-  if (!imageAddress) {
-    var arrayLength = reandomNum(imageDb.length);
-    var mockPic = imageDb[arrayLength];
-  }
-
+const ImageFedback = ({ imageAddress, pic }) => {
   return (
     <>
-      <img src={imageAddress ? imageAddress : mockPic} alt="" className="w-full h-full"/>
+      <img src={imageAddress ? imageAddress : pic} alt="" className="w-full h-full"/>
     </>
   );
 };

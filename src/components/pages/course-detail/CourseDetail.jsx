@@ -4,7 +4,6 @@ import {
   desLikeCourseCommentPost,
   getCommentData,
   getData,
-  getDataByClick,
   likeCourseCommentPost,
 } from "../../../core/services";
 import DetailTop from "./DetailTop";
@@ -12,80 +11,84 @@ import DescriptionBox from "../../partials/descreption-box/DescriptionBox";
 import UserCard from "./UserCard";
 import { HiStar, HiUserGroup } from "react-icons/hi2";
 import CompletionCourse from "./CompletionCourse";
-import ItemCard from "./ItemCard";
-import { FrontIcon } from "../../../core/icons/icons";
 import HrComp from "../../common/HrComp";
 import teacherPic from "../../../assets/pics/detailCourse/teacher.jpg";
 import CommentBox from "../../partials/comment-box/CommentBox";
 import { getCourseCommentReplay } from "../../../core/services/api/get-data/getCourseCommentReplays";
 import { useDispatch, useSelector } from "react-redux";
-import { addDetailData } from "../../../redux/actions";
+import {
+  addCourseDetailData,
+  addCourseDetailCommentData,
+  addCourseCommentReplay,
+} from "../../../redux/actions";
 import { MotionComp } from "../../partials";
 import LeftItemCard from "./LeftItemCard";
 import { errorMessageHandler } from "../../../core/utility/errorMessageHandler";
+import Aos from "aos";
 
 const CourseDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const [commentData, setCommentData] = useState(null);
-  const [commentFullData, setCommentFullData] = useState(null);
-  // const [detailData, setDetailData] = useState(null)
+
+  const { courseComment, courseDetail } = useSelector((state) => state);
+  const { commentData, commentReplay } = courseComment;
+  const { detailData } = courseDetail;
 
   getData("detailProduct", `/Home/GetCourseDetails?CourseId=${id}`).then(
     (response) => {
-      // console.log(response.data);
-      dispatch(addDetailData(response.data));
-      // setDetailData(response.data)
+      dispatch(addCourseDetailData(response.data));
     }
   );
 
-  const { detailData } = useSelector((state) => state.courseDetailData);
-
-  // get comment and comment replay data
   getCommentData("courseComment", `/Course/GetCourseCommnets/${id}`).then(
     (response) => {
-      setCommentData(response.data);
+      dispatch(addCourseDetailCommentData(response.data));
       if (commentData) {
-        getCourseCommentReplay(
-          "/Course/GetCourseReplyCommnets/",
-          commentData
-        ).then((response) => {
-          if (!commentFullData) {
-            setCommentFullData(response);
-          }
-          // console.log(response)
-        });
+        console.log(commentReplay);
+        if (!commentReplay) {
+          getCourseCommentReplay(
+            "/Course/GetCourseReplyCommnets/",
+            commentData
+          ).then((replayReponse) => {
+            dispatch(addCourseCommentReplay(replayReponse));
+          });
+        }
       }
     }
   );
-  // get comment and comment replay data
 
   const coomentLikeBtnClickHandler = async (item) => {
-    console.log(item)
-    const resData = await likeCourseCommentPost(`/Course/AddCourseCommentLike?CourseCommandId`, item.id)
-    errorMessageHandler(resData)
+    console.log(item);
+    const resData = await likeCourseCommentPost(
+      `/Course/AddCourseCommentLike?CourseCommandId`,
+      item.id
+    );
+    errorMessageHandler(resData);
   };
 
   const commentDesLikeBtnClickHandler = async (item) => {
-    // alert("");
-    const resData = await desLikeCourseCommentPost(`/Course/AddCourseCommentDissLike?CourseCommandId`, item.id)
-    // console.log(resData)
-    errorMessageHandler(resData)
+    const resData = await desLikeCourseCommentPost(
+      `/Course/AddCourseCommentDissLike?CourseCommandId`,
+      item.id
+    );
+    errorMessageHandler(resData);
   };
 
   const replayLikeBtnClickHandler = async () => {
-    alert()
-  }
+    alert();
+  };
 
   const replayDeslikeBtnClickHandler = async () => {
-    alert()
-  }
+    alert();
+  };
 
   useEffect(() => {
-    if (detailData) {
-      console.log("detailData ==>", detailData);
-    }
-  }, [detailData]);
+    Aos.init({
+      duration: 800,
+      // once: true
+    });
+    Aos.refresh();
+  }, []);
 
   return (
     <div className="course-detail-holder w-full flex justify-center mt-4">
@@ -102,19 +105,16 @@ const CourseDetail = () => {
               xAnimate={0}
               animDuration={2}
             >
-              <h3 className="text-[#005351] font-bold text-[18px]">
-                {" "}
-                توضیحات{" "}
-              </h3>
+              <h3 className="text-[#005351] font-bold text-[18px]">توضیحات</h3>
               <DescriptionBox initialHeight={350}>
                 <p className="text-[#7B7B7B]">{detailData?.miniDescribe}</p>
               </DescriptionBox>
             </MotionComp>
             <div className="headlines-holder h-[300px] w-full border rounded-[10px] mt-3"></div>
             <div className="comment-item-holder">
-              {commentData ? (
+              {commentReplay ? (
                 <CommentBox
-                  commentData={commentFullData}
+                  commentData={commentReplay}
                   coomentLikeBtnClick={coomentLikeBtnClickHandler}
                   commentDesLikeBtnClick={commentDesLikeBtnClickHandler}
                   replayLikeBtnClick={replayLikeBtnClickHandler}
@@ -132,12 +132,17 @@ const CourseDetail = () => {
             >
               <div className="student-and-score-holder flex justify-center gap-x-[12px] max-my-breakpoint:gap-x-[20px]">
                 <UserCard
+                  aosAnim={"fade-left"}
                   text={"دانشجو"}
                   num={detailData?.currentUserRateNumber}
                 >
                   <HiUserGroup className="text-[#006865]" size={35} />
                 </UserCard>
-                <UserCard text={"رضایت"} num={detailData?.currentRate}>
+                <UserCard
+                  aosAnim={"fade-right"}
+                  text={"رضایت"}
+                  num={detailData?.currentRate}
+                >
                   <HiStar className="text-[#FFC700]" size={35} />
                 </UserCard>
               </div>
@@ -158,8 +163,7 @@ const CourseDetail = () => {
                   className="font-b-yekan border py-[6px] px-[20px] rounded-[50px] transition-colors cursor-pointer
                   border-[#E48900] text-[#6B3A00] hover:bg-[#E48900] hover:text-[#ffffff] mt-[13px] text-[14px]"
                 >
-                  {" "}
-                  پروفایل مدرس دوره{" "}
+                  پروفایل مدرس دوره
                 </button>
               </div>
             </MotionComp>

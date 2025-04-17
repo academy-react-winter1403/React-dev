@@ -18,10 +18,10 @@ const ArticlesCard = ({ title, Describe, src, currentView, insertDate }) => {
     >
       <img className="w-[251px] h-[171px] rounded-[18px]" src={src} />
       <div className="h-[200px] flex flex-col gap-4">
-        <h1 className="w-[230px] font-b-yekan font-bold text-[#003B39] text-xl">
+        <h1 className="w-[230px] font-b-yekan font-bold text-[#003B39] text-xl text-nowrap truncate" title={title}>
           {title}
         </h1>
-        <p className="w-[248px] h-[48px] font-b-yekan font-normal text-[#aaa] text-xs">
+        <p className="w-[248px] h-[48px] font-b-yekan font-normal text-[#aaa] text-xs text-nowrap truncate" title={Describe}>
           {Describe}
         </p>
         <div className="h-[15px] flex justify-between mt-3">

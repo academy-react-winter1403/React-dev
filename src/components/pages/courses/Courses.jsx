@@ -1,45 +1,55 @@
 import React, { useEffect, useState } from "react";
 import TopSection from "./TopSection";
 import BottomSection from "./BottomSection";
-import { getData, getDataByClick, getFilterData } from "../../../core/services";
+import { getData, getFilterData } from "../../../core/services";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  addCourseCommentReplay,
+  addCourseDetailCommentData,
   addFirstFilterData,
   changeAddDataFlag,
-  changePageCounter,
+// <<<<<<< HEAD
+  // changePageCounter,
   // changeQueryFlag,
-  firstAddProduct,
+  // firstAddProduct,
 } from "../../../redux/actions";
 import { PaginationData } from "../../partials";
 import bg from "../../../assets/pics/courses/bg1.png";
-// import { filterData } from "../../../core/constants";
-// import { useSelect } from "@heroui/react";
-// import { deleteItemLocalStorage } from "../../../core/hooks/local-storage/deleteItemLocalStorage";
 import { deleteAllItemLocalStorage } from "../../../core/hooks/local-storage/deleteAllItem";
-// import { htttp } from "../../../core/services/interceptor";
-// import { setItemLocalStorage } from "../../../core/hooks/local-storage/setItemLocalstorage";
-// import { locStorageUpdateItem } from "../../../core/hooks/local-storage/updateItem";
-// import { getItemLocalStorage } from "../../../core/hooks/local-storage/getItemLocalStorage";
+//   changeCoursesPageCounter,
+//   firstAddCourseProduct,
+// } from "../../../redux/actions";
+// import { PaginationData } from "../../partials";
+// import bg from "../../../assets/pics/courses/bg1.png";
+// import { deleteAllItemLocalStorage } from "../../../core/hooks/local-storage/deleteAllItem";
+import { getDataByClick } from "../../../core/services/api/get-data-by-click/getDataByClick";
+import Aos from "aos";
+// >>>>>>> 21a038ce3feace628afe1f449fc089c5a5248056
 
 const Courses = () => {
   const dispatch = useDispatch();
-  // const [addDataFlag, setAddDataFlag] = useState(false)
-  const state = useSelector((state) => state);
+  const { coursesFlags, coursesPageCounter, courseComment, courseQueryParams } = useSelector((state) => state);
+  const { pageCount } = coursesPageCounter
+  const { addDataFlag, queryFlag } = coursesFlags
+  const { RowsOfPage } = courseQueryParams
 
-  const { addDataFlag } = state.coursesData
+// <<<<<<< HEAD
+  // const { addDataFlag } = state.coursesData
   
-  let pageCount = 1;
-  getData("pages",
-    `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`
-  ).then((response) => {
-    setCoursesData(response.data.courseFilterDtos);
-    setTimeout(() => {
-      dispatch(firstAddProduct(response.data.courseFilterDtos));
-    }, 3000);
-  })
+  // let pageCount = 1;
+  // getData("pages",
+  //   `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`
+  // ).then((response) => {
+  //   setCoursesData(response.data.courseFilterDtos);
+  //   setTimeout(() => {
+  //     dispatch(firstAddProduct(response.data.courseFilterDtos));
+  //   }, 3000);
+  // })
 
-  const queryFlag = state.flags.queryFlag
+  // const queryFlag = state.flags.queryFlag
 
+// =======
+// >>>>>>> 21a038ce3feace628afe1f449fc089c5a5248056
 
   useEffect(() => {
     if (!queryFlag) {
@@ -53,11 +63,29 @@ const Courses = () => {
       "pageCounter",
     ]);
     }
+    dispatch(dispatch(addCourseDetailCommentData(null)))
+    dispatch(dispatch(addCourseCommentReplay(null)))
   }, []);
 
-  getData("technologie", "/Home/GetTechnologies").then((technologi) => {
-    dispatch(addFirstFilterData({ data: technologi.data, type: "technologi" }));
+  useEffect(() => {
+    Aos.init({
+      duration: 800,
+    })
+    Aos.refresh()
+  }, [])
+
+  getData(
+    "product",
+    `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=${RowsOfPage}`
+  ).then((response) => {
+    if (!addDataFlag) {
+      setTimeout(() => {
+        dispatch(firstAddCourseProduct(response.data.courseFilterDtos));
+        dispatch(changeAddDataFlag(true))
+      }, 3000);
+    }
   });
+
 
   getFilterData("technologie", "/Home/GetTechnologies").then((technologi) => {
     dispatch(addFirstFilterData({ data: technologi.data, type: "technologi" }));
@@ -71,26 +99,25 @@ const Courses = () => {
     dispatch(addFirstFilterData({ data: level.data, type: "courseLevel" }));
   });
 
+  // const { mutateAsync: getDataByClick2 } = getDataByClick()
   const pageChangeHandler = async (pageNum) => {
-    pageCount = pageNum
+// <<<<<<< HEAD
+    // pageCount = pageNum
     dispatch(changePageCounter(pageNum));
     dispatch(firstAddProduct(null))
     dispatch(changeAddDataFlag(true))
     const data = await getDataByClick(`/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`)
     dispatch(firstAddProduct(data.data.courseFilterDtos))
+// =======/
+    // dispatch(changeCoursesPageCounter(pageNum));
+    // dispatch(firstAddCourseProduct(null))
+    dispatch(changeAddDataFlag(true))
+    
+    // const data = await getDataByClick2(`/Home/GetCoursesWithPagination?PageNumber=${pageNum}&RowsOfPage=6`)
+    // console.log("mutation ==>",data)
+    // setTimeout(() => {dispatch(firstAddCourseProduct(data.courseFilterDtos))}, 2000)
+// 
   };
-
-
-  getData(
-    "product",
-    `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`
-  ).then((response) => {
-    if (!addDataFlag) {
-      setTimeout(() => {
-        dispatch(firstAddProduct(response.data.courseFilterDtos));
-      }, 3000);
-    }
-  });
 
   return (
     <div

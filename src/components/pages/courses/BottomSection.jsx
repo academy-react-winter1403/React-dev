@@ -1,37 +1,33 @@
 import FilteredBox from "./filter-box/FilteredBox";
 import {
-  filterData,
   productMockData,
+  sortColData,
   sortFilterData,
+  viewData,
 } from "../../../core/constants";
 import FilterOption from "./filter-box/FilterOption";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import FilterLabel from "./FilterLabel";
-import StarIcon from "../../../core/icons/courses/StarIcon";
 import { GridIcon, MenuIcon } from "../../../core/icons/icons";
 import SortingWrapper from "./sorting-comp/SortingWrapper";
-import { CardLoading, CardWrapper, PaginationData } from "../../partials";
+import { CardLoading, CardWrapper } from "../../partials";
 import { useDispatch, useSelector } from "react-redux";
-import { motion } from "framer-motion";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {
-  addDataTheQueryParams,
-  changePageCounter,
+  changeCostDown,
+  changeCostUp,
+  changeCourseLevelId,
+  changeCourseTypeId,
   changeQueryFlag,
+  changeRowOfPageNum,
   changeSortText,
-  firstAddProduct,
+  changeSortType,
+  changeTechnologiList,
+  firstAddCourseProduct,
 } from "../../../redux/actions";
-import { getData } from "../../../core/services/api/get-data/getData";
-import { htttp } from "../../../core/services/interceptor";
-import { Select, SelectItem } from "@heroui/react";
 import SelectView from "./SelectView";
 import { setItemLocalStorage } from "../../../core/hooks/local-storage/setItemLocalstorage";
-import { getItemLocalStorage } from "../../../core/hooks/local-storage/getItemLocalStorage";
-import {
-  localItemValidation,
-  localItemValueValidation,
-} from "../../../core/hooks/local-storage/localStorageValidation";
-import { deleteItemLocalStorage } from "../../../core/hooks/local-storage/deleteItemLocalStorage";
+import { localItemValidation } from "../../../core/hooks/local-storage/localStorageValidation";
 import {
   localStorageDeleteOneItem,
   locStorageUpdateItem,
@@ -40,35 +36,36 @@ import { courseFilter } from "../../../core/utility/courseFilter";
 import SortItem from "./sorting-comp/SortItem";
 import { deleteSearchParamsItem } from "../../../core/utility/deleteSearchParams";
 import { deleteAllItemLocalStorage } from "../../../core/hooks/local-storage/deleteAllItem";
-import { getDataByClick } from "../../../core/services";
-// import { setSearchParams } from "../../../core/hooks/indexHooks";
+import { getDataByClick } from "../../../core/services/api/get-data-by-click/getDataByClick";
+import PriceInput from "../../partials/price-input/PriceInput";
+import { getItemLocalStorage } from "../../../core/hooks/local-storage/getItemLocalStorage";
+import SortTypeCard from "../../common/SortTypeCard";
+import { courseFilterFull } from "../../../core/utility/courseFilterFull";
+import { htttp } from "../../../core/services/interceptor";
 
 const BottomSection = ({ children }) => {
-  const { productState, coursesData } = useSelector((state) => state);
+  const {
+    courseFilterData,
+    coursesSort,
+    courses,
+    coursesPageCounter,
+    courseQueryParams,
+  } = useSelector((state) => state);
+  const { filterData } = courseFilterData;
+  const { sortText } = coursesSort;
+  const { productState } = courses;
+  const { pageCount } = coursesPageCounter;
+  const { queryParams } = courseQueryParams;
+  // const { RowsOfPage } = courseQueryParams
+
   const [filterBoxFlag, setFilterBoxFlag] = useState(false);
   const [windowWidthNum, setWindowWidthNum] = useState(window.innerWidth);
-  const [pageViewNum, setPageViewNum] = useState(3)
-  // const [pageViewNum, setPageViewNum] = useState(3);
 
-  // let pageViewNum = 3
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
-  // const { pageCount, sourtText } = coursesData
-
-  const pageCounter = coursesData.pageCount;
-  const sortText = coursesData.sortText;
-
-  // select filter option
-  const { filterData } = useSelector((state) => state);
-  // select filter option
-
-  // useDispatch Hooks
   const dispatch = useDispatch();
-  // useDispatch Hooks
 
-  // search params
   const [searchParams, setSearchParams] = useSearchParams();
-  // search params
 
   const [viwFlag, setViwFlag] = useState(true);
 
@@ -80,9 +77,11 @@ const BottomSection = ({ children }) => {
     setViwFlag(true);
   };
 
-  window.addEventListener("resize", (event) => {
+  window.addEventListener("resize", () => {
     setWindowWidthNum(window.innerWidth);
-    console.log(windowWidthNum);
+    if (window.innerWidth <= 640) {
+      setViwFlag(true);
+    }
   });
 
   const openFilterBox = () => {
@@ -93,6 +92,7 @@ const BottomSection = ({ children }) => {
     setFilterBoxFlag(false);
   };
 
+  const { mutateAsync: getDataForRemove } = getDataByClick();
   const removeFilterClickHandler = async () => {
     deleteAllItemLocalStorage([
       "technologi",
@@ -113,11 +113,11 @@ const BottomSection = ({ children }) => {
       setSearchParams
     );
 
-    dispatch(firstAddProduct(null));
-    const data = await htttp.get(
+    dispatch(firstAddCourseProduct(null));
+    const data = await getDataForRemove(
       "/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=6"
     );
-    dispatch(firstAddProduct(data.data.courseFilterDtos));
+    dispatch(firstAddCourseProduct(data.courseFilterDtos));
   };
 
   const setFilterHandler = () => {
@@ -127,6 +127,7 @@ const BottomSection = ({ children }) => {
   const filterHandler = async (productId, flag, filterName) => {
     changeQueryFlag(true);
     if (filterName === "تکنولوژی") {
+      console.log(flag);
       if (productId && !flag) {
         let validation = localItemValidation("technologi");
         if (!validation) {
@@ -136,6 +137,7 @@ const BottomSection = ({ children }) => {
       } else {
         localStorageDeleteOneItem("technologi", productId);
       }
+      dispatch(changeTechnologiList(getItemLocalStorage("technologi")));
     }
     if (filterName === "وضعیت") {
       if (productId && !flag) {
@@ -147,6 +149,7 @@ const BottomSection = ({ children }) => {
       } else {
         localStorageDeleteOneItem("CourseTypeId", productId);
       }
+      dispatch(changeCourseTypeId(getItemLocalStorage("CourseTypeId")));
     }
     if (filterName === "سطح") {
       if (productId && !flag) {
@@ -158,7 +161,9 @@ const BottomSection = ({ children }) => {
       } else {
         localStorageDeleteOneItem("courseLevelId", productId);
       }
+      dispatch(changeCourseLevelId(getItemLocalStorage("courseLevelId")));
     }
+    const data = await courseFilterFull("/Home/GetCoursesWithPagination?", courseQueryParams, dispatch);
   };
 
   const filterItemClickHnadler = (productId, flag, filterName) => {
@@ -167,9 +172,17 @@ const BottomSection = ({ children }) => {
     courseFilter(setSearchParams, dispatch, useSelector);
   };
 
-  const viewClickHandler = (value) => {
-    setPageViewNum(value);
-    console.log(pageViewNum);
+  const { mutateAsync } = getDataByClick();
+  const viewClickHandler = async (value) => {
+    dispatch(changeRowOfPageNum(value));
+    dispatch(firstAddCourseProduct(null));
+    const data = await mutateAsync(
+      `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=${value}`
+    );
+    console.log(data);
+    setTimeout(() => {
+      dispatch(firstAddCourseProduct(data.courseFilterDtos));
+    }, 1000);
   };
 
   const sortClickHandler = (text) => {
@@ -179,13 +192,30 @@ const BottomSection = ({ children }) => {
   };
 
   const cardClickHandler = (productId) => {
-    navigate(`/course-detail/${productId}`)
-  }
+    navigate(`/course-detail/${productId}`);
+  };
 
-  useEffect(() => {console.log(pageViewNum)}, [])
+  const priceChangeHandler = async (value) => {
+    dispatch(changeCostDown(value[0]));
+    dispatch(changeCostUp(value[1]));
+
+    const data = await courseFilterFull("/Home/GetCoursesWithPagination?", courseQueryParams, dispatch);
+    console.log(data.data)
+  };
+
+  const sortChangeHandler = (value) => {
+    console.log(value);
+    if (value === "صعودی") {
+      dispatch(changeSortType("ACS"));
+    }
+    if (value === "نزولی") {
+      dispatch(changeSortType("DESC"));
+    }
+    courseFilterFull("/Home/GetCoursesWithPagination?", courseQueryParams, dispatch);
+  };
 
   return (
-    <div className="bottom-section-container w-full mt-[35px] flex justify-center gap-x-[28px] items-start">
+    <div className="bottom-section-container w-full mt-0 max-sm:mt-[8px] flex justify-center gap-x-[28px] items-start">
       <div
         className={
           windowWidthNum < 1024
@@ -211,6 +241,9 @@ const BottomSection = ({ children }) => {
               console.log(item);
               return (
                 <FilteredBox filterText={item.filterTitle} key={index}>
+                  {item.filterTitle === "قیمت" && (
+                    <PriceInput onChange={priceChangeHandler} key={index} />
+                  )}
                   {item.filterChildren?.map((sort, index) => {
                     let filName;
                     sort.techName
@@ -245,8 +278,7 @@ const BottomSection = ({ children }) => {
               className="py-[3px] w-full hidden max-lg:block rounded-[0_0_10px_10px] bg-[#DB3838] text-white cursor-pointer"
               onClick={setFilterHandler}
             >
-              {" "}
-              فیلتر انجام شود{" "}
+              فیلتر انجام شود
             </button>
           </h1>
         </div>
@@ -275,8 +307,17 @@ const BottomSection = ({ children }) => {
               فیلتر{" "}
             </button>
             <div className="left-control min-lg:w-full flex justify-end gap-x-[10px] max-sm:hidden">
-              <div className="select-view-control max-lg:hidden">
-                <SelectView viewClick={viewClickHandler} />
+              <div className="select-view-control flex gap-x-[3px] max-lg:hidden">
+                <SelectView
+                  placeholder={" 12 آیتم "}
+                  dataMap={viewData}
+                  concatText={"آیتم"}
+                  viewClick={viewClickHandler}
+                />
+                <SortTypeCard
+                  dataMap={sortColData}
+                  onChange={sortChangeHandler}
+                />
               </div>
               <div className="flex gap-x-[15px] max-lg:hidden">
                 <MenuIcon click={viwGotoRowClickHandler} />
@@ -292,15 +333,19 @@ const BottomSection = ({ children }) => {
                 max-sm:grid-cols-1 mt-[54px] gap-x-[23px] gap-y-[50px]`
               : `transition-colors product-card-container grid grid-cols-1
                 max-sm:grid-cols-1 mt-[54px] gap-x-[23px] gap-y-[50px]`
-            // `transition-colors product-card-container grid grid-cols-${cs} grid-rows-1 max-xl:grid-cols-2
-            //     max-sm:grid-cols-1 mt-[54px] gap-x-[23px] gap-y-[50px]`
           }
-          // style={{gridColumn: "3", gridRow:}}
         >
           {productState
             ? productState.map((item, index) => {
-                // console.log(item);
-                return <CardWrapper timeFlag={true} data={item} key={index} cardClick={cardClickHandler}/>;
+                return (
+                  <CardWrapper
+                    timeFlag={true}
+                    data={item}
+                    key={index}
+                    cardClick={cardClickHandler}
+                    viewFlag={viwFlag}
+                  />
+                );
               })
             : productMockData.map((item, index) => {
                 return <CardLoading key={index} />;

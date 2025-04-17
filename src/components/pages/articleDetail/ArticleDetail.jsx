@@ -107,3 +107,10 @@ const ArticleDetail = () => {
 };
 
 export default ArticleDetail;
+// const ArticleDital = () => {
+//     return (
+//         <div></div>
+//     )
+// }
+
+// export default ArticleDital

@@ -11,7 +11,6 @@ import ServiceSection from "./LandingSections/ServiceSection";
 import NewsSection from "./LandingSections/NewsSection";
 import { useDispatch } from "react-redux";
 import { getData } from "../../../core/services";
-import { firstAddProduct } from "../../../redux/actions";
 
 const Landing = () => {
   

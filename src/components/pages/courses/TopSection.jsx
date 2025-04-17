@@ -5,19 +5,26 @@ import { motion } from "framer-motion";
 import { MotionComp } from "../../partials";
 import { htttp } from "../../../core/services/interceptor";
 import { useDispatch, useSelector } from "react-redux";
-import { firstAddProduct } from "../../../redux/actions";
+import { changeQuery, firstAddCourseProduct } from "../../../redux/actions";
 import { useSearchParams } from "react-router-dom";
 import { setItemLocalStorage } from "../../../core/hooks/local-storage/setItemLocalstorage";
 import { courseFilter } from "../../../core/utility/courseFilter";
+import { courseFilterFull } from "../../../core/utility/courseFilterFull";
 // import { setSearchParams } from "../../../core/hooks/indexHooks";
 
 const TopSection = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
+  const { courseQueryParams } = useSelector(state => state)
+  const { queryParams } = courseQueryParams
 
-  const searchHandler = (searchValue) => {
-    setItemLocalStorage("searchValue", searchValue)
-    courseFilter(setSearchParams, dispatch, useSelector)
+  const searchHandler = async (searchValue) => {
+    // setItemLocalStorage("searchValue", searchValue)
+    dispatch(changeQuery(searchValue))
+
+    // dispatch(firstAddCourseProduct(null))
+    courseFilterFull("/Home/GetCoursesWithPagination?", courseQueryParams, dispatch);
+    // dispatch(firstAddCourseProduct(data.data.courseFilterDtos))
   };
 
   return (
