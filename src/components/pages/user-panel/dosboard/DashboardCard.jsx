@@ -11,7 +11,7 @@ const DashboardCard = ({ data, teacherNameFlag, cardClickHandler }) => {
 
   return (
     <div
-      className="card-control w-[280px] flex p-2 bg-[#F9F9F9]
+      className="card-control w-full flex p-2 bg-[#F9F9F9]
         drop-shadow-[0_1px_2px_#00000040] rounded-xl cursor-pointer"
     >
       <div className="right w-[75%]">

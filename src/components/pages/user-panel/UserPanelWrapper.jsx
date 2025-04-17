@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PanelDashboard from "./PanelDashboard";
 import { Outlet } from "react-router-dom";
 import { TiHome } from "react-icons/ti";
@@ -16,6 +16,7 @@ import { motion } from "framer-motion";
 const UserPanelWrapper = () => {
   const dispatch = useDispatch();
   const token = getItemLocalStorage("token");
+  const [menuFlag, setMenuFlag] = useState(true);
 
   useEffect(() => {
     Aos.init({
@@ -36,6 +37,10 @@ const UserPanelWrapper = () => {
     dispatch(addUserProfileInfoData(data));
   }
 
+  const closeBtnClickHandler = () => {
+    setMenuFlag(false)
+  }
+
   return (
     <div className="user-panel-holder w-full flex justify-center">
       {/* <motion.div
@@ -44,17 +49,25 @@ const UserPanelWrapper = () => {
         animate={{y: 0, opacity: 1}}
         transition={{duration: 2}}
       > */}
-      <div className="right-item-control w-[30%] fixed hidden right-0 max-lg:block">
-      {/* {!isLoading && <PanelDashboard />} */}
+      <div
+        className={
+          !menuFlag
+            ? `right-item-control w-[30%] h-full transition-all fixed right-[-320px] top-0 hidden
+              max-lg:block z-10 `
+            : `right-item-control w-[30%] h-full fixed right-0 top-0 hidden
+              max-lg:block z-10 transition-all`
+        }
+      >
+        {!isLoading && <PanelDashboard closeBtnClick={closeBtnClickHandler}/>}
       </div>
       <div
-        className="dashboard-container w-[70%] rounded-[10px] bg-[#FFFFFF]
+        className="dashboard-container w-[70%] max-lg:w-[90%] rounded-[10px] bg-[#FFFFFF]
                 drop-shadow-[0_1px_2px_#00000040] flex items-start my-11 overflow-x-hidden"
       >
-        <div className="rigth-item-control w-[30%]">
+        <div className="rigth-item-control hidden w-[30%] min-lg:block">
           {!isLoading && <PanelDashboard />}
         </div>
-        <div className="left-item-control w-[70%] h-full p-5">
+        <div className="left-item-control w-[70%] max-lg:w-full h-full p-5">
           <div className="home-icon-control w-full flex justify-end">
             <TiHome size={25} className="text-[#01B4AF] cursor-pointer" />
           </div>

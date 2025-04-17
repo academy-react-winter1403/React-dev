@@ -30,15 +30,14 @@ const ArticlesAndNews = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.articleNews);
 
-  getData("ArticlesNews", `/News?PageNumber=${pagination}&RowsOfPage=6`).then(
-    (responseArticles) => {
-      if (flag) {
-        dispatch(ArticlesNews(responseArticles.data.news));
-        setLength(responseArticles.data.totalCount);
-        setFlag(false);
-      }
+  const {data, isLoading} = getData("ArticlesNews", `/News?PageNumber=${pagination}&RowsOfPage=6`)
+  if (!isLoading) {
+    if (flag) {
+      dispatch(ArticlesNews(responseArticles.data.news));
+      setLength(responseArticles.data.totalCount);
+      setFlag(false);
     }
-  );
+  }
 
   useEffect(() => {
     if (state) {

@@ -3,20 +3,22 @@ import ImageFedback from "../../partials/image-fedback/imageFedback";
 import userPic from "../../../assets/pics/userPanel/user-pic.png";
 import DashboardOption from "./dosboard/DashboardOption";
 import { useSelector } from "react-redux";
+import { IoMdCloseCircle } from "react-icons/io";
 
-const PanelDashboard = () => {
+const PanelDashboard = ({ closeBtnClick }) => {
   const { userProfileInfo } = useSelector((state) => state);
   const { userProfileInfoData } = userProfileInfo;
   const { fName, lName, userImage } = userProfileInfoData;
   const [data] = userImage
   const { puctureAddress } = data
 
-  // console.log("userImage ==>", data)
-
   return (
-    <div className="panel-dashboard w-full h-full bg-[#01CEC9] pt-[30px] pr-[10px] pb-[15px]
-      "
+    <div className={`panel-dashboard w-full h-full bg-[#01CEC9] min-lg:pt-[30px]
+      max-lg:pt-2.5 pr-[10px] pb-[15px]`}
     >
+      <div className="close-btn-control hidden justify-end ml-4 cursor-pointer max-lg:flex">
+        <IoMdCloseCircle size={35} className="text-[#003B39]" onClick={closeBtnClick}/>
+      </div>
       <div className="pic-item-control flex flex-col items-center">
         <div
           className="pic-control w-[100px] h-[100px] rounded-[50%] overflow-hidden

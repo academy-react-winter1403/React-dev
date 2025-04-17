@@ -9,7 +9,7 @@ import * as yup from "yup";
 import GoToPrevPage from "../../../common/BtnText/GoToPrevPage";
 import LoginBg from "../../../partials/authorize/LoginBg";
 import { getData, postData } from "../../../../core/services";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 const ForgetPasswordTwoSteps = () => {
   const [rememberMe, setRememberMe] = useState(false);
@@ -18,17 +18,19 @@ const ForgetPasswordTwoSteps = () => {
   const navigate = useNavigate();
   const { ConfigValue } = useParams();
 
-  getData(["validate-config", ConfigValue], `/Sign/Reset/${ConfigValue}`).then(
-    (response) => {
-      console.log(response.data);
-      if (response.data.success) {
-        setUserId(response.data.id);
-        console.log(response.data.id);
-        setResetValue(response.data.message);
-        console.log(response.data.message);
-      }
-    }
+  const { data, isLoading } = getData(
+    ["validate-config", ConfigValue],
+    `/Sign/Reset/${ConfigValue}`
   );
+  if (!isLoading) {
+    console.log(data);
+    if (data.success) {
+      setUserId(data.id);
+      console.log(data.id);
+      setResetValue(data.message);
+      console.log(data.message);
+    }
+  }
 
   const onSubmit = async (values) => {
     console.log(values);

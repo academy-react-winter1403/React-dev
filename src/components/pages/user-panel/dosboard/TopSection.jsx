@@ -18,7 +18,9 @@ const TopSection = ({ data }) => {
   const { profileCompletionPercentage } = userProfileInfoData;
 
   return (
-    <div className="top-item-control flex items-center justify-center gap-x-8 max-lg:gap-0">
+    <div className="top-item-control w-full p-2 flex items-center max-lg:justify-between
+      relative justify-center gap-x-8"
+    >
       <div className="right flex items-center gap-x-5">
         <motion.div
           initial={{ scale: 0, visibility: "hidden", opacity: 0 }}
@@ -60,13 +62,15 @@ const TopSection = ({ data }) => {
         </motion.div>
       </div>
 
-      <div className="left flex items-center gap-x-5">
+      <div className="left flex items-center gap-x-5 max-md:flex-col">
         <motion.div
           initial={{ scale: 0, visibility: "hidden", opacity: 0 }}
           animate={{ scale: 1.1, visibility: "visible", opacity: 1 }}
           transition={{ duration: 0.4, delay: 0.4 }}
         >
-          <p className="text-[15px] font-[400] font-b-yekan text-[#ABABAB] w-[170px] text-center max-xl:text-xs">
+          <p className="text-[15px] font-[400] font-b-yekan text-[#ABABAB] w-[170px] text-center
+            max-xl:text-xs max-md:absolute max-md:left-8 max-md:top-[-20px]"
+          >
             برای شرکت در دوره ها باید حداقل ٪ ۸۰ از پروفایل خود را تکمیل کنید.
           </p>
         </motion.div>
@@ -78,9 +82,10 @@ const TopSection = ({ data }) => {
         >
           <CircularProgress
             classNames={{
-              svg: "w-[80px] h-[80px]  stroke-[1.5px] stroke-[#FFFFFF] drop-shadow-[0_1px_1px_#00000040] transition-[5s]",
+              svg: `w-[80px] h-[80px] stroke-[1.5px] stroke-[#FFFFFF]
+                drop-shadow-[0_1px_1px_#00000040] transition-[5s] max-md:w-[50px] max-md:h-[50px]`,
               indicator: "stroke-[#E48900]",
-              value: "font-iran-sans text-[17px]",
+              value: "font-iran-sans text-[17px] max-md:text-[14px]",
             }}
             value={profileCompletionPercentage}
             showValueLabel={true}

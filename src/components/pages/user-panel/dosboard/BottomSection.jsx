@@ -20,9 +20,9 @@ const BottomSection = () => {
 
   return (
     <div className="flex gap-x-11 mt-6">
-      <div className="right">
+      <div className="right w-[50%]">
         <motion.h1
-          className="text-[#777777] font-b-yekan"
+          className="text-[#777777] font-b-yekan text-nowrap"
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.6, delay: 1.4 }}
@@ -48,9 +48,9 @@ const BottomSection = () => {
           />
         </div>
       </div>
-      <div className="left">
+      <div className="left w-[50%]">
         <motion.h1
-          className="text-[#777777] font-b-yekan"
+          className="text-[#777777] font-b-yekan text-nowrap"
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.6, delay: 1.4 }}

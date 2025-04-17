@@ -10,7 +10,8 @@ const StatusCard = ({
   return (
     <button
       className="status-card-control font-b-yekan bg-[#F9F9F9] rounded-[5px]
-      drop-shadow-[0_1px_2px_#00000040] flex max-xl:flex-col-reverse max-xl:items-center px-2.5 py-1.5"
+      drop-shadow-[0_1px_2px_#00000040] flex max-xl:flex-col-reverse max-xl:items-center max-lg:flex-row
+      max-md:flex-col-reverse px-2.5 py-1.5"
     >
       <div className="text-control">
         <h2 className="text-nowrap">
