@@ -10,10 +10,20 @@ import {
   changeAddDataFlag,
   changeCoursesPageCounter,
   firstAddCourseProduct,
+// <<<<<<< HEAD
+  // changePageCounter,
+  // changeQueryFlag,
+  // firstAddProduct,
 } from "../../../redux/actions";
 import { PaginationData } from "../../partials";
 import bg from "../../../assets/pics/courses/bg1.png";
 import { deleteAllItemLocalStorage } from "../../../core/hooks/local-storage/deleteAllItem";
+//   changeCoursesPageCounter,
+//   firstAddCourseProduct,
+// } from "../../../redux/actions";
+// import { PaginationData } from "../../partials";
+// import bg from "../../../assets/pics/courses/bg1.png";
+// import { deleteAllItemLocalStorage } from "../../../core/hooks/local-storage/deleteAllItem";
 import { getDataByClick } from "../../../core/services/api/get-data-by-click/getDataByClick";
 import Aos from "aos";
 // import { filterData } from "../../../core/constants";
@@ -23,6 +33,7 @@ import Aos from "aos";
 // import { setItemLocalStorage } from "../../../core/hooks/local-storage/setItemLocalstorage";
 // import { locStorageUpdateItem } from "../../../core/hooks/local-storage/updateItem";
 // import { getItemLocalStorage } from "../../../core/hooks/local-storage/getItemLocalStorage";
+// >>>>>>> 21a038ce3feace628afe1f449fc089c5a5248056
 
 const Courses = () => {
   const dispatch = useDispatch();
@@ -33,12 +44,23 @@ const Courses = () => {
 
   // getData("pages",
   //   /Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6
+// <<<<<<< HEAD
+  // const { addDataFlag } = state.coursesData
+  
+  // let pageCount = 1;
+  // getData("pages",
+  //   `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`
   // ).then((response) => {
   //   setCoursesData(response.data.courseFilterDtos);
   //   setTimeout(() => {
   //     dispatch(firstAddProduct(response.data.courseFilterDtos));
   //   }, 3000);
   // })
+
+  // const queryFlag = state.flags.queryFlag
+
+// =======
+// >>>>>>> 21a038ce3feace628afe1f449fc089c5a5248056
 
   useEffect(() => {
     if (!queryFlag) {
@@ -92,14 +114,26 @@ const Courses = () => {
 
   const { mutateAsync: getDataByClick2 } = getDataByClick()
   const pageChangeHandler = async (pageNum) => {
+// <<<<<<< HEAD
+    // pageCount = pageNum
     dispatch(changeCoursesPageCounter(pageNum));
     dispatch(firstAddCourseProduct(null))
+    dispatch(changeAddDataFlag(true))
+    // const data = await getDataByClick(`/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`)
+    // dispatch(firstAddProduct(data.data.courseFilterDtos))
+// =======/
+    // dispatch(changeCoursesPageCounter(pageNum));
+    // dispatch(firstAddCourseProduct(null))
     dispatch(changeAddDataFlag(true))
     
     const data = await getDataByClick2(`/Home/GetCoursesWithPagination?PageNumber=${pageNum}&RowsOfPage=6`)
     console.log("mutation ==>",data)
     setTimeout(() => {dispatch(firstAddCourseProduct(data.courseFilterDtos))}, 2000)
     dispatch(firstAddCourseProduct(data.data.courseFilterDtos))
+    // const data = await getDataByClick2(`/Home/GetCoursesWithPagination?PageNumber=${pageNum}&RowsOfPage=6`)
+    // console.log("mutation ==>",data)
+    // setTimeout(() => {dispatch(firstAddCourseProduct(data.courseFilterDtos))}, 2000)
+// 
   };
   return (
     <div

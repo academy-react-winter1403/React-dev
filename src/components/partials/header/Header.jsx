@@ -3,11 +3,10 @@ import AccountBtn from "../../common/AccountBtn";
 import Logo from "../../../core/icons/Logo";
 import HeaderMiddlePart from "./HeaderMiddlePart";
 import HeaderIcons from "./HeaderIcons";
-import {useLocation} from 'react-router-dom'
+import { useLocation } from "react-router-dom";
 
 const Header = () => {
-
-  const isLocation = useLocation()
+  const isLocation = useLocation();
 
   return (
     <div className="w-full holder bg-[#F7F7F7]  font-b-yekan flex justify-center">
@@ -20,20 +19,30 @@ const Header = () => {
             className="flex flex-row-reverse 
              sm:justify-center"
           >
-            
             <div>
               <AccountBtn />
             </div>
 
-            {isLocation.pathname !== "/login" && <HeaderIcons />}
-
-            {/* <HeaderIcons /> */}
+            {isLocation.pathname !== "/Authorize/Register/step1" &&
+              isLocation.pathname !== "/Authorize/Register/step2" &&
+              isLocation.pathname !== "/Authorize/Register/step3" &&
+              isLocation.pathname !== "/Authorize/Login/step1" &&
+              isLocation.pathname !== "/Authorize/Login/step2" &&
+              isLocation.pathname !== "/Authorize/forget-password/step1" &&
+              isLocation.pathname !== "/Authorize/forget-password/step2/:ConfigValue" && (
+                <HeaderIcons />
+              )}
           </div>
 
-          {isLocation.pathname !== "/login" && <HeaderMiddlePart />}
-
-          {/* <HeaderMiddlePart /> */}
-
+          {isLocation.pathname !== "/Authorize/Register/step1" &&
+            isLocation.pathname !== "/Authorize/Register/step2" &&
+            isLocation.pathname !== "/Authorize/Register/step3" &&
+            isLocation.pathname !== "/Authorize/Login/step1" &&
+            isLocation.pathname !== "/Authorize/Login/step2" &&
+            isLocation.pathname !== "/Authorize/forget-password/step1" &&
+            isLocation.pathname !== "/Authorize/forget-password/step2/:ConfigValue" && (
+              <HeaderMiddlePart />
+            )}
           <div
             className="flex overflow-hidden 
          md:w-[13%] md:h-[40px] md:block lg:w-[15%] lg:h-[50px] lg:block sm:w-[10%] sm:h-[30px] sm:block  xs:hidden "

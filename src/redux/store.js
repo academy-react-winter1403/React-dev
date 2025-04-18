@@ -9,8 +9,11 @@ import {
   coursesSortSlice,
   coursesQueryParams,
   articleDetailSlice,
-  relatedCoursesSlice
+  relatedCoursesSlice,
+  articlesQueryFilter,
+  allDataArticleSlice
 } from "./slices";
+
 
 export const store = configureStore({
   reducer: {
@@ -23,6 +26,8 @@ export const store = configureStore({
     coursesSort: coursesSortSlice.reducer,
     courseQueryParams: coursesQueryParams.reducer,
     articleDetailSlice: articleDetailSlice.reducer,
-    relatedCoursesSlice : relatedCoursesSlice.reducer
+    relatedCoursesSlice : relatedCoursesSlice.reducer,
+    articlesQueryFilter:articlesQueryFilter.reducer,
+    allDataArticleSlice:allDataArticleSlice.reducer,
   },
 });

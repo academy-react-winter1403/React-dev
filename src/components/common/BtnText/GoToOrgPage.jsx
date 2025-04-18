@@ -5,8 +5,11 @@ const GoToOrgPage = () => {
   const navigate = useNavigate();
   const Location = useLocation();
   const goToPage = () => {
-    if (location.pathname === "/Register/step1" || location.pathname === "/Register/step4") {
-      navigate("/");
+    if (location.pathname === "/Authorize/Register/step1" || location.pathname === "/Authorize/Login/step1") {
+      navigate("/landing");
+    }
+    else if (location.pathname === "/Authorize/forget-password/step1") {
+      navigate("/Authorize/Login/step1")
     }
   }
   return (

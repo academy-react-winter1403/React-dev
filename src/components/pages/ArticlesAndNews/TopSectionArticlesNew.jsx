@@ -3,10 +3,25 @@ import Input from "../../common/input/Input";
 import BgOne from "./../../../assets/pics/articles/bg1.png";
 import BgTwo from "./../../../assets/pics/articles/bg2.png";
 import BgStudent from "./../../../assets/pics/articles/student.png";
+// import { motion } from "motion/react"
+import { motion } from "framer-motion";
 
-const TopSectionArticlesNew = ({changeFilterHandler}) => {
+const TopSectionArticlesNew = ({ changeFilterHandler }) => {
   return (
-    <div className="w-full h-[400px] flex justify-center relative">
+    <motion.div
+      className="w-full h-[400px] flex justify-center relative"
+      initial={{ x: -1000, 
+        // opacity: 0 
+      }}
+      animate={{
+        x: [-1000, 0, 60, -40, 20, -10, 5, 0],
+        // opacity: 1,
+      }}
+      transition={{
+        duration: 1.5,
+        ease: "easeOut",
+      }}
+    >
       <div className="w-10/12 h-[271px] bg-[#EBF9F9]/51 rounded-tl-[10px] rounded-tr-[80px] rounded-br-[10px] rounded-bl-[80px] shadow-sm mt-10 flex flex-col justify-center gap-10">
         <ul className="list-disc marker:text-[#01CEC9] marker:text-3xl pl-5 mr-11">
           <li>
@@ -18,11 +33,20 @@ const TopSectionArticlesNew = ({changeFilterHandler}) => {
             </p>
           </li>
         </ul>
-        <div className="w-[508px] mr-8">
-          <Input placeholder={"چی میخوای یاد بدونی؟..."} type={"text"} change={changeFilterHandler}/>
+        <div className="w-[50%] mr-8">
+          <Input
+            placeholder={"چی میخوای یاد بدونی؟..."}
+            type={"text"}
+            change={changeFilterHandler}
+          />
         </div>
       </div>
-      <div className="absolute left-0 w-[550px]">
+      <motion.div
+        className="absolute left-0 w-[550px] hidden md:block"
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, delay: 0.7}}
+      >
         <div
           className="w-[415px] h-[400px] relative"
           style={{
@@ -51,8 +75,8 @@ const TopSectionArticlesNew = ({changeFilterHandler}) => {
             }}
           ></div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

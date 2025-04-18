@@ -11,6 +11,9 @@ import { coursesPageCounterSlice } from "./coursesPageCounterSlice";
 import { coursesSortSlice } from "./sortSlice";
 import { articleDetailSlice } from "./articleDetailSlice";
 import { relatedCoursesSlice } from "./relatedCoursesSlice";
+import { articlesQueryFilter } from './ArticlesQueryFilter';
+import allDataArticleSlice from './allDataArticleSlice';
+
 
 export {
   coursesSlice,
@@ -25,5 +28,7 @@ export {
   coursesSortSlice,
   coursesPageCounterSlice,
   articleDetailSlice,
-  relatedCoursesSlice
+  relatedCoursesSlice,
+  articlesQueryFilter,
+  allDataArticleSlice
 };

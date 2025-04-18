@@ -3,7 +3,7 @@ import { SlArrowLeft } from "react-icons/sl";
 
 const CardArticlesOther = ({title,image}) => {
   return (
-    <div className="w-[251px] h-[70px] relative shadow-sm rounded-r-lg rounded-l-xs">
+    <div className="w-[251px] h-[70px] relative shadow-sm rounded-r-lg rounded-l-xs" data-aos="zoom-in">
       <div className="absolute bottom-0 left-[-5px] size-[82px]">
         <img src={image} className="rounded-full w-full h-full"/>
       </div>

@@ -1,45 +1,61 @@
 import React, { useEffect, useState } from "react";
-import ArticleTitle from "./articleDetailSections/ArticleTitle";
-import ArticleFeedBack from "./articleDetailSections/ArticleFeedBack";
-import character from "./../../../assets/pics/others/articledetail.png";
-import RelatedCourses from "../../partials/relatedCourses/RelatedCourses";
-import {
-  desLikeCourseCommentPost,
-  getCommentData,
-  getData,
-  likeCourseCommentPost,
-} from "../../../core/services";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
 import {
   addArticleAndNewsDetailData,
   addRelatedCoursesData,
 } from "../../../redux/actions";
-import { useDispatch, useSelector } from "react-redux";
+
+import ArticleTitle from "./articleDetailSections/ArticleTitle";
+import ArticleFeedBack from "./articleDetailSections/ArticleFeedBack";
+import RelatedCourses from "../../partials/relatedCourses/RelatedCourses";
 import DescriptionBox from "../../partials/descreption-box/DescriptionBox";
-import { htttp } from "../../../core/services/interceptor";
-import articledetailmain from "./../../../assets/pics/others/articledetailmain.png";
 import CommentBox from "../../partials/comment-box/CommentBox";
-import { getCourseCommentReplay } from "../../../core/services/api/get-data/getCourseCommentReplays";
-import { errorMessageHandler } from "../../../core/utility/errorMessageHandler";
+
+import articledetailmain from "./../../../assets/pics/others/articledetailmain.png";
+import character from "./../../../assets/pics/others/articledetail.png";
+
+import {
+  desLikeCourseCommentPost,
+  getCommentData,
+} from "../../../core/services";
 import { getNewsCommentsReplay } from "../../../core/services/api/get-data/getNewsCommentsReply";
-import AOS from "aos";
-import "aos/dist/aos.css";
+
+import { htttp } from "../../../core/services/interceptor";
+import { errorMessageHandler } from "../../../core/utility/errorMessageHandler";
 
 const ArticleDetail = () => {
-  const [commentData, setCommentData] = useState(null);
-  const [commentFullData, setCommentFullData] = useState(null);
-
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  // get data
-  getData("articleDetail", `/News/${id}`).then((response) => {
-    console.log("response ==>", response.data.detailsNewsDto);
-    dispatch(addArticleAndNewsDetailData(response.data.detailsNewsDto));
-    console.log("news: ", response.data);
-  });
+  const { articleDetailSlice, relatedCoursesSlice } = useSelector(
+    (state) => state
+  );
+  const { articleAndNewDetailData } = articleDetailSlice;
+  const { relatedCoursesData } = relatedCoursesSlice;
+  const [commentData, setCommentData] = useState(null);
+  const [commentFullData, setCommentFullData] = useState(null);
 
-  // get comment and comment replay data
+  const { googleDescribe, describe, currentImageAddress, newsCatregoryId } =
+    articleAndNewDetailData || {};
+
+  // Fetch article details
+  useEffect(() => {
+    const fetchArticle = async () => {
+      try {
+        const res = await htttp.get(`/News/${id}`);
+        if (res?.data?.detailsNewsDto) {
+          dispatch(addArticleAndNewsDetailData(res.data.detailsNewsDto));
+        }
+      } catch (error) {
+        console.error("Failed to fetch article:", error);
+      }
+    };
+
+    fetchArticle();
+  }, [id, dispatch]);
+
   getCommentData("newsComment", `/News/GetNewsComments?NewsId=${id}`).then(
     (response) => {
       setCommentData(response.data);
@@ -55,65 +71,11 @@ const ArticleDetail = () => {
     }
   );
 
-  useEffect(() => {
-    if (commentData) {
-      console.log("article commentData ==>", commentData);
-    }
-  }, [commentData]);
-
-  // redux
-  const { articleDetailSlice, relatedCoursesSlice } = useSelector(
-    (state) => state
-  );
-  const { articleAndNewDetailData } = articleDetailSlice;
-  var { googleDescribe, describe, currentImageAddress, newsCatregoryId } =
-    articleAndNewDetailData;
-  const { relatedCoursesData } = relatedCoursesSlice;
-  // const {} = 
-
-  console.log("relatedCoursesData ==>", relatedCoursesData);
-
-  console.log("llll", articleAndNewDetailData);
-
-  if (relatedCoursesData.length === 0) {
-    console.log("kk", relatedCoursesData);
-    htttp
-      .get(`/News/GetNewsWithCategory/${newsCatregoryId}`)
-      .then((response) => {
-        dispatch(addRelatedCoursesData(response.data));
-        console.log("relatedddddddddd: ", response.data);
-      });
-  }
-
-  // useEffect(() => {
-  //   if (newsCatregoryId && relatedCourses.length === 0) {
-  //     htttp
-  //       .get(`/News/GetNewsWithCategory/${newsCatregoryId}`)
-  //       .then((response) => {
-  //         dispatch(addRelatedCoursesData(response.data));
-  //         console.log("related: ", response.data);
-  //       });
-  //   }
-  // }, [newsCatregoryId]);
-
-  //  get comment and comment replay data
-
-  const coomentLikeBtnClickHandler = async () => {
-    // console.log(item);
-    // const resData = await likeCourseCommentPost(
-    //   `/News/CommentLike?CourseCommandId`,
-    //   item.id
-    // );
-    // errorMessageHandler(resData);
-  };
-
   const commentDesLikeBtnClickHandler = async (item) => {
-    // alert("");
     const resData = await desLikeCourseCommentPost(
       `/News/CommentDissLike?CourseCommandId`,
       item.id
     );
-    // console.log(resData)
     errorMessageHandler(resData);
   };
 
@@ -125,23 +87,33 @@ const ArticleDetail = () => {
     alert();
   };
 
-  //  AOS
+  // Fetch related courses
   useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-    });
-  }, []);
+    const fetchRelatedCourses = async () => {
+      try {
+        if (newsCatregoryId && !relatedCoursesData) {
+          const res = await htttp.get(
+            `/News/GetNewsWithCategory/${newsCatregoryId}`
+          );
+          if (res?.data) {
+            dispatch(addRelatedCoursesData(res.data));
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch related courses:", error);
+      }
+    };
+
+    fetchRelatedCourses();
+  }, [newsCatregoryId, relatedCoursesData, dispatch]);
 
   return (
     <div className="w-full bg-[#F7F7F7] font-b-yekan py-10">
       <div className="w-[80%] m-auto flex md:flex-row md:flex-nowrap gap-0.5 xs:flex-col justify-center md:items-start xs:items-center">
-        {/* article section */}
-        <div
-          className="md:w-2/3 xs:w-full flex flex-col items-center justify-center gap-2.5"
-          data-aos="fade-left"
-        >
+        {/* Article Content */}
+        <div className="md:w-2/3 xs:w-full flex flex-col items-center justify-center gap-2.5">
           <ArticleTitle />
+
           <div className="w-[95%] bg-white rounded-[10px] text-[#555555] text-[18px] leading-7 flex flex-col items-center justify-start gap-3 shadow relative overflow-hidden transition-all duration-500">
             <div className="w-[95%]">
               <p>{googleDescribe}</p>
@@ -153,7 +125,7 @@ const ArticleDetail = () => {
                     ? currentImageAddress
                     : articledetailmain
                 }
-                alt="#"
+                alt="Article"
               />
             </div>
             <div className="w-[95%]">
@@ -162,11 +134,13 @@ const ArticleDetail = () => {
               </DescriptionBox>
             </div>
           </div>
+
           <ArticleFeedBack />
+
           {commentData ? (
             <CommentBox
               commentData={commentFullData}
-              coomentLikeBtnClick={coomentLikeBtnClickHandler}
+              coomentLikeBtnClick={commentDesLikeBtnClickHandler}
               commentDesLikeBtnClick={commentDesLikeBtnClickHandler}
               replayLikeBtnClick={replayLikeBtnClickHandler}
               replayDeslikeBtnClick={replayDeslikeBtnClickHandler}
@@ -174,15 +148,12 @@ const ArticleDetail = () => {
           ) : null}
         </div>
 
-        {/* related courses section */}
-        <div
-          className="md:w-1/3 xs:w-[95%] flex flex-col justify-between items-center gap-4 md:mt-0 xs:mt-5"
-          data-aos="fade-right"
-        >
+        {/* Related Courses */}
+        <div className="md:w-1/3 xs:w-[95%] flex flex-col justify-between items-center gap-4 md:mt-0 xs:mt-5">
           <div className="hidden md:block">
-            <img src={character} alt="#" />
+            <img src={character} alt="character" />
           </div>
-          <RelatedCourses data={relatedCoursesData}/>
+          <RelatedCourses data={relatedCoursesData} />
         </div>
       </div>
     </div>

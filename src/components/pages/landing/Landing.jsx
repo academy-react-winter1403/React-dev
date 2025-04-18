@@ -19,13 +19,15 @@ const Landing = () => {
   
   const [coursesData, setCoursesData] = useState(null);
 
-  getData(
+  const {data, isLoading} = getData(
     "landingProduct",
     "/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=6"
-  ).then((response) => {
-    console.log("",response.data)
-    setCoursesData(response.data.courseFilterDtos);
-  });
+  )
+
+  if (!isLoading) {
+    console.log("",data)
+    if (!coursesData) setCoursesData(data.courseFilterDtos);
+  }
 
   useEffect(() => {
     if (coursesData) {

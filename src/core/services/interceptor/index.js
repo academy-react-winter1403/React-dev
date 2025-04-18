@@ -28,8 +28,6 @@ const onError = (error) => {
 
 htttp.interceptors.response.use(onSucces, onError);
 
-/* in redux with statemanegment */
-
 htttp.interceptors.request.use((opt) => {
   const token = getItemLocalStorage("token");
   if (token) {

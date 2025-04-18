@@ -1,5 +1,5 @@
 import { firstAddCourseProduct } from "../../redux/actions";
-import { getDataByClick } from "../services/api/get-data-by-click/getDataByClick";
+// import { getDataByClick } from "../services/api/get-data-by-click/getDataByClick";
 import { htttp } from "../services/interceptor";
 
 // const { mutateAsync: getFilteData } = getDataByClick()

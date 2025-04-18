@@ -24,13 +24,16 @@ export const commonRouter = createBrowserRouter([
     children: [
       { path: "/", element: <LastLandingWrapper /> },
       {
-        path: "/Register",
+        path: "/Authorize",
         element: <LastAuthorizeWrapper />,
         children: [...authorizeRouterArray],
       },
       { path: "/landing", element: <LastLandingWrapper /> },
       { path: "/courses", element: <LastCoursesWrapper /> },
       { path: "/detail/:id", element: <LastCourseDetailWrapper /> },
+      { path: "/ArticlesAndNews", element: <LastArticlesAndNewsWrapper /> },
+      { path: "/detail/:id", element: <LastCourseDetailWrapper /> },
+      { path: "/course-detail/:id", element: <LastCourseDetailWrapper /> },
       { path: "/article-detail/:id", element: <LastArticleDetailWrapper /> },
       { path: "*", element: <Error /> },
       { path: "/user-panel", element: <LastUsserPanelWrapper />, children: [...userPanelRoute] },

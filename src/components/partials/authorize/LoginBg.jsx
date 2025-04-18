@@ -1,22 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import BgStep from "./../../../assets/pics/authorize/BgAuthorize.png";
 import FooterAuthorize from "../footerAuthorize/FooterAuthorize";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+// import Aos from "aos";
 
 const LoginBg = ({ children }) => {
-  const [target, setTarget] = useState("register");
-  const navigate = useNavigate()
-  const handleClick = (position) => {
-    setTarget(position);
-    if (position === "register") {
-      navigate("/Register/step1")
-    }
-    else if (position === "login") {
-      navigate("/Register/step4")
-    }
-  };
-
+  const navigate = useNavigate();
+  const location = useLocation();
   return (
     <>
       <div
@@ -32,13 +23,17 @@ const LoginBg = ({ children }) => {
           <div className="mt-[105px]">
             <button
               className="w-[69px] h-[34px] text-[#006865] font-bold text-2xl font-b-yekan"
-              onClick={() => handleClick("register")}
+              onClick={() => {
+                navigate("/Authorize/Register/step1");
+              }}
             >
               ثبت نام
             </button>
             <button
               className="w-[41px] h-[34px] text-[#006865] font-bold text-2xl mx-auto mt-[51px] font-b-yekan"
-              onClick={() => handleClick("login")}
+              onClick={() => {
+                navigate("/Authorize/Login/step1");
+              }}
             >
               ورود
             </button>
@@ -46,18 +41,23 @@ const LoginBg = ({ children }) => {
           <div className="w-[869px] h-[631px] flex justify-center items-center relative backdrop-blur-xs bg-gradient-to-tl from-[#01CEC9BF]/75 to-[#E48900BF]/75 rounded-4xl">
             <motion.div
               className="size-20 rounded-3xl absolute right-[0] top-[85px]"
-              initial={{ rotate: 45, x: 15, backgroundColor: "#c3d3bd" }}
+              initial={{
+                y: location.pathname === "/Authorize/Login/step1" ? 0 : 85,
+                rotate: 45,
+                x: 15,
+                backgroundColor: "#c3d3bd",
+              }}
               animate={{
-                y: target === "register" ? 0 : target === "login" ? 85 : 0,
+                y: location.pathname === "/Authorize/Login/step1" ? 85 : 0,
                 backgroundColor:
-                  target === "register"
+                  location.pathname === "/Authorize/Register/step1"
                     ? "#c3d3bd"
-                    : target === "login"
+                    : location.pathname === "/Authorize/Login/step1"
                     ? "#bbd6c3"
                     : "#c3d3bd",
                 x: 15,
               }}
-              transition={{ duration: 1 }}
+              transition={{ duration: 1,delay: 0.6}}
             ></motion.div>
             {children}
           </div>

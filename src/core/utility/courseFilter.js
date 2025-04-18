@@ -1,7 +1,7 @@
 import { getItemLocalStorage } from "../hooks/local-storage/getItemLocalStorage";
 import { htttp } from "../services/interceptor";
 // import { changeAddDataFlag, firstAddProduct } from "../../redux/actions";
-import { changeAddDataFlag, firstAddCourseProduct } from "../../redux/actions";
+// import { changeAddDataFlag, firstAddCourseProduct, firstAddProduct } from "../../redux/actions";
 // import { getDataByClick } from "../services/api/get-data-by-click/getDataByClick";
 
 // const {mutate} = getDataByClick()
@@ -52,7 +52,13 @@ export const courseFilter = (searchParams, dispatch) => {
         ${courseTypeId && courseTypeId.length !== 0 ? `CourseTypeId=${courseTypeId}` : ''}`
     );
 
+// <<<<<<< HEAD
+    
+    
+    dispatch(firstAddProduct(data.data.courseFilterDtos))
+// =======
     dispatch(firstAddCourseProduct(data.data.courseFilterDtos))
+// >>>>>>> 21a038ce3feace628afe1f449fc089c5a5248056
     console.log(data.data.courseFilterDtos);
   };
 

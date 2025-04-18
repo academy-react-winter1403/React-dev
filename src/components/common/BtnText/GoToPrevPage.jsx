@@ -6,14 +6,17 @@ const GoToPrevPage = () => {
   const navigate = useNavigate();
   const Location = useLocation();
   const goToPage = () => {
-    if (location.pathname === "/Register/step2") {
-      navigate("/Register/step1");
+    if (location.pathname === "/Authorize/Register/step2") {
+      navigate("/Authorize/Register/step1");
     }
-    else if (location.pathname === "/Register/step3") {
-      navigate("/Register/step2");
+    else if (location.pathname === "/Authorize/Register/step3") {
+      navigate("/Authorize/Register/step2");
     }
-    else if (location.pathname === "/Register/step5") {
-      navigate("/Register/step4");
+    else if (location.pathname === "/Authorize/Login/step2") {
+      navigate("/Authorize/Login/step1");
+    }
+    else if (location.pathname === "/Authorize/forget-password/step2") {
+      navigate("/Authorize/forget-password/step1")
     }
   }
   return (

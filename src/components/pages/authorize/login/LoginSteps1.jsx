@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import LoginBg from "./../../../partials/authorize/LoginBg";
+import LoginBg from "../../../partials/authorize/LoginBg";
 import GoToOrgPage from "../../../common/BtnText/GoToOrgPage";
 import BtnGetCode from "../../../common/BtnText/BtnGetCode";
 import { Form, Formik } from "formik";
@@ -11,26 +11,36 @@ import BtnNumberStep from "../../../common/BtnText/BtnNumberStep";
 import { postData } from "../../../../core/services";
 import { setItemLocalStorage } from "../../../../core/hooks/local-storage/setItemLocalstorage";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { toast, ToastContainer } from "react-toastify";
 
-const Steps4 = () => {
-  const [rememberMe, setRememberMe] = useState(false)
+
+const LoginSteps1 = () => {
+  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
   const handleSendInformation = async (values) => {
     try {
       const ApiCall = await postData("/Sign/Login", {
-        EmailOrMobile: values.EmailOrMobile,
+        phoneOrGmail: values.phoneOrGmail,
         password: values.password,
-        rememberMe:rememberMe
+        rememberMe: rememberMe,
       });
-      console.log(rememberMe);
-      console.log(ApiCall.data.token);
-      setItemLocalStorage("token",ApiCall.data.token);
+      console.log(ApiCall);
+      if (ApiCall.data.success) {
+        console.log(ApiCall.data.token);
+        setItemLocalStorage("token", ApiCall.data.token);
+        toast("به سایت خودت خوش اومدی")
+        navigate('/')
+      } else {
+        // alert(ApiCall.data.errors[1]);
+        toast("موردی یافت نشد لطفا مقادیر را با دقت وارد کنید.")
+      }
     } catch (error) {
       console.log(error);
     }
   };
   const validation = yup.object().shape({
-    EmailOrMobile: yup
+    phoneOrGmail: yup
       .string()
       .test("emailOrPhone", "ایمیل یا شماره تلفن نامعتبر است", (value) => {
         if (!value) return false;
@@ -46,25 +56,41 @@ const Steps4 = () => {
       .required("وارد کردن ایمیل یا شماره تلفن الزامی است"),
     password: yup
       .string()
-      .min(6, "رمز عبور باید حداقل 8 کاراکتر باشد")
+      .min(6, "رمز عبور باید حداقل 6 کاراکتر باشد")
       .required("وارد کردن رمز عبور الزامی است"),
   });
   const RegisterPage = () => {
-    navigate("/Register/step1");
+    navigate("/Authorize/Register/step1");
+  };
+  const forgetPassword = () => {
+    navigate("/Authorize/forget-password/step1");
   };
   return (
+    <>
+    <ToastContainer />
     <LoginBg>
       <div className="h-[350px] flex relative">
-        <div className="w-[377px] h-full bg-[#fcfcfc] rounded-[15px] flex flex-col gap-[20px] justify-center items-center">
+        <motion.div
+          className="w-[377px] h-full bg-[#fcfcfc] rounded-[15px] flex flex-col gap-[20px] justify-center items-center"
+          initial={{ opacity: 0, scale: 0.6 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            type: "spring",
+            stiffness: 250,
+            damping: 12,
+            duration: 0.6,
+            delay: 0.2,
+          }}
+        >
           <StageName stageName={"ورود حساب کاربری"} />
           <Formik
-            initialValues={{ EmailOrMobile: "", password: "" }}
+            initialValues={{ phoneOrGmail: "", password: "" }}
             onSubmit={handleSendInformation}
             validationSchema={validation}
           >
             <Form className="flex flex-col items-center justify-center gap-[15px]">
               <CustomInput
-                name={"EmailOrMobile"}
+                name={"phoneOrGmail"}
                 placeholder={"شماره همراه یا ایمیل"}
                 type={"text"}
               />
@@ -79,11 +105,20 @@ const Steps4 = () => {
                     className="font-normal text-xs font-b-yekan text-gray-400 mr-1"
                     htmlFor="rememberMe"
                   >
-                  <input type="checkbox" name="rememberMe" id="rememberMe" onChange={() => setRememberMe(!rememberMe)}/>
+                    <input
+                      type="checkbox"
+                      name="rememberMe"
+                      id="rememberMe"
+                      onChange={() => setRememberMe(!rememberMe)}
+                    />
                     مرا به خاطر بسپار
                   </label>
                 </div>
-                <button className="w-[71px] h-[17px] font-normal text-[11px] text-[#E48900] font-b-yekan">
+                <button
+                  className="w-[71px] h-[17px] font-normal text-[11px] text-[#E48900] font-b-yekan"
+                  onClick={forgetPassword}
+                  type="button"
+                >
                   فراموشی رمز عبور
                 </button>
               </div>
@@ -93,14 +128,15 @@ const Steps4 = () => {
               </div>
             </Form>
           </Formik>
-        </div>
+        </motion.div>
         <div className="size-16 mt-[100px] rounded-xl flex justify-center items-center bg-[#dac9a4] left-[-50px] absolute z-10 rotate-45">
           <BtnNumberStep number={1} />
         </div>
       </div>
       <GoToOrgPage />
     </LoginBg>
+    </>
   );
 };
 
-export default Steps4;
+export default LoginSteps1;

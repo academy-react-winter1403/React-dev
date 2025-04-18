@@ -4,7 +4,7 @@ export const relatedCoursesSlice = createSlice({
   name: "relatedCoursesData",
 
   initialState: {
-    relatedCoursesData: [],
+    relatedCoursesData: null,
   },
 
   reducers: {

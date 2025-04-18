@@ -1,4 +1,1 @@
-export const sortColData = [
-    "صعودی",
-    "نزولی",
-]
+export const sortColData = ["صعودی", "نزولی"];
