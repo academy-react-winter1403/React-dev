@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 const ArticlesCard = ({ title, Describe, src, currentView, insertDate }) => {
   return (
     <motion.div
-      className="w-[291px] h-[381px] rounded-t-[145px] rounded-b-xs shadow-sm flex flex-col items-center justify-center gap-4"
+      className="w-[291px] h-[381px] rounded-t-[145px] rounded-b-xs shadow-sm flex flex-col items-center justify-center gap-4 cursor-pointer "
       data-aos="flip-left"
       data-aos-easing="ease-out-cubic"
       data-aos-duration="2000"

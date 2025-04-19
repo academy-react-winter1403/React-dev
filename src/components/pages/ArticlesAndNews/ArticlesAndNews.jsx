@@ -97,90 +97,94 @@ const ArticlesAndNews = () => {
   }, []);
 
   return (
-    <div className="max-w-7xl flex flex-row flex-wrap justify-center m-auto gap-3">
-      <TopSectionArticlesNew changeFilterHandler={changeQueryHandler} />
-      <div className="w-[900px] flex flex-col gap-7">
-        <div className="h-[45px] flex gap-4">
-          <h1 className="font-b-yekan font-bold text-[#005351] text-[27px] text-center">
-            جدیدترین اخبار و مقالات
-          </h1>
-          <SortingArticlesNew
-            dataMap={sortingArticlesNews}
-            onChange={sortChangeHandler}
-          />
-          <SelectView
-            placeholder={" 6 آیتم "}
-            dataMap={viewDataArticles}
-            concatText={"آیتم"}
-            viewClick={viewClickHandler}
-          />
-          <SortTypeCard
-            dataMap={sortColData}
-            onChange={sortTypeChangeHandler}
-          />
-        </div>
-        <div className="flex flex-row flex-wrap gap-3">
-          {
-            articleState
-              ? articleState.map((item, index) => {
-                  return (
-                    <ArticlesCard
-                      key={index}
-                      title={item.title}
-                      Describe={item.miniDescribe}
-                      src={item.addUserProfileImage}
-                      currentView={item.currentView}
-                      // insertDate={index.insertDate}
-                    />
-                  );
-                })
-              : 0
-            //   productMockData.map((item, index) => {
-            //       return <CardLoading key={index} />;
-
-            // }
-            // )
-          }
-        </div>
-        <PaginationData
-          initialPageNum={1}
-          totalNum={totalPages}
-          pageChange={pageChangeHandler}
-        />
+    <div className="max-w-8xl flex flex-col justify-center m-auto gap-3 bg-[#F7F7F7] font-b-yekan">
+      <div>
+        <TopSectionArticlesNew changeFilterHandler={changeQueryHandler} />
       </div>
-      <div className="w-[298px] h-[900px] flex flex-col justify-center items-center gap-6 mt-15">
-        <div
-          className="w-full h-[408px] flex flex-col gap-7 shadow-sm items-center justify-center"
-          data-aos="zoom-in-down"
-        >
-          <TextPagesArticlesNew
-            title={"مطالب پیشنهادی"}
-            explan={"این مطالب هم میتونه براتون جالب باشه"}
-          />
-          <div className="flex flex-col justify-center items-center gap-10">
-            <CardArticlesOther title={"چرا فیگما؟"} image={BgFive} />
-            <CardArticlesOther
-              title={"چگونه یک مدیر پروژه باشیم؟"}
-              image={BgThree}
+      <div className='flex lg:flex-row lg:flex-nowrap lg:gap-3 xs:flex-col  m-auto items-center justify-center w-[90%]'>
+        <div className="lg:w-2/3 flex flex-col gap-7">
+          <div className="h-[45px] flex gap-4">
+            <h1 className="font-b-yekan font-bold text-[#005351] md:text-[27px] xs:text-[20px] text-center whitespace-nowrap">
+              جدیدترین اخبار و مقالات
+            </h1>
+            <SortingArticlesNew
+              dataMap={sortingArticlesNews}
+              onChange={sortChangeHandler}
             />
-            <CardArticlesOther
-              title={"سرعت تکنولوژی در قرن ۲۱"}
-              image={BgFour}
+            <SelectView
+              placeholder={" 6 آیتم "}
+              dataMap={viewDataArticles}
+              concatText={"آیتم"}
+              viewClick={viewClickHandler}
+            />
+            <SortTypeCard
+              dataMap={sortColData}
+              onChange={sortTypeChangeHandler}
             />
           </div>
-        </div>
-        <div
-          className="w-full h-[408px] flex flex-col gap-7 shadow-sm items-center justify-center"
-          data-aos="zoom-in-down"
-        >
-          <TextPagesArticlesNew
-            title={"محبوب ترین دوره ها"}
-            explan={"بهترین چیزهایی که میتونید یاد بگیرید"}
+          <div className="flex flex-row flex-wrap gap-3 justify-center">
+            {
+              articleState
+                ? articleState.map((item, index) => {
+                    return (
+                      <ArticlesCard
+                        key={index}
+                        title={item.title}
+                        Describe={item.miniDescribe}
+                        src={item.addUserProfileImage}
+                        currentView={item.currentView}
+                        // insertDate={index.insertDate}
+                      />
+                    );
+                  })
+                : 0
+              //   productMockData.map((item, index) => {
+              //       return <CardLoading key={index} />;
+
+              // }
+              // )
+            }
+          </div>
+          <PaginationData
+            initialPageNum={1}
+            totalNum={totalPages}
+            pageChange={pageChangeHandler}
           />
-          <div className="flex flex-col justify-center items-center gap-10">
-            <CardArticlesOther title={"دوره جامع انگولار"} image={BgOne} />
-            <CardArticlesOther title={"دوره جامع فیگما"} image={BgTwo} />
-            <CardArticlesOther title={"دوره جامع ری اکت"} image={BgSix} />
+        </div>
+        <div className="lg:w-1/3 xs:w-full  flex lg:flex-col flex-row justify-center items-start lg:mt-0 xs:mt-5 gap-6 ">
+          <div
+            className="lg:w-full md:w-1/2 h-[408px] flex flex-col gap-7 shadow-sm items-center justify-center "
+            data-aos="zoom-in-down"
+          >
+            <TextPagesArticlesNew
+              title={"مطالب پیشنهادی"}
+              explan={"این مطالب هم میتونه براتون جالب باشه"}
+            />
+            <div className="flex flex-col justify-center items-center gap-10">
+              <CardArticlesOther title={"چرا فیگما؟"} image={BgFive} />
+              <CardArticlesOther
+                title={"چگونه یک مدیر پروژه باشیم؟"}
+                image={BgThree}
+              />
+              <CardArticlesOther
+                title={"سرعت تکنولوژی در قرن ۲۱"}
+                image={BgFour}
+              />
+            </div>
+          </div>
+          <div
+            className="lg:w-full md:w-1/2 h-[408px] flex flex-col gap-7 shadow-sm items-center justify-center "
+            data-aos="zoom-in-down"
+          >
+            <TextPagesArticlesNew
+              title={"محبوب ترین دوره ها"}
+              explan={"بهترین چیزهایی که میتونید یاد بگیرید"}
+            />
+            <div className="flex flex-col justify-center items-center gap-10">
+              <CardArticlesOther title={"دوره جامع انگولار"} image={BgOne} />
+              <CardArticlesOther title={"دوره جامع فیگما"} image={BgTwo} />
+              <CardArticlesOther title={"دوره جامع ری اکت"} image={BgSix} />
+            </div>
           </div>
         </div>
       </div>
