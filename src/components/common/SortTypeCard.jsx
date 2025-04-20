@@ -8,7 +8,7 @@ const SortTypeCard = ({ dataMap, onChange }) => {
       <Select
         placeholder="صعودی"
         classNames={{
-          base: "text-black md:text-[20px] xs:text-[16px] text-nowrap md:w-[148px] md:h-[45px] xs:w-[118px] xs:h-[45px] rounded-[10px] font-b-yekan cursor-pointer",
+          base: "text-black md:text-[20px] xs:text-[16px] text-nowrap xs:w-[150px]  xs:h-[45px] rounded-[10px] font-b-yekan cursor-pointer",
             label: "bg-red-500 font-b-yekan cursor-pointer",
           mainWrapper:
             "h-full bg-[#FFFFFF] shadow-[0_1px_3px_#00000040] border border-[#cccccc] rounded-[10px] text-[#005B58] font-b-yekan",

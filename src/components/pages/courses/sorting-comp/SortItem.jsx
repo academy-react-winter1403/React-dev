@@ -7,7 +7,7 @@ const SortItem = ({ item, sortClick }) => {
 
   return (
     <p
-      className="py-[5px] px-[7px] border border-[#cccccc]
+      className="py-[5px] px-[7px] border border-[#cccccc] 
         rounded-[5px] mt-[12px] cursor-pointer transition-colors hover:bg-[#005B58] hover:text-white"
       onClick={sortClickHandler}
     >

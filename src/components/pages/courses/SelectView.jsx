@@ -13,7 +13,7 @@ const SelectView = ({ viewClick, dataMap, concatText, placeholder }) => {
       {/* <button className="bg-gray-800"></button> */}
       <Select
         classNames={{
-          base: "bg-[#D47300] bg-[#FFFFFF] text-white text-[20px] text-nowrap md:w-[148px] md:h-[45px] xs:w-[118px] xs:h-[45px] rounded-[10px] border cursor-pointer",
+          base: "bg-[#D47300] bg-[#FFFFFF] text-white text-[20px] text-nowrap xs:w-[150px] xs:h-[45px] rounded-[10px] border  cursor-pointer",
           label: "bg-red-500",
           mainWrapper:
             "h-full rounded-[10px] text-[#005B58] border border-[#cccccc] shadow-[0_1px_3px_#00000040]",
