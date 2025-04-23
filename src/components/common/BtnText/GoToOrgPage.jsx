@@ -13,8 +13,8 @@ const GoToOrgPage = () => {
     }
   }
   return (
-    <div className="w-[112px] h-[20px] flex items-end gap-[5px] absolute bottom-[30px] left-[20px]">
-      <div className="w-[88px] h-full text-xl font-normal text-[#aaa] font-b-yekan leading-none" onClick={goToPage}>
+    <div className="w-[112px] h-[20px] flex items-end gap-[5px] absolute sm:bottom-[30px] xs:bottom-4 left-[20px]">
+      <div className="w-[88px] h-full md:text-xl xs:text-[18px]  font-normal text-[#aaa] font-b-yekan leading-none cursor-pointer" onClick={goToPage}>
         صفحه اصلی
       </div>
       <SlArrowLeft style={{color:"#aaa",width:"13px",height:"13px"}}/>

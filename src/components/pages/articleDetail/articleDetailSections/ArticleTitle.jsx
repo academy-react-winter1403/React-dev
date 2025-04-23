@@ -20,6 +20,7 @@ const ArticleTitle = () => {
     <div
       className="w-[95%] md:h-[150px] xs:h-[100px] rounded-tl-[10px] rounded-tr-[50px] rounded-br-[10px] rounded-bl-[10px]
     bg-gradient-to-r from-[#E4890080] to-[#01CEC9BF] flex flex-col items-center justify-center shadow"
+    data-aos="fade-left"
     >
       {/* text */}
       <div className="w-[90%] h-1/2 flex flex-row flex-nowrap items-center justify-start gap-2">

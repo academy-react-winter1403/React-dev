@@ -54,12 +54,12 @@ const HeaderMiddlePart = () => {
               key={index}
               onClick={() => navigate(item.path)}
               className={`cursor-pointer relative transition-all duration-200 hover:text-[#E48900] ${
-                isActive ? "text-[#E48900]" : ""
+                isActive ? "text-[#000000]" : ""
               }`}
             >
               {item.name}
               {isActive && (
-                <span className="absolute bottom-[-4px] left-0 w-full h-[2px] bg-gradient-to-r from-[#F3F3F300] via-[#E48900] to-[#F3F3F300]"></span>
+                <span className="absolute bottom-[-4px] left-0 w-full h-[2px] bg-gradient-to-r from-[#F3F3F3] via-[#E48900] to-[#F3F3F3]"></span>
               )}
             </li>
           );

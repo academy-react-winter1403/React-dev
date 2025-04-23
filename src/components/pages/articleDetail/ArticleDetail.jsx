@@ -24,6 +24,8 @@ import { getNewsCommentsReplay } from "../../../core/services/api/get-data/getNe
 
 import { htttp } from "../../../core/services/interceptor";
 import { errorMessageHandler } from "../../../core/utility/errorMessageHandler";
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 const ArticleDetail = () => {
   const dispatch = useDispatch();
@@ -107,14 +109,23 @@ const ArticleDetail = () => {
     fetchRelatedCourses();
   }, [newsCatregoryId, relatedCoursesData, dispatch]);
 
+  // AOS
+  useEffect(() => {
+      AOS.init({
+        duration: 2000, 
+        once: true,     
+      })
+    }, [])
+
   return (
     <div className="w-full bg-[#F7F7F7] font-b-yekan py-10">
       <div className="w-[80%] m-auto flex md:flex-row md:flex-nowrap gap-0.5 xs:flex-col justify-center md:items-start xs:items-center">
         {/* Article Content */}
         <div className="md:w-2/3 xs:w-full flex flex-col items-center justify-center gap-2.5">
-          <ArticleTitle />
+          <ArticleTitle/>
 
-          <div className="w-[95%] bg-white rounded-[10px] text-[#555555] text-[18px] leading-7 flex flex-col items-center justify-start gap-3 shadow relative overflow-hidden transition-all duration-500">
+          <div className="w-[95%] bg-white rounded-[10px] text-[#555555] text-[18px] leading-7 flex flex-col items-center justify-start gap-3 shadow relative overflow-hidden transition-all duration-500"
+          data-aos="fade-up">
             <div className="w-[95%]">
               <p>{googleDescribe}</p>
             </div>
@@ -149,7 +160,8 @@ const ArticleDetail = () => {
         </div>
 
         {/* Related Courses */}
-        <div className="md:w-1/3 xs:w-[95%] flex flex-col justify-between items-center gap-4 md:mt-0 xs:mt-5">
+        <div className="md:w-1/3 xs:w-[95%] flex flex-col justify-between items-center gap-4 md:mt-0 xs:mt-5"
+        data-aos="fade-right">
           <div className="hidden md:block">
             <img src={character} alt="character" />
           </div>
