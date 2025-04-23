@@ -1,19 +1,19 @@
 import React from "react";
 import HeaderWrapper from "../partials/header/HeaderWrapper";
 import FooterWrapper from "../partials/footer/FooterWrapper";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { Themes } from "../partials";
-import { useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 const MainLayout = () => {
-  const Location = useLocation();
+  const location = useLocation();
   const currentPath = location.pathname;
   return (
     <>
       <HeaderWrapper />
       <Outlet />
       {/* <Themes/> */}
+      {/* <FooterWrapper /> */}
       {currentPath !== "/Authorize/Register/step1" &&
         currentPath !== "/Authorize/Register/step2" &&
         currentPath !== "/Authorize/Register/step3" &&

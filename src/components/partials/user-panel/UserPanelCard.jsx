@@ -17,7 +17,7 @@ const UserPanelCard = ({ imageAddress, trashcanFlag, bgCalc }) => {
             <ImageFedback imageAddress={imageAddress} pic={pic}/>
         </div>
       </div>
-      <div className="centerr w-[80%]"></div>
+      <div className="centerr w-[80%] border"></div>
       <div className="left w-[10%] flex justify-center items-center gap-x-3">
         <FaEye className={`${trashcanFlag ? "text-[#00BFB3]" : "text-[#E48900]"}`}/>
         {trashcanFlag && <FaRegTrashCan className='text-[#E48900]'/>}

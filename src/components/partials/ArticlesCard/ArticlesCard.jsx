@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 const ArticlesCard = ({ title, Describe, src, currentView, insertDate }) => {
   return (
     <motion.div
-      className="w-[291px] h-[381px] rounded-t-[145px] rounded-b-xs shadow-sm flex flex-col items-center justify-center gap-4"
+      className="w-[291px] h-[381px] rounded-t-[145px] rounded-b-xs shadow-sm flex flex-col items-center justify-center gap-4 cursor-pointer "
       data-aos="flip-left"
       data-aos-easing="ease-out-cubic"
       data-aos-duration="2000"
@@ -18,10 +18,10 @@ const ArticlesCard = ({ title, Describe, src, currentView, insertDate }) => {
     >
       <img className="w-[251px] h-[171px] rounded-[18px]" src={src} />
       <div className="h-[200px] flex flex-col gap-4">
-        <h1 className="w-[230px] font-b-yekan font-bold text-[#003B39] text-xl">
+        <h1 className="w-[230px] font-b-yekan font-bold text-[#003B39] text-xl text-nowrap truncate" title={title}>
           {title}
         </h1>
-        <p className="w-[248px] h-[48px] font-b-yekan font-normal text-[#aaa] text-xs">
+        <p className="w-[248px] h-[48px] font-b-yekan font-normal text-[#aaa] text-xs text-nowrap truncate" title={Describe}>
           {Describe}
         </p>
         <div className="h-[15px] flex justify-between mt-3">

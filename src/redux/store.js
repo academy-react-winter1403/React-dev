@@ -14,8 +14,13 @@ import {
   courseActivedDataUserPanel,
   courseReserved,
   myCoursesUserPanel,
-  clientStatusSlice
+  clientStatusSlice,
+  articleDetailSlice,
+  relatedCoursesSlice,
+  articlesQueryFilter,
+  allDataArticleSlice
 } from "./slices";
+
 
 export const store = configureStore({
   reducer: {
@@ -33,6 +38,10 @@ export const store = configureStore({
     courseActivedDataUserPanel: courseActivedDataUserPanel.reducer,
     courseReserved: courseReserved.reducer,
     myCourseUserPanel: myCoursesUserPanel.reducer,
-    clientStatus: clientStatusSlice.reducer
+    clientStatus: clientStatusSlice.reducer,
+    articleDetailSlice: articleDetailSlice.reducer,
+    relatedCoursesSlice : relatedCoursesSlice.reducer,
+    articlesQueryFilter:articlesQueryFilter.reducer,
+    allDataArticleSlice:allDataArticleSlice.reducer,
   },
 });

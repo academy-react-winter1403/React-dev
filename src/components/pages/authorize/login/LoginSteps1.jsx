@@ -12,6 +12,7 @@ import { postData } from "../../../../core/services";
 import { setItemLocalStorage } from "../../../../core/hooks/local-storage/setItemLocalstorage";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { toast, ToastContainer } from "react-toastify";
 
 
 const LoginSteps1 = () => {
@@ -28,10 +29,11 @@ const LoginSteps1 = () => {
       if (ApiCall.data.success) {
         console.log(ApiCall.data.token);
         setItemLocalStorage("token", ApiCall.data.token);
-        // navigate("/Authorize/Login/step2")
-        navigate("/");
+        toast("به سایت خودت خوش اومدی")
+        navigate('/')
       } else {
-        alert(ApiCall.data.errors[1]);
+        // alert(ApiCall.data.errors[1]);
+        toast("موردی یافت نشد لطفا مقادیر را با دقت وارد کنید.")
       }
     } catch (error) {
       console.log(error);
@@ -64,10 +66,12 @@ const LoginSteps1 = () => {
     navigate("/Authorize/forget-password/step1");
   };
   return (
+    <>
+    <ToastContainer />
     <LoginBg>
       <div className="h-[350px] flex relative">
         <motion.div
-          className="w-[377px] h-full bg-[#fcfcfc] rounded-[15px] flex flex-col gap-[20px] justify-center items-center"
+          className="md:w-[377px] sm:w-[300px] md:h-full sm:h-[330px] xs:w-[275px] xs:h-[300px] sm:mt-0 xs:mt-7 bg-[#fcfcfc] rounded-[15px] flex flex-col gap-[20px] justify-center items-center "
           initial={{ opacity: 0, scale: 0.6 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{
@@ -96,12 +100,13 @@ const LoginSteps1 = () => {
                 type={"password"}
               />
               <div className="w-[266px] h-[17px] flex items-center justify-between">
-                <div className="flex w-[94px] h-[12px] justify-center items-center">
+                <div className="flex w-[94px] h-[12px] justify-center items-center cursor-pointer">
                   <label
-                    className="font-normal text-xs font-b-yekan text-gray-400 mr-1"
+                    className="font-normal text-xs font-b-yekan text-gray-400 mr-1 cursor-pointer"
                     htmlFor="rememberMe"
                   >
                     <input
+                    className="cursor-pointer"
                       type="checkbox"
                       name="rememberMe"
                       id="rememberMe"
@@ -111,7 +116,7 @@ const LoginSteps1 = () => {
                   </label>
                 </div>
                 <button
-                  className="w-[71px] h-[17px] font-normal text-[11px] text-[#E48900] font-b-yekan"
+                  className="w-[71px] h-[17px] font-normal text-[11px] text-[#E48900] font-b-yekan cursor-pointer"
                   onClick={forgetPassword}
                   type="button"
                 >
@@ -131,6 +136,7 @@ const LoginSteps1 = () => {
       </div>
       <GoToOrgPage />
     </LoginBg>
+    </>
   );
 };
 

@@ -7,7 +7,7 @@ const  Input = ({ placeholder, type, change }) => {
   };
 
   return (
-    <div className="input-control w-full relative">
+    <div className="input-control w-full relative" data-aos="fade-left">
       <input
         type={type}
         placeholder={placeholder}
