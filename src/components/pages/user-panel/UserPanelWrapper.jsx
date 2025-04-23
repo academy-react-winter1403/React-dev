@@ -12,6 +12,9 @@ import {
 } from "../../../redux/actions";
 import Aos from "aos";
 import { motion } from "framer-motion";
+import SelectProfileImage from "../../partials/UserPanel/SelectProfileImage";
+import MapUserPanel from "../../partials/UserPanel/MapUserPanel";
+import 'leaflet/dist/leaflet.css'
 
 const UserPanelWrapper = () => {
   const dispatch = useDispatch();
@@ -62,7 +65,7 @@ const UserPanelWrapper = () => {
       </div>
       <div
         className="dashboard-container w-[70%] max-lg:w-[90%] rounded-[10px] bg-[#FFFFFF]
-                drop-shadow-[0_1px_2px_#00000040] flex items-start my-11 overflow-x-hidden"
+                drop-shadow-[0_1px_2px_#00000040] flex items-start my-11 overflow-x-hidden relative"
       >
         <div className="rigth-item-control hidden w-[30%] min-lg:block">
           {!isLoading && <PanelDashboard />}
@@ -72,6 +75,8 @@ const UserPanelWrapper = () => {
             <TiHome size={25} className="text-[#01B4AF] cursor-pointer" />
           </div>
           <Outlet />
+          {/* <SelectProfileImage /> */}
+          {/* <MapUserPanel /> */}
         </div>
       </div>
       {/* </motion.div> */}

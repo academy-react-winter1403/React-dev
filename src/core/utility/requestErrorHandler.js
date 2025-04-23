@@ -2,10 +2,12 @@ import { deleteItemLocalStorage } from "../hooks/local-storage/deleteItemLocalSt
 
 export const requestErrorHandler = (statusCode, statusMessage) => {
   if (statusCode === 401) {
-    // alert("Error 401");
+
     deleteItemLocalStorage('token')
     window.location.pathname = '/Authorize/Login/Step1'
-    // console.log("erroooorrrrr")
+    // deleteItemLocalStorage('token')
+    // window.location.pathname = '/Authorize/Login/Step1'
+
     return 401
   }
   if (statusCode >= 404 && statusCode < 500) {

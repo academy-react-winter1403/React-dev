@@ -29,7 +29,7 @@ const UserInformationPage = () => {
               </div>
               <div className="bottom-input-control"></div>
             </Form>
-          </Formik>
+          </Formik>       
         </div>
       </div>
     </div>

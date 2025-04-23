@@ -99,7 +99,7 @@ const DashboardSection = () => {
   }
 
   return (
-    <div className="dashboard-container w-full flex justify-center ">
+    <div className="dashboard-container w-full flex justify-center">
       <div className="dashboard-control w-full min-lg:w-[90%] p-2">
         {<TopSection />}
         <CenterSection data={latestSserPanelNewsSliceData} />

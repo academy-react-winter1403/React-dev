@@ -15,6 +15,8 @@ import { suggested1courseUserPanel } from "./suggestedCourseUserPanleSlice";
 import { courseActivedDataUserPanel } from "./courseActivedDataUserPanel";
 import { courseReserved } from "./courseReservedUserPanel";
 import { myCoursesUserPanel } from "./myCoursesUserPanel";
+import { articlesQueryFilter } from './ArticlesQueryFilter';
+import allDataArticleSlice from './allDataArticleSlice';
 
 export {
   coursesSlice,
@@ -22,7 +24,6 @@ export {
   dorkModeSlice,
   coursesQueryParams,
   filterDataSlice,
-  queryFlagSlice,
   queryFlagSlice,
   courseDetailSlice,
   courseCommentSlice,
@@ -34,5 +35,7 @@ export {
   suggested1courseUserPanel,
   courseActivedDataUserPanel,
   courseReserved,
-  myCoursesUserPanel
+  myCoursesUserPanel,
+  articlesQueryFilter,
+  allDataArticleSlice
 };

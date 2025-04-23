@@ -1,15 +1,22 @@
 import React from "react";
 import { Pagination } from "@heroui/react";
+import { useDispatch } from "react-redux";
 
-const PaginationData = ({ totalNum, initialPageNum, pageChange }) => {
-  const paginationChangeHandler = (pageNum) => {
-    pageChange(pageNum);
-  };
+const PaginationData = ({totalCount,RowsOfPage,changePageNumber,initialPageNum}) => {
+  // const paginationChangeHandler = (pageNum) => {
+  //   pageChange(pageNum);
+  // };
+  const dispatch = useDispatch();
+  const totalPages = Math.ceil(totalCount / RowsOfPage);
+    const pageChangeHandler = (pageEvent) => {
+      console.log(pageEvent);
+      dispatch(changePageNumber(pageEvent));
+    };
 
   return (
     <Pagination
       loop
-      total={totalNum}
+      total={totalPages}
       initialPage={initialPageNum}
       showControls
 
@@ -25,7 +32,7 @@ const PaginationData = ({ totalNum, initialPageNum, pageChange }) => {
 
 
 
-      onChange={paginationChangeHandler}
+      onChange={pageChangeHandler}
     />
   );
 };

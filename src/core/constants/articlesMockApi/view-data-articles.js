@@ -1,0 +1,1 @@
+export const viewDataArticles = [6, 9, 12]

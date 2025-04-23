@@ -13,13 +13,13 @@ const SelectView = ({ viewClick, dataMap, concatText, placeholder }) => {
       {/* <button className="bg-gray-800"></button> */}
       <Select
         classNames={{
-          base: "bg-[#D47300] bg-[#FFFFFF] text-white text-[20px] text-nowrap w-[148px] h-[45px] rounded-[10px]",
-          label: "bg-red-500",
+          base: "bg-[#D47300] bg-[#FFFFFF] text-white text-[20px] text-nowrap w-[148px] h-[45px] rounded-[10px] font-b-yekan",
+          label: "bg-red-500 font-b-yekan",
           mainWrapper:
-            "h-full rounded-[10px] text-[#005B58] border border-[#cccccc] shadow-[0_1px_3px_#00000040]",
+            "h-full rounded-[10px] text-[#005B58] border border-[#cccccc] shadow-[0_1px_3px_#00000040] font-b-yekan",
           trigger:
-            "h-full flex flex-row-reverse items-center justify-center items-center p-0 rounded-[10px]",
-          listbox: "flex flex-row items-center p-0",
+            "h-full flex flex-row-reverse items-center justify-center items-center p-0 rounded-[10px] font-b-yekan",
+          listbox: "flex flex-row items-center p-0 font-b-yekan",
           listboxWrapper:
             "bg-[#FFFFFFF7] shadow-[0_1px_3px_#00000040] border border-[#cccccc] rounded-[5px] font-b-yekan",
           selectorIcon: "relative",

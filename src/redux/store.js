@@ -13,8 +13,11 @@ import {
   suggested1courseUserPanel,
   courseActivedDataUserPanel,
   courseReserved,
-  myCoursesUserPanel
+  myCoursesUserPanel,
+  articlesQueryFilter,
+  allDataArticleSlice
 } from "./slices";
+import { locationSlice } from "./slices/location";
 
 export const store = configureStore({
   reducer: {
@@ -31,6 +34,9 @@ export const store = configureStore({
     suggestedCourseUserPanel: suggested1courseUserPanel.reducer,
     courseActivedDataUserPanel: courseActivedDataUserPanel.reducer,
     courseReserved: courseReserved.reducer,
-    myCourseUserPanel: myCoursesUserPanel.reducer
+    myCourseUserPanel: myCoursesUserPanel.reducer,
+    articlesQueryFilter:articlesQueryFilter.reducer,
+    allDataArticleSlice:allDataArticleSlice.reducer,
+    locationSlice:locationSlice.reducer
   },
 });

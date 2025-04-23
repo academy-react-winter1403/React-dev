@@ -5,8 +5,15 @@ import BgTwo from "./../../../assets/pics/articles/bg2.png";
 import BgStudent from "./../../../assets/pics/articles/student.png";
 // import { motion } from "motion/react"
 import { motion } from "framer-motion";
+import { useDispatch } from "react-redux";
+import { changeQueryArticles } from "../../../redux/actions";
 
-const TopSectionArticlesNew = ({ changeFilterHandler }) => {
+const TopSectionArticlesNew = () => {
+  const dispatch = useDispatch();
+    const changeQueryHandler = (QueryEvent) => {
+      console.log(QueryEvent.target.value);
+      dispatch(changeQueryArticles(QueryEvent.target.value));
+    };
   return (
     <motion.div
       className="w-full h-[400px] flex justify-center relative"
@@ -37,7 +44,7 @@ const TopSectionArticlesNew = ({ changeFilterHandler }) => {
           <Input
             placeholder={"چی میخوای یاد بدونی؟..."}
             type={"text"}
-            change={changeFilterHandler}
+            change={changeQueryHandler}
           />
         </div>
       </div>

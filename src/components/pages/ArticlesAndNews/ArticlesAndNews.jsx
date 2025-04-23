@@ -1,12 +1,14 @@
-import SortingArticlesNew from "./Sorting-Articles/SortingArticlesNew";
+// import SortingArticlesNew from "./Sorting-Articles/SortingCol";
+// import SelectView from "../courses/SelectView";
+// import { viewDataArticles } from "../../../core/constants/articlesMockApi/view-data-articles";
+// import { sortColData } from "../../../core/constants";
+// import SortTypeCard from "../../common/SortTypeCard";
 import ArticlesCard from "../../partials/ArticlesCard/ArticlesCard";
 import CardArticlesOther from "./CardArticlesOther/CardArticlesOther";
 import TextPagesArticlesNew from "./TextPagesArticlesNew";
 import TopSectionArticlesNew from "./TopSectionArticlesNew";
-import React, { useEffect, useState } from "react";
-import { getData } from "../../../core/services/api/get-data/getData";
+import React, { useEffect } from "react";
 import { CardLoading, PaginationData } from "../../partials";
-import { getDataByClick } from "../../../core/services";
 import BgOne from "./../../../assets/pics/articles/01.png";
 import BgTwo from "./../../../assets/pics/articles/02.png";
 import BgSix from "./../../../assets/pics/articles/03.png";
@@ -15,100 +17,96 @@ import BgFour from "./../../../assets/pics/articles/02.jfif";
 import BgFive from "./../../../assets/pics/articles/03.jfif";
 import { useDispatch, useSelector } from "react-redux";
 import { filterDataArticles } from "../../../core";
-// import { ArticlesNews } from "../../../redux/actions";
-import { setItemLocalStorage } from "./../../../core/hooks/local-storage/setItemLocalstorage";
-import { useSearchParams } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { productMockData } from "../../../core/constants";
+import {
+  changePageNumber,
+  // changeQueryArticles,
+  // changeRowsOfPage,
+  // changeSortingCol,
+  // changeSortTypeArticles,
+  firstAddArticleProduct,
+} from "../../../redux/actions";
+import { useNavigate } from "react-router-dom";
+import FilterBar from "../../partials/FilterBar.jsx/FilterBar";
 
 const ArticlesAndNews = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [pagination, setPagination] = useState(1);
-  const [flag, setFlag] = useState(true);
-  const [length, setLength] = useState(0);
+  const navigate = useNavigate()
   const dispatch = useDispatch();
-  const state = useSelector((state) => state.articleNews);
-
-  const {data, isLoading} = getData("ArticlesNews", `/News?PageNumber=${pagination}&RowsOfPage=6`)
-  if (!isLoading) {
-    if (flag) {
-      dispatch(ArticlesNews(responseArticles.data.news));
-      setLength(responseArticles.data.totalCount);
-      setFlag(false);
-    }
-  }
-
+  const { PageNumber, RowsOfPage, SortingCol, SortType, Query } = useSelector(
+    (state) => state.articlesQueryFilter
+  );
+  const { articleState, totalCount } = useSelector(
+    (state) => state.allDataArticleSlice
+  );
   useEffect(() => {
-    if (state) {
-      console.log(state);
-    }
-  }, [state]);
-
-  const totalItems = length;
-  const totalPages = Math.ceil(totalItems / 6);
-  const pageChangeHandler = async (pageNum) => {
-    setPagination(pageNum);
-    localStorage.setItem("PaginationNumber", pageNum);
-    getDataByClick(`/News?PageNumber=${pageNum}&RowsOfPage=6`).then(
-      (responseArticles) => {
-        dispatch(ArticlesNews(responseArticles.data.news));
-      }
-    );
-  };
-
+    const getData = async () => {
+      const articles = await filterDataArticles({
+        PageNumber,
+        RowsOfPage,
+        SortingCol,
+        SortType,
+        Query,
+      });
+      dispatch(firstAddArticleProduct(articles));
+    };
+    getData();
+  }, [PageNumber, RowsOfPage, SortingCol, SortType, Query, dispatch]);
+  // const totalPages = Math.ceil(totalCount / RowsOfPage);
+  // const pageChangeHandler = (pageEvent) => {
+  //   console.log(pageEvent);
+  //   dispatch(changePageNumber(pageEvent));
+  // };
   useEffect(() => {
     AOS.init({
       duration: 1000,
       once: true,
     });
   }, []);
-
-  const changeFilterHandler = async (filter) => {
-    localStorage.setItem("SearchArticles", filter.target.value);
-    filterDataArticles(setSearchParams, dispatch);
-  };
-
-  const sortFilter = async (name) => {
-    setItemLocalStorage("sortArticle", name);
-    filterDataArticles(setSearchParams, dispatch);
-  };
-
+  const handleCardClick = (id) => {
+    navigate(`/article-detail/${id}`)
+  }
   return (
     <div className="max-w-7xl flex flex-row flex-wrap justify-center m-auto gap-3">
-      <TopSectionArticlesNew changeFilterHandler={changeFilterHandler} />
+      <TopSectionArticlesNew />
       <div className="w-[900px] flex flex-col gap-7">
-        <div className="h-[45px] flex gap-7">
-          <h1 className="w-[400px] font-b-yekan font-bold text-[#005351] text-[27px] text-center">
+        <div className="h-[45px] flex gap-4">
+          <h1 className="font-b-yekan font-bold text-[#005351] text-[27px] text-center">
             جدیدترین اخبار و مقالات
           </h1>
-          <SortingArticlesNew selectData={sortFilter} />
+          <FilterBar />
         </div>
         <div className="flex flex-row flex-wrap gap-3">
-          {state
-            ? state.map((item, index) => {
-                return (
-                  <ArticlesCard
-                    key={index}
-                    title={item.title}
-                    Describe={item.miniDescribe}
-                    src={item.addUserProfileImage}
-                    currentView={item.currentView}
-                    // insertDate={index.insertDate}
-                  />
-                );
-              })
-            : 0
-            // productMockData.map((item, index) => {
-            //     return <CardLoading key={index} />;
-            //   
-            }
-            {/* )} */}
+          {
+            articleState
+              ? articleState.map((item, index) => {
+                  return (
+                    <ArticlesCard
+                      key={index}
+                      title={item.title}
+                      Describe={item.miniDescribe}
+                      src={item.addUserProfileImage}
+                      currentView={item.currentView}
+                      onClick={() => handleCardClick(item.id)}
+                      // insertDate={index.insertDate}
+                    />
+                  );
+                })
+              : 0
+            //   productMockData.map((item, index) => {
+            //       return <CardLoading key={index} />;
+
+            // }
+            // )
+          }
         </div>
         <PaginationData
           initialPageNum={1}
-          totalNum={totalPages}
-          pageChange={pageChangeHandler}
+          // totalNum={totalPages}
+          // pageChange={pageChangeHandler}
+          totalCount={totalCount}
+          RowsOfPage={RowsOfPage}
+          changePageNumber={changePageNumber}
         />
       </div>
       <div className="w-[298px] h-[900px] flex flex-col justify-center items-center gap-6 mt-15">

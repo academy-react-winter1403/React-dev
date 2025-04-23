@@ -12,6 +12,7 @@ import { postData } from "../../../../core/services";
 import { setItemLocalStorage } from "../../../../core/hooks/local-storage/setItemLocalstorage";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { toast, ToastContainer } from "react-toastify";
 
 
 const LoginSteps1 = () => {
@@ -28,10 +29,11 @@ const LoginSteps1 = () => {
       if (ApiCall.data.success) {
         console.log(ApiCall.data.token);
         setItemLocalStorage("token", ApiCall.data.token);
-        // navigate("/Authorize/Login/step2")
-        navigate("/");
+        toast("به سایت خودت خوش اومدی")
+        navigate('/')
       } else {
-        alert(ApiCall.data.errors[1]);
+        // alert(ApiCall.data.errors[1]);
+        toast("موردی یافت نشد لطفا مقادیر را با دقت وارد کنید.")
       }
     } catch (error) {
       console.log(error);
@@ -64,6 +66,8 @@ const LoginSteps1 = () => {
     navigate("/Authorize/forget-password/step1");
   };
   return (
+    <>
+    <ToastContainer />
     <LoginBg>
       <div className="h-[350px] flex relative">
         <motion.div
@@ -131,6 +135,7 @@ const LoginSteps1 = () => {
       </div>
       <GoToOrgPage />
     </LoginBg>
+    </>
   );
 };
 

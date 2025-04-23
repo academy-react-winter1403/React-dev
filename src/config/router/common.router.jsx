@@ -12,7 +12,6 @@ import{
   LastCourseDetailWrapper,
   LastUsserPanelWrapper,
 } from "../../screens";
-// import { authorizeRouterArray } from "./authorize.router";
 import { userPanelRoute } from "./userPanel.router";
 import Error from "../../components/partials/ErrorNotFound/Error";
 

@@ -8,6 +8,8 @@ import BtnTwoAuthorize from "../../common/BtnText/BtnTwoAuthorize";
 import { postData } from "../../../core/services/api/post-data/postData";
 import { getItemLocalStorage } from "./../../../core/hooks/local-storage/getItemLocalStorage";
 import { useLocation, useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 const LoginPassword = () => {
   const navigate = useNavigate();
@@ -22,7 +24,7 @@ const LoginPassword = () => {
       console.log(Resend);
       console.log(Resend.data.message);
       if (Resend.data.message == "لطفا  کد تایید را وارد نمایید") {
-        alert("لطفا کد جدیدرا وارد نمایید");
+        toast("لطفا کد جدید را وارد نمایید");
       }
     } catch (error) {
       console.log(error.response ? error.response.data : error.message);
@@ -39,20 +41,17 @@ const LoginPassword = () => {
         ApiCall.data.success == true &&
         location.pathname === "/Authorize/Register/step2"
       ) {
+        toast(ApiCall.data.message);
         navigate("/Authorize/Register/step3");
-        console.log(ApiCall.data.message);
       } else if (
         ApiCall.data.success == true &&
         location.pathname === "/Authorize/Login/step2"
       ) {
         navigate("/");
-        console.log(ApiCall.data.message);
+        toast(ApiCall.data.message);
       } else {
-        alert("کد صحیح  نمی باشد");
+        toast("کد صحیح  نمی باشد");
       }
-
-      // console.log(ApiCall.data.success);
-      // console.log(ApiCall.data.message);
     } catch (error) {
       console.log(error.response ? error.response.data : error.message);
     }
@@ -87,7 +86,7 @@ const LoginPassword = () => {
       verifyCode: yup
         .string()
         // .matches(/^\d{5}$/, "کد باید 5 رقمی باشد")
-        .length(5,"کد باید 5 رقمی باشد")
+        .length(5, "کد باید 5 رقمی باشد")
         .required("وارد کردن کد الزامی است"),
     }),
     onSubmit: (values) => {
@@ -96,26 +95,33 @@ const LoginPassword = () => {
     },
   });
   return (
-    <div className="flex flex-col gap-8">
-      <form
-        onSubmit={formik.handleSubmit}
-        className="flex flex-col justify-center w-[266px] h-[59px]"
-      >
-        {/* onChange={formik.setFieldValue}  */}
-        <OTPInput length={5} name="verifyCode" setFieldValue={formik.setFieldValue} />
-        {formik.errors.verifyCode && (
-          <p className="text-red-600">{formik.errors.verifyCode}</p>
-        )}
-        <span className="flex flex-row-reverse text-[#008e8b] text-xs font-normal font-b-yekan">
-          {minute}:{second < 10 ? "0" : ""}
-          {second}
-        </span>
-        <div className="flex flex-col gap-[10px] justify-center items-center">
-          <BtnGetCode text={"ایجاد حساب"} />
-        </div>
-      </form>
-      <BtnTwoAuthorize text={"ارسال دوباره کد"} onClick={ResendCode} />
-    </div>
+    <>
+      <ToastContainer />
+      <div className="flex flex-col gap-8">
+        <form
+          onSubmit={formik.handleSubmit}
+          className="flex flex-col justify-center w-[266px] h-[59px]"
+        >
+          {/* onChange={formik.setFieldValue}  */}
+          <OTPInput
+            length={5}
+            name="verifyCode"
+            setFieldValue={formik.setFieldValue}
+          />
+          {formik.errors.verifyCode && (
+            <p className="text-red-600">{formik.errors.verifyCode}</p>
+          )}
+          <span className="flex flex-row-reverse text-[#008e8b] text-xs font-normal font-b-yekan">
+            {minute}:{second < 10 ? "0" : ""}
+            {second}
+          </span>
+          <div className="flex flex-col gap-[10px] justify-center items-center">
+            <BtnGetCode text={"ایجاد حساب"} />
+          </div>
+        </form>
+        <BtnTwoAuthorize text={"ارسال دوباره کد"} onClick={ResendCode} />
+      </div>
+    </>
   );
 };
 

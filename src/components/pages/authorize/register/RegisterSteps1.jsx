@@ -12,6 +12,8 @@ import { postData } from "../../../../core/services/api/post-data/postData";
 import { setItemLocalStorage } from "../../../../core/hooks/local-storage/setItemLocalstorage";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { toast, ToastContainer } from "react-toastify";
+import { Toaster } from "react-hot-toast";
 
 const RegisterSteps1 = () => {
   const navigate = useNavigate();
@@ -30,11 +32,13 @@ const RegisterSteps1 = () => {
         ApiCall.data.message == "لطفا  کد تایید را وارد نمایید"
       ) {
         navigate("/Authorize/Register/step2");
+        toast("لطفا  کد تایید را وارد نمایید");
       } else if (
         ApiCall.data.success == true &&
         ApiCall.data.message == "درخواست نامعتبر"
       ) {
-        alert("شما قبلا ثبت نام کرده ایید");
+        toast("شما قبلا ثبت نام کرده ایید");
+        // alert("شما قبلا ثبت نام کرده ایید")
         navigate("/Authorize/Login/step1");
       }
     } catch (error) {
@@ -52,45 +56,49 @@ const RegisterSteps1 = () => {
   };
 
   return (
-    <LoginBg>
-      <div className="h-[400px] flex relative">
-        <motion.div
-          className="w-[377px] h-full bg-[#fcfcfc] rounded-[15px] flex flex-col gap-[35px] justify-center items-center"
-          initial={{ opacity: 0, scale: 0.6 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{
-            type: "spring",
-            stiffness: 250,
-            damping: 12,
-            duration: 0.6,
-            delay: 0.2,
-          }}
-        >
-          <StageName stageName={"ایجاد حساب کاربری"} />
-          <Formik
-            initialValues={{ phoneNumber: "" }}
-            onSubmit={onSubmit}
-            validationSchema={validation}
+    <>
+      {/* <ToastContainer /> */}
+      <LoginBg>
+        {/* <Toaster position="top-center" reverseOrder={false} /> */}
+        <div className="h-[400px] flex relative">
+          <motion.div
+            className="w-[377px] h-full bg-[#fcfcfc] rounded-[15px] flex flex-col gap-[35px] justify-center items-center"
+            initial={{ opacity: 0, scale: 0.6 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 250,
+              damping: 12,
+              duration: 0.6,
+              delay: 0.2,
+            }}
           >
-            <Form className="flex flex-col gap-7">
-              <CustomInput
-                name={"phoneNumber"}
-                placeholder={"شماره همراه"}
-                type={"text"}
-              />
-              <div className="flex flex-col gap-[10px] justify-center items-center">
-                <BtnGetCode text={"دریافت کد تایید"} />
-                <BtnTwoAuthorize text={"ورود"} onClick={LoginPage} />
-              </div>
-            </Form>
-          </Formik>
-        </motion.div>
-        <div className="size-16 mt-[55px] rounded-xl flex justify-center items-center bg-[#dcc7a0] left-[-50px] absolute z-10 rotate-45">
-          <BtnNumberStep number={1} />
+            <StageName stageName={"ایجاد حساب کاربری"} />
+            <Formik
+              initialValues={{ phoneNumber: "" }}
+              onSubmit={onSubmit}
+              validationSchema={validation}
+            >
+              <Form className="flex flex-col gap-7">
+                <CustomInput
+                  name={"phoneNumber"}
+                  placeholder={"شماره همراه"}
+                  type={"text"}
+                />
+                <div className="flex flex-col gap-[10px] justify-center items-center">
+                  <BtnGetCode text={"دریافت کد تایید"} />
+                  <BtnTwoAuthorize text={"ورود"} onClick={LoginPage} />
+                </div>
+              </Form>
+            </Formik>
+          </motion.div>
+          <div className="size-16 mt-[55px] rounded-xl flex justify-center items-center bg-[#dcc7a0] left-[-50px] absolute z-10 rotate-45">
+            <BtnNumberStep number={1} />
+          </div>
         </div>
-      </div>
-      <GoToOrgPage />
-    </LoginBg>
+        <GoToOrgPage />
+      </LoginBg>
+    </>
   );
 };
 

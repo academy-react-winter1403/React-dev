@@ -1,12 +1,12 @@
 import React from "react";
 import { Select, SelectItem } from "@heroui/react";
 
-const SortTypeCard = ({ dataMap, onChange }) => {
+const SortingCol = ({ dataMap, onChange }) => {
   return (
     <>
       <div className=""></div>
       <Select
-        placeholder="نزولی"
+        placeholder="پرطرفدارترین"
         classNames={{
           base: "text-black text-[20px] text-nowrap w-[148px] h-[45px] rounded-[10px] font-b-yekan",
             label: "bg-red-500 font-b-yekan",
@@ -44,4 +44,4 @@ const SortTypeCard = ({ dataMap, onChange }) => {
   );
 };
 
-export default SortTypeCard;
+export default SortingCol;
