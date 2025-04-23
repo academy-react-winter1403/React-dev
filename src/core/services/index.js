@@ -13,6 +13,9 @@ import { getNewData } from "./api/get-data/getNewsData";
 import { getActivedCourseData } from "./api/get-data/getActivedData";
 import { getCourseReservedUserPanel } from "./api/get-data/getCourseReservUserPanel";
 import { getMyCourseData } from "./api/get-data/getMyCourseData";
+import { mutatePostData } from "./api/post-data/mutatePostDatta";
+import { updateUserInformation } from "./api/put-data/updateUserInfo";
+import { addCourseFavoritePost } from "./api/post-data/addCourseFavoritePost";
 
 
 export {
@@ -30,5 +33,8 @@ export {
   getNewData,
   getActivedCourseData,
   getCourseReservedUserPanel,
-  getMyCourseData
+  getMyCourseData,
+  mutatePostData,
+  updateUserInformation,
+  addCourseFavoritePost
 };

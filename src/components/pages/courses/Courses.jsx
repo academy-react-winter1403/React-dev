@@ -99,7 +99,7 @@ const Courses = () => {
     const data = await getDataByClick2(`/Home/GetCoursesWithPagination?PageNumber=${pageNum}&RowsOfPage=6`)
     console.log("mutation ==>",data)
     setTimeout(() => {dispatch(firstAddCourseProduct(data.courseFilterDtos))}, 2000)
-    dispatch(firstAddProduct(data.data.courseFilterDtos))
+    dispatch(firstAddCourseProduct(data.data.courseFilterDtos))
   };
 
   return (

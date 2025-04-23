@@ -13,7 +13,8 @@ import {
   suggested1courseUserPanel,
   courseActivedDataUserPanel,
   courseReserved,
-  myCoursesUserPanel
+  myCoursesUserPanel,
+  clientStatusSlice
 } from "./slices";
 
 export const store = configureStore({
@@ -31,6 +32,7 @@ export const store = configureStore({
     suggestedCourseUserPanel: suggested1courseUserPanel.reducer,
     courseActivedDataUserPanel: courseActivedDataUserPanel.reducer,
     courseReserved: courseReserved.reducer,
-    myCourseUserPanel: myCoursesUserPanel.reducer
+    myCourseUserPanel: myCoursesUserPanel.reducer,
+    clientStatus: clientStatusSlice.reducer
   },
 });

@@ -61,10 +61,10 @@ const UserPanelWrapper = () => {
         {!isLoading && <PanelDashboard closeBtnClick={closeBtnClickHandler}/>}
       </div>
       <div
-        className="dashboard-container w-[70%] max-lg:w-[90%] rounded-[10px] bg-[#FFFFFF]
+        className="dashboard-container w-[77%] max-lg:w-[90%] rounded-[10px] bg-[#FFFFFF]
                 drop-shadow-[0_1px_2px_#00000040] flex items-start my-11 overflow-x-hidden"
       >
-        <div className="rigth-item-control hidden w-[30%] min-lg:block">
+        <div className="rigth-item-control hidden w-[28%] h-full min-lg:block">
           {!isLoading && <PanelDashboard />}
         </div>
         <div className="left-item-control w-[70%] max-lg:w-full h-full p-5">

@@ -15,6 +15,7 @@ import { suggested1courseUserPanel } from "./suggestedCourseUserPanleSlice";
 import { courseActivedDataUserPanel } from "./courseActivedDataUserPanel";
 import { courseReserved } from "./courseReservedUserPanel";
 import { myCoursesUserPanel } from "./myCoursesUserPanel";
+import { clientStatusSlice } from "./clientStatusSlice";
 
 export {
   coursesSlice,
@@ -34,5 +35,6 @@ export {
   suggested1courseUserPanel,
   courseActivedDataUserPanel,
   courseReserved,
-  myCoursesUserPanel
+  myCoursesUserPanel,
+  clientStatusSlice
 };

@@ -14,7 +14,8 @@ import {
   suggested1courseUserPanel,
   courseActivedDataUserPanel,
   courseReserved,
-  myCoursesUserPanel
+  myCoursesUserPanel,
+  clientStatusSlice
 } from "./slices";
 
 export const { firstAddCourseProduct } = coursesSlice.actions;
@@ -32,6 +33,7 @@ export const { addSuggestedCourseUserPanel } = suggested1courseUserPanel.actions
 export const { addCourseActivedDataUserPanel } = courseActivedDataUserPanel.actions
 export const { addDataTheCourseReserved } = courseReserved.actions
 export const { addMyCourse } = myCoursesUserPanel.actions
+export const { changeClientStatus } = clientStatusSlice.actions
 export const {
   changeQuery,
   changeRowOfPageNum,

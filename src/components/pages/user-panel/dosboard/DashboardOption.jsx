@@ -1,11 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { dashboardMockApi } from "../../../../core/constants";
-import { TbLayoutDashboardFilled } from "react-icons/tb";
-import { FaUserPen } from "react-icons/fa6";
 import ImageFedback from "../../../partials/image-fedback/imageFedback";
-import { isAction } from "@reduxjs/toolkit";
 import { useLocation, useNavigate } from "react-router-dom";
-import { RadioGroup, Radio } from "@heroui/react";
 
 const DashboardOption = () => {
   const location = useLocation();
@@ -13,7 +9,12 @@ const DashboardOption = () => {
   const [text, setText] = useState(" داشبورد ");
   const { pathname } = location;
 
-  console.log(pathname);
+  // console.log(pathname);
+  useEffect(() => {
+    pathname === "/user-panel/dashboard" ? setText(" داشبورد ") : null
+    pathname === "/user-panel/user-information" ? setText(" اطلاعات کاربری ") : null
+    pathname === "/user-panel/my-course" ? setText(" دوره های من ") : null
+  }, [])
 
   const tabClickHandler = (value) => {
     value === " داشبورد " ? navigate("/user-panel/dashboard") : null;
@@ -31,13 +32,14 @@ const DashboardOption = () => {
       : null;
 
     setText(value);
+    console.log(location.pathname)
   };
 
   return (
     <ul className="option-control w-full flex flex-col items-end gap-y-[15px] mt-8 checked: ">
       {/* <RadioGroup> */}
       {dashboardMockApi.map((item, index) => {
-        console.log(item);
+        // console.log(item);
         return (
           // <Radio
           //   value={item.text}
