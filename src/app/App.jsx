@@ -24,7 +24,7 @@ const App = () => {
   });
 
   return (
-    <main dir="rtl" className={`w-full min-2xl:w-[1536px] m-auto`}>
+    <main dir="rtl" className={`w-full`}>
       <ToastContainer />
       <div className="control darkMode">
         {clientStatusFlag ? <RouterProvider /> : <NetworkError classStyles={"w-full h-[731px] border"}/>}
