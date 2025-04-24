@@ -74,8 +74,10 @@ const UserPanelWrapper = () => {
             <TiHome size={25} className="text-[#01B4AF] cursor-pointer" />
           </div>
           <Outlet />
+
           {/* <SelectProfileImage /> */}
           {/* <MapUserPanel /> */}
+
         </div>
       </div>
       {/* </motion.div> */}
