@@ -1,6 +1,7 @@
 import React from 'react'
 import HeroBG from '../../../../core/icons/LandingIcons/HeroBG'
-import Input from '../../../common/input/Input'
+// import Input from '../../../common/input/Input'
+import SearchBox from "../../../common/input/SearchBox";
 import LandingCharacter from '../../../../core/icons/LandingIcons/LandingCharacter'
 import students from '../../../../assets/pics/others/students.png'
 import teacher from '../../../../assets/pics/others/teacher.png'
@@ -20,7 +21,8 @@ const HeroSection = () => {
                         مرجع اموزش زنده و تعاملی برنامه نویسی حوزه وب <br/>
                         با دسترسی به بیش از هفت هزار ویدیوی اموزشی به زبان فارسی
                     </p>
-                    <Input placeholder={"دنبال چی میگردی؟..."}/>
+                    {/* <Input placeholder={"دنبال چی میگردی؟..."}/> */}
+                    <SearchBox placeholder={"دنبال چی میگردی؟..."} />
                 </div>
 
                 {/* Right Content */}
