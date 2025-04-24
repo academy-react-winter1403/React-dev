@@ -14,9 +14,13 @@ import {
   courseActivedDataUserPanel,
   courseReserved,
   myCoursesUserPanel,
+  clientStatusSlice,
+  articleDetailSlice,
+  relatedCoursesSlice,
   articlesQueryFilter,
   allDataArticleSlice
 } from "./slices";
+
 import { locationSlice } from "./slices/location";
 
 export const store = configureStore({
@@ -37,6 +41,9 @@ export const store = configureStore({
     myCourseUserPanel: myCoursesUserPanel.reducer,
     articlesQueryFilter:articlesQueryFilter.reducer,
     allDataArticleSlice:allDataArticleSlice.reducer,
-    locationSlice:locationSlice.reducer
+    locationSlice:locationSlice.reducer,
+    clientStatus: clientStatusSlice.reducer,
+    articleDetailSlice: articleDetailSlice.reducer,
+    relatedCoursesSlice : relatedCoursesSlice.reducer,
   },
 });

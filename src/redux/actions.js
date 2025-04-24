@@ -17,14 +17,16 @@ import {
   myCoursesUserPanel,
   articlesQueryFilter,
   allDataArticleSlice,
+  clientStatusSlice,
+  articleDetailSlice,
+  relatedCoursesSlice,
 } from "./slices";
 import { locationSlice } from "./slices/location";
-
 export const { firstAddCourseProduct } = coursesSlice.actions;
 export const { addCourseDetailData } = courseDetailSlice.actions;
+export const { addArticleData } = articleSlice.actions;
 export const { addCourseDetailCommentData, addCourseCommentReplay } =
   courseCommentSlice.actions;
-export const { addArticleAndNewsDetailData } = articleSlice.actions;
 export const { changeAddDataFlag, changeQueryFlag } = coursesFlagsSlice.actions;
 export const { changeCoursesPageCounter } = coursesPageCounterSlice.actions;
 export const { changeDarkModKey } = dorkModeSlice.actions;
@@ -44,6 +46,9 @@ export const { addCourseActivedDataUserPanel } =
 export const { addDataTheCourseReserved } = courseReserved.actions;
 export const { addMyCourse } = myCoursesUserPanel.actions;
 export const { firstAddArticleProduct } = allDataArticleSlice.actions;
+export const { changeClientStatus } = clientStatusSlice.actions;
+export const { addArticleAndNewsDetailData } = articleDetailSlice.actions;
+export const { addRelatedCoursesData } = relatedCoursesSlice.actions;
 export const {
   changeQuery,
   changeRowOfPageNum,
@@ -55,6 +60,7 @@ export const {
   changeTechnologiList,
   changeTechnologiCount,
   changeSortType,
+  changePageCounter,
 } = coursesQueryParams.actions;
 export const {
   changePageNumber,
@@ -63,4 +69,4 @@ export const {
   changeSortTypeArticles,
   changeQueryArticles,
 } = articlesQueryFilter.actions;
-export const {SelectLatitude,SelectLongitude} = locationSlice.actions;
+export const { SelectLatitude, SelectLongitude } = locationSlice.actions;

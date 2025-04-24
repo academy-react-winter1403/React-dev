@@ -12,6 +12,7 @@
   "dependencies": {
     "@heroui/react": "^2.7.5",
     "@mui/material": "^6.4.7",
+    "@react-google-maps/api": "^2.20.6",
     "@reduxjs/toolkit": "^2.6.1",
     "@tailwindcss/vite": "^4.0.14",
     "aos": "^2.3.4",

@@ -13,7 +13,7 @@ const HeroSection = () => {
                 
                 {/* Left Content */}
                 <div className='w-full md:w-[40%] flex flex-col font-b-yekan justify-center gap-4 md:gap-9 text-center md:text-right whitespace-nowrap'>
-                    <h1 className='text-[#01CEC9] text-3xl sm:text-4xl md:text-5xl font-normal drop-shadow-lg'>
+                    <h1 className='text-[#01CEC9] text-3xl sm:text-4xl md:text-5xl font-normal drop-shadow-lg' data-aos="zoom-in">
                         آکادمی سپهر
                     </h1>
                     <p className='text-[#555555] text-base sm:text-lg md:text-[18px] font-normal leading-7 sm:leading-9'>

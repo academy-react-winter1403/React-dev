@@ -1,17 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../../components/layouts/MainLayout";
 import {
+  LastArticleDetailWrapper,
   LastAuthorizeWrapper,
+  LastCourseDetailWrapper,
   LastCoursesWrapper,
   LastLandingWrapper,
+  LastUsserPanelWrapper,
 } from "../../screens";
 import { authorizeRouterArray } from "./authorize.router";
 import LastArticlesAndNewsWrapper from "./../../screens/ArticlesAndNews/index";
-import{
-  LastArticleDetailWrapper,
-  LastCourseDetailWrapper,
-  LastUsserPanelWrapper,
-} from "../../screens";
 import { userPanelRoute } from "./userPanel.router";
 import Error from "../../components/partials/ErrorNotFound/Error";
 
@@ -28,6 +26,7 @@ export const commonRouter = createBrowserRouter([
       },
       { path: "/landing", element: <LastLandingWrapper /> },
       { path: "/courses", element: <LastCoursesWrapper /> },
+      { path: "/detail/:id", element: <LastCourseDetailWrapper /> },
       { path: "/ArticlesAndNews", element: <LastArticlesAndNewsWrapper /> },
       { path: "/detail/:id", element: <LastCourseDetailWrapper /> },
       { path: "/course-detail/:id", element: <LastCourseDetailWrapper /> },

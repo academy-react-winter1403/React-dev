@@ -13,7 +13,7 @@ import { setItemLocalStorage } from "../../../../core/hooks/local-storage/setIte
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast, ToastContainer } from "react-toastify";
-import { Toaster } from "react-hot-toast";
+// import { Toaster } from "react-hot-toast";
 
 const RegisterSteps1 = () => {
   const navigate = useNavigate();
@@ -60,9 +60,9 @@ const RegisterSteps1 = () => {
       {/* <ToastContainer /> */}
       <LoginBg>
         {/* <Toaster position="top-center" reverseOrder={false} /> */}
-        <div className="h-[400px] flex relative">
+        <div className="md:h-[400px] xs:h-[300px] flex relative   ">
           <motion.div
-            className="w-[377px] h-full bg-[#fcfcfc] rounded-[15px] flex flex-col gap-[35px] justify-center items-center"
+            className="lg:w-[377px] lg:h-[400px] md:w-[300px] md:h-[340px] sm:w-[250px] sm:h-[250px] xs:w-[200px] xs:h-[250px] bg-[#fcfcfc] rounded-[15px] flex flex-col gap-[35px] justify-center items-center "
             initial={{ opacity: 0, scale: 0.6 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{

@@ -7,12 +7,12 @@ const  Input = ({ placeholder, type, change }) => {
   };
 
   return (
-    <div className="input-control w-full relative">
+    <div className="input-control w-full relative" data-aos="fade-left">
       <input
         type={type}
         placeholder={placeholder}
-        className="w-full bg-[#FAFAFA] backdrop-blur-[5px] outline-0 shadow-sm
-        border-[1px] border-[#DFDFDF80] rounded-[35px] pt-[10px] pb-[13px] px-[4px] indent-[12px] text-[#424242]"
+        className="w-full bg-[#FAFAFA] outline-0 shadow-sm font-b-yekan
+        border-[1px] border-[#DFDFDF80] rounded-[35px] pt-[10px] pb-[10px] px-[4px] indent-[12px] text-[#424242]"
         onChange={changeHandler}
       />
       <IoSearchCircleSharp

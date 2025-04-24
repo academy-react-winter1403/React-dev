@@ -22,9 +22,9 @@ const SortingWrapper = ({ children, title, innerWidth }) => {
   }
 
   return (
-    <div className="group relative z-1" onClick={sortClickHandler}>
+    <div className="group relative z-1 flex items-center justify-center" onClick={sortClickHandler}>
       <button
-        className="flex items-center justify-around w-[207px] max-lg:w-[330px] h-[45px] bg-[#FFFFFF]
+        className="flex items-center justify-around lg:w-[207px] max-lg:w-[330px] h-[45px] bg-white md:w-[300px] md:mt-0 xs:mt-3 whitespace-nowrap 
         drop-shadow-[0_1px_3px_#00000040] rounded-[13px_13px_0_0]"
       >
         <BiMenuAltRight size={25} style={{color: "#005B58"}}/>

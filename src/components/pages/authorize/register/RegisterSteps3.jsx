@@ -93,7 +93,7 @@ const RegisterSteps3 = () => {
                   placeholder={"تایید رمز عبور"}
                   type={"text"}
                 />
-                <div className="flex w-[94px] h-[12px] ">
+                <div className="flex w-[94px] h-[12px] cursor-pointer">
                   <label
                     className="font-normal text-xs font-b-yekan text-gray-400"
                     htmlFor="rememberMe"

@@ -1,4 +1,5 @@
 import Aos from "aos";
+import "aos/dist/aos.css";
 import React, { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 
@@ -9,28 +10,29 @@ const DescriptionBox = ({ initialHeight, children, aosAnim }) => {
     heightFlag ? setHeightFlag(false) : setHeightFlag(true);
   };
 
+
   useEffect(() => {
     Aos.init({
-      duration: 800
-    })
-    Aos.refresh()
-  }, [])
+      duration: 800,
+    });
+  }, []);
+
+  
 
   return (
+    
     <div
-      data-aos="fade-left"
-      className={`description-box-container w-full shadow-[0_1px_2px_#00000040] ${
+      className={`description-box-container w-full  ${
         !heightFlag
           ? `h-[${initialHeight}px] transition-[1s]`
           : `h-auto pb-[80px] transition-[1s]`
-      } relative 
-        rounded-2xl p-7 overflow-hidden`}
+      } relative rounded-2xl p-7 overflow-hidden`}
+      data-aos="fade-left"
     >
       <div
         className={`gradient w-full h-full absolute top-0 left-0 bg-linear-to-b
             from-[#FFFFFF00] to-[#FFFFFF] transition-all
-            ${heightFlag ? `invisible opacity-0` : `visible opacity-100`}`
-        }
+            ${heightFlag ? `invisible opacity-0` : `visible opacity-100`}`}
       ></div>
       {children}
       <div

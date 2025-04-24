@@ -12,9 +12,8 @@ import {
 } from "../../../redux/actions";
 import Aos from "aos";
 import { motion } from "framer-motion";
-import SelectProfileImage from "../../partials/UserPanel/SelectProfileImage";
-import MapUserPanel from "../../partials/UserPanel/MapUserPanel";
-import 'leaflet/dist/leaflet.css'
+import SelectProfileImage from './../../partials/UserPanel/SelectProfileImage';
+import MapUserPanel from './../../partials/UserPanel/MapUserPanel';
 
 const UserPanelWrapper = () => {
   const dispatch = useDispatch();
@@ -41,8 +40,8 @@ const UserPanelWrapper = () => {
   }
 
   const closeBtnClickHandler = () => {
-    setMenuFlag(false)
-  }
+    setMenuFlag(false);
+  };
 
   return (
     <div className="user-panel-holder w-full flex justify-center">
@@ -61,13 +60,13 @@ const UserPanelWrapper = () => {
               max-lg:block z-10 transition-all`
         }
       >
-        {!isLoading && <PanelDashboard closeBtnClick={closeBtnClickHandler}/>}
+        {!isLoading && <PanelDashboard closeBtnClick={closeBtnClickHandler} />}
       </div>
       <div
-        className="dashboard-container w-[70%] max-lg:w-[90%] rounded-[10px] bg-[#FFFFFF]
-                drop-shadow-[0_1px_2px_#00000040] flex items-start my-11 overflow-x-hidden relative"
+        className="dashboard-container w-[77%] max-lg:w-[90%] rounded-[10px] bg-[#FFFFFF]
+                drop-shadow-[0_1px_2px_#00000040] flex items-start my-11 overflow-x-hidden"
       >
-        <div className="rigth-item-control hidden w-[30%] min-lg:block">
+        <div className="rigth-item-control hidden w-[28%] h-full min-lg:block">
           {!isLoading && <PanelDashboard />}
         </div>
         <div className="left-item-control w-[70%] max-lg:w-full h-full p-5">

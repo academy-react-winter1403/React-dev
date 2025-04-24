@@ -10,7 +10,11 @@ const PanelDashboard = ({ closeBtnClick }) => {
   const { userProfileInfoData } = userProfileInfo;
   const { fName, lName, userImage } = userProfileInfoData;
   const [data] = userImage
-  const { puctureAddress } = data
+
+  if (data) {
+    var { puctureAddress } = data
+  }
+
 
   return (
     <div className={`panel-dashboard w-full h-full bg-[#01CEC9] min-lg:pt-[30px]

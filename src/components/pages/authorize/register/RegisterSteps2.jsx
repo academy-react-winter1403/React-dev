@@ -20,7 +20,7 @@ const RegisterSteps2 = () => {
     <LoginBg>
       <div className="h-[400px] flex relative">
         <motion.div
-          className="w-[377px] h-full bg-[#fcfcfc] rounded-[15px] flex flex-col gap-[30px] justify-center items-center"
+          className="w-[377px] h-full bg-[#fcfcfc] rounded-[15px] flex flex-col gap-[30px] justify-center items-center "
           initial={{ opacity: 0, scale: 0.6 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{

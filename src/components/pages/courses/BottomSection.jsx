@@ -283,7 +283,7 @@ const BottomSection = ({ children }) => {
         </div>
       </div>
       <div className="main w-[90%] max-lg:w-full">
-        <div className="sort-viw-btn-control flex max-lg:flex-col max-lg:items-center max-lg:gap-y-[29px] justify-between">
+        <div className="sort-viw-btn-control flex lg:flex-row xs:flex-col-reverse gap-1 justify-between">
           <SortingWrapper title={sortText} innerWidth={windowWidthNum}>
             {sortFilterData.map((item, index) => {
               return (
@@ -295,9 +295,10 @@ const BottomSection = ({ children }) => {
               );
             })}
           </SortingWrapper>
-          <div className="btn-control min-lg:w-[50%] flex min-lg:gap-x-[49px] max-lg:w-full max-lg:justify-center">
+          <div className="btn-control min-lg:w-[50%] flex min-lg:gap-x-[49px] max-lg:w-full max-lg:justify-center  md:mt-0 xs:mt-2 items-center gap-y-2
+          lg:flex-row xs:flex-col">
             <button
-              className="hidden max-lg:block w-[138px] text-[23px] bg-[#FFB800] text-white
+              className="hidden max-lg:block lg:w-[138px] xs:w-[310px]  lg:text-[23px] sm:text-[18px] h-11  bg-[#FFB800] text-white
               rounded-[10px] cursor-pointer transition-colors hover:bg-[#ff8400] drop-shadow-[0_1px_2px_#0000004D]
               max-lg:py-[5px] max-lg:w-[332px]"
               onClick={openFilterBox}
@@ -305,8 +306,8 @@ const BottomSection = ({ children }) => {
               {" "}
               فیلتر{" "}
             </button>
-            <div className="left-control min-lg:w-full flex justify-end gap-x-[10px] max-sm:hidden">
-              <div className="select-view-control flex gap-x-[3px] max-lg:hidden">
+            <div className="left-control min-lg:w-full flex lg:justify-end xs:justify-between items-center gap-x-[10px] ">
+              <div className="select-view-control flex gap-x-[3px] ">
                 <SelectView
                   placeholder={" 12 آیتم "}
                   dataMap={viewData}
@@ -318,7 +319,7 @@ const BottomSection = ({ children }) => {
                   onChange={sortChangeHandler}
                 />
               </div>
-              <div className="flex gap-x-[15px] max-lg:hidden">
+              <div className="flex gap-x-[15px] max-lg:hidden ">
                 <MenuIcon click={viwGotoRowClickHandler} />
                 <GridIcon click={viwGotoColomClickHandler} />
               </div>

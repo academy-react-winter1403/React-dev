@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // <<<<<<< HEAD
 // // import { getItemLocalStorage } from "../hooks/local-storage/getItemLocalStorage";
 // // import { htttp } from "../services/interceptor";
@@ -5,12 +6,25 @@
 // // import { changeAddDataFlag, firstAddCourseProduct } from "../../redux/actions";
 // // // import { getDataByClick } from "../services/api/get-data-by-click/getDataByClick";
 // =======
+=======
+<<<<<<< HEAD
+>>>>>>> 2ace4c80c7263ea9285540bcb5eccb04035e1996
 // import { getItemLocalStorage } from "../hooks/local-storage/getItemLocalStorage";
 // import { htttp } from "../services/interceptor";
 // // import { changeAddDataFlag, firstAddProduct } from "../../redux/actions";
 // // import { changeAddDataFlag, firstAddCourseProduct, firstAddProduct } from "../../redux/actions";
 // // import { getDataByClick } from "../services/api/get-data-by-click/getDataByClick";
+<<<<<<< HEAD
 // >>>>>>> 2854f4c5aa453da781654d73c6b34704abe00aff
+=======
+=======
+import { getItemLocalStorage } from "../hooks/local-storage/getItemLocalStorage";
+import { htttp } from "../services/interceptor";
+// import { changeAddDataFlag, firstAddProduct } from "../../redux/actions";
+// import { changeAddDataFlag, firstAddCourseProduct, firstAddProduct } from "../../redux/actions";
+// import { getDataByClick } from "../services/api/get-data-by-click/getDataByClick";
+>>>>>>> 82502e7678b32a275b0447216e143e7ef594990c
+>>>>>>> 2ace4c80c7263ea9285540bcb5eccb04035e1996
 
 // // const {mutate} = getDataByClick()
 // export const courseFilter = (searchParams, dispatch) => {
@@ -61,7 +75,11 @@
 //     );
 
 // <<<<<<< HEAD
+<<<<<<< HEAD
 // <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 2ace4c80c7263ea9285540bcb5eccb04035e1996
 //     dispatch(firstAddCourseProduct(data.data.courseFilterDtos))
 // =======
     
@@ -70,6 +88,7 @@
 // >>>>>>> 96d578dd15fc79e5d55ce9cf282bd2886affc466
 //     console.log(data.data.courseFilterDtos);
 //   };
+<<<<<<< HEAD
 // =======
     
     
@@ -80,6 +99,18 @@
 //     console.log(data.data.courseFilterDtos);
 //   };
 // >>>>>>> 2854f4c5aa453da781654d73c6b34704abe00aff
+=======
+=======
+    
+    
+    dispatch(firstAddProduct(data.data.courseFilterDtos))
+// =======
+    dispatch(firstAddCourseProduct(data.data.courseFilterDtos))
+// >>>>>>> 21a038ce3feace628afe1f449fc089c5a5248056
+    console.log(data.data.courseFilterDtos);
+  };
+>>>>>>> 82502e7678b32a275b0447216e143e7ef594990c
+>>>>>>> 2ace4c80c7263ea9285540bcb5eccb04035e1996
 
 //   searchParams((params) => {
 //     handler(params);
