@@ -66,6 +66,13 @@ const ArticlesAndNews = () => {
   const handleCardClick = (id) => {
     navigate(`/article-detail/${id}`)
   }
+
+  const changePageHandler = (pageNum) => {
+    console.log(pageNum)
+    dispatch(changePageNumber(pageNum))
+  }
+
+  
   return (
     <div className="max-w-8xl flex flex-col justify-center m-auto gap-3 bg-[#F7F7F7] font-b-yekan">
       <div>
@@ -107,7 +114,7 @@ const ArticlesAndNews = () => {
             initialPageNum={1}
             totalCount={totalCount}
             RowsOfPage={RowsOfPage}
-            changePageNumber={changePageNumber}
+            changePageNumber={changePageHandler}
           />
         </div>
         <div className="lg:w-[298px] xs:w-full flex lg:flex-col flex-row justify-center items-center mt-15 gap-6 ">

@@ -1,16 +1,17 @@
 import React from "react";
 import { Pagination } from "@heroui/react";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 
 const PaginationData = ({totalCount,RowsOfPage,changePageNumber,initialPageNum}) => {
   // const paginationChangeHandler = (pageNum) => {
   //   pageChange(pageNum);
   // };
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const totalPages = Math.ceil(totalCount / RowsOfPage);
     const pageChangeHandler = (pageEvent) => {
       console.log(pageEvent);
-      dispatch(changePageNumber(pageEvent));
+      changePageNumber(pageEvent)
+      // dispatch(changePageNumber(pageEvent));
     };
 
   return (

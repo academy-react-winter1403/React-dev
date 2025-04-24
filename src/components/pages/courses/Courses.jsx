@@ -10,13 +10,13 @@ import {
   changeAddDataFlag,
   changeCoursesPageCounter,
   firstAddCourseProduct,
-// <<<<<<< HEAD
-// =======
-// <<<<<<< HEAD
+  // <<<<<<< HEAD
+  // =======
+  // <<<<<<< HEAD
   // changePageCounter,
   // changeQueryFlag,
   // firstAddProduct,
-// >>>>>>> 2ace4c80c7263ea9285540bcb5eccb04035e1996
+  // >>>>>>> 2ace4c80c7263ea9285540bcb5eccb04035e1996
 } from "../../../redux/actions";
 import { PaginationData } from "../../partials";
 import bg from "../../../assets/pics/courses/bg1.png";
@@ -37,67 +37,45 @@ import Aos from "aos";
 
 const Courses = () => {
   const dispatch = useDispatch();
-  const { coursesFlags, coursesPageCounter, courseComment, courseQueryParams } = useSelector((state) => state);
-  const { pageCount } = coursesPageCounter
-  const { addDataFlag, queryFlag } = coursesFlags
-  const { RowsOfPage } = courseQueryParams
-
-// <<<<<<< HEAD
-// =======
-  // getData("pages",
-  //   /Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6
-// <<<<<<< HEAD
-  // const { addDataFlag } = state.coursesData
-  
-  // let pageCount = 1;
-  // getData("pages",
-  //   `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`
-  // ).then((response) => {
-  //   setCoursesData(response.data.courseFilterDtos);
-  //   setTimeout(() => {
-  //     dispatch(firstAddProduct(response.data.courseFilterDtos));
-  //   }, 3000);
-  // })
-
-  // const queryFlag = state.flags.queryFlag
-
-// =======
-// >>>>>>> 21a038ce3feace628afe1f449fc089c5a5248056
-
-// >>>>>>> 2ace4c80c7263ea9285540bcb5eccb04035e1996
+  const { coursesFlags, coursesPageCounter, courseComment, courseQueryParams } =
+    useSelector((state) => state);
+  const { pageCount } = coursesPageCounter;
+  const { addDataFlag, queryFlag } = coursesFlags;
+  const { RowsOfPage } = courseQueryParams;
   useEffect(() => {
     if (!queryFlag) {
-    deleteAllItemLocalStorage([
-      "technologi",
-      "courseLevelId",
-      "CourseTypeId",
-      "searchValue",
-      "sortText",
-      "pageCounter",
-      "pageCounter",
-    ]);
+      deleteAllItemLocalStorage([
+        "technologi",
+        "courseLevelId",
+        "CourseTypeId",
+        "searchValue",
+        "sortText",
+        "pageCounter",
+        "pageCounter",
+      ]);
     }
-    dispatch(dispatch(addCourseDetailCommentData(null)))
-    dispatch(dispatch(addCourseCommentReplay(null)))
+    dispatch(dispatch(addCourseDetailCommentData(null)));
+    dispatch(dispatch(addCourseCommentReplay(null)));
   }, []);
 
   useEffect(() => {
     Aos.init({
       duration: 800,
-    })
-    Aos.refresh()
-  }, [])
+    });
+    Aos.refresh();
+  }, []);
 
-  const {data, isLoading} = getData(
+  const { data, isLoading } = getData(
     "product",
     `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=${RowsOfPage}`
-  )
+  );
 
   if (!isLoading) {
+    console.log("dataTotalCount=========>",data)
     if (!addDataFlag) {
       setTimeout(() => {
         dispatch(firstAddCourseProduct(data.courseFilterDtos));
-        dispatch(changeAddDataFlag(true))
+        dispatch(changeAddDataFlag(true));
       }, 3000);
     }
   }
@@ -110,42 +88,33 @@ const Courses = () => {
     dispatch(addFirstFilterData({ data: type.data, type: "courseTypes" }));
   });
 
-  getFilterData("courseLevel", "/CourseLevel/GetAllCourseLevel").then((level) => {
-    dispatch(addFirstFilterData({ data: level.data, type: "courseLevel" }));
-  });
+  getFilterData("courseLevel", "/CourseLevel/GetAllCourseLevel").then(
+    (level) => {
+      dispatch(addFirstFilterData({ data: level.data, type: "courseLevel" }));
+    }
+  );
 
-  const { mutateAsync: getDataByClick2 } = getDataByClick()
+  const { mutateAsync: getDataByClick2 } = getDataByClick();
   const pageChangeHandler = async (pageNum) => {
-// <<<<<<< HEAD
-    dispatch(changeCoursesPageCounter(pageNum));
-    dispatch(firstAddCourseProduct(null))
-    dispatch(changeAddDataFlag(true))
-// =======
 
-// <<<<<<< HEAD
-    // pageCount = pageNum
     dispatch(changeCoursesPageCounter(pageNum));
-    dispatch(firstAddCourseProduct(null))
-    dispatch(changeAddDataFlag(true))
-    // const data = await getDataByClick(`/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=6`)
-    // dispatch(firstAddProduct(data.data.courseFilterDtos))
-// =======/
+    dispatch(firstAddCourseProduct(null));
+    dispatch(changeAddDataFlag(true));
+
     // dispatch(changeCoursesPageCounter(pageNum));
-    // dispatch(firstAddCourseProduct(null))
-    dispatch(changeAddDataFlag(true))
-// >>>>>>> 2ace4c80c7263ea9285540bcb5eccb04035e1996
-    
-    const data = await getDataByClick2(`/Home/GetCoursesWithPagination?PageNumber=${pageNum}&RowsOfPage=6`)
-    console.log("mutation ==>",data)
-    setTimeout(() => {dispatch(firstAddCourseProduct(data.courseFilterDtos))}, 2000)
-    dispatch(firstAddCourseProduct(data.data.courseFilterDtos))
-// <<<<<<< HEAD
-// =======
-//     // const data = await getDataByClick2(`/Home/GetCoursesWithPagination?PageNumber=${pageNum}&RowsOfPage=6`)
-//     // console.log("mutation ==>",data)
-//     // setTimeout(() => {dispatch(firstAddCourseProduct(data.courseFilterDtos))}, 2000)
-// // 
-// >>>>>>> 2ace4c80c7263ea9285540bcb5eccb04035e1996
+    // dispatch(firstAddCourseProduct(null));
+
+    // dispatch(changeAddDataFlag(true));
+
+    const data = await getDataByClick2(
+      `/Home/GetCoursesWithPagination?PageNumber=${pageNum}&RowsOfPage=6`
+    );
+    console.log("mutation ==>", data);
+    setTimeout(() => {
+      dispatch(firstAddCourseProduct(data.courseFilterDtos));
+    }, 2000);
+    // dispatch(firstAddCourseProduct(data.data.courseFilterDtos));
+
   };
   return (
     <div
@@ -159,11 +128,14 @@ const Courses = () => {
       <div className="min-md:w-[82%] max-md:w-[90%] font-b-yekan flex flex-col items-center">
         <TopSection />
         <BottomSection>
-          <PaginationData
+          {data && <PaginationData
             initialPageNum={1}
-            totalNum={5}
-            pageChange={pageChangeHandler}
-          />
+            changePageNumber={pageChangeHandler}
+            totalCount={data.totalCount}
+            RowsOfPage={RowsOfPage}
+            // totalNum={5}
+            // changePageNumber={changePageHandler}
+          />}
         </BottomSection>
       </div>
     </div>

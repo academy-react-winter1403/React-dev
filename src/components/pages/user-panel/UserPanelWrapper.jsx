@@ -3,11 +3,11 @@ import PanelDashboard from "./PanelDashboard";
 import { Outlet } from "react-router-dom";
 import { TiHome } from "react-icons/ti";
 import { getDataUserPanel, getNewData } from "../../../core/services";
-import { htttp } from "../../../core/services/interceptor";
+// import { htttp } from "../../../core/services/interceptor";
 import { getItemLocalStorage } from "../../../core/hooks/local-storage/getItemLocalStorage";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addLatestSserPanelNewsSlice,
+  // addLatestSserPanelNewsSlice,
   addUserProfileInfoData,
 } from "../../../redux/actions";
 import Aos from "aos";

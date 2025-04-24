@@ -6,7 +6,7 @@ export const coursesQueryParams = createSlice({
   initialState: {
     // queryParams: {},
     PageNumber: 1,
-    RowsOfPage: 13,
+    RowsOfPage: 6,
     SortingCol: "Active",
     SortType: "DESC",
     Query: undefined,

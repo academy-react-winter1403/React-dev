@@ -14,6 +14,7 @@ const DashboardOption = () => {
     pathname === "/user-panel/dashboard" ? setText(" داشبورد ") : null
     pathname === "/user-panel/user-information" ? setText(" اطلاعات کاربری ") : null
     pathname === "/user-panel/my-course" ? setText(" دوره های من ") : null
+    pathname === "/user-panel/course-reserve" ? setText(" دوره های من ") : null
   }, [])
 
   const tabClickHandler = (value) => {
@@ -25,8 +26,8 @@ const DashboardOption = () => {
     value === " دوره های رزرو شده "
       ? navigate("/user-panel/course-reserve")
       : null;
-    value === " دیدگاه های من " ? navigate("/user-panel/my-eye") : null;
-    value === " علاقه مندی ها " ? navigate("/user-panel/feirverid") : null;
+    value === " دیدگاه های من " ? navigate("/user-panel/my-views") : null;
+    value === " علاقه مندی ها " ? navigate("/user-panel/favorite") : null;
     value === " تنظیمات امنیتی "
       ? navigate("/user-panel/secoration-setting")
       : null;

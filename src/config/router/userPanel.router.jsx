@@ -5,6 +5,7 @@ import {
   UserInformationEditPage,
   UserInformationWrapper,
 } from "../../components/pages/user-panel";
+import CourseReserveSection from "../../components/pages/user-panel/pages/CourseReserveSection";
 
 export const userPanelRoute = [
   { path: "/user-panel/dashboard", element: <DashboardSection /> },
@@ -24,4 +25,5 @@ export const userPanelRoute = [
     ],
   },
   { path: "/user-panel/my-course", element: <MyCourseSection /> },
+  { path: "/user-panel/course-reserve" , element: <CourseReserveSection />}
 ];

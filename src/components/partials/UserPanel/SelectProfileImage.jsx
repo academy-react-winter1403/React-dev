@@ -17,6 +17,7 @@ import {
 } from "../../../redux/actions";
 import { useQueryClient } from "react-query";
 import { toast } from "react-toastify";
+import ImageFedback from "../image-fedback/imageFedback";
 
 const SelectProfileImage = () => {
   const queryClient = useQueryClient();
@@ -121,10 +122,12 @@ const SelectProfileImage = () => {
               onClick={() => setHide(!hide)}
             />
             <div className="size-[250px] m-auto relative">
-              <img
+              {/* <img
                 src={selectImageProfile ? selectImageProfile : imageProfile}
                 style={{ width: "100%", height: "100%", borderRadius: "12px" }}
-              />
+              /> */}
+              {/* بجای ایمیج پروفایل ی عکس استاتیک بده */}
+              <ImageFedback imageAddress={selectImageProfile} pic={imageProfile}/>
               <TiTick
                 style={{
                   width: "25px",
