@@ -26,10 +26,17 @@ import { htttp } from "../../../core/services/interceptor";
 import { errorMessageHandler } from "../../../core/utility/errorMessageHandler";
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import { articleDetailComment } from "../../../core/services/api/post-data/articleDetailComment";
+import { QueryClient } from "react-query";
+import { articleDetailSlice, articleDetailCommentSlice } from "../../../redux/slices";
+import { useQueryClient } from "react-query";
+import {addArticleAndNewsDetailCommentData} from '../../../redux/slices/articleDetailCommentSlice'
+
 
 const ArticleDetail = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const queryClient = useQueryClient();
 
   const { articleDetailSlice, relatedCoursesSlice } = useSelector(
     (state) => state
@@ -73,6 +80,16 @@ const ArticleDetail = () => {
     }
   );
 
+
+  // const commentLikeBtnClickHandler = (commentId) => {
+  //   handleCommentReaction(commentId, true);
+  // };
+  
+  // const commentDesLikeBtnClickHandler = (commentId) => {
+  //   handleCommentReaction(commentId, false);
+  // };
+  
+
   const commentDesLikeBtnClickHandler = async (item) => {
     const resData = await desLikeCourseCommentPost(
       `/News/CommentDissLike?CourseCommandId`,
@@ -108,6 +125,51 @@ const ArticleDetail = () => {
 
     fetchRelatedCourses();
   }, [newsCatregoryId, relatedCoursesData, dispatch]);
+
+
+  // // comment reaction
+  // const handleCommentReaction = async (commentId, isLike) => {
+  //   try {
+  //     const response = await htttp.post(`/News/CommentLike/${commentId}?LikeType=${isLike}`);
+  //     // Optional: Refresh comments or update UI
+  //     console.log("Reaction successful:", response);
+  //   } catch (error) {
+  //     console.error("Failed to send like/dislike:", error);
+  //   }
+  // };
+
+
+
+   // for comments
+
+   const {
+    mutate,
+    data: postCommentData,
+    isLoading: postCommentLoading,
+  } = articleDetailComment("create-news-comment");
+  const addCommentBtnClickHandler = (event) => {
+    const dataObj = {
+      CourseId: id,
+      Title: event.title,
+      describe: event.description,
+    };
+    mutate([
+      "/News/CreateNewsComment",
+      dataObj,
+      {
+        headers: {
+          "Content-Type": "multipart/from-data",
+        }
+      }
+    ],{
+      onSuccess: () => {
+        dispatch(addArticleAndNewsDetailCommentData(null))
+        queryClient.invalidateQueries(["articleAndNewDetailComment"])
+      }
+    }
+  )
+  }
+
 
   // AOS
   useEffect(() => {
