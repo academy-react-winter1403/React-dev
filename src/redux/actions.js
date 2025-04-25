@@ -16,7 +16,6 @@ import {
   courseReserved,
   myCoursesUserPanel,
   clientStatusSlice,
-  
   articleDetailSlice,
   relatedCoursesSlice,
   articlesQueryFilter,

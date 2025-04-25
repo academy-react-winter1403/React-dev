@@ -13,8 +13,6 @@ const TopSection = ({ data }) => {
   const { userProfileInfoData } = userProfileInfo;
   const { courseReserv } = courseReserved;
   const { myCourse } = myCourseUserPanel;
-
-  // console.log("myCourse ==>", myCourse)
   const { profileCompletionPercentage } = userProfileInfoData;
 
   return (

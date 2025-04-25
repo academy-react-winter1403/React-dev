@@ -14,6 +14,7 @@ import { CardLoading, CardWrapper } from "../../partials";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {
+  addCourseCommentReplay,
   changeCostDown,
   changeCostUp,
   changeCourseLevelId,
@@ -41,6 +42,7 @@ import { getItemLocalStorage } from "../../../core/hooks/local-storage/getItemLo
 import SortTypeCard from "../../common/SortTypeCard";
 import { courseFilterFull } from "../../../core/utility/courseFilterFull";
 import { htttp } from "../../../core/services/interceptor";
+import { getCommentDataByClick } from "../../../core/services";
 
 const BottomSection = ({ children }) => {
   const {
@@ -190,8 +192,14 @@ const BottomSection = ({ children }) => {
     courseFilter(setSearchParams, useSelector);
   };
 
+  // const {mutate, data} = getCommentDataByClick()
   const cardClickHandler = (productId) => {
     navigate(`/course-detail/${productId}`);
+    // mutate(["/Course/GetCourseCommnets/", productId], {
+    //   onSuccess: (data) => {
+    //     dispatch(addCourseCommentReplay(data.data));
+    //   }
+    // })
   };
 
   const priceChangeHandler = async (value) => {
@@ -237,7 +245,6 @@ const BottomSection = ({ children }) => {
             overflow-x-hidden flex flex-col gap-y-[5px]"
           >
             {filterData.map((item, index) => {
-              console.log(item);
               return (
                 <FilteredBox filterText={item.filterTitle} key={index}>
                   {item.filterTitle === "قیمت" && (

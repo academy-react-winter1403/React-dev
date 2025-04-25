@@ -8,20 +8,24 @@ import { IoMdCloseCircle } from "react-icons/io";
 const PanelDashboard = ({ closeBtnClick }) => {
   const { userProfileInfo } = useSelector((state) => state);
   const { userProfileInfoData } = userProfileInfo;
-  const { fName, lName, userImage } = userProfileInfoData;
-  const [data] = userImage
 
-  if (data) {
-    var { puctureAddress } = data
+  if (userProfileInfoData) {
+    var { fName, lName, userImage } = userProfileInfoData;
+    var [data] = userImage;
+    if (data) var { puctureAddress } = data;
   }
 
-
   return (
-    <div className={`panel-dashboard w-full h-full bg-[#01CEC9] min-lg:pt-[30px]
+    <div
+      className={`panel-dashboard w-full h-full bg-[#01CEC9] min-lg:pt-[30px]
       max-lg:pt-2.5 pr-[10px] pb-[15px]`}
     >
       <div className="close-btn-control hidden justify-end ml-4 cursor-pointer max-lg:flex">
-        <IoMdCloseCircle size={35} className="text-[#003B39]" onClick={closeBtnClick}/>
+        <IoMdCloseCircle
+          size={35}
+          className="text-[#003B39]"
+          onClick={closeBtnClick}
+        />
       </div>
       <div className="pic-item-control flex flex-col items-center">
         <div
@@ -33,7 +37,10 @@ const PanelDashboard = ({ closeBtnClick }) => {
         <h1 className="text-[17px] font-extrabold text-[#004744] font-b-yekan mt-5">
           <span className="name">{fName}</span>
           <span className="family">{` ${lName}`}</span>
-          <span className="welcoome-text max-xl:text-[13px] max-lg:text-[11px]"> خوش آمدید </span>
+          <span className="welcoome-text max-xl:text-[13px] max-lg:text-[11px]">
+            {" "}
+            خوش آمدید{" "}
+          </span>
         </h1>
         <div className="hr-control w-full flex justify-center mt-6">
           <hr className="outline-0 border-0 w-[85%] h-[1px] bg-[#14BAB6]" />

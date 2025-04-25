@@ -17,19 +17,22 @@ export const htttp = axios.create({
 });
 
 const onSucces = (response) => {
-  console.log("onSucces ==>", response)
+  // console.log("onSucces ==>", response)
+  requestErrorHandler(response)
   // console.log(response)
   // console.log(baseUrl);
   return response;
 };
 
 const onError = (error) => {
-  if (!token) {
-    toast("لطفا ابتدا وارد پنل کاربری خود شوید")
-    window.location.pathname = '/Authorize/Login/Step1'
-  }
+  // if (!token) {
+  //   window.location.pathname = '/Authorize/Login/Step1'
+  //   setTimeout(() => {
+  //     toast("لطفا ابتدا وارد پنل کاربری خود شوید")
+  //   }, 5000)
+  // }
   requestErrorHandler(error);
-  console.log("onError", error)
+  // console.log("onError", error)
   // let errorCode;
   // if (!error.response) {
   //   errorCode = requestErrorHandler(401)
@@ -41,6 +44,7 @@ const onError = (error) => {
 htttp.interceptors.response.use(onSucces, onError);
 
 htttp.interceptors.request.use((opt) => {
+  // alert("opt")
   if (token) {
     opt.headers.Authorization = "Bearer " + token;
   }

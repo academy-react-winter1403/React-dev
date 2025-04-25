@@ -16,6 +16,8 @@ import { getMyCourseData } from "./api/get-data/getMyCourseData";
 import { mutatePostData } from "./api/post-data/mutatePostDatta";
 import { updateUserInformation } from "./api/put-data/updateUserInfo";
 import { addCourseFavoritePost } from "./api/post-data/addCourseFavoritePost";
+import { addCourseComment } from "./api/post-data/addCourseComment";
+import { getCommentDataByClick } from "./api/get-data/getCommentDataByClick";
 
 
 export {
@@ -36,5 +38,7 @@ export {
   getMyCourseData,
   mutatePostData,
   updateUserInformation,
-  addCourseFavoritePost
+  addCourseFavoritePost,
+  addCourseComment,
+  getCommentDataByClick
 };

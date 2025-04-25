@@ -9,7 +9,7 @@ import { MotionComp } from "../../partials";
 import Aos from "aos";
 import { useParams } from "react-router-dom";
 import { addCourseFavoritePost } from "../../../core/services";
-import { toast } from "react-toastify";
+import ImageFedback from "../../partials/image-fedback/imageFedback";
 
 const DetailTop = () => {
   const [price, setPrice] = useState(null);
@@ -17,6 +17,10 @@ const DetailTop = () => {
 
   const { courseDetail } = useSelector((state) => state);
   const { detailData } = courseDetail;
+
+  if (detailData) {
+    console.log("detailData ==>", detailData)
+  }
 
   useEffect(() => {
     if (detailData) {
@@ -101,7 +105,6 @@ const DetailTop = () => {
             <span> شرکت در دوره! </span>
           </button>
         </div>
-        {/* </div> */}
       </MotionComp>
       <MotionComp
         animDuration={2}
@@ -113,11 +116,7 @@ const DetailTop = () => {
         classNames={`product-image-control w-[40%] h-[344px] max-xl:h-[302px] overflow-hidden rounded-[10px]
           max-lg:w-[90%]`}
       >
-        <img
-          src={detailData?.imageAddress ? detailData?.imageAddress : pic}
-          alt=""
-          className="w-full h-full scale-[102%]"
-        />
+        <ImageFedback imageAddress={detailData?.imageAddress} pic={pic}/>
       </MotionComp>
     </div>
   );
