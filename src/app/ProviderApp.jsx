@@ -11,7 +11,7 @@ const ProviderApp = ({ children }) => {
   return (
     <Provider store={store}>
       {/* <PersistGate persistor={persisStor}> */}
-        <HeroUIProvider>
+        <HeroUIProvider >
           <QueryClientProvider client={queryClient}>
             {children}
           </QueryClientProvider>

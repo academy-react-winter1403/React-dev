@@ -101,7 +101,7 @@ const ArticlesAndNews = () => {
       <div>
         <TopSectionArticlesNew changeFilterHandler={changeQueryHandler} />
       </div>
-      <div className='flex lg:flex-row lg:flex-nowrap lg:gap-3 xs:flex-col  m-auto items-center justify-center w-[90%]'>
+      <div className='flex lg:flex-row lg:flex-nowrap lg:gap-3 xs:flex-col  m-auto items-start justify-center w-[90%]'>
         <div className="lg:w-2/3 flex flex-col gap-7">
           <div className="h-[45px] flex gap-4">
             <h1 className="font-b-yekan font-bold text-[#005351] md:text-[27px] xs:text-[20px] text-center whitespace-nowrap">

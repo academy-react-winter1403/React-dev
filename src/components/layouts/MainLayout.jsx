@@ -13,7 +13,7 @@ const MainLayout = () => {
       <HeaderWrapper />
       <Outlet />
       {/* <Themes/> */}
-      <FooterWrapper />
+      {/* <FooterWrapper /> */}
       {currentPath !== "/Authorize/Register/step1" &&
         currentPath !== "/Authorize/Register/step2" &&
         currentPath !== "/Authorize/Register/step3" &&

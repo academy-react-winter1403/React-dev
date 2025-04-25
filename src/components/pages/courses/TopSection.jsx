@@ -1,4 +1,5 @@
 import React from "react";
+import { FaCircle } from "react-icons/fa";
 import { CoursesCharectorIcon } from "../../../core/icons/icons";
 import Input from "../../common/input/Input";
 import { motion } from "framer-motion";
@@ -8,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeQuery, firstAddCourseProduct } from "../../../redux/actions";
 import { useSearchParams } from "react-router-dom";
 import { setItemLocalStorage } from "../../../core/hooks/local-storage/setItemLocalstorage";
-import { courseFilter } from "../../../core/utility/courseFilter";
 import { courseFilterFull } from "../../../core/utility/courseFilterFull";
 // import { setSearchParams } from "../../../core/hooks/indexHooks";
 
@@ -37,16 +37,7 @@ const TopSection = () => {
         >
           <div className="text-control max-md:w-full">
             <div className="top flex items-center max-md:flex max-md:flex-col max-md:items-center">
-              <svg
-                width="13"
-                height="14"
-                viewBox="0 0 13 14"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="relative max-md:mt-[-52px] max-md:mb-[21px] w-[23px] h-[23px]"
-              >
-                <circle cx="6.5" cy="7.11798" r="6.5" fill="#01CEC9" />
-              </svg>
+              <FaCircle className="text-[#01CEC9]" size={23}/>
               <h2
                 className="font-b-yekan text-[25px] font-extrabold text-[#000000]
                   m-0 mr-[10px] max-md:text-center"

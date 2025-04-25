@@ -13,7 +13,7 @@ import { setItemLocalStorage } from "../../../../core/hooks/local-storage/setIte
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast, ToastContainer } from "react-toastify";
-import { Toaster } from "react-hot-toast";
+// import { Toaster } from "react-hot-toast";
 
 const RegisterSteps1 = () => {
   const navigate = useNavigate();

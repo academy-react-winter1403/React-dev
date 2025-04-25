@@ -114,6 +114,7 @@ const Courses = () => {
 
   const { mutateAsync: getDataByClick2 } = getDataByClick()
   const pageChangeHandler = async (pageNum) => {
+
 // <<<<<<< HEAD
     // pageCount = pageNum
     dispatch(changeCoursesPageCounter(pageNum));

@@ -16,9 +16,19 @@ import 'aos/dist/aos.css'
 
 
 const Landing = () => {
-  
   const [coursesData, setCoursesData] = useState(null);
 
+  // const { data, isLoading } = getData(
+  //   "landingProduct",
+  //   "/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=6"
+  // );
+
+  // if (!isLoading) {
+  //   if (!coursesData) {
+  //     console.log("landing ",data);
+  //     setCoursesData(data.courseFilterDtos);
+  //   }
+  
   const {data, isLoading} = getData(
     "landingProduct",
     "/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=6"
@@ -44,6 +54,21 @@ const Landing = () => {
 
   return (
     <div className="bg-[#F7F7F7]">
+      {/* <Header/> */}
+      {/* <HeroSection /> */}
+      {/* <CategorySection />
+      <CourseSection courseData={coursesData} />
+      <BestTeacherSection />
+      <ServiceSection />
+      <NewsSection /> */}
+
+      {/* <HeroSection />
+      <CategorySection />
+      <CourseSection coursesData={coursesData} />
+      <BestTeacherSection />
+      <ServiceSection />
+      <NewsSection /> */}
+      {/* <Footer/> */}
       <HeroSection/>
       <CategorySection/>
       <CourseSection courseData={coursesData}/>

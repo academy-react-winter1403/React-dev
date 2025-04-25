@@ -8,6 +8,14 @@ import { getFilterData } from "./api/get-data/getFiilterData";
 import { likeCourseCommentPost } from "./api/post-data/likeCourseCommentPost";
 import { desLikeCourseCommentPost } from "./api/post-data/desLikeCourseCommentPost";
 import { getDataByClick } from "./api/get-data-by-click/getDataByClick";
+import { getDataUserPanel } from "./api/get-data/getDataUserPanel";
+import { getNewData } from "./api/get-data/getNewsData";
+import { getActivedCourseData } from "./api/get-data/getActivedData";
+import { getCourseReservedUserPanel } from "./api/get-data/getCourseReservUserPanel";
+import { getMyCourseData } from "./api/get-data/getMyCourseData";
+import { mutatePostData } from "./api/post-data/mutatePostDatta";
+import { updateUserInformation } from "./api/put-data/updateUserInfo";
+import { addCourseFavoritePost } from "./api/post-data/addCourseFavoritePost";
 
 
 export {
@@ -20,5 +28,13 @@ export {
   getCommentData,
   getFilterData,
   likeCourseCommentPost,
-  desLikeCourseCommentPost
+  desLikeCourseCommentPost,
+  getDataUserPanel,
+  getNewData,
+  getActivedCourseData,
+  getCourseReservedUserPanel,
+  getMyCourseData,
+  mutatePostData,
+  updateUserInformation,
+  addCourseFavoritePost
 };

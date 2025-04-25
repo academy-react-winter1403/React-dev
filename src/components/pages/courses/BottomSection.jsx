@@ -32,7 +32,6 @@ import {
   localStorageDeleteOneItem,
   locStorageUpdateItem,
 } from "../../../core/hooks/local-storage/updateItem";
-import { courseFilter } from "../../../core/utility/courseFilter";
 import SortItem from "./sorting-comp/SortItem";
 import { deleteSearchParamsItem } from "../../../core/utility/deleteSearchParams";
 import { deleteAllItemLocalStorage } from "../../../core/hooks/local-storage/deleteAllItem";

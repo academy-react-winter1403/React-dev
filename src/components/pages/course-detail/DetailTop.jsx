@@ -7,9 +7,13 @@ import { useSelector } from "react-redux";
 import { SeparationPrice } from "../../../core/utility/SeparationPrice";
 import { MotionComp } from "../../partials";
 import Aos from "aos";
+import { useParams } from "react-router-dom";
+import { addCourseFavoritePost } from "../../../core/services";
+import { toast } from "react-toastify";
 
 const DetailTop = () => {
   const [price, setPrice] = useState(null);
+  const { id } = useParams()
 
   const { courseDetail } = useSelector((state) => state);
   const { detailData } = courseDetail;
@@ -25,6 +29,11 @@ const DetailTop = () => {
     });
     Aos.refresh();
   }, [detailData]);
+
+  const {mutate, data, isLoading} = addCourseFavoritePost("saveCourse")
+  const productSaveClick = () => {
+    mutate(["/Course/AddCourseFavorite", {courseId: id}])
+  }
 
   return (
     <div
@@ -46,7 +55,7 @@ const DetailTop = () => {
           <h1 className="text-[29px] font-bold text-[#333333] font-b-yekan">
             {detailData?.title}
           </h1>
-          <BiBookmark className="text-[#00B4AF]" size={27} />
+          <BiBookmark className="text-[#00B4AF]" size={27} onClick={productSaveClick}/>
         </div>
         <p
           className="text-[#777777] font-[400] font-b-yekan mt-[16px] w-[90%] h-[72px]

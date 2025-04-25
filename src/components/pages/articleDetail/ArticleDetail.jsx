@@ -24,13 +24,15 @@ import { getNewsCommentsReplay } from "../../../core/services/api/get-data/getNe
 
 import { htttp } from "../../../core/services/interceptor";
 import { errorMessageHandler } from "../../../core/utility/errorMessageHandler";
-import AOS from 'aos'
-import 'aos/dist/aos.css'
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { articleDetailComment } from "../../../core/services/api/post-data/articleDetailComment";
 import { QueryClient } from "react-query";
-import { articleDetailSlice, articleDetailCommentSlice } from "../../../redux/slices";
 import { useQueryClient } from "react-query";
-import {addArticleAndNewsDetailCommentData} from '../../../redux/slices/articleDetailCommentSlice'
+import {
+  addArticleAndNewsDetailCommentData,
+  addArticleAndNewsDetailCommentReply
+} from "../../../redux/slices/articleDetailCommentSlice";
 
 
 const ArticleDetail = () => {
@@ -43,8 +45,10 @@ const ArticleDetail = () => {
   );
   const { articleAndNewDetailData } = articleDetailSlice;
   const { relatedCoursesData } = relatedCoursesSlice;
-  const [commentData, setCommentData] = useState(null);
-  const [commentFullData, setCommentFullData] = useState(null);
+  // const [commentData, setCommentData] = useState(null);
+  // const [commentFullData, setCommentFullData] = useState(null);
+  const { articleAndNewDetailComment, articleAndNewDetailCommentReply } =
+    useSelector((state) => state.articleDetailCommentSlice);
 
   const { googleDescribe, describe, currentImageAddress, newsCatregoryId } =
     articleAndNewDetailData || {};
@@ -65,30 +69,42 @@ const ArticleDetail = () => {
     fetchArticle();
   }, [id, dispatch]);
 
+  // getCommentData("newsComment", `/News/GetNewsComments?NewsId=${id}`).then(
+  //   (response) => {
+  //     setCommentData(response.data);
+  //     if (commentData) {
+  //       getNewsCommentsReplay("/News/GetRepliesComments?Id=", commentData).then(
+  //         (response) => {
+  //           if (!commentFullData) {
+  //             setCommentFullData(response);
+  //           }
+  //         }
+  //       );
+  //     }
+  //   }
+  // );
+
   getCommentData("newsComment", `/News/GetNewsComments?NewsId=${id}`).then(
     (response) => {
-      setCommentData(response.data);
-      if (commentData) {
-        getNewsCommentsReplay("/News/GetRepliesComments?Id=", commentData).then(
-          (response) => {
-            if (!commentFullData) {
-              setCommentFullData(response);
-            }
-          }
-        );
+      dispatch(addArticleAndNewsDetailCommentData(response.data));
+      if (response.data) {
+        getNewsCommentsReplay(
+          "/News/GetRepliesComments?Id=",
+          response.data
+        ).then((replyResponse) => {
+          dispatch(addArticleAndNewsDetailCommentReply(replyResponse));
+        });
       }
     }
   );
 
-
   // const commentLikeBtnClickHandler = (commentId) => {
   //   handleCommentReaction(commentId, true);
   // };
-  
+
   // const commentDesLikeBtnClickHandler = (commentId) => {
   //   handleCommentReaction(commentId, false);
   // };
-  
 
   const commentDesLikeBtnClickHandler = async (item) => {
     const resData = await desLikeCourseCommentPost(
@@ -126,7 +142,6 @@ const ArticleDetail = () => {
     fetchRelatedCourses();
   }, [newsCatregoryId, relatedCoursesData, dispatch]);
 
-
   // // comment reaction
   // const handleCommentReaction = async (commentId, isLike) => {
   //   try {
@@ -138,11 +153,9 @@ const ArticleDetail = () => {
   //   }
   // };
 
+  // for comments
 
-
-   // for comments
-
-   const {
+  const {
     mutate,
     data: postCommentData,
     isLoading: postCommentLoading,
@@ -153,41 +166,44 @@ const ArticleDetail = () => {
       Title: event.title,
       describe: event.description,
     };
-    mutate([
-      "/News/CreateNewsComment",
-      dataObj,
+    mutate(
+      [
+        "/News/CreateNewsComment",
+        dataObj,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          }
+        },
+      ],
       {
-        headers: {
-          "Content-Type": "multipart/from-data",
-        }
+        onSuccess: () => {
+          dispatch(addArticleAndNewsDetailCommentData(null));
+          queryClient.invalidateQueries(["articleAndNewDetailComment"]);
+        },
       }
-    ],{
-      onSuccess: () => {
-        dispatch(addArticleAndNewsDetailCommentData(null))
-        queryClient.invalidateQueries(["articleAndNewDetailComment"])
-      }
-    }
-  )
-  }
-
+    );
+  };
 
   // AOS
   useEffect(() => {
-      AOS.init({
-        duration: 2000, 
-        once: true,     
-      })
-    }, [])
+    AOS.init({
+      duration: 2000,
+      once: true,
+    });
+  }, []);
 
   return (
     <div className="w-full bg-[#F7F7F7] font-b-yekan py-10">
       <div className="w-[80%] m-auto flex md:flex-row md:flex-nowrap gap-0.5 xs:flex-col justify-center md:items-start xs:items-center">
         {/* Article Content */}
         <div className="md:w-2/3 xs:w-full flex flex-col items-center justify-center gap-2.5">
-          <ArticleTitle/>
+          <ArticleTitle />
 
-          <div className="w-[95%] bg-white rounded-[10px] text-[#555555] text-[18px] leading-7 flex flex-col items-center justify-start gap-3 shadow relative overflow-hidden transition-all duration-500"
-          data-aos="fade-up">
+          <div
+            className="w-[95%] bg-white rounded-[10px] text-[#555555] text-[18px] leading-7 flex flex-col items-center justify-start gap-3 shadow relative overflow-hidden transition-all duration-500"
+            data-aos="fade-up"
+          >
             <div className="w-[95%]">
               <p>{googleDescribe}</p>
             </div>
@@ -210,9 +226,19 @@ const ArticleDetail = () => {
 
           <ArticleFeedBack />
 
-          {commentData ? (
+          {/* {commentData ? (
             <CommentBox
               commentData={commentFullData}
+              coomentLikeBtnClick={commentDesLikeBtnClickHandler}
+              commentDesLikeBtnClick={commentDesLikeBtnClickHandler}
+              replayLikeBtnClick={replayLikeBtnClickHandler}
+              replayDeslikeBtnClick={replayDeslikeBtnClickHandler}
+            />
+          ) : null} */}
+
+          {articleAndNewDetailComment ? (
+            <CommentBox
+              commentData={articleAndNewDetailCommentReply}
               coomentLikeBtnClick={commentDesLikeBtnClickHandler}
               commentDesLikeBtnClick={commentDesLikeBtnClickHandler}
               replayLikeBtnClick={replayLikeBtnClickHandler}
@@ -222,8 +248,10 @@ const ArticleDetail = () => {
         </div>
 
         {/* Related Courses */}
-        <div className="md:w-1/3 xs:w-[95%] flex flex-col justify-between items-center gap-4 md:mt-0 xs:mt-5"
-        data-aos="fade-right">
+        <div
+          className="md:w-1/3 xs:w-[95%] flex flex-col justify-between items-center gap-4 md:mt-0 xs:mt-5"
+          data-aos="fade-right"
+        >
           <div className="hidden md:block">
             <img src={character} alt="character" />
           </div>

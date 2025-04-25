@@ -4,7 +4,7 @@ import { reandomNum } from "../../../core/utility/randomNum";
 const ImageFedback = ({ imageAddress, pic }) => {
   return (
     <>
-      <img src={imageAddress ? imageAddress : pic} alt="" className="w-full h-full"/>
+      <img src={!imageAddress || imageAddress === "Not-set" ? pic : imageAddress} alt="" className="w-[101%] h-[101%]"/>
     </>
   );
 };

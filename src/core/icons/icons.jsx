@@ -10,6 +10,9 @@ import CameraIcon from "./camera-icon/CameraIcon";
 import DBasketIcon from "./detail-basket-icon/DBasketIcon";
 import FrontIcon from "./front-icon/FrontIcon";
 import StudentIcon from "./courses/StudentIcon";
+import Basket from "./user-panel-icons/Basket";
+import { DashStudentIcon } from "./user-panel-icons";
+import Alarm from "./user-panel-icons/dashboard/Alarm";
 
 export {
   TrashCanIcon,
@@ -23,5 +26,8 @@ export {
   CameraIcon,
   DBasketIcon,
   FrontIcon,
-  StudentIcon
+  StudentIcon,
+  DashStudentIcon,
+  Basket,
+  Alarm
 };
