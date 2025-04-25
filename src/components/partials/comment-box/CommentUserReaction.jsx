@@ -11,13 +11,14 @@ const CommentUserReaction = ({
   imageAddress,
   likeBtnClick,
   desLikeClick,
+  commentId,
 }) => {
   const commentLikeClickHandler = () => {
-    likeBtnClick();
+    likeBtnClick(commentId);
   };
 
   const commentDesLikeClickHandler = () => {
-    desLikeClick();
+    desLikeClick(commentId);
   };
 
   return (
