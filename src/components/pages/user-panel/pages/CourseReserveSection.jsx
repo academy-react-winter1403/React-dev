@@ -6,7 +6,7 @@ import TextComp from "../../../common/user-panel-input/TextComp";
 import UserPanelCard from "../../../partials/user-panel/UserPanelCard";
 import { myCourseReserveMockApi } from "../../../../core/constants/user-panel/courseReserveSection";
 import { sortingArticlesNews } from "../../../../core/constants/articlesMockApi/sort_data";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import SortingCol from "../../ArticlesAndNews/Sorting-Articles/SortingCol";
 import { PaginationData } from "../../../partials";
 
@@ -14,19 +14,19 @@ const CourseReserveSection = () => {
   const changeHandler = (QueryEvent) => {
     console.log(QueryEvent.target.value);
   };
-//   const dispatch = useDispatch()
+  //   const dispatch = useDispatch()
   const sortChangeHandler = (sortEvent) => {
     console.log(sortEvent);
     if (sortEvent === "جدیدترین") {
-    //   dispatch(changeSortingCol("Active"));
+      //   dispatch(changeSortingCol("Active"));
     }
     if (sortEvent === "پرطرفدارترین") {
-    //   dispatch(changeSortingCol("InsertDate"));
+      //   dispatch(changeSortingCol("InsertDate"));
     }
   };
   const changePageNumber = (pageNum) => {
-    console.log(pageNum)
-  }
+    console.log(pageNum);
+  };
 
   return (
     <div className="my-course-container mt-2.5">
@@ -45,21 +45,21 @@ const CourseReserveSection = () => {
           />
         </div>
       </div>
-      <div className="center">
+      <div className="center h-[535px]">
         <TextComp
           dataMaper={myCourseReserveMockApi}
           boxControlStyle={"w-[70%]"}
           boxContainerStyle={"mt-[23px]"}
         />
-        <UserPanelCard trashcanFlag={true} bgCalc={3} />
+        <UserPanelCard trashcanFlag={true} bgCalc={3} divFlag={true} colorFlag={true}/>
       </div>
       <div className="bottom">
-      <PaginationData
-            initialPageNum={1}
-            totalCount={15}
-            RowsOfPage={6}
-            changePageNumber={changePageNumber}
-          />
+        <PaginationData
+          initialPageNum={1}
+          totalCount={15}
+          RowsOfPage={6}
+          changePageNumber={changePageNumber}
+        />
       </div>
     </div>
   );

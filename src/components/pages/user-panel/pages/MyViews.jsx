@@ -1,20 +1,21 @@
+
 import React from "react";
 import Input from "../../../common/input/Input";
-import SortTypeCard from "../../../common/SortTypeCard";
-import { myCourseMockApi } from "../../../../core/constants";
+// import SortTypeCard from "../../../common/SortTypeCard";
+// import { sortColData } from "../../../../core/constants";
 import TextComp from "../../../common/user-panel-input/TextComp";
 import UserPanelCard from "../../../partials/user-panel/UserPanelCard";
-import { PaginationData } from "../../../partials";
 import { sortingArticlesNews } from "../../../../core/constants/articlesMockApi/sort_data";
-import SortingCol from "../../ArticlesAndNews/Sorting-Articles/SortingCol";
 // import { useDispatch } from "react-redux";
+import SortingCol from "../../ArticlesAndNews/Sorting-Articles/SortingCol";
+import { PaginationData } from "../../../partials";
+import { MyViewsMockApi } from "../../../../core/constants/user-panel/myViews";
 
-const MyCourseSection = () => {
-  // const changeHandler = () => {};
+const MyViews = () => {
   const changeHandler = (QueryEvent) => {
     console.log(QueryEvent.target.value);
   };
-    // const dispatch = useDispatch()
+  //   const dispatch = useDispatch()
   const sortChangeHandler = (sortEvent) => {
     console.log(sortEvent);
     if (sortEvent === "جدیدترین") {
@@ -24,10 +25,10 @@ const MyCourseSection = () => {
       //   dispatch(changeSortingCol("InsertDate"));
     }
   };
-
   const changePageNumber = (pageNum) => {
     console.log(pageNum);
   };
+
   return (
     <div className="my-course-container mt-2.5">
       <div className="top border-b-[1px] border-gray-200 pb-5">
@@ -46,11 +47,15 @@ const MyCourseSection = () => {
         </div>
       </div>
       <div className="center h-[535px]">
-        <TextComp dataMaper={myCourseMockApi} boxControlStyle={"w-[70%]"} boxContainerStyle={"mt-[23px]"}/>
-        <UserPanelCard trashcanFlag={false} bgCalc={3} divFlag={false} colorFlag={false}/>
+        <TextComp
+          dataMaper={MyViewsMockApi}
+          boxControlStyle={"w-[65%]"}
+          boxContainerStyle={"mt-[23px]"}
+        />
+        <UserPanelCard trashcanFlag={true} bgCalc={3} divFlag={false} colorFlag={false}/>
       </div>
       <div className="bottom">
-      <PaginationData
+        <PaginationData
           initialPageNum={1}
           totalCount={15}
           RowsOfPage={6}
@@ -61,4 +66,4 @@ const MyCourseSection = () => {
   );
 };
 
-export default MyCourseSection;
+export default MyViews;

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { dashboardMockApi } from "../../../../core/constants";
 import ImageFedback from "../../../partials/image-fedback/imageFedback";
 import { useLocation, useNavigate } from "react-router-dom";
+import { setItemLocalStorage } from './../../../../core/hooks/local-storage/setItemLocalstorage';
+import { deleteItemLocalStorage } from "../../../../core/hooks/local-storage/deleteItemLocalStorage";
 
 const DashboardOption = () => {
   const location = useLocation();
@@ -11,11 +13,20 @@ const DashboardOption = () => {
 
   // console.log(pathname);
   useEffect(() => {
-    pathname === "/user-panel/dashboard" ? setText(" داشبورد ") : null
-    pathname === "/user-panel/user-information" ? setText(" اطلاعات کاربری ") : null
-    pathname === "/user-panel/my-course" ? setText(" دوره های من ") : null
-    pathname === "/user-panel/course-reserve" ? setText(" دوره های من ") : null
-  }, [])
+    pathname === "/user-panel/dashboard" ? setText(" داشبورد ") : null;
+    pathname === "/user-panel/user-information"
+      ? setText(" اطلاعات کاربری ")
+      : null;
+    pathname === "/user-panel/my-course" ? setText(" دوره های من ") : null;
+    pathname === "/user-panel/course-reserve"
+      ? setText(" دوره های رزرو شده ")
+      : null;
+    pathname === "/user-panel/my-views" ? setText(" دیدگاه های من ") : null;
+    pathname === "/user-panel/favorite" ? setText("علاقه مندی ها ") : null;
+    pathname === ("/user-panel/secoration-setting") ?
+    setText(" تنظیمات امنیتی ")
+      : null;
+  }, []);
 
   const tabClickHandler = (value) => {
     value === " داشبورد " ? navigate("/user-panel/dashboard") : null;
@@ -32,12 +43,17 @@ const DashboardOption = () => {
       ? navigate("/user-panel/secoration-setting")
       : null;
 
+      if (value === " خروج از حساب ") {
+        deleteItemLocalStorage("token")
+        deleteItemLocalStorage("UserId")
+        navigate("/Authorize/Login/step1")
+      }
     setText(value);
-    console.log(location.pathname)
+    console.log(location.pathname);
   };
 
   return (
-    <ul className="option-control w-full flex flex-col items-end gap-y-[15px] mt-8 checked: ">
+    <ul className="option-control w-full h-[563px] flex flex-col items-end gap-y-[15px] mt-8 checked: ">
       {/* <RadioGroup> */}
       {dashboardMockApi.map((item, index) => {
         // console.log(item);

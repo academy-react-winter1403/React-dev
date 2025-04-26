@@ -21,17 +21,13 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import {
   changePageNumber,
-  // changeQueryArticles,
-  // changeRowsOfPage,
-  // changeSortingCol,
-  // changeSortTypeArticles,
   firstAddArticleProduct,
 } from "../../../redux/actions";
 import { useNavigate } from "react-router-dom";
 import FilterBar from "../../partials/FilterBar.jsx/FilterBar";
 
 const ArticlesAndNews = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { PageNumber, RowsOfPage, SortingCol, SortType, Query } = useSelector(
     (state) => state.articlesQueryFilter
@@ -52,11 +48,7 @@ const ArticlesAndNews = () => {
     };
     getData();
   }, [PageNumber, RowsOfPage, SortingCol, SortType, Query, dispatch]);
-  // const totalPages = Math.ceil(totalCount / RowsOfPage);
-  // const pageChangeHandler = (pageEvent) => {
-  //   console.log(pageEvent);
-  //   dispatch(changePageNumber(pageEvent));
-  // };
+  
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -64,21 +56,20 @@ const ArticlesAndNews = () => {
     });
   }, []);
   const handleCardClick = (id) => {
-    navigate(`/article-detail/${id}`)
-  }
+    navigate(`/article-detail/${id}`);
+  };
 
   const changePageHandler = (pageNum) => {
-    console.log(pageNum)
-    dispatch(changePageNumber(pageNum))
-  }
+    console.log(pageNum);
+    dispatch(changePageNumber(pageNum));
+  };
 
-  
   return (
     <div className="max-w-8xl flex flex-col justify-center m-auto gap-3 bg-[#F7F7F7] font-b-yekan">
       <div>
-        <TopSectionArticlesNew/>
+        <TopSectionArticlesNew />
       </div>
-      <div className='flex lg:flex-row lg:flex-nowrap lg:gap-3 xs:flex-col  m-auto items-start justify-center w-[90%]'>
+      <div className="flex lg:flex-row lg:flex-nowrap lg:gap-3 xs:flex-col  m-auto items-start justify-center w-[90%]">
         <div className="lg:w-2/3 flex flex-col gap-7">
           <div className="h-[45px] flex gap-4 xs:gap-2">
             <h1 className="font-b-yekan font-bold text-[#005351] md:text-[27px] xs:text-[20px] text-center whitespace-nowrap">
