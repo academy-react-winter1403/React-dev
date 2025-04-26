@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import TopSection from "./TopSection";
 import BottomSection from "./BottomSection";
 import { getData, getFilterData } from "../../../core/services";
@@ -10,6 +10,7 @@ import {
   changeAddDataFlag,
   changeCoursesPageCounter,
   firstAddCourseProduct,
+<<<<<<< HEAD
   // <<<<<<< HEAD
   // =======
   // <<<<<<< HEAD
@@ -17,12 +18,15 @@ import {
   // changeQueryFlag,
   // firstAddProduct,
   // >>>>>>> 2ace4c80c7263ea9285540bcb5eccb04035e1996
+=======
+>>>>>>> 977ce6192b6f1bb68041d4cb75b8907361a2d5f0
 } from "../../../redux/actions";
 import { PaginationData } from "../../partials";
 import bg from "../../../assets/pics/courses/bg1.png";
 import { deleteAllItemLocalStorage } from "../../../core/hooks/local-storage/deleteAllItem";
 import { getDataByClick } from "../../../core/services/api/get-data-by-click/getDataByClick";
 import Aos from "aos";
+<<<<<<< HEAD
 // <<<<<<< HEAD
 // =======
 // import { filterData } from "../../../core/constants";
@@ -34,6 +38,8 @@ import Aos from "aos";
 // import { getItemLocalStorage } from "../../../core/hooks/local-storage/getItemLocalStorage";
 // >>>>>>> 21a038ce3feace628afe1f449fc089c5a5248056
 // >>>>>>> 2ace4c80c7263ea9285540bcb5eccb04035e1996
+=======
+>>>>>>> 977ce6192b6f1bb68041d4cb75b8907361a2d5f0
 
 const Courses = () => {
   const dispatch = useDispatch();
@@ -42,6 +48,12 @@ const Courses = () => {
   const { pageCount } = coursesPageCounter;
   const { addDataFlag, queryFlag } = coursesFlags;
   const { RowsOfPage } = courseQueryParams;
+
+  useEffect(() => {
+    dispatch(dispatch(addCourseDetailCommentData(null)));
+    dispatch(dispatch(addCourseCommentReplay(null)));
+  }, [])
+
   useEffect(() => {
     if (!queryFlag) {
       deleteAllItemLocalStorage([
@@ -113,8 +125,7 @@ const Courses = () => {
     setTimeout(() => {
       dispatch(firstAddCourseProduct(data.courseFilterDtos));
     }, 2000);
-    // dispatch(firstAddCourseProduct(data.data.courseFilterDtos));
-
+    dispatch(firstAddCourseProduct(data.data.courseFilterDtos));
   };
   return (
     <div

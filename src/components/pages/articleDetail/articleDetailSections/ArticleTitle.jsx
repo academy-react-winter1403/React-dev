@@ -11,7 +11,7 @@ const ArticleTitle = () => {
   const { articleDetailSlice } = useSelector((state) => state);
   const { articleAndNewDetailData } = articleDetailSlice;
 
-  console.log("articleDetailSlice ==>", articleDetailSlice);
+  // console.log("articleDetailSlice ==>", articleDetailSlice);
 
   var { title, addUserFullName, currentView, insertDate } =
     articleAndNewDetailData;

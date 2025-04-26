@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
+  addCourseComment,
   desLikeCourseCommentPost,
   getCommentData,
   getData,
+  getDataUserPanel,
   likeCourseCommentPost,
 } from "../../../core/services";
 import DetailTop from "./DetailTop";
@@ -20,49 +22,60 @@ import {
   addCourseDetailData,
   addCourseDetailCommentData,
   addCourseCommentReplay,
+  addUserProfileInfoData,
 } from "../../../redux/actions";
 import { MotionComp } from "../../partials";
 import LeftItemCard from "./LeftItemCard";
 import { errorMessageHandler } from "../../../core/utility/errorMessageHandler";
 import Aos from "aos";
+import { getItemLocalStorage } from "../../../core/hooks/local-storage/getItemLocalStorage";
+import { useQueryClient } from "react-query";
 
 const CourseDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const token = getItemLocalStorage("token");
+  const queryClient = useQueryClient()
+  const [commentBoxHeightFlag, setCommentBoxHeightFlag] = useState(true)
 
-  const { courseComment, courseDetail } = useSelector((state) => state);
+  const { courseComment, courseDetail, userProfileInfoSlice } = useSelector(
+    (state) => state
+  );
   const { commentData, commentReplay } = courseComment;
   const { detailData } = courseDetail;
 
-  const {data, isLoading} = getData("detailProduct", `/Home/GetCourseDetails?CourseId=${id}`)
+  const { data, isLoading } = getData(
+    "detailProduct",
+    `/Home/GetCourseDetails?CourseId=${id}`
+  );
   if (!isLoading) {
-    dispatch(addCourseDetailData(data.data));
+    dispatch(addCourseDetailData(data));
   }
 
-  getCommentData("courseComment", `/Course/GetCourseCommnets/${id}`).then(
-    (response) => {
-      dispatch(addCourseDetailCommentData(response.data));
-      if (commentData) {
-        console.log(commentReplay);
-        if (!commentReplay) {
-          getCourseCommentReplay(
-            "/Course/GetCourseReplyCommnets/",
-            commentData
-          ).then((replayReponse) => {
-            dispatch(addCourseCommentReplay(replayReponse));
-          });
-        }
+  const { data: comment, isLoading: commentLoading, isSuccess } = getCommentData(
+    "courseComment",
+    `/Course/GetCourseCommnets/${id}`
+  );
+  if (!commentLoading) {
+    dispatch(addCourseDetailCommentData(comment.data));
+    if (commentData) {
+      if (!commentReplay) {
+        getCourseCommentReplay(
+          "/Course/GetCourseReplyCommnets/",
+          commentData
+        ).then((replayReponse) => {
+          console.log(replayReponse)
+          dispatch(addCourseCommentReplay(replayReponse));
+        });
       }
     }
-  );
+  }
 
   const coomentLikeBtnClickHandler = async (item) => {
-    console.log(item);
-    const resData = await likeCourseCommentPost(
-      `/Course/AddCourseCommentLike?CourseCommandId`,
-      item.id
-    );
-    errorMessageHandler(resData);
+    console.log(item)
+    likeCourseCommentPost("/Course/AddCourseCommentLike?CourseCommandId", item.id).then((response) => {
+      console.log(response)
+    })
   };
 
   const commentDesLikeBtnClickHandler = async (item) => {
@@ -81,9 +94,50 @@ const CourseDetail = () => {
     alert();
   };
 
+  const {
+    isError,
+    isLoading: userDataLoading,
+    data: userData,
+  } = getDataUserPanel(
+    "userPanelProfileInformation",
+    "/SharePanel/GetProfileInfo",
+    token
+  );
+
+  if (!userDataLoading) {
+    dispatch(addUserProfileInfoData(userData));
+  }
+
+  const {
+    mutate,
+    data: postCommentData,
+    isLoading: postCommentLoading,
+  } = addCourseComment();
+  const addCommentBtnClickHandler = (event) => {
+    const dataObj = {
+      CourseId: id,
+      Title: event.title,
+      Describe: event.description,
+    };
+    mutate([
+      "/Course/AddCommentCourse",
+      dataObj,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      },
+    ], {
+      onSuccess: () => {
+        dispatch(addCourseCommentReplay(null));
+        queryClient.invalidateQueries(["courseComment"])
+      }
+    });
+  };
+
   useEffect(() => {
     Aos.init({
-      duration: 800,
+      duration: 5000,
       // once: true
     });
     Aos.refresh();
@@ -110,7 +164,9 @@ const CourseDetail = () => {
               </DescriptionBox>
             </MotionComp>
             <div className="headlines-holder h-[300px] w-full border rounded-[10px] mt-3"></div>
-            <div className="comment-item-holder">
+            <div className={`comment-item-holder transition-all ${commentBoxHeightFlag ? "max-h-[990px]" : "h-auto"}
+              overflow-hidden relative`}
+            >
               {commentReplay ? (
                 <CommentBox
                   commentData={commentReplay}
@@ -118,8 +174,17 @@ const CourseDetail = () => {
                   commentDesLikeBtnClick={commentDesLikeBtnClickHandler}
                   replayLikeBtnClick={replayLikeBtnClickHandler}
                   replayDeslikeBtnClick={replayDeslikeBtnClickHandler}
+                  addCommentBtnClick={addCommentBtnClickHandler}
                 />
               ) : null}
+              <div className="btn-control w-full absolute bottom-2 flex justify-center items-center">
+                <button
+                  className="border border-gray-900 bg-gray-900 text-white
+                  py-2 px-7 rounded-2xl cursor-pointer"
+                  // data-aos="fade-up"
+                  onClick={() => commentBoxHeightFlag ? setCommentBoxHeightFlag(false) : setCommentBoxHeightFlag(true)}
+                >{commentBoxHeightFlag ? "کامنت بیشتر " : " کامنت کمتر "}</button>
+              </div>
             </div>
           </div>
           <div className="left w-[33%] max-my-breakpoint:w-full ">

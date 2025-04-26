@@ -19,6 +19,7 @@ import { clientStatusSlice } from "./clientStatusSlice";
 import { articleDetailSlice } from "./articleDetailSlice";
 import { relatedCoursesSlice } from "./relatedCoursesSlice";
 import { articlesQueryFilter } from './ArticlesQueryFilter';
+import {articleDetailCommentSlice} from './articleDetailCommentSlice'
 import allDataArticleSlice from './allDataArticleSlice';
 
 export {
@@ -43,5 +44,6 @@ export {
   articleDetailSlice,
   relatedCoursesSlice,
   articlesQueryFilter,
-  allDataArticleSlice
+  allDataArticleSlice,
+  articleDetailCommentSlice
 };

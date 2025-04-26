@@ -10,6 +10,6 @@ export const articleDetailSlice = createSlice({
   reducers: {
     addArticleAndNewsDetailData: (state, action) => {
       state.articleAndNewDetailData = action.payload;
-    },
+    }
   },
 });

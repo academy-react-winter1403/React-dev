@@ -35,7 +35,7 @@ const Landing = () => {
   )
 
   if (!isLoading) {
-    console.log("",data)
+    console.log("loginnnnn",data)
     if (!coursesData) setCoursesData(data.courseFilterDtos);
   }
 

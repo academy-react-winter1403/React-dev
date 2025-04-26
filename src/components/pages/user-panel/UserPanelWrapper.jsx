@@ -20,6 +20,8 @@ const UserPanelWrapper = () => {
   const token = getItemLocalStorage("token");
   const [menuFlag, setMenuFlag] = useState(true);
 
+  // localStorage.clear()
+
   useEffect(() => {
     Aos.init({
       duration: 800,

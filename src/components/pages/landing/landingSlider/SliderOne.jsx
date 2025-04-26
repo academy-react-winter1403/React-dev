@@ -43,7 +43,7 @@ const SliderOne = ({ dataMapper}) => {
           return (
             <SwiperSlide className="" key={index}>
               <div className="p-[54px_25px_35px_25px]">
-                <CardWrapper timeFlag={true} data={item} />
+                <CardWrapper timeFlag={false} data={item} viewFlag={true}/>
               </div>
             </SwiperSlide>
           );

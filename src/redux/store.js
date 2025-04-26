@@ -18,7 +18,8 @@ import {
   articleDetailSlice,
   relatedCoursesSlice,
   articlesQueryFilter,
-  allDataArticleSlice
+  allDataArticleSlice,
+  articleDetailCommentSlice
 } from "./slices";
 
 import { locationSlice } from "./slices/location";
@@ -45,5 +46,6 @@ export const store = configureStore({
     clientStatus: clientStatusSlice.reducer,
     articleDetailSlice: articleDetailSlice.reducer,
     relatedCoursesSlice : relatedCoursesSlice.reducer,
+    articleDetailCommentSlice : articleDetailCommentSlice.reducer
   },
 });

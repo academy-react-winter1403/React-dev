@@ -9,6 +9,7 @@ const CommentBox = ({
   commentDesLikeBtnClick,
   replayLikeBtnClick,
   replayDeslikeBtnClick,
+  addCommentBtnClick,
   commentReplay
 }) => {
   const [showAddComment, setShowAddComment] = useState(false);
@@ -28,7 +29,7 @@ const CommentBox = ({
       </div>
 
       {/* Show AddComment only if showAddComment is true */}
-      {showAddComment && <AddComment />}
+      {showAddComment && <AddComment btnClick={addCommentBtnClick}/>}
 
       {/* Comments List */}
       <div className="card-holdre">
