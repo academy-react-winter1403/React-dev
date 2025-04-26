@@ -18,6 +18,7 @@ import { updateUserInformation } from "./api/put-data/updateUserInfo";
 import { addCourseFavoritePost } from "./api/post-data/addCourseFavoritePost";
 import { addCourseComment } from "./api/post-data/addCourseComment";
 import { getCommentDataByClick } from "./api/get-data/getCommentDataByClick";
+import { getArticleCommentData } from "./api/get-data/getArticleCommentData";
 
 
 export {
@@ -40,5 +41,6 @@ export {
   updateUserInformation,
   addCourseFavoritePost,
   addCourseComment,
-  getCommentDataByClick
+  getArticleCommentData,
+  getCommentDataByClick,
 };

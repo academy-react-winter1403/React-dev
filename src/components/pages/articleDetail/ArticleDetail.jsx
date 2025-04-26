@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
+  addArticleAndNewsDetailCommentData,
+  addArticleAndNewsDetailCommentReply,
   addArticleAndNewsDetailData,
   addRelatedCoursesData,
 } from "../../../redux/actions";
@@ -18,6 +20,7 @@ import character from "./../../../assets/pics/others/articledetail.png";
 
 import {
   desLikeCourseCommentPost,
+  getArticleCommentData,
   getCommentData,
 } from "../../../core/services";
 import { getNewsCommentsReplay } from "../../../core/services/api/get-data/getNewsCommentsReply";
@@ -29,11 +32,6 @@ import "aos/dist/aos.css";
 import { articleDetailComment } from "../../../core/services/api/post-data/articleDetailComment";
 import { QueryClient } from "react-query";
 import { useQueryClient } from "react-query";
-import {
-  addArticleAndNewsDetailCommentData,
-  addArticleAndNewsDetailCommentReply
-} from "../../../redux/slices/articleDetailCommentSlice";
-
 
 const ArticleDetail = () => {
   const dispatch = useDispatch();
@@ -54,8 +52,25 @@ const ArticleDetail = () => {
     articleAndNewDetailData || {};
 
   // Fetch article details
-  useEffect(() => {
-    const fetchArticle = async () => {
+  // useEffect(() => {
+  //   const fetchArticle = async () => {
+  //     if (!articleAndNewDetailData) {
+  //       try {
+  //         const res = await htttp.get(`/News/${id}`);
+  //         if (res?.data?.detailsNewsDto) {
+  //           dispatch(addArticleAndNewsDetailData(res.data.detailsNewsDto));
+  //         }
+  //       } catch (error) {
+  //         console.error("Failed to fetch article:", error);
+  //       }
+  //     }
+  //   };
+
+  //   fetchArticle();
+  // }, [id, dispatch]);
+
+  const fetchArticle = async () => {
+    if (!articleAndNewDetailData) {
       try {
         const res = await htttp.get(`/News/${id}`);
         if (res?.data?.detailsNewsDto) {
@@ -64,10 +79,11 @@ const ArticleDetail = () => {
       } catch (error) {
         console.error("Failed to fetch article:", error);
       }
-    };
-
+    }
+  };
+  useEffect(() => {
     fetchArticle();
-  }, [id, dispatch]);
+  }, []);
 
   // getCommentData("newsComment", `/News/GetNewsComments?NewsId=${id}`).then(
   //   (response) => {
@@ -84,19 +100,19 @@ const ArticleDetail = () => {
   //   }
   // );
 
-  getCommentData("newsComment", `/News/GetNewsComments?NewsId=${id}`).then(
-    (response) => {
-      dispatch(addArticleAndNewsDetailCommentData(response.data));
-      if (response.data) {
-        getNewsCommentsReplay(
-          "/News/GetRepliesComments?Id=",
-          response.data
-        ).then((replyResponse) => {
-          dispatch(addArticleAndNewsDetailCommentReply(replyResponse));
-        });
-      }
-    }
-  );
+  // getCommentData("newsComment", `/News/GetNewsComments?NewsId=${id}`).then(
+  //   (response) => {
+  //     dispatch(addArticleAndNewsDetailCommentData(response.data));
+  //     if (response.data) {
+  //       getNewsCommentsReplay(
+  //         "/News/GetRepliesComments?Id=",
+  //         response.data
+  //       ).then((replyResponse) => {
+  //         dispatch(addArticleAndNewsDetailCommentReply(replyResponse));
+  //       });
+  //     }
+  //   }
+  // );
 
   // const commentLikeBtnClickHandler = (commentId) => {
   //   handleCommentReaction(commentId, true);
@@ -123,24 +139,30 @@ const ArticleDetail = () => {
   };
 
   // Fetch related courses
-  useEffect(() => {
-    const fetchRelatedCourses = async () => {
-      try {
-        if (newsCatregoryId && !relatedCoursesData) {
+  const fetchRelatedCourses = async () => {
+    if (!relatedCoursesData) {
+      if (newsCatregoryId) {
+        try {
+          // if (newsCatregoryId && !relatedCoursesData) {
           const res = await htttp.get(
             `/News/GetNewsWithCategory/${newsCatregoryId}`
           );
-          if (res?.data) {
-            dispatch(addRelatedCoursesData(res.data));
-          }
+          // if (res?.data) {
+          dispatch(addRelatedCoursesData(res.data));
+          // }
+          // }
+        } catch (error) {
+          console.error("Failed to fetch related courses:", error);
         }
-      } catch (error) {
-        console.error("Failed to fetch related courses:", error);
       }
-    };
-
+    }
+  };
+  // useEffect(() => {
+  //   fetchRelatedCourses();
+  // }, [newsCatregoryId, relatedCoursesData, dispatch]);
+  useEffect(() => {
     fetchRelatedCourses();
-  }, [newsCatregoryId, relatedCoursesData, dispatch]);
+  }, []);
 
   // // comment reaction
   // const handleCommentReaction = async (commentId, isLike) => {
@@ -155,16 +177,33 @@ const ArticleDetail = () => {
 
   // for comments
 
+  const { data: dataComment, isLoading: commentLoading } =
+    getArticleCommentData("newsComment", `/News/GetNewsComments?NewsId=${id}`);
+  if (!commentLoading) {
+    console.log(dataComment);
+    dispatch(addArticleAndNewsDetailCommentData(dataComment));
+    if (articleAndNewDetailComment) {
+      if (!articleAndNewDetailCommentReply) {
+        getNewsCommentsReplay("/News/GetRepliesComments?Id=", dataComment).then(
+          (replyResponse) => {
+            dispatch(addArticleAndNewsDetailCommentReply(replyResponse));
+          }
+        );
+      }
+    }
+  }
+
   const {
     mutate,
     data: postCommentData,
     isLoading: postCommentLoading,
-  } = articleDetailComment("create-news-comment");
+  } = articleDetailComment("createNewsComment");
   const addCommentBtnClickHandler = (event) => {
     const dataObj = {
-      CourseId: id,
-      Title: event.title,
+      newsId: id,
+      title: event.title,
       describe: event.description,
+      userId: 40561,
     };
     mutate(
       [
@@ -172,14 +211,16 @@ const ArticleDetail = () => {
         dataObj,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
-          }
+            "Content-Type": "application/json",
+          },
         },
       ],
       {
-        onSuccess: () => {
-          dispatch(addArticleAndNewsDetailCommentData(null));
-          queryClient.invalidateQueries(["articleAndNewDetailComment"]);
+        onSuccess: (data) => {
+          console.log("success", data);
+          // dispatch(addArticleAndNewsDetailCommentData(null));
+          dispatch(addArticleAndNewsDetailCommentReply(null));
+          queryClient.invalidateQueries(["newsComment"]);
         },
       }
     );
@@ -243,6 +284,7 @@ const ArticleDetail = () => {
               commentDesLikeBtnClick={commentDesLikeBtnClickHandler}
               replayLikeBtnClick={replayLikeBtnClickHandler}
               replayDeslikeBtnClick={replayDeslikeBtnClickHandler}
+              addCommentBtnClick={addCommentBtnClickHandler}
             />
           ) : null}
         </div>
