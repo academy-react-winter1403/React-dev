@@ -20,8 +20,6 @@ import {
   clientStatusSlice,
   articleDetailSlice,
   relatedCoursesSlice,
-  articlesQueryFilter,
-  allDataArticleSlice,
   articleDetailCommentSlice,
 } from "./slices";
 import { locationSlice } from "./slices/location";

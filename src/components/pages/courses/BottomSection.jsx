@@ -58,6 +58,7 @@ const BottomSection = ({ children }) => {
   const { pageCount } = coursesPageCounter;
   const { queryParams } = courseQueryParams;
   // const { RowsOfPage } = courseQueryParams
+  console.log(productState)
 
   const [filterBoxFlag, setFilterBoxFlag] = useState(false);
   const [windowWidthNum, setWindowWidthNum] = useState(window.innerWidth);
@@ -213,7 +214,7 @@ const BottomSection = ({ children }) => {
   const sortChangeHandler = (value) => {
     console.log(value);
     if (value === "صعودی") {
-      dispatch(changeSortType("ACS"));
+      dispatch(changeSortType("ASC"));
     }
     if (value === "نزولی") {
       dispatch(changeSortType("DESC"));

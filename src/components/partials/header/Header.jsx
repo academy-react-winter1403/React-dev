@@ -20,10 +20,15 @@ const Header = () => {
              sm:justify-center"
           >
             <div>
-              <AccountBtn />
-            </div>
+              {/* <AccountBtn /> */}
+              {isLocation.pathname.includes("/Authorize") === false ?  <AccountBtn /> : null }
+              {/* {isLocation.pathname.includes("/Authorize") === false ?  <AccountBtn /> : null } */}
 
-            {isLocation.pathname !== "/Authorize/Register/step1" &&
+            </div>
+            {isLocation.pathname.includes("/Authorize") === false ?  <HeaderIcons /> : null }
+            
+
+            {/* {isLocation.pathname !== "/Authorize/Register/step1" &&
               isLocation.pathname !== "/Authorize/Register/step2" &&
               isLocation.pathname !== "/Authorize/Register/step3" &&
               isLocation.pathname !== "/Authorize/Login/step1" &&
@@ -31,9 +36,10 @@ const Header = () => {
               isLocation.pathname !== "/Authorize/forget-password/step1" &&
               isLocation.pathname !== "/Authorize/forget-password/step2/:ConfigValue" && (
                 <HeaderIcons />
-              )}
+              )} */}
           </div>
-
+              {isLocation.pathname.includes("/Authorize") === false ?   <HeaderMiddlePart /> : null }
+{/* 
           {isLocation.pathname !== "/Authorize/Register/step1" &&
             isLocation.pathname !== "/Authorize/Register/step2" &&
             isLocation.pathname !== "/Authorize/Register/step3" &&
@@ -42,7 +48,7 @@ const Header = () => {
             isLocation.pathname !== "/Authorize/forget-password/step1" &&
             isLocation.pathname !== "/Authorize/forget-password/step2/:ConfigValue" && (
               <HeaderMiddlePart />
-            )}
+            )} */}
           <div
             className="flex overflow-hidden 
          md:w-[13%] md:h-[40px] md:block lg:w-[15%] lg:h-[50px] lg:block sm:w-[10%] sm:h-[30px] sm:block  xs:hidden "

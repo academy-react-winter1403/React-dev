@@ -127,7 +127,7 @@ const LoginSteps1 = () => {
                 </button>
               </div>
               <div className="flex flex-col gap-[10px] justify-center items-center">
-                <BtnGetCode text={"دریافت کد تایید"} />
+                <BtnGetCode text={"وارد شوید"} />
                 <BtnTwoAuthorize text={"ثبت نام"} onClick={RegisterPage} />
               </div>
             </Form>

@@ -14,6 +14,7 @@ const TopSection = ({ data }) => {
   const { courseReserv } = courseReserved;
   const { myCourse } = myCourseUserPanel;
   const { profileCompletionPercentage } = userProfileInfoData;
+  console.log(profileCompletionPercentage)
 
   return (
     <div className="top-item-control w-full p-2 flex items-center max-lg:justify-between
