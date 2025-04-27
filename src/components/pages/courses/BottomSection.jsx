@@ -2,6 +2,7 @@ import FilteredBox from "./filter-box/FilteredBox";
 import {
   productMockData,
   sortColData,
+  sortCollingData,
   sortFilterData,
   viewData,
 } from "../../../core/constants";
@@ -164,7 +165,11 @@ const BottomSection = ({ children }) => {
       }
       dispatch(changeCourseLevelId(getItemLocalStorage("courseLevelId")));
     }
-    const data = await courseFilterFull("/Home/GetCoursesWithPagination?", courseQueryParams, dispatch);
+    const data = await courseFilterFull(
+      "/Home/GetCoursesWithPagination?",
+      courseQueryParams,
+      dispatch
+    );
   };
 
   const filterItemClickHnadler = (productId, flag, filterName) => {
@@ -206,8 +211,12 @@ const BottomSection = ({ children }) => {
     dispatch(changeCostDown(value[0]));
     dispatch(changeCostUp(value[1]));
 
-    const data = await courseFilterFull("/Home/GetCoursesWithPagination?", courseQueryParams, dispatch);
-    console.log(data.data)
+    const data = await courseFilterFull(
+      "/Home/GetCoursesWithPagination?",
+      courseQueryParams,
+      dispatch
+    );
+    console.log(data.data);
   };
 
   const sortChangeHandler = (value) => {
@@ -218,7 +227,11 @@ const BottomSection = ({ children }) => {
     if (value === "نزولی") {
       dispatch(changeSortType("DESC"));
     }
-    courseFilterFull("/Home/GetCoursesWithPagination?", courseQueryParams, dispatch);
+    courseFilterFull(
+      "/Home/GetCoursesWithPagination?",
+      courseQueryParams,
+      dispatch
+    );
   };
 
   return (
@@ -291,27 +304,37 @@ const BottomSection = ({ children }) => {
       </div>
       <div className="main w-[90%] max-lg:w-full">
         <div className="sort-viw-btn-control flex lg:flex-row xs:flex-col-reverse gap-1 justify-between">
-          <SortingWrapper title={sortText} innerWidth={windowWidthNum}>
-            {sortFilterData.map((item, index) => {
-              return (
-                <SortItem
-                  item={item}
-                  key={index}
-                  sortClick={() => sortClickHandler(item)}
-                />
-              );
-            })}
-          </SortingWrapper>
-          <div className="btn-control min-lg:w-[50%] flex min-lg:gap-x-[49px] max-lg:w-full max-lg:justify-center  md:mt-0 xs:mt-2 items-center gap-y-2
-          lg:flex-row xs:flex-col">
+          <div className="sorting-control flex items-center gap-x-2 text-[#005B58]">
+            <p className="text-xl"> فیلتر بر اساس : </p>
+            {/* <SortingWrapper title={sortText} innerWidth={windowWidthNum}>
+              {sortFilterData.map((item, index) => {
+                return (
+                  <SortItem
+                    item={item}
+                    key={index}
+                    sortClick={() => sortClickHandler(item)}
+                  />
+                );
+              })}
+            </SortingWrapper> */}
+
+            <SortTypeCard
+              placeholder={"پرطرفدارترین"}
+              borderWidth={"rounded-[10px]"}
+              dataMap={sortCollingData}
+            />
+          </div>
+          <div
+            className="btn-control min-lg:w-[50%] flex min-lg:gap-x-[49px] max-lg:w-full max-lg:justify-center  md:mt-0 xs:mt-2 items-center gap-y-2
+          lg:flex-row xs:flex-col"
+          >
             <button
               className="hidden max-lg:block lg:w-[138px] xs:w-[310px]  lg:text-[23px] sm:text-[18px] h-11  bg-[#FFB800] text-white
               rounded-[10px] cursor-pointer transition-colors hover:bg-[#ff8400] drop-shadow-[0_1px_2px_#0000004D]
               max-lg:py-[5px] max-lg:w-[332px]"
               onClick={openFilterBox}
             >
-              {" "}
-              فیلتر{" "}
+              فیلتر
             </button>
             <div className="left-control min-lg:w-full flex lg:justify-end xs:justify-between items-center gap-x-[10px] ">
               <div className="select-view-control flex gap-x-[3px] ">
@@ -322,6 +345,8 @@ const BottomSection = ({ children }) => {
                   viewClick={viewClickHandler}
                 />
                 <SortTypeCard
+                  placeholder={"صعودی"}
+                  borderWidth={"rounded-[10px]"}
                   dataMap={sortColData}
                   onChange={sortChangeHandler}
                 />
