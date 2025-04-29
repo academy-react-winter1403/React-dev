@@ -8,7 +8,7 @@ import { MdNavigateBefore } from "react-icons/md";
 
 const CourseSection = ({ courseData }) => {
   return (
-    <div className="swiper-container items-center justify-between w-full h-[600px] flex flex-col  font-b-yekan whitespace-nowrap mt-20 overflow-hidden" data-aos="zoom-in">
+    <div className="swiper-container items-center justify-between w-full h-[600px] flex flex-col  font-b-yekan whitespace-nowrap mt-20 overflow-hidden max-w-[1515px] mx-auto" data-aos="zoom-in">
       <Titles
         title={"دوره های آموزشی"}
         exp={"به روز ترین دوره هایی که میتونید پیدا کنید"}

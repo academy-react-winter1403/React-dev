@@ -7,7 +7,7 @@ const ServiceSection = () => {
   return (
     <>
       <HeroBG itemTop={"0"} itemLeft={"0"}>
-        <div className='w-full min-h-[400px] h-full flex flex-col justify-between items-center font-b-yekan whitespace-nowrap z-60'>
+        <div className='w-full min-h-[400px] h-full flex flex-col justify-between items-center font-b-yekan whitespace-nowrap z-60 max-w-[1515px] mx-auto'>
           {/* title */}
           <Titles title={"خدمات ما"} exp={"مجموعه ای از تمام آنچه شما نیاز دارید"}/>
            {/* service */}

@@ -16,6 +16,7 @@ import bg from "../../../assets/pics/courses/bg1.png";
 import { deleteAllItemLocalStorage } from "../../../core/hooks/local-storage/deleteAllItem";
 import { getDataByClick } from "../../../core/services/api/get-data-by-click/getDataByClick";
 import Aos from "aos";
+import ScrollToTopButton from "../../common/ScrollToTopBtn";
 
 const Courses = () => {
   const dispatch = useDispatch();
@@ -97,7 +98,7 @@ const Courses = () => {
   };
   return (
     <div
-      className="courses-holder flex justify-center mt-10"
+      className="courses-holder flex justify-center mt-10 max-w-[1500px] mx-auto"
       style={{
         background: `url(${bg})`,
         backgroundRepeat: "repeat-y",
@@ -114,6 +115,7 @@ const Courses = () => {
           />
         </BottomSection>
       </div>
+      <ScrollToTopButton />
     </div>
   );
 };

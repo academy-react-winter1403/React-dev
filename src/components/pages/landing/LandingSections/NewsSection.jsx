@@ -7,7 +7,13 @@ import {
 } from "../../../../core/constants/LandingMockApi/NewsMockApi";
 import { MdNavigateBefore } from "react-icons/md";
 import Overlay from "./Overlay";
+import { useNavigate } from "react-router-dom";
 const NewsSection = () => {
+  const navigate = useNavigate()
+
+  const handleGoToNews = () => {
+    navigate('/ArticlesAndNews')
+  }
   return (
     <div className="w-full flex flex-col justify-center items-center mt-7 mb-7 gap-2 font-b-yekan" data-aos="zoom-in">
       <Titles title={"اخبار و مقالات"} exp={"خـــودت رو با خـــبر کن !"} />
@@ -170,7 +176,8 @@ const NewsSection = () => {
           })}
         </div>
       </div>
-      <div className="w-full h-5 flex items-center justify-center flex-row flex-nowrap text-[#AAAAAA] cursor-pointer mt-[28px]">
+      <div className="h-5 flex items-center justify-center flex-row flex-nowrap text-[#AAAAAA] cursor-pointer mt-[28px]"
+      onClick={handleGoToNews}>
         <p>مشاهده بیشتر</p>
         <MdNavigateBefore size={23} />
       </div>

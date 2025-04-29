@@ -28,6 +28,7 @@ import { viewDataArticles } from "../../../core/constants/articlesMockApi/view-d
 import SortTypeCard from "../../common/SortTypeCard";
 import { sortColData } from "../../../core/constants";
 import { sortingArticlesNews } from "../../../core/constants/articlesMockApi/sort_data";
+import ScrollToTopButton from "../../common/ScrollToTopBtn";
 
 const ArticlesAndNews = () => {
   const dispatch = useDispatch();
@@ -97,7 +98,7 @@ const ArticlesAndNews = () => {
   }, []);
 
   return (
-    <div className="max-w-8xl flex flex-col justify-center m-auto gap-3 bg-[#F7F7F7] font-b-yekan">
+    <div className="max-w-8xl flex flex-col justify-center m-auto gap-3 bg-[#F7F7F7] font-b-yekan  max-w-[1500px] mx-auto">
       <div>
         <TopSectionArticlesNew changeFilterHandler={changeQueryHandler} />
       </div>
@@ -188,6 +189,7 @@ const ArticlesAndNews = () => {
           </div>
         </div>
       </div>
+      <ScrollToTopButton />
     </div>
   );
 };

@@ -30,6 +30,7 @@ import { errorMessageHandler } from "../../../core/utility/errorMessageHandler";
 import Aos from "aos";
 import { getItemLocalStorage } from "../../../core/hooks/local-storage/getItemLocalStorage";
 import { useQueryClient } from "react-query";
+import ScrollToTopButton from "../../common/ScrollToTopBtn";
 
 const CourseDetail = () => {
   const { id } = useParams();
@@ -235,6 +236,7 @@ const CourseDetail = () => {
           </div>
         </div>
       </div>
+      <ScrollToTopButton />
     </div>
   );
 };

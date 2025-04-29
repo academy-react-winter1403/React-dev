@@ -32,6 +32,7 @@ import "aos/dist/aos.css";
 import { articleDetailComment } from "../../../core/services/api/post-data/articleDetailComment";
 import { QueryClient } from "react-query";
 import { useQueryClient } from "react-query";
+import ScrollToTopButton from "../../common/ScrollToTopBtn";
 
 const ArticleDetail = () => {
   const dispatch = useDispatch();
@@ -235,7 +236,7 @@ const ArticleDetail = () => {
   }, []);
 
   return (
-    <div className="w-full bg-[#F7F7F7] font-b-yekan py-10">
+    <div className="w-full bg-[#F7F7F7] font-b-yekan py-10 max-w-[1500px] mx-auto">
       <div className="w-[80%] m-auto flex md:flex-row md:flex-nowrap gap-0.5 xs:flex-col justify-center md:items-start xs:items-center">
         {/* Article Content */}
         <div className="md:w-2/3 xs:w-full flex flex-col items-center justify-center gap-2.5">
@@ -300,6 +301,7 @@ const ArticleDetail = () => {
           <RelatedCourses data={relatedCoursesData} />
         </div>
       </div>
+      <ScrollToTopButton />
     </div>
   );
 };

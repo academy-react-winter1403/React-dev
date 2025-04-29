@@ -4,7 +4,7 @@ import BestTeacherSlider from '../landingSlider/BestTeacherSlider'
 
 const BestTeacherSection = () => {
   return (
-    <div className='w-full h-[470px] relative mt-7 mb-10'>
+    <div className='w-full h-[470px] relative mt-7 mb-10 max-w-[1515px] mx-auto'>
       <BestTeacherBG>
         <div className='w-[80%] h-[90%]  flex flex-row flex-nowrap justify-between items-center'>
             {/* text */}

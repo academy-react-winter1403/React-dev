@@ -13,6 +13,7 @@ import { getData } from "../../../core/services";
 import { firstAddCourseProduct } from "../../../redux/actions";
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import ScrollToTopButton from "../../common/ScrollToTopBtn"
 
 
 const Landing = () => {
@@ -75,6 +76,7 @@ const Landing = () => {
       <BestTeacherSection/>
       <ServiceSection/>
       <NewsSection/>
+      <ScrollToTopButton />
     </div>
   );
 };

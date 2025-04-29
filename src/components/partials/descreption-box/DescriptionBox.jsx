@@ -27,7 +27,6 @@ const DescriptionBox = ({ initialHeight, children, aosAnim }) => {
           ? `h-[${initialHeight}px] transition-[1s]`
           : `h-auto pb-[80px] transition-[1s]`
       } relative rounded-2xl p-7 overflow-hidden`}
-      data-aos="fade-left"
     >
       <div
         className={`gradient w-full h-full absolute top-0 left-0 bg-linear-to-b

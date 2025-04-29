@@ -5,7 +5,7 @@ import Titles from "./Titles";
 
 const CategorySection = () => {
   return (
-    <div className="w-full h-[620px] flex flex-col items-center justify-between font-b-yekan whitespace-nowrap mt-20" data-aos="fade-up">
+    <div className="w-full h-[620px] flex flex-col items-center justify-between font-b-yekan whitespace-nowrap mt-20 max-w-[1515px] mx-auto " data-aos="fade-up">
       {/* category title */}
       
       <Titles title={"محبوب ترین دسته بندی ها"} exp={"گستره وسیعی از محبوب ترین دوره ها"}/>

@@ -11,7 +11,7 @@ const LoginBg = ({ children }) => {
   return (
     <>
       <div
-        className="w-full lg:h-[899px] md:h-[800px] sm:h-[600px] xs:h-[550px] mx-auto flex justify-center items-center bg-[#F7F7F7] font-b-yekan"
+        className="w-full lg:h-[899px] md:h-[800px] sm:h-[600px] xs:h-[550px] mx-auto flex flex-col justify-center items-center bg-[#F7F7F7] font-b-yekan"
         style={{
           backgroundImage: `url(${BgStep})`,
           backgroundRepeat: "no-repeat",
@@ -62,8 +62,9 @@ const LoginBg = ({ children }) => {
             {children}
           </div>
         </div>
+        <FooterAuthorize />
       </div>
-      <FooterAuthorize />
+      {/* <FooterAuthorize /> */}
     </>
   );
 };

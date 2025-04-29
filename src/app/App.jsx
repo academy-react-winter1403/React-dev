@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { changeClientStatus } from "../redux/actions";
 import { NetworkError } from "../components/partials";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const App = () => {
@@ -25,7 +26,7 @@ const App = () => {
 
   return (
     <main dir="rtl" className={`w-full`}>
-      <ToastContainer />
+      <ToastContainer position="top-right" autoClose={2000} rtl={true}  />
       <div className="control darkMode">
         {clientStatusFlag ? <RouterProvider /> : <NetworkError classStyles={"w-full h-[731px] border"}/>}
       </div>

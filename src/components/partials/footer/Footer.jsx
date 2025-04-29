@@ -90,7 +90,7 @@ const Footer = () => {
       </div> */}
 
       <FooterBG itemTop={"0"} itemLeft={"0"}>
-        <div className="footer-holder w-full h-[80%] flex justify-center">
+        <div className="footer-holder w-full h-[80%] flex justify-center max-w-[1515px] mx-auto">
           <div className="footer-container w-[90%]">
             <div 
               // className="footer-container max-lg:flex-col w-full min-2xl:w-[1356px] flex flex-row flex-nowrap justify-between items-end whitespace-nowrap"
