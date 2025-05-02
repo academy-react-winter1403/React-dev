@@ -6,6 +6,7 @@ export const coursesFlagsSlice = createSlice({
   initialState: {
     addDataFlag: false,
     queryFlag: false,
+    filterBoxFlag: false
   },
 
   reducers: {
@@ -13,7 +14,10 @@ export const coursesFlagsSlice = createSlice({
       state.addDataFlag = action.payload;
     },
     changeQueryFlag: (state, action) => {
-      state.flags.coursesFlag.queryFlag = action.payload;
+      state.queryFlag = action.payload;
     },
+    changeFilterBoxFlag: (state, action) => {
+      state.filterBoxFlag = action.payload
+    }
   },
 });

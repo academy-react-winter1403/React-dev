@@ -11,7 +11,7 @@ import CardWrapper from "../../../partials/product-card/CardWrapper";
 import { SliderBtn } from "../../../../core/icons/icons";
 
 const SliderOne = ({ dataMapper}) => {
-  console.log(!dataMapper ? dataMapper : null)
+  // console.log(!dataMapper ? dataMapper : null)
   return (
     <>
       <Swiper

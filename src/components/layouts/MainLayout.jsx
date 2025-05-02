@@ -13,7 +13,6 @@ const MainLayout = () => {
       <HeaderWrapper />
       <Outlet />
       {/* <Themes/> */}
-      {/* <FooterWrapper /> */}
       {currentPath !== "/Authorize/Register/step1" &&
         currentPath !== "/Authorize/Register/step2" &&
         currentPath !== "/Authorize/Register/step3" &&
@@ -22,7 +21,6 @@ const MainLayout = () => {
         currentPath !== "/Authorize/forget-password/step1" &&
         currentPath !== "/Authorize/forget-password/step2" && <FooterWrapper />}
       <ToastContainer />
-      {/* <FooterWrapper /> */}
     </>
   );
 };

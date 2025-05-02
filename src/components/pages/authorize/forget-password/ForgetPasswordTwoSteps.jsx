@@ -25,12 +25,16 @@ const ForgetPasswordTwoSteps = () => {
   );
   if (!isLoading) {
     console.log(data);
-    if (data.success) {
+    // if (data.success) {
+    if (!userId) {
       setUserId(data.id);
-      console.log(data.id);
-      setResetValue(data.message);
-      console.log(data.message);
     }
+    console.log(data.id);
+    if (!resetValue) {
+      setResetValue(data.message);
+    }
+    console.log(data.message);
+    // }
   }
 
   const onSubmit = async (values) => {

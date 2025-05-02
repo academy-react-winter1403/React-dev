@@ -7,7 +7,7 @@ import {
   viewData,
 } from "../../../core/constants";
 import FilterOption from "./filter-box/FilterOption";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FilterLabel from "./FilterLabel";
 import { GridIcon, MenuIcon } from "../../../core/icons/icons";
 import SortingWrapper from "./sorting-comp/SortingWrapper";
@@ -19,11 +19,14 @@ import {
   changeCostDown,
   changeCostUp,
   changeCourseLevelId,
+  changeCoursesSortingCol,
   changeCourseTypeId,
   changeQueryFlag,
   changeRowOfPageNum,
+  changeSortingCol,
   changeSortText,
   changeSortType,
+  changeTechnologiCount,
   changeTechnologiList,
   firstAddCourseProduct,
 } from "../../../redux/actions";
@@ -43,31 +46,77 @@ import { getItemLocalStorage } from "../../../core/hooks/local-storage/getItemLo
 import SortTypeCard from "../../common/SortTypeCard";
 import { courseFilterFull } from "../../../core/utility/courseFilterFull";
 import { htttp } from "../../../core/services/interceptor";
-import { getCommentDataByClick } from "../../../core/services";
+import {
+  getCommentDataByClick,
+  getCourseDataByClick,
+} from "../../../core/services";
+import { updateSearchParamsHook } from "../../../core";
+import FilterBar from "./FilterBar";
 
 const BottomSection = ({ children }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
   const {
     courseFilterData,
     coursesSort,
     courses,
     coursesPageCounter,
     courseQueryParams,
+    coursesFlags,
   } = useSelector((state) => state);
   const { filterData } = courseFilterData;
   const { sortText } = coursesSort;
   const { productState } = courses;
   const { pageCount } = coursesPageCounter;
-  const { queryParams } = courseQueryParams;
-  // const { RowsOfPage } = courseQueryParams
+  const {
+    PageNumber,
+    RowsOfPage,
+    SortingCol,
+    SortType,
+    Query,
+    CostDown,
+    CostUp,
+    TechCount,
+    ListTech,
+    courseLevelId,
+    CourseTypeId,
+    TeacherId,
+  } = courseQueryParams;
+  const { filterBoxFlag } = coursesFlags;
+  // console.log(productState)
 
-  const [filterBoxFlag, setFilterBoxFlag] = useState(false);
+  // const { mutate, isLoading } = getCourseDataByClick("coursesData");
+  // useEffect(() => {
+  //   // console.log("getCourseDataByClick ==>", courseQueryParams)
+  //   mutate(["/Home/GetCoursesWithPagination?", courseQueryParams], {
+  //     onSuccess: (data) => {
+  //       console.log("getCourseDataByClick ==>", data);
+  //       courseFilterFull(
+  //         "/Home/GetCoursesWithPagination?",
+  //         courseQueryParams,
+  //         dispatch,
+  //         firstAddCourseProduct,
+  //         setSearchParams
+  //       );
+  //     },
+  //   });
+  // }, [
+  //   PageNumber,
+  //   RowsOfPage,
+  //   SortingCol,
+  //   SortType,
+  //   Query,
+  //   CostDown,
+  //   CostUp,
+  //   TechCount,
+  //   ListTech,
+  //   courseLevelId,
+  //   CourseTypeId,
+  //   TeacherId,
+  // ]);
+
   const [windowWidthNum, setWindowWidthNum] = useState(window.innerWidth);
-
-  const navigate = useNavigate();
-
-  const dispatch = useDispatch();
-
-  const [searchParams, setSearchParams] = useSearchParams();
 
   const [viwFlag, setViwFlag] = useState(true);
 
@@ -129,72 +178,171 @@ const BottomSection = ({ children }) => {
   const filterHandler = async (productId, flag, filterName) => {
     changeQueryFlag(true);
     if (filterName === "تکنولوژی") {
-      console.log(flag);
+      let localThechFullData = [];
+      // console.log(flag);
+      let validation;
       if (productId && !flag) {
-        let validation = localItemValidation("technologi");
+        validation = localItemValidation("technologi");
         if (!validation) {
           setItemLocalStorage("technologi", [productId]);
         }
         locStorageUpdateItem("technologi", productId);
+        console.log(validation);
       } else {
-        localStorageDeleteOneItem("technologi", productId);
+        localThechFullData = localStorageDeleteOneItem("technologi", productId);
+        if (localThechFullData.length === 0) {
+          localStorage.removeItem("technologi");
+          setSearchParams((params) => {
+            params.delete("ListTech");
+            params.delete("TechCount");
+            return params;
+          });
+          dispatch(changeTechnologiList(null));
+          dispatch(changeTechnologiCount(undefined));
+        }
       }
-      dispatch(changeTechnologiList(getItemLocalStorage("technologi")));
+      if (!flag || localThechFullData.length > 0) {
+        updateSearchParamsHook(
+          setSearchParams,
+          "TechCount",
+          2,
+          dispatch,
+          changeTechnologiCount
+        );
+        updateSearchParamsHook(
+          setSearchParams,
+          "ListTech",
+          getItemLocalStorage("technologi"),
+          dispatch,
+          changeTechnologiList
+        );
+      }
     }
     if (filterName === "وضعیت") {
+      // let localStatusFullData = []
       if (productId && !flag) {
-        let validation = localItemValidation("CourseTypeId");
-        if (!validation) {
-          setItemLocalStorage("CourseTypeId", [productId]);
-        }
-        locStorageUpdateItem("CourseTypeId", productId);
+        updateSearchParamsHook(
+          setSearchParams,
+          "CourseTypeId",
+          productId,
+          dispatch,
+          changeCourseTypeId
+        );
+        // let validation = localItemValidation("CourseTypeId");
+        // if (!validation) {
+        //   setItemLocalStorage("CourseTypeId", [productId]);
+        // }
+        // locStorageUpdateItem("CourseTypeId", productId);
       } else {
-        localStorageDeleteOneItem("CourseTypeId", productId);
+        setSearchParams((params) => {
+          params.delete("CourseTypeId");
+          return params;
+        });
+        dispatch(changeCourseTypeId(null))
+        // updateSearchParamsHook(
+        //   setSearchParams,
+        //   "CourseTypeId",
+        //   null,
+        //   dispatch,
+        //   changeCourseTypeId
+        // );
+        // localStatusFullData = localStorageDeleteOneItem("CourseTypeId", productId);
+        // if (localStatusFullData.length === 0) {
+        //   localStorage.removeItem("CourseTypeId")
+        //   setSearchParams((params) => {
+        //     params.delete("CourseTypeId")
+        //     return params
+        //   })
+        //   dispatch(changeCourseTypeId(null))
+        // }
+        // localStorage.removeItem("CourseTypeId")
       }
-      dispatch(changeCourseTypeId(getItemLocalStorage("CourseTypeId")));
+      // dispatch(changeCourseTypeId(getItemLocalStorage("CourseTypeId")));
+      // if (!flag || localStatusFullData.length > 0) {
+      //   updateSearchParamsHook(
+      //     setSearchParams,
+      //     "CourseTypeId",
+      //     getItemLocalStorage("CourseTypeId"),
+      //     dispatch,
+      //     changeCourseTypeId
+      //   );
+      // }
     }
     if (filterName === "سطح") {
       if (productId && !flag) {
-        let validation = localItemValidation("courseLevelId");
-        if (!validation) {
-          setItemLocalStorage("courseLevelId", [productId]);
-        }
-        locStorageUpdateItem("courseLevelId", productId);
+        updateSearchParamsHook(
+          setSearchParams,
+          "courseLevelId",
+          productId,
+          dispatch,
+          changeCourseLevelId
+        );
+        // let validation = localItemValidation("courseLevelId");
+        // if (!validation) {
+        //   setItemLocalStorage("courseLevelId", [productId]);
+        // }
+        // locStorageUpdateItem("courseLevelId", productId);
       } else {
-        localStorageDeleteOneItem("courseLevelId", productId);
+        setSearchParams((params) => {
+          params.delete("courseLevelId");
+          return params;
+        });
+        dispatch(changeCourseLevelId(null))
+        // localStorageDeleteOneItem("courseLevelId", productId);
       }
-      dispatch(changeCourseLevelId(getItemLocalStorage("courseLevelId")));
+      // dispatch(changeCourseLevelId(getItemLocalStorage("courseLevelId")));
+      // updateSearchParamsHook(
+      //   setSearchParams,
+      //   "courseLevelId",
+      //   getItemLocalStorage("courseLevelId"),
+      //   dispatch,
+      //   changeCourseLevelId
+      // );
     }
-    const data = await courseFilterFull(
-      "/Home/GetCoursesWithPagination?",
-      courseQueryParams,
-      dispatch
-    );
+
+    // courseFilterFull(
+    //   courseQueryParams,
+    //   dispatch
+    // useSelector
+    // );
   };
 
   const filterItemClickHnadler = (productId, flag, filterName) => {
-    console.log(productId);
-    filterHandler(productId, flag, filterName);
-    courseFilter(setSearchParams, dispatch, useSelector);
+    // console.log(productId);
+    // filterHandler(productId, flag, filterName);
+    courseFilterFull(
+      "/Home/GetCoursesWithPagination?",
+      courseQueryParams,
+      dispatch,
+      firstAddCourseProduct
+    );
+    // courseFilter(setSearchParams, dispatch, useSelector);
   };
 
-  const { mutateAsync } = getDataByClick();
-  const viewClickHandler = async (value) => {
-    dispatch(changeRowOfPageNum(value));
-    dispatch(firstAddCourseProduct(null));
-    const data = await mutateAsync(
-      `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=${value}`
-    );
-    console.log(data);
-    setTimeout(() => {
-      dispatch(firstAddCourseProduct(data.courseFilterDtos));
-    }, 1000);
-  };
+  // const { mutateAsync } = getDataByClick();
+  // const viewClickHandler = async (value) => {
+  //   dispatch(changeRowOfPageNum(value));
+  //   dispatch(firstAddCourseProduct(null));
+  //   const data = await mutateAsync(
+  //     `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=${value}`
+  //   );
+  //   updateSearchParamsHook(
+  //     setSearchParams,
+  //     "RowsOfPage",
+  //     value,
+  //     dispatch,
+  //     changeRowOfPageNum
+  //   );
+
+  //   setTimeout(() => {
+  //     dispatch(firstAddCourseProduct(data.courseFilterDtos));
+  //   }, 1000);
+  // };
 
   const sortClickHandler = (text) => {
     localStorage.setItem("sortText", text);
     dispatch(changeSortText(text));
-    courseFilter(setSearchParams, useSelector);
+    // courseFilter(setSearchParams, useSelector);
   };
 
   // const {mutate, data} = getCommentDataByClick()
@@ -208,31 +356,90 @@ const BottomSection = ({ children }) => {
   };
 
   const priceChangeHandler = async (value) => {
+    const priceFrom = value[0]
+    const priceTo = value[1]
     dispatch(changeCostDown(value[0]));
     dispatch(changeCostUp(value[1]));
 
-    const data = await courseFilterFull(
-      "/Home/GetCoursesWithPagination?",
-      courseQueryParams,
-      dispatch
+    updateSearchParamsHook(
+      setSearchParams,
+      "CostDown",
+      priceFrom,
+      dispatch,
+      changeCostDown
     );
-    console.log(data.data);
+
+    updateSearchParamsHook(
+      setSearchParams,
+      "CostUp",
+      priceTo,
+      dispatch,
+      changeCostUp
+    );
   };
 
-  const sortChangeHandler = (value) => {
-    console.log(value);
-    if (value === "صعودی") {
-      dispatch(changeSortType("ACS"));
-    }
-    if (value === "نزولی") {
-      dispatch(changeSortType("DESC"));
-    }
-    courseFilterFull(
-      "/Home/GetCoursesWithPagination?",
-      courseQueryParams,
-      dispatch
-    );
-  };
+  useEffect(() => {
+    console.log("BottomSection");
+  }, []);
+
+  // const sortChangeHandler = (value) => {
+  //   let valuseName;
+  //   console.log(value);
+  //   if (value === "صعودی") {
+  //     dispatch(changeSortType("ASC"));
+  //     valuseName = "ASC"
+  //   }
+  //   if (value === "نزولی") {
+  //     dispatch(changeSortType("DESC"));
+  //     valuseName = "DESC"
+  //   }
+  //   updateSearchParamsHook(
+  //     setSearchParams,
+  //     "SortType",
+  //     valuseName,
+  //     dispatch,
+  //     changeSortType
+  //   );
+  //   courseFilterFull(
+  //     "/Home/GetCoursesWithPagination?",
+  //     courseQueryParams,
+  //     dispatch,
+  //     firstAddCourseProduct,
+  //     setSearchParams
+  //   );
+  // };
+
+  // const changeSortHandler = (value) => {
+  //   console.log(value)
+  //   let sortValue;
+  //   if (value == " پرطرفدارترین ") {
+  //     sortValue = "InsertDate"
+  //     dispatch(changeCoursesSortingCol("InsertDate"))
+  //   }
+  //   if (value == " جدیدترین ") {
+  //     sortValue = "َActive"
+  //     dispatch(changeCoursesSortingCol("َActive"))
+  //   }
+  //   console.log(sortValue)
+  //   updateSearchParamsHook(
+  //     setSearchParams,
+  //     "SortingCol",
+  //     sortValue,
+  //     dispatch,
+  //     changeCoursesSortingCol
+  //   );
+  //   courseFilterFull(
+  //     "/Home/GetCoursesWithPagination?",
+  //     queryPar,
+  //     dispatch,
+  //     firstAddCourseProduct,
+  //     setSearchParams
+  //   );
+  // }
+
+  // const {
+  //   courseQueryParams: queryPar,
+  // } = useSelector((state) => state);
 
   return (
     <div className="bottom-section-container w-full mt-0 max-sm:mt-[8px] flex justify-center gap-x-[28px] items-start">
@@ -280,7 +487,7 @@ const BottomSection = ({ children }) => {
                           itemId={sort.id}
                           filterName={filName}
                           filterItemClick={(id, flag) =>
-                            filterItemClickHnadler(id, flag, item.filterTitle)
+                            filterHandler(id, flag, item.filterTitle)
                           }
                         >
                           {item.sortText === "امتیاز" && sort.text}
@@ -303,25 +510,14 @@ const BottomSection = ({ children }) => {
         </div>
       </div>
       <div className="main w-[90%] max-lg:w-full">
-        <div className="sort-viw-btn-control flex lg:flex-row xs:flex-col-reverse gap-1 justify-between">
+        {/* <div className="sort-viw-btn-control flex lg:flex-row xs:flex-col-reverse gap-1 justify-between">
           <div className="sorting-control flex items-center gap-x-2 text-[#005B58]">
             <p className="text-xl"> فیلتر بر اساس : </p>
-            {/* <SortingWrapper title={sortText} innerWidth={windowWidthNum}>
-              {sortFilterData.map((item, index) => {
-                return (
-                  <SortItem
-                    item={item}
-                    key={index}
-                    sortClick={() => sortClickHandler(item)}
-                  />
-                );
-              })}
-            </SortingWrapper> */}
-
             <SortTypeCard
               placeholder={"پرطرفدارترین"}
               borderWidth={"rounded-[10px]"}
               dataMap={sortCollingData}
+              onChange={changeSortHandler}
             />
           </div>
           <div
@@ -339,7 +535,7 @@ const BottomSection = ({ children }) => {
             <div className="left-control min-lg:w-full flex lg:justify-end xs:justify-between items-center gap-x-[10px] ">
               <div className="select-view-control flex gap-x-[3px] ">
                 <SelectView
-                  placeholder={" 12 آیتم "}
+                  placeholder={RowsOfPage}
                   dataMap={viewData}
                   concatText={"آیتم"}
                   viewClick={viewClickHandler}
@@ -357,7 +553,9 @@ const BottomSection = ({ children }) => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
+
+        <FilterBar />
         <div
           className={
             viwFlag

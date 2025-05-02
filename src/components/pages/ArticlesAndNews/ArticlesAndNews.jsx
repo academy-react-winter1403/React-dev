@@ -1,4 +1,8 @@
-import SortingArticlesNew from "./Sorting-Articles/SortingCol";
+// import SortingArticlesNew from "./Sorting-Articles/SortingCol";
+// import SelectView from "../courses/SelectView";
+// import { viewDataArticles } from "../../../core/constants/articlesMockApi/view-data-articles";
+// import { sortColData } from "../../../core/constants";
+// import SortTypeCard from "../../common/SortTypeCard";
 import ArticlesCard from "../../partials/ArticlesCard/ArticlesCard";
 import CardArticlesOther from "./CardArticlesOther/CardArticlesOther";
 import TextPagesArticlesNew from "./TextPagesArticlesNew";
@@ -17,19 +21,13 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import {
   changePageNumber,
-  changeQueryArticles,
-  changeRowsOfPage,
-  changeSortingCol,
-  changeSortTypeArticles,
   firstAddArticleProduct,
 } from "../../../redux/actions";
-import SelectView from "../courses/SelectView";
-import { viewDataArticles } from "../../../core/constants/articlesMockApi/view-data-articles";
-import SortTypeCard from "../../common/SortTypeCard";
-import { sortColData } from "../../../core/constants";
-import { sortingArticlesNews } from "../../../core/constants/articlesMockApi/sort_data";
+import { useNavigate } from "react-router-dom";
+import FilterBar from "../../partials/FilterBar.jsx/FilterBar";
 
 const ArticlesAndNews = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { PageNumber, RowsOfPage, SortingCol, SortType, Query } = useSelector(
     (state) => state.articlesQueryFilter
@@ -50,77 +48,34 @@ const ArticlesAndNews = () => {
     };
     getData();
   }, [PageNumber, RowsOfPage, SortingCol, SortType, Query, dispatch]);
-  const totalPages = Math.ceil(totalCount / RowsOfPage);
-  const changeQueryHandler = (QueryEvent) => {
-    console.log(QueryEvent.target.value);
-    dispatch(changeQueryArticles(QueryEvent.target.value));
-  };
-  const pageChangeHandler = (pageEvent) => {
-    console.log(pageEvent);
-    dispatch(changePageNumber(pageEvent));
-  };
-  const viewClickHandler = (viewEvent) => {
-    console.log(viewEvent);
-    if (viewEvent === 6) {
-      dispatch(changeRowsOfPage(6));
-    }
-    if (viewEvent === 9) {
-      dispatch(changeRowsOfPage(9));
-    }
-    if (viewEvent === 12) {
-      dispatch(changeRowsOfPage(12));
-    }
-  };
-  const sortTypeChangeHandler = (sortTypeEvent) => {
-    console.log(sortTypeEvent);
-    if (sortTypeEvent === "صعودی") {
-      dispatch(changeSortTypeArticles("ACS"));
-    }
-    if (sortTypeEvent === "نزولی") {
-      dispatch(changeSortTypeArticles("DESC"));
-    }
-  };
-  const sortChangeHandler = (sortEvent) => {
-    console.log(sortEvent);
-    if (sortEvent === "جدیدترین") {
-      dispatch(changeSortingCol("Active"));
-    }
-    if (sortEvent === "پرطرفدارترین") {
-      dispatch(changeSortingCol("InsertDate"));
-    }
-  };
+  
   useEffect(() => {
     AOS.init({
       duration: 1000,
       once: true,
     });
   }, []);
+  const handleCardClick = (id) => {
+    navigate(`/article-detail/${id}`);
+  };
+
+  const changePageHandler = (pageNum) => {
+    console.log(pageNum);
+    dispatch(changePageNumber(pageNum));
+  };
 
   return (
     <div className="max-w-8xl flex flex-col justify-center m-auto gap-3 bg-[#F7F7F7] font-b-yekan">
       <div>
-        <TopSectionArticlesNew changeFilterHandler={changeQueryHandler} />
+        <TopSectionArticlesNew />
       </div>
-      <div className='flex lg:flex-row lg:flex-nowrap lg:gap-3 xs:flex-col  m-auto items-start justify-center w-[90%]'>
+      <div className="flex lg:flex-row lg:flex-nowrap lg:gap-3 xs:flex-col  m-auto items-start justify-center w-[90%]">
         <div className="lg:w-2/3 flex flex-col gap-7">
-          <div className="h-[45px] flex gap-4">
+          <div className="h-[45px] flex gap-4 xs:gap-2">
             <h1 className="font-b-yekan font-bold text-[#005351] md:text-[27px] xs:text-[20px] text-center whitespace-nowrap">
               جدیدترین اخبار و مقالات
             </h1>
-            <SortingArticlesNew
-              dataMap={sortingArticlesNews}
-              onChange={sortChangeHandler}
-            />
-            <SelectView
-              placeholder={" 6 آیتم "}
-              dataMap={viewDataArticles}
-              concatText={"آیتم"}
-              viewClick={viewClickHandler}
-            />
-            <SortTypeCard
-              dataMap={sortColData}
-              onChange={sortTypeChangeHandler}
-            />
+            <FilterBar />
           </div>
           <div className="flex flex-row flex-wrap gap-3 justify-center">
             {
@@ -133,6 +88,7 @@ const ArticlesAndNews = () => {
                         Describe={item.miniDescribe}
                         src={item.addUserProfileImage}
                         currentView={item.currentView}
+                        onClick={() => handleCardClick(item.id)}
                         // insertDate={index.insertDate}
                       />
                     );
@@ -147,11 +103,12 @@ const ArticlesAndNews = () => {
           </div>
           <PaginationData
             initialPageNum={1}
-            totalNum={totalPages}
-            pageChange={pageChangeHandler}
+            totalCount={totalCount}
+            RowsOfPage={RowsOfPage}
+            changePageNumber={changePageHandler}
           />
         </div>
-        <div className="lg:w-1/3 xs:w-full  flex lg:flex-col flex-row justify-center items-start lg:mt-0 xs:mt-5 gap-6 ">
+        <div className="lg:w-[298px] xs:w-full flex lg:flex-col flex-row justify-center items-center mt-15 gap-6 ">
           <div
             className="lg:w-full md:w-1/2 h-[408px] flex flex-col gap-7 shadow-sm items-center justify-center "
             data-aos="zoom-in-down"

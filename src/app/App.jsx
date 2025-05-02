@@ -10,7 +10,7 @@ const App = () => {
   const dispatch = useDispatch()
   const { clientStatus } = useSelector((state) => state);
   const { clientStatusFlag } = clientStatus;
-  console.log(clientStatusFlag);
+  // console.log(clientStatusFlag);
 
   useEffect(() => {
     dispatch(changeClientStatus(navigator.onLine))

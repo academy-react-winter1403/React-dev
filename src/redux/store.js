@@ -22,6 +22,7 @@ import {
   articleDetailCommentSlice
 } from "./slices";
 
+import { locationSlice } from "./slices/location";
 
 export const store = configureStore({
   reducer: {
@@ -39,11 +40,12 @@ export const store = configureStore({
     courseActivedDataUserPanel: courseActivedDataUserPanel.reducer,
     courseReserved: courseReserved.reducer,
     myCourseUserPanel: myCoursesUserPanel.reducer,
+    articlesQueryFilter:articlesQueryFilter.reducer,
+    allDataArticleSlice:allDataArticleSlice.reducer,
+    locationSlice:locationSlice.reducer,
     clientStatus: clientStatusSlice.reducer,
     articleDetailSlice: articleDetailSlice.reducer,
     relatedCoursesSlice : relatedCoursesSlice.reducer,
-    articlesQueryFilter:articlesQueryFilter.reducer,
-    allDataArticleSlice:allDataArticleSlice.reducer,
     articleDetailCommentSlice : articleDetailCommentSlice.reducer
   },
 });

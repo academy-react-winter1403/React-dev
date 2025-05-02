@@ -25,10 +25,13 @@ const LoginSteps1 = () => {
         password: values.password,
         rememberMe: rememberMe,
       });
+      console.log(ApiCall.data.token)
       console.log(ApiCall);
       if (ApiCall.data.success) {
         console.log(ApiCall.data.token);
+        console.log(ApiCall.data.id);
         setItemLocalStorage("token", ApiCall.data.token);
+        setItemLocalStorage("UserId",ApiCall.data.id)
         toast("به سایت خودت خوش اومدی")
         navigate('/')
       } else {
@@ -124,7 +127,7 @@ const LoginSteps1 = () => {
                 </button>
               </div>
               <div className="flex flex-col gap-[10px] justify-center items-center">
-                <BtnGetCode text={"دریافت کد تایید"} />
+                <BtnGetCode text={"وارد شوید"} />
                 <BtnTwoAuthorize text={"ثبت نام"} onClick={RegisterPage} />
               </div>
             </Form>

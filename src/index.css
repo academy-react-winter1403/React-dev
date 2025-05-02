@@ -1,9 +1,12 @@
 body {
-  background: #f9f9f9;
+  background: #F7F7F7;
   user-select: none;
 }
 
 @import "tailwindcss";
+
+
+
 
 @font-face {
   font-family: b-yekan;

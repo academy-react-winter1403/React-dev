@@ -10,7 +10,6 @@ import {
 } from "../../screens";
 import { authorizeRouterArray } from "./authorize.router";
 import LastArticlesAndNewsWrapper from "./../../screens/ArticlesAndNews/index";
-// import { authorizeRouterArray } from "./authorize.router";
 import { userPanelRoute } from "./userPanel.router";
 import Error from "../../components/partials/ErrorNotFound/Error";
 
@@ -33,7 +32,7 @@ export const commonRouter = createBrowserRouter([
       { path: "/course-detail/:id", element: <LastCourseDetailWrapper /> },
       { path: "/article-detail/:id", element: <LastArticleDetailWrapper /> },
       { path: "/user-panel", element: <LastUsserPanelWrapper />, children: [...userPanelRoute] },
-      { path: "*", element: <Error /> },
+      { path: "*", element: <Error /> }
     ],
   },
 ]);

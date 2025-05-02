@@ -15,25 +15,30 @@ import {
   courseActivedDataUserPanel,
   courseReserved,
   myCoursesUserPanel,
+  articlesQueryFilter,
+  allDataArticleSlice,
   clientStatusSlice,
   articleDetailSlice,
   relatedCoursesSlice,
-  articlesQueryFilter,
-  allDataArticleSlice,
   articleDetailCommentSlice,
 } from "./slices";
-
+import { locationSlice } from "./slices/location";
 export const { firstAddCourseProduct } = coursesSlice.actions;
 export const { addCourseDetailData } = courseDetailSlice.actions;
 export const { addArticleData } = articleSlice.actions;
 export const { addCourseDetailCommentData, addCourseCommentReplay } =
   courseCommentSlice.actions;
-export const { changeAddDataFlag, changeQueryFlag } = coursesFlagsSlice.actions;
+export const { changeAddDataFlag, changeQueryFlag, changeFilterBoxFlag } = coursesFlagsSlice.actions;
 export const { changeCoursesPageCounter } = coursesPageCounterSlice.actions;
 export const { changeDarkModKey } = dorkModeSlice.actions;
 export const { addFirstFilterData } = filterDataSlice.actions;
 export const { changeSortText } = coursesSortSlice.actions;
-export const { addUserProfileInfoData } = userProfileInfoSlice.actions;
+export const {
+  addUserProfileInfoData,
+  addSelectImageProfile,
+  addAllImageData,
+  addImageProfile,
+} = userProfileInfoSlice.actions;
 export const { addLatestSserPanelNewsSlice } = latestSserPanelNewsSlice.actions;
 export const { addSuggestedCourseUserPanel } =
   suggested1courseUserPanel.actions;
@@ -61,6 +66,7 @@ export const {
   changeTechnologiCount,
   changeSortType,
   changePageCounter,
+  changeCoursesSortingCol
 } = coursesQueryParams.actions;
 export const {
   changePageNumber,
@@ -69,3 +75,4 @@ export const {
   changeSortTypeArticles,
   changeQueryArticles,
 } = articlesQueryFilter.actions;
+export const { SelectLatitude, SelectLongitude } = locationSlice.actions;

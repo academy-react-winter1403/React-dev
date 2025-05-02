@@ -5,8 +5,8 @@ export const getData = (key, endUrl) => {
   return useQuery({
     queryKey: key,
     queryFn: async () => {
-        let data = await htttp.get(endUrl)
-        return data.data
-    }
-  })
+      let data = await htttp.get(endUrl);
+      return data.data;
+    },
+  });
 };
