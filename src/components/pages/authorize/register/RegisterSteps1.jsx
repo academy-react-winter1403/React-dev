@@ -83,7 +83,8 @@ const RegisterSteps1 = () => {
                 <CustomInput
                   name={"phoneNumber"}
                   placeholder={"شماره همراه"}
-                  type={"text"}
+                  Toggle={false}
+                  originalType={"text"}
                 />
                 <div className="flex flex-col gap-[10px] justify-center items-center">
                   <BtnGetCode text={"دریافت کد تایید"} />

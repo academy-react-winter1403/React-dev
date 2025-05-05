@@ -4,6 +4,7 @@ import Logo from "../../../core/icons/Logo";
 import HeaderMiddlePart from "./HeaderMiddlePart";
 import HeaderIcons from "./HeaderIcons";
 import { useLocation } from "react-router-dom";
+import Themes from "../themes/Themes";
 
 const Header = () => {
   const isLocation = useLocation();
@@ -20,35 +21,14 @@ const Header = () => {
              sm:justify-center"
           >
             <div>
-              {/* <AccountBtn /> */}
               {isLocation.pathname.includes("/Authorize") === false ?  <AccountBtn /> : null }
               {/* {isLocation.pathname.includes("/Authorize") === false ?  <AccountBtn /> : null } */}
 
             </div>
             {isLocation.pathname.includes("/Authorize") === false ?  <HeaderIcons /> : null }
-            
-
-            {/* {isLocation.pathname !== "/Authorize/Register/step1" &&
-              isLocation.pathname !== "/Authorize/Register/step2" &&
-              isLocation.pathname !== "/Authorize/Register/step3" &&
-              isLocation.pathname !== "/Authorize/Login/step1" &&
-              isLocation.pathname !== "/Authorize/Login/step2" &&
-              isLocation.pathname !== "/Authorize/forget-password/step1" &&
-              isLocation.pathname !== "/Authorize/forget-password/step2/:ConfigValue" && (
-                <HeaderIcons />
-              )} */}
+              {/* <Themes /> */}
           </div>
               {isLocation.pathname.includes("/Authorize") === false ?   <HeaderMiddlePart /> : null }
-{/* 
-          {isLocation.pathname !== "/Authorize/Register/step1" &&
-            isLocation.pathname !== "/Authorize/Register/step2" &&
-            isLocation.pathname !== "/Authorize/Register/step3" &&
-            isLocation.pathname !== "/Authorize/Login/step1" &&
-            isLocation.pathname !== "/Authorize/Login/step2" &&
-            isLocation.pathname !== "/Authorize/forget-password/step1" &&
-            isLocation.pathname !== "/Authorize/forget-password/step2/:ConfigValue" && (
-              <HeaderMiddlePart />
-            )} */}
           <div
             className="flex overflow-hidden 
          md:w-[13%] md:h-[40px] md:block lg:w-[15%] lg:h-[50px] lg:block sm:w-[10%] sm:h-[30px] sm:block  xs:hidden "

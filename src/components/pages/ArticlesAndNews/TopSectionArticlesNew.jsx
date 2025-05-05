@@ -11,7 +11,7 @@ import { changeQueryArticles } from "../../../redux/actions";
 const TopSectionArticlesNew = () => {
   const dispatch = useDispatch();
   const changeQueryHandler = (QueryEvent) => {
-    console.log(QueryEvent.target.value);
+    // console.log(QueryEvent.target.value);
     dispatch(changeQueryArticles(QueryEvent.target.value));
   };
   return (

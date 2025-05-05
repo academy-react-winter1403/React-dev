@@ -1,9 +1,9 @@
 import { IoEyeOutline } from "react-icons/io5";
 import { MdOutlineDateRange } from "react-icons/md";
 import { SlArrowLeft } from "react-icons/sl";
-import { motion } from "framer-motion";
+import ChangeMoment from "../../../core/utility/changeMoment";
 
-const ArticlesCard = ({
+const ArticlesCardView1 = ({
   title,
   Describe,
   src,
@@ -11,17 +11,20 @@ const ArticlesCard = ({
   insertDate,
   onClick,
 }) => {
+  const DataArticle = insertDate;
+  const persianDate = ChangeMoment(DataArticle,'YYYY/MM/DD','persian')
+  console.log(DataArticle)
   return (
-    <motion.div
-      className="w-[291px] h-[381px] rounded-t-[145px] rounded-b-xs shadow-sm flex flex-col items-center justify-center gap-4 cursor-pointer "
+    <div
+      className="w-[291px] h-[381px] rounded-t-[145px] rounded-b-xs shadow-sm flex flex-col items-center justify-center gap-4 cursor-pointer"
       data-aos="flip-left"
       data-aos-easing="ease-out-cubic"
       data-aos-duration="2000"
-      whileHover={{ scale: 1.037 }}
-      transition={{
-        duration: 0.2,
-        ease: "easeInOut",
-      }}
+      // whileHover={{ scale: 1.037 }}
+      // transition={{
+      //   duration: 0.2,
+      //   ease: "easeInOut",
+      // }}
       onClick={onClick}
     >
       <img className="w-[251px] h-[171px] rounded-[18px]" src={src} />
@@ -47,8 +50,9 @@ const ArticlesCard = ({
           </div>
           <div className="flex gap-1.5">
             <p className="font-b-yekan font-normal text-[#888] text-xs">
-              ۱۴۰۳/۰۱/۱۸
+              {/* ۱۴۰۳/۰۱/۱۸ */}
               {/* {insertDate} */}
+              {persianDate}
             </p>
             <MdOutlineDateRange style={{ color: "#01CEC9" }} />
           </div>
@@ -67,8 +71,8 @@ const ArticlesCard = ({
           />
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
-export default ArticlesCard;
+export default ArticlesCardView1;

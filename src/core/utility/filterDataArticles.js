@@ -16,8 +16,8 @@ export const filterDataArticles = async ({
       Query,
     },
   });
-  console.log(response.data.totalCount);
-  console.log(response.data.news);
+  // console.log(response.data.totalCount);
+  // console.log(response.data.news);
   return { 
     data: response.data.news,
     totalCount: response.data.totalCount

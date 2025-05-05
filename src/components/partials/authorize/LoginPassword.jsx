@@ -15,6 +15,8 @@ const LoginPassword = () => {
   const navigate = useNavigate();
   const Location = useLocation();
   const phoneNumber = getItemLocalStorage("phoneNumber");
+  const [resetTimerTrigger, setResetTimerTrigger] = useState(0);
+
 
   const ResendCode = async () => {
     try {
@@ -25,6 +27,7 @@ const LoginPassword = () => {
       console.log(Resend.data.message);
       if (Resend.data.message == "لطفا  کد تایید را وارد نمایید") {
         toast("لطفا کد جدید را وارد نمایید");
+        setResetTimerTrigger(prev => prev + 1);
       }
     } catch (error) {
       console.log(error.response ? error.response.data : error.message);
@@ -78,7 +81,7 @@ const LoginPassword = () => {
     }, 1000);
 
     return () => clearInterval(countdown);
-  }, []);
+  }, [resetTimerTrigger]);
 
   const formik = useFormik({
     initialValues: { verifyCode: "" },

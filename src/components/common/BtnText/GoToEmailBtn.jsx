@@ -14,8 +14,10 @@ const GoToEmailBtn = () => {
       return toast("لطفا ایمیل خود را وارد کنید");
     }
     if (isValid) {
-      window.open("https://mail.google.com", "_blank", "noopener,noreferrer");
       toast("میتوانید رمز خود را بازیابی کنید")
+      setTimeout(() => {
+        window.open("https://mail.google.com", "_blank", "noopener,noreferrer");
+      }, 1000);
     }
   };
   return (

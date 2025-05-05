@@ -23,6 +23,7 @@ import {
   articleDetailCommentSlice,
 } from "./slices";
 import { locationSlice } from "./slices/location";
+import { themeSlice } from "./slices/themeSlice";
 export const { firstAddCourseProduct } = coursesSlice.actions;
 export const { addCourseDetailData } = courseDetailSlice.actions;
 export const { addArticleData } = articleSlice.actions;
@@ -75,3 +76,4 @@ export const {
   changeQueryArticles,
 } = articlesQueryFilter.actions;
 export const { SelectLatitude, SelectLongitude } = locationSlice.actions;
+export const { setMode } = themeSlice.actions;

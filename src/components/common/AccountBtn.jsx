@@ -2,10 +2,10 @@ import React from 'react'
 import { MdPerson } from "react-icons/md"
 import { useNavigate } from 'react-router-dom'
 import { getItemLocalStorage } from '../../core/hooks/local-storage/getItemLocalStorage'
-import { toast } from 'react-toastify'
 
 const AccountBtn = () => {
   const userId = getItemLocalStorage("UserId")
+  // const token = getItemLocalStorage("token")
   const navigate = useNavigate()
   const handlerNavigate = () => {
     if (userId) {
@@ -13,7 +13,6 @@ const AccountBtn = () => {
     }
     else{
       navigate("/Authorize/Register/step1")
-      toast("لطفا ابتدا وارد شوید")
     }
   }
   return (

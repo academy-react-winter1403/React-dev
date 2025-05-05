@@ -10,30 +10,12 @@ import {
   changeAddDataFlag,
   changeCoursesPageCounter,
   firstAddCourseProduct,
-  // <<<<<<< HEAD
-  // =======
-  // <<<<<<< HEAD
-  // changePageCounter,
-  // changeQueryFlag,
-  // firstAddProduct,
-  // >>>>>>> 2ace4c80c7263ea9285540bcb5eccb04035e1996
 } from "../../../redux/actions";
 import { PaginationData } from "../../partials";
 import bg from "../../../assets/pics/courses/bg1.png";
 import { deleteAllItemLocalStorage } from "../../../core/hooks/local-storage/deleteAllItem";
 import { getDataByClick } from "../../../core/services/api/get-data-by-click/getDataByClick";
 import Aos from "aos";
-// <<<<<<< HEAD
-// =======
-// import { filterData } from "../../../core/constants";
-// import { useSelect } from "@heroui/react";
-// import { deleteItemLocalStorage } from "../../../core/hooks/local-storage/deleteItemLocalStorage";
-// import { htttp } from "../../../core/services/interceptor";
-// import { setItemLocalStorage } from "../../../core/hooks/local-storage/setItemLocalstorage";
-// import { locStorageUpdateItem } from "../../../core/hooks/local-storage/updateItem";
-// import { getItemLocalStorage } from "../../../core/hooks/local-storage/getItemLocalStorage";
-// >>>>>>> 21a038ce3feace628afe1f449fc089c5a5248056
-// >>>>>>> 2ace4c80c7263ea9285540bcb5eccb04035e1996
 
 const Courses = () => {
   const dispatch = useDispatch();
@@ -108,11 +90,6 @@ const Courses = () => {
     dispatch(firstAddCourseProduct(null));
     dispatch(changeAddDataFlag(true));
 
-    // dispatch(changeCoursesPageCounter(pageNum));
-    // dispatch(firstAddCourseProduct(null));
-
-    // dispatch(changeAddDataFlag(true));
-
     const data = await getDataByClick2(
       `/Home/GetCoursesWithPagination?PageNumber=${pageNum}&RowsOfPage=6`
     );
@@ -139,8 +116,6 @@ const Courses = () => {
             changePageNumber={pageChangeHandler}
             totalCount={data.totalCount}
             RowsOfPage={RowsOfPage}
-            // totalNum={5}
-            // changePageNumber={changePageHandler}
           />}
         </BottomSection>
       </div>
