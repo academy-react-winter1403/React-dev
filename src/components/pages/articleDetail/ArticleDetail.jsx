@@ -44,8 +44,6 @@ const ArticleDetail = () => {
   );
   const { articleAndNewDetailData } = articleDetailSlice;
   const { relatedCoursesData } = relatedCoursesSlice;
-  // const [commentData, setCommentData] = useState(null);
-  // const [commentFullData, setCommentFullData] = useState(null);
   const { articleAndNewDetailComment, articleAndNewDetailCommentReply } =
     useSelector((state) => state.articleDetailCommentSlice);
 
@@ -53,22 +51,7 @@ const ArticleDetail = () => {
     articleAndNewDetailData || {};
 
   // Fetch article details
-  // useEffect(() => {
-  //   const fetchArticle = async () => {
-  //     if (!articleAndNewDetailData) {
-  //       try {
-  //         const res = await htttp.get(`/News/${id}`);
-  //         if (res?.data?.detailsNewsDto) {
-  //           dispatch(addArticleAndNewsDetailData(res.data.detailsNewsDto));
-  //         }
-  //       } catch (error) {
-  //         console.error("Failed to fetch article:", error);
-  //       }
-  //     }
-  //   };
-
-  //   fetchArticle();
-  // }, [id, dispatch]);
+  
 
   const fetchArticle = async () => {
     if (!articleAndNewDetailData) {
@@ -86,42 +69,6 @@ const ArticleDetail = () => {
     fetchArticle();
   }, []);
 
-  // getCommentData("newsComment", `/News/GetNewsComments?NewsId=${id}`).then(
-  //   (response) => {
-  //     setCommentData(response.data);
-  //     if (commentData) {
-  //       getNewsCommentsReplay("/News/GetRepliesComments?Id=", commentData).then(
-  //         (response) => {
-  //           if (!commentFullData) {
-  //             setCommentFullData(response);
-  //           }
-  //         }
-  //       );
-  //     }
-  //   }
-  // );
-
-  // getCommentData("newsComment", `/News/GetNewsComments?NewsId=${id}`).then(
-  //   (response) => {
-  //     dispatch(addArticleAndNewsDetailCommentData(response.data));
-  //     if (response.data) {
-  //       getNewsCommentsReplay(
-  //         "/News/GetRepliesComments?Id=",
-  //         response.data
-  //       ).then((replyResponse) => {
-  //         dispatch(addArticleAndNewsDetailCommentReply(replyResponse));
-  //       });
-  //     }
-  //   }
-  // );
-
-  // const commentLikeBtnClickHandler = (commentId) => {
-  //   handleCommentReaction(commentId, true);
-  // };
-
-  // const commentDesLikeBtnClickHandler = (commentId) => {
-  //   handleCommentReaction(commentId, false);
-  // };
 
   const commentDesLikeBtnClickHandler = async (item) => {
     const resData = await desLikeCourseCommentPost(
@@ -158,23 +105,11 @@ const ArticleDetail = () => {
       }
     }
   };
-  // useEffect(() => {
-  //   fetchRelatedCourses();
-  // }, [newsCatregoryId, relatedCoursesData, dispatch]);
+  
   useEffect(() => {
     fetchRelatedCourses();
   }, []);
 
-  // // comment reaction
-  // const handleCommentReaction = async (commentId, isLike) => {
-  //   try {
-  //     const response = await htttp.post(`/News/CommentLike/${commentId}?LikeType=${isLike}`);
-  //     // Optional: Refresh comments or update UI
-  //     console.log("Reaction successful:", response);
-  //   } catch (error) {
-  //     console.error("Failed to send like/dislike:", error);
-  //   }
-  // };
 
   // for comments
 
@@ -268,15 +203,6 @@ const ArticleDetail = () => {
 
           <ArticleFeedBack />
 
-          {/* {commentData ? (
-            <CommentBox
-              commentData={commentFullData}
-              coomentLikeBtnClick={commentDesLikeBtnClickHandler}
-              commentDesLikeBtnClick={commentDesLikeBtnClickHandler}
-              replayLikeBtnClick={replayLikeBtnClickHandler}
-              replayDeslikeBtnClick={replayDeslikeBtnClickHandler}
-            />
-          ) : null} */}
 
           {articleAndNewDetailComment ? (
             <CommentBox

@@ -29,7 +29,7 @@ const ArticleTitle = () => {
 
 
   const toggleFavorite = async () => {
-    const toastId = "favorite-toast"; // unique ID to prevent duplicates
+    const toastId = "favorite-toast"; 
     try {
       const newState = !isSaved;
       await htttp.post(`/News/AddFavoriteNews?NewsId=${id}`);
