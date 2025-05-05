@@ -5,6 +5,7 @@ import {
   changeFilterBoxFlag,
   changeRowOfPageNum,
   changeSortType,
+  changeViewFlag,
   firstAddCourseProduct,
 } from "../../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,6 +33,11 @@ const FilterBar = () => {
     // setFilterBoxFlag(true);
     dispatch(changeFilterBoxFlag(true));
   };
+
+  // const closeBtnClickHandler = () => {
+  //   // setFilterBoxFlag(false);
+  //   dispatch(changeFilterBoxFlag(false));
+  // };
 
   // const viwGotoRowClickHandler = () => {
   //   setViwFlag(false);
@@ -118,44 +124,46 @@ const FilterBar = () => {
   };
 
   const viwGotoRowClickHandler = () => {
-    setViwFlag(false);
+    dispatch(changeViewFlag(false))
   };
 
   const viwGotoColomClickHandler = () => {
-    setViwFlag(true);
+    dispatch(changeViewFlag(true))
   };
 
   return (
     <div className="sort-viw-btn-control flex lg:flex-row xs:flex-col-reverse gap-1 justify-between">
       <div
-        className="btn-control flex items-end min-lg:gap-x-[49px] max-lg:w-full max-lg:items-center
-          md:mt-0 xs:mt-2 gap-y-3 lg:flex-row xs:flex-col"
+        className="btn-control flex items-end min-lg:gap-x-[49px] lg:w-full max-lg:items-center justify-between
+          md:mt-0 xs:mt-2 gap-y-3 lg:flex-row max-xl:flex-col"
       >
         <button
-          className="hidden max-lg:block lg:w-[138px] xs:w-[310px]  lg:text-[23px] sm:text-[18px] h-11  bg-[#FFB800] text-white
+          className="hidden max-lg:block lg:w-[138px] max-xs:w-[310px] lg:text-[23px] sm:text-[18px] h-11 bg-[#FFB800] text-white
             rounded-[10px] cursor-pointer transition-colors hover:bg-[#ff8400] drop-shadow-[0_1px_2px_#0000004D]
-            max-lg:py-[5px] max-lg:w-[332px]"
+            max-lg:py-[5px] max-lg:w-[305px]"
           onClick={openFilterBox}
         >
           فیلتر
         </button>
-        <div
-          className="left-control min-lg:w-full flex xs:justify-between items-end min-lg:gap-x-[10px] 
-          lg:justify-center lg:flex-col"
+        <div className="sorting-control flex items-center justify-center max-lg:flex-col gap-x-2
+          text-[#005b58be] relative max-lg:order-3 max-lg:mt-2 max-lg:w-[305px]"
         >
-          <div className="sorting-control text-[#005b58be] relative">
-            <p className="text-[15px] font-b-yekan text-center relative top-[-5px]">
-              فیلتر بر اساس :
-            </p>
-            <SortTypeCard
-              wrapperWidth={"max-lg:w-[310px]"}
-              placeholder={"جدیدترین"}
-              borderWidth={"rounded-[10px]"}
-              dataMap={sortCollingData}
-              onChange={changeSortHandler}
-            />
-          </div>
-          <div className="select-view-control flex gap-x-[3px] ">
+          <p className="text-[16px] font-b-yekan text-center relative max-lg:top-[-5px]">
+            فیلتر بر اساس :
+          </p>
+          <SortTypeCard
+            wrapperWidth={"max-lg:w-[305px]"}
+            placeholder={"جدیدترین"}
+            borderWidth={"rounded-[10px]"}
+            dataMap={sortCollingData}
+            onChange={changeSortHandler}
+          />
+        </div>
+        <div
+          className="left-control flex xs:justify-between items-center min-lg:gap-x-[10px] 
+          lg:justify-center max-lg:flex-col max-lg:w-full"
+        >
+          <div className="select-view-control flex max-lg:w-[70%] max-lg:gap-x-10 gap-x-2.5 justify-center">
             <SelectView
               placeholder={RowsOfPage}
               dataMap={viewData}
@@ -163,6 +171,7 @@ const FilterBar = () => {
               viewClick={viewClickHandler}
             />
             <SortTypeCard
+              wrapperWidth={"max-lg:w-[140px]"}
               placeholder={"صعودی"}
               borderWidth={"rounded-[10px]"}
               dataMap={sortColData}

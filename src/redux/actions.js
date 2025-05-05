@@ -26,9 +26,26 @@ import { locationSlice } from "./slices/location";
 export const { firstAddCourseProduct } = coursesSlice.actions;
 export const { addCourseDetailData } = courseDetailSlice.actions;
 export const { addArticleData } = articleSlice.actions;
-export const { addCourseDetailCommentData, addCourseCommentReplay } =
-  courseCommentSlice.actions;
-export const { changeAddDataFlag, changeQueryFlag, changeFilterBoxFlag } = coursesFlagsSlice.actions;
+
+// course comment actions
+export const {
+  addCourseDetailCommentData,
+  addCourseCommentReplay,
+  changeCommentLikeCounter,
+  changeCommentDislikeCounter,
+  changeReplayLikeCounter,
+  changeReplayDisLikeCounter,
+  changeCommentDB,
+  changeCommentDataFlag
+} = courseCommentSlice.actions;
+// course comment actions
+
+export const {
+  changeAddDataFlag,
+  changeQueryFlag,
+  changeFilterBoxFlag,
+  changeViewFlag,
+} = coursesFlagsSlice.actions;
 export const { changeCoursesPageCounter } = coursesPageCounterSlice.actions;
 export const { changeDarkModKey } = dorkModeSlice.actions;
 export const { addFirstFilterData } = filterDataSlice.actions;
@@ -66,7 +83,7 @@ export const {
   changeTechnologiCount,
   changeSortType,
   changePageCounter,
-  changeCoursesSortingCol
+  changeCoursesSortingCol,
 } = coursesQueryParams.actions;
 export const {
   changePageNumber,

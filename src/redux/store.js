@@ -19,7 +19,8 @@ import {
   relatedCoursesSlice,
   articlesQueryFilter,
   allDataArticleSlice,
-  articleDetailCommentSlice
+  articleDetailCommentSlice,
+  userPanelMyCoursesSlice
 } from "./slices";
 
 import { locationSlice } from "./slices/location";
@@ -46,6 +47,7 @@ export const store = configureStore({
     clientStatus: clientStatusSlice.reducer,
     articleDetailSlice: articleDetailSlice.reducer,
     relatedCoursesSlice : relatedCoursesSlice.reducer,
-    articleDetailCommentSlice : articleDetailCommentSlice.reducer
+    articleDetailCommentSlice : articleDetailCommentSlice.reducer,
+    // userPanelMyCoursesSlice: userPanelMyCoursesSlice.reducer
   },
 });

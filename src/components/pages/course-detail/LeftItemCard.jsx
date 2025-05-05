@@ -5,13 +5,18 @@ import ItemCard from "./ItemCard";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
-const LeftItemCard = ({ detailData }) => {
+const LeftItemCard = ({ cardData }) => {
   useEffect(() => {
     Aos.init({
       duration: 500,
     });
     Aos.refresh();
   }, []);
+
+  // if (cardData) {
+
+  // }
+  const { categoryData, prerequisite, learnLevel, courseStatus } = cardData
 
   return (
     <div className="item-card-container mt-[26px] flex flex-col gap-y-[17px]">
@@ -25,7 +30,7 @@ const LeftItemCard = ({ detailData }) => {
         animDuration={1}
       > */}
       <div data-aos="flip-left">
-        <ItemCard title={"دسته بندی"} description={"فرانت اند"}>
+        <ItemCard title={"دسته بندی"} description={categoryData}>
           <FrontIcon />
         </ItemCard>
       </div>
@@ -40,7 +45,7 @@ const LeftItemCard = ({ detailData }) => {
         animDuration={1}
       > */}
       <div data-aos="flip-left">
-        <ItemCard title={" پیشنباز "} description={"HTML, CSS, JS"}>
+        <ItemCard title={" پیشنیاز "} description={prerequisite}>
           <FrontIcon />
         </ItemCard>
       </div>
@@ -56,7 +61,7 @@ const LeftItemCard = ({ detailData }) => {
         animDuration={1}
       > */}
       <div data-aos="flip-left">
-        <ItemCard title={"سطح آموزش"} description={detailData?.courseLevelName}>
+        <ItemCard title={"سطح آموزش"} description={learnLevel}>
           <FrontIcon />
         </ItemCard>
       </div>
@@ -73,7 +78,7 @@ const LeftItemCard = ({ detailData }) => {
         <div data-aos="flip-left">
           <ItemCard
             title={"وضعیت دوره"}
-            description={detailData?.courseStatusName}
+            description={courseStatus}
           >
             <FrontIcon />
           </ItemCard>

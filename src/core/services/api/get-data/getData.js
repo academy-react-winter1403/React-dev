@@ -1,5 +1,6 @@
 import { useQuery } from "react-query";
 import { htttp } from "../../interceptor";
+import axios from "axios";
 
 export const getData = (key, endUrl) => {
   return useQuery({

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import pic from "../../../assets/pics/courses/course-detail-pic.png";
 import { BiBookmark } from "react-icons/bi";
+import { BsBookmarkFill } from "react-icons/bs";
 import { CameraIcon, DBasketIcon } from "../../../core/icons/icons";
 import { HiOutlineUser } from "react-icons/hi2";
 import { useSelector } from "react-redux";
@@ -10,17 +11,21 @@ import Aos from "aos";
 import { useParams } from "react-router-dom";
 import { addCourseFavoritePost } from "../../../core/services";
 import ImageFedback from "../../partials/image-fedback/imageFedback";
+import { toast } from "react-toastify";
+import { useQueryClient } from "react-query";
+import { deleteFavoriteProduct } from "../../../core";
 
-const DetailTop = () => {
+const DetailTop = ({}) => {
+  const queryClient = useQueryClient();
   const [price, setPrice] = useState(null);
-  const { id } = useParams()
+  const { id } = useParams();
 
   const { courseDetail } = useSelector((state) => state);
   const { detailData } = courseDetail;
 
-  if (detailData) {
-    console.log("detailData ==>", detailData)
-  }
+  // if (detailData) {
+  //   console.log("detailData ==>", detailData)
+  // }
 
   useEffect(() => {
     if (detailData) {
@@ -34,10 +39,33 @@ const DetailTop = () => {
     Aos.refresh();
   }, [detailData]);
 
-  const {mutate, data, isLoading} = addCourseFavoritePost("saveCourse")
+  const { mutate, data, isLoading } = addCourseFavoritePost("saveCourse");
   const productSaveClick = () => {
-    mutate(["/Course/AddCourseFavorite", {courseId: id}])
-  }
+    const dataObj = {
+      courseId: id,
+    };
+    mutate(["/Course/AddCourseFavorite", dataObj], {
+      onSuccess: (data) => {
+        console.log(data);
+        // toast("عملیات با موفقیت انجام شد")
+        queryClient.invalidateQueries(["detailProduct"]);
+      },
+    });
+  };
+
+  const { mutate: deleteFavoriteCourse } = deleteFavoriteProduct(
+    "deleteFavoriteCourse"
+  );
+  const productDeleteFavoriteClick = () => {
+    deleteFavoriteCourse([
+      "/Course/DeleteCourseFavorite",
+      { CourseFavoriteId: detailData.userFavoriteId },
+    ],{
+      onSuccess: () => {
+        queryClient.invalidateQueries(["detailProduct"]);
+      }
+    });
+  };
 
   return (
     <div
@@ -59,7 +87,19 @@ const DetailTop = () => {
           <h1 className="text-[29px] font-bold text-[#333333] font-b-yekan">
             {detailData?.title}
           </h1>
-          <BiBookmark className="text-[#00B4AF]" size={27} onClick={productSaveClick}/>
+          {detailData?.isUserFavorite ? (
+            <BsBookmarkFill
+              className="text-[#00B4AF] cursor-pointer"
+              size={27}
+              onClick={productDeleteFavoriteClick}
+            />
+          ) : (
+            <BiBookmark
+              className="text-[#00B4AF] cursor-pointer"
+              size={27}
+              onClick={productSaveClick}
+            />
+          )}
         </div>
         <p
           className="text-[#777777] font-[400] font-b-yekan mt-[16px] w-[90%] h-[72px]
@@ -116,7 +156,7 @@ const DetailTop = () => {
         classNames={`product-image-control w-[40%] h-[344px] max-xl:h-[302px] overflow-hidden rounded-[10px]
           max-lg:w-[90%]`}
       >
-        <ImageFedback imageAddress={detailData?.imageAddress} pic={pic}/>
+        <ImageFedback imageAddress={detailData?.imageAddress} pic={pic} />
       </MotionComp>
     </div>
   );

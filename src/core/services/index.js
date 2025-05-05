@@ -21,6 +21,8 @@ import { getCommentDataByClick } from "./api/get-data/getCommentDataByClick";
 import { getArticleCommentData } from "./api/get-data/getArticleCommentData";
 import { getProductData } from "./api/get-data/getProductData";
 import { getCourseDataByClick } from "./api/get-data-by-click/getCourseDataByClick";
+import { getCommentOneData } from "./api/get-data/getCommentOneData";
+import { dislikeComment } from "./api/post-data/disLikeComment";
 
 
 export {
@@ -46,5 +48,7 @@ export {
   getArticleCommentData,
   getCommentDataByClick,
   getProductData,
-  getCourseDataByClick
+  getCourseDataByClick,
+  getCommentOneData,
+  dislikeComment
 };

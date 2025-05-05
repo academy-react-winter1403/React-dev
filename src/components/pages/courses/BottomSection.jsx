@@ -1,56 +1,39 @@
 import FilteredBox from "./filter-box/FilteredBox";
 import {
   productMockData,
-  sortColData,
-  sortCollingData,
-  sortFilterData,
-  viewData,
 } from "../../../core/constants";
 import FilterOption from "./filter-box/FilterOption";
 import React, { useEffect, useState } from "react";
 import FilterLabel from "./FilterLabel";
-import { GridIcon, MenuIcon } from "../../../core/icons/icons";
-import SortingWrapper from "./sorting-comp/SortingWrapper";
 import { CardLoading, CardWrapper } from "../../partials";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {
-  addCourseCommentReplay,
   changeCostDown,
   changeCostUp,
   changeCourseLevelId,
   changeCoursesSortingCol,
   changeCourseTypeId,
+  changeFilterBoxFlag,
+  changePageCounter,
+  changeQuery,
   changeQueryFlag,
   changeRowOfPageNum,
-  changeSortingCol,
-  changeSortText,
   changeSortType,
   changeTechnologiCount,
   changeTechnologiList,
-  firstAddCourseProduct,
+  changeViewFlag,
 } from "../../../redux/actions";
-import SelectView from "./SelectView";
 import { setItemLocalStorage } from "../../../core/hooks/local-storage/setItemLocalstorage";
 import { localItemValidation } from "../../../core/hooks/local-storage/localStorageValidation";
 import {
   localStorageDeleteOneItem,
   locStorageUpdateItem,
 } from "../../../core/hooks/local-storage/updateItem";
-import SortItem from "./sorting-comp/SortItem";
-import { deleteSearchParamsItem } from "../../../core/utility/deleteSearchParams";
-import { deleteAllItemLocalStorage } from "../../../core/hooks/local-storage/deleteAllItem";
 import { getDataByClick } from "../../../core/services/api/get-data-by-click/getDataByClick";
 import PriceInput from "../../partials/price-input/PriceInput";
 import { getItemLocalStorage } from "../../../core/hooks/local-storage/getItemLocalStorage";
-import SortTypeCard from "../../common/SortTypeCard";
-import { courseFilterFull } from "../../../core/utility/courseFilterFull";
-import { htttp } from "../../../core/services/interceptor";
-import {
-  getCommentDataByClick,
-  getCourseDataByClick,
-} from "../../../core/services";
-import { updateSearchParamsHook } from "../../../core";
+import { deleteAllParams, updateCoursesQueryParams, updateSearchParamsHook } from "../../../core";
 import FilterBar from "./FilterBar";
 
 const BottomSection = ({ children }) => {
@@ -83,103 +66,52 @@ const BottomSection = ({ children }) => {
     CourseTypeId,
     TeacherId,
   } = courseQueryParams;
-  const { filterBoxFlag } = coursesFlags;
-  // console.log(productState)
-
-  // const { mutate, isLoading } = getCourseDataByClick("coursesData");
-  // useEffect(() => {
-  //   // console.log("getCourseDataByClick ==>", courseQueryParams)
-  //   mutate(["/Home/GetCoursesWithPagination?", courseQueryParams], {
-  //     onSuccess: (data) => {
-  //       console.log("getCourseDataByClick ==>", data);
-  //       courseFilterFull(
-  //         "/Home/GetCoursesWithPagination?",
-  //         courseQueryParams,
-  //         dispatch,
-  //         firstAddCourseProduct,
-  //         setSearchParams
-  //       );
-  //     },
-  //   });
-  // }, [
-  //   PageNumber,
-  //   RowsOfPage,
-  //   SortingCol,
-  //   SortType,
-  //   Query,
-  //   CostDown,
-  //   CostUp,
-  //   TechCount,
-  //   ListTech,
-  //   courseLevelId,
-  //   CourseTypeId,
-  //   TeacherId,
-  // ]);
+  const { filterBoxFlag, viewFlag } = coursesFlags;
 
   const [windowWidthNum, setWindowWidthNum] = useState(window.innerWidth);
-
-  const [viwFlag, setViwFlag] = useState(true);
-
-  const viwGotoRowClickHandler = () => {
-    setViwFlag(false);
-  };
-
-  const viwGotoColomClickHandler = () => {
-    setViwFlag(true);
-  };
 
   window.addEventListener("resize", () => {
     setWindowWidthNum(window.innerWidth);
     if (window.innerWidth <= 640) {
-      setViwFlag(true);
+      dispatch(changeViewFlag(true))
     }
   });
 
-  const openFilterBox = () => {
-    setFilterBoxFlag(true);
-  };
-
   const closeBtnClickHandler = () => {
-    setFilterBoxFlag(false);
+    dispatch(changeFilterBoxFlag(false));
   };
 
   const { mutateAsync: getDataForRemove } = getDataByClick();
   const removeFilterClickHandler = async () => {
-    deleteAllItemLocalStorage([
-      "technologi",
-      "courseLevelId",
-      "CourseTypeId",
-      "searchValue",
-      "sortText",
-    ]);
-    deleteSearchParamsItem(
-      [
-        "SortingCol",
-        "Query",
-        "TechCount",
-        "ListTech",
-        "courseLevelId",
-        "CourseTypeId",
-      ],
-      setSearchParams
-    );
-
-    dispatch(firstAddCourseProduct(null));
-    const data = await getDataForRemove(
-      "/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=6"
-    );
-    dispatch(firstAddCourseProduct(data.courseFilterDtos));
+    dispatch(changeFilterBoxFlag(false));
+    updateCoursesQueryParams(
+      [{paramsData: 1, action: changePageCounter},
+      {paramsData: 6, action: changeRowOfPageNum},
+      {paramsData: null, action: changeQuery},
+      {paramsData: null, action: changeCourseTypeId},
+      {paramsData: 0, action: changeCostDown},
+      {paramsData: 100000000, action: changeCostUp},
+      {paramsData: null, action: changeTechnologiList},
+      {paramsData: undefined, action: changeTechnologiCount},
+      {paramsData: "DESC", action: changeSortType},
+      {paramsData: "Active", action: changeCoursesSortingCol},],
+      dispatch
+    )
+    deleteAllParams(["SortingCol", "SortType",
+      "CostDown", "CostUp", "TechCount",
+      "ListTech", "courseLevelId", "CourseTypeId"
+    ], setSearchParams) 
   };
 
   const setFilterHandler = () => {
-    setFilterBoxFlag(false);
+    dispatch(changeFilterBoxFlag(false));
+
   };
 
   const filterHandler = async (productId, flag, filterName) => {
     changeQueryFlag(true);
     if (filterName === "تکنولوژی") {
       let localThechFullData = [];
-      // console.log(flag);
       let validation;
       if (productId && !flag) {
         validation = localItemValidation("technologi");
@@ -219,7 +151,6 @@ const BottomSection = ({ children }) => {
       }
     }
     if (filterName === "وضعیت") {
-      // let localStatusFullData = []
       if (productId && !flag) {
         updateSearchParamsHook(
           setSearchParams,
@@ -228,45 +159,13 @@ const BottomSection = ({ children }) => {
           dispatch,
           changeCourseTypeId
         );
-        // let validation = localItemValidation("CourseTypeId");
-        // if (!validation) {
-        //   setItemLocalStorage("CourseTypeId", [productId]);
-        // }
-        // locStorageUpdateItem("CourseTypeId", productId);
       } else {
         setSearchParams((params) => {
           params.delete("CourseTypeId");
           return params;
         });
         dispatch(changeCourseTypeId(null))
-        // updateSearchParamsHook(
-        //   setSearchParams,
-        //   "CourseTypeId",
-        //   null,
-        //   dispatch,
-        //   changeCourseTypeId
-        // );
-        // localStatusFullData = localStorageDeleteOneItem("CourseTypeId", productId);
-        // if (localStatusFullData.length === 0) {
-        //   localStorage.removeItem("CourseTypeId")
-        //   setSearchParams((params) => {
-        //     params.delete("CourseTypeId")
-        //     return params
-        //   })
-        //   dispatch(changeCourseTypeId(null))
-        // }
-        // localStorage.removeItem("CourseTypeId")
       }
-      // dispatch(changeCourseTypeId(getItemLocalStorage("CourseTypeId")));
-      // if (!flag || localStatusFullData.length > 0) {
-      //   updateSearchParamsHook(
-      //     setSearchParams,
-      //     "CourseTypeId",
-      //     getItemLocalStorage("CourseTypeId"),
-      //     dispatch,
-      //     changeCourseTypeId
-      //   );
-      // }
     }
     if (filterName === "سطح") {
       if (productId && !flag) {
@@ -277,82 +176,18 @@ const BottomSection = ({ children }) => {
           dispatch,
           changeCourseLevelId
         );
-        // let validation = localItemValidation("courseLevelId");
-        // if (!validation) {
-        //   setItemLocalStorage("courseLevelId", [productId]);
-        // }
-        // locStorageUpdateItem("courseLevelId", productId);
       } else {
         setSearchParams((params) => {
           params.delete("courseLevelId");
           return params;
         });
         dispatch(changeCourseLevelId(null))
-        // localStorageDeleteOneItem("courseLevelId", productId);
       }
-      // dispatch(changeCourseLevelId(getItemLocalStorage("courseLevelId")));
-      // updateSearchParamsHook(
-      //   setSearchParams,
-      //   "courseLevelId",
-      //   getItemLocalStorage("courseLevelId"),
-      //   dispatch,
-      //   changeCourseLevelId
-      // );
     }
-
-    // courseFilterFull(
-    //   courseQueryParams,
-    //   dispatch
-    // useSelector
-    // );
   };
 
-  const filterItemClickHnadler = (productId, flag, filterName) => {
-    // console.log(productId);
-    // filterHandler(productId, flag, filterName);
-    courseFilterFull(
-      "/Home/GetCoursesWithPagination?",
-      courseQueryParams,
-      dispatch,
-      firstAddCourseProduct
-    );
-    // courseFilter(setSearchParams, dispatch, useSelector);
-  };
-
-  // const { mutateAsync } = getDataByClick();
-  // const viewClickHandler = async (value) => {
-  //   dispatch(changeRowOfPageNum(value));
-  //   dispatch(firstAddCourseProduct(null));
-  //   const data = await mutateAsync(
-  //     `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=${value}`
-  //   );
-  //   updateSearchParamsHook(
-  //     setSearchParams,
-  //     "RowsOfPage",
-  //     value,
-  //     dispatch,
-  //     changeRowOfPageNum
-  //   );
-
-  //   setTimeout(() => {
-  //     dispatch(firstAddCourseProduct(data.courseFilterDtos));
-  //   }, 1000);
-  // };
-
-  const sortClickHandler = (text) => {
-    localStorage.setItem("sortText", text);
-    dispatch(changeSortText(text));
-    // courseFilter(setSearchParams, useSelector);
-  };
-
-  // const {mutate, data} = getCommentDataByClick()
   const cardClickHandler = (productId) => {
     navigate(`/course-detail/${productId}`);
-    // mutate(["/Course/GetCourseCommnets/", productId], {
-    //   onSuccess: (data) => {
-    //     dispatch(addCourseCommentReplay(data.data));
-    //   }
-    // })
   };
 
   const priceChangeHandler = async (value) => {
@@ -381,65 +216,6 @@ const BottomSection = ({ children }) => {
   useEffect(() => {
     console.log("BottomSection");
   }, []);
-
-  // const sortChangeHandler = (value) => {
-  //   let valuseName;
-  //   console.log(value);
-  //   if (value === "صعودی") {
-  //     dispatch(changeSortType("ASC"));
-  //     valuseName = "ASC"
-  //   }
-  //   if (value === "نزولی") {
-  //     dispatch(changeSortType("DESC"));
-  //     valuseName = "DESC"
-  //   }
-  //   updateSearchParamsHook(
-  //     setSearchParams,
-  //     "SortType",
-  //     valuseName,
-  //     dispatch,
-  //     changeSortType
-  //   );
-  //   courseFilterFull(
-  //     "/Home/GetCoursesWithPagination?",
-  //     courseQueryParams,
-  //     dispatch,
-  //     firstAddCourseProduct,
-  //     setSearchParams
-  //   );
-  // };
-
-  // const changeSortHandler = (value) => {
-  //   console.log(value)
-  //   let sortValue;
-  //   if (value == " پرطرفدارترین ") {
-  //     sortValue = "InsertDate"
-  //     dispatch(changeCoursesSortingCol("InsertDate"))
-  //   }
-  //   if (value == " جدیدترین ") {
-  //     sortValue = "َActive"
-  //     dispatch(changeCoursesSortingCol("َActive"))
-  //   }
-  //   console.log(sortValue)
-  //   updateSearchParamsHook(
-  //     setSearchParams,
-  //     "SortingCol",
-  //     sortValue,
-  //     dispatch,
-  //     changeCoursesSortingCol
-  //   );
-  //   courseFilterFull(
-  //     "/Home/GetCoursesWithPagination?",
-  //     queryPar,
-  //     dispatch,
-  //     firstAddCourseProduct,
-  //     setSearchParams
-  //   );
-  // }
-
-  // const {
-  //   courseQueryParams: queryPar,
-  // } = useSelector((state) => state);
 
   return (
     <div className="bottom-section-container w-full mt-0 max-sm:mt-[8px] flex justify-center gap-x-[28px] items-start">
@@ -558,7 +334,7 @@ const BottomSection = ({ children }) => {
         <FilterBar />
         <div
           className={
-            viwFlag
+            viewFlag
               ? `transition-colors product-card-container grid max-xl:grid-cols-2 grid-cols-3
                 max-sm:grid-cols-1 mt-[54px] gap-x-[23px] gap-y-[50px]`
               : `transition-colors product-card-container grid grid-cols-1
@@ -573,7 +349,7 @@ const BottomSection = ({ children }) => {
                     data={item}
                     key={index}
                     cardClick={cardClickHandler}
-                    viewFlag={viwFlag}
+                    viewFlag={viewFlag}
                   />
                 );
               })

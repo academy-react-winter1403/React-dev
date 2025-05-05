@@ -8,6 +8,7 @@ import {
   addCourseDetailCommentData,
   addFirstFilterData,
   changeAddDataFlag,
+  changeCommentDataFlag,
   changeCoursesPageCounter,
   changeQueryFlag,
   firstAddCourseProduct,
@@ -24,7 +25,7 @@ import bg from "../../../assets/pics/courses/bg1.png";
 import { deleteAllItemLocalStorage } from "../../../core/hooks/local-storage/deleteAllItem";
 import { getDataByClick } from "../../../core/services/api/get-data-by-click/getDataByClick";
 import Aos from "aos";
-import { updateCourseQueryState } from "../../../core/utility/updateCourseQueryState";
+// import { updateCourseQueryState } from "../../../core/utility/updateCourseQueryState";
 import { useSearchParams } from "react-router-dom";
 import FilterBar from "./FilterBar";
 // <<<<<<< HEAD
@@ -127,21 +128,22 @@ const Courses = () => {
     }
     // dispatch(changeQueryFlag(true))
     setParams();
+    dispatch(changeCommentDataFlag(false));
     dispatch(addCourseDetailCommentData(null));
     dispatch(addCourseCommentReplay(null));
-    updateCourseQueryState(searchParams, dispatch, firstAddCourseProduct, [
-      "Query",
-      "PageNumber",
-      "RowsOfPage",
-      "SortingCol",
-      "SortType",
-      "CostDown",
-      "CostUp",
-      "TechCount",
-      "ListTech",
-      "courseLevelId",
-      "CourseTypeId",
-    ]);
+    // updateCourseQueryState(searchParams, dispatch, firstAddCourseProduct, [
+    //   "Query",
+    //   "PageNumber",
+    //   "RowsOfPage",
+    //   "SortingCol",
+    //   "SortType",
+    //   "CostDown",
+    //   "CostUp",
+    //   "TechCount",
+    //   "ListTech",
+    //   "courseLevelId",
+    //   "CourseTypeId",
+    // ]);
   }, []);
 
   // const { courseQueryParams } = useSelector((state) => state);

@@ -10,6 +10,7 @@ const CommentWrapper = ({
   commentDesLikeBtnClick,
   replayLikeBtnClick,
   replayDeslikeBtnClick,
+  addReplayClick
 }) => {
   const {
     author,
@@ -74,9 +75,10 @@ const CommentWrapper = ({
         rounded-[7px] px-6 py-3 mt-[24px]`}
     >
       <CommentUserReaction
-      commentId={data.id}
+        commentId={data.id}
         likeBtnClick={coomentLikeBtnClick}
         desLikeClick={commentDesLikeBtnClick}
+        addReplayClick={addReplayClick}
         imageAddress={pictureAddress}
         desLikeCount={disslikeCount}
         likeCount={likeCount}

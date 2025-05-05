@@ -4,5 +4,6 @@ import PaginationData from "./pagination/PaginationData";
 import MotionComp from "./motion/MotionComp";
 import Themes from "./themes/Themes";
 import NetworkError from "./networkError/NetworkError";
+import ChangeMoment from "./changeMoment/changeMoment";
 
-export { CardWrapper, CardLoading, PaginationData, MotionComp, Themes, NetworkError }
+export { CardWrapper, CardLoading, PaginationData, MotionComp, Themes, NetworkError, ChangeMoment }

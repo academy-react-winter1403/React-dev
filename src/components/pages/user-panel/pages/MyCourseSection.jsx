@@ -7,10 +7,21 @@ import UserPanelCard from "../../../partials/user-panel/UserPanelCard";
 import { PaginationData } from "../../../partials";
 import { sortingArticlesNews } from "../../../../core/constants/articlesMockApi/sort_data";
 import SortingCol from "../../ArticlesAndNews/Sorting-Articles/SortingCol";
+import { getData } from "../../../../core/services";
 // import { useDispatch } from "react-redux";
 
 const MyCourseSection = () => {
   // const changeHandler = () => {};
+
+  // get course data
+  const {data, isLoading} = getData("userPanelCoursesData",
+    "/SharePanel/GetMyCourses?PageNumber=1&RowsOfPage=10&SortingCol=DESC&SortType=LastUpdate"
+  )
+  if (!isLoading) {
+    console.log(data)
+  }
+  // get course data
+
   const changeHandler = (QueryEvent) => {
     console.log(QueryEvent.target.value);
   };
@@ -39,9 +50,21 @@ const MyCourseSection = () => {
               change={changeHandler}
             />
           </div>
-          <SortingCol
+          {/* <SortingCol
             dataMap={sortingArticlesNews}
             onChange={sortChangeHandler}
+          /> */}
+          <SortTypeCard
+            dataMap={sortingArticlesNews}
+            placeholder={"صعودی"}
+            borderWidth={"rounded-[20px]"}
+            wrapperWidth={"text-[14px]"}
+          />
+          <SortTypeCard
+            dataMap={sortingArticlesNews}
+            placeholder={"پرطرفدارترین"}
+            borderWidth={"rounded-[20px]"}
+            wrapperWidth={"text-[14px]"}
           />
         </div>
       </div>

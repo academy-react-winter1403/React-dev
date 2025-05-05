@@ -6,7 +6,8 @@ export const coursesFlagsSlice = createSlice({
   initialState: {
     addDataFlag: false,
     queryFlag: false,
-    filterBoxFlag: false
+    filterBoxFlag: false,
+    viewFlag: true
   },
 
   reducers: {
@@ -18,6 +19,9 @@ export const coursesFlagsSlice = createSlice({
     },
     changeFilterBoxFlag: (state, action) => {
       state.filterBoxFlag = action.payload
+    },
+    changeViewFlag: (state, action) => {
+      state.viewFlag = action.payload
     }
   },
 });
