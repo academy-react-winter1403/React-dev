@@ -9,7 +9,7 @@ import { SeparationPrice } from "../../../core/utility/SeparationPrice";
 import { MotionComp } from "../../partials";
 import Aos from "aos";
 import { useParams } from "react-router-dom";
-import { addCourseFavoritePost } from "../../../core/services";
+import { addCourseFavoritePost, reservCourse } from "../../../core/services";
 import ImageFedback from "../../partials/image-fedback/imageFedback";
 import { toast } from "react-toastify";
 import { useQueryClient } from "react-query";
@@ -23,9 +23,9 @@ const DetailTop = ({}) => {
   const { courseDetail } = useSelector((state) => state);
   const { detailData } = courseDetail;
 
-  // if (detailData) {
-  //   console.log("detailData ==>", detailData)
-  // }
+  if (detailData) {
+    console.log("detailData ==>", detailData)
+  }
 
   useEffect(() => {
     if (detailData) {
@@ -58,14 +58,30 @@ const DetailTop = ({}) => {
   );
   const productDeleteFavoriteClick = () => {
     deleteFavoriteCourse([
-      "/Course/DeleteCourseFavorite",
-      { CourseFavoriteId: detailData.userFavoriteId },
+      "/Course/DeleteCourseFavorite/CourseFavoriteId",
+      { "CourseFavoriteId" : detailData.userFavoriteId}
     ],{
       onSuccess: () => {
         queryClient.invalidateQueries(["detailProduct"]);
       }
     });
   };
+
+
+  // reserv course handle
+  const {mutate: reservCourseMutate} = reservCourse()
+  const addCourseReservedClickHandler = () => {
+    reservCourseMutate(["/CourseReserve/ReserveAdd",
+      {
+        courseId: id,
+      }
+    ], {
+      onSuccess: () => {
+
+      }
+    })
+  }
+  // reserv course handle
 
   return (
     <div
@@ -140,6 +156,7 @@ const DetailTop = ({}) => {
             className="bg-[#FF8A00] text-[#FFFFFF]
               px-[80px] py-[10px] rounded-[9px] font-[700] text-[18px] flex items-center gap-x-[10px] cursor-pointer
               max-xl:text-[15px] max-xl:px-[70px] max-xl:py-[11px]"
+            onClick={addCourseReservedClickHandler}
           >
             <DBasketIcon />
             <span> شرکت در دوره! </span>

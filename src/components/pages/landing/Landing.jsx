@@ -24,6 +24,7 @@ const Landing = () => {
   );
 
   if (!isLoading) {
+    console.log(data)
     if (!coursesData) {
       console.log("landing ",data);
       setCoursesData(data.courseFilterDtos);
@@ -56,7 +57,7 @@ const Landing = () => {
       {/* <Footer/> */}
       <HeroSection/>
       <CategorySection/>
-      <CourseSection courseData={coursesData}/>
+      {coursesData && <CourseSection courseData={coursesData}/>}
       <BestTeacherSection/>
       <ServiceSection/>
       <NewsSection/>

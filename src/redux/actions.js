@@ -21,6 +21,7 @@ import {
   articleDetailSlice,
   relatedCoursesSlice,
   articleDetailCommentSlice,
+  userPanelMyCourseFilterParamsSlice,
 } from "./slices";
 import { locationSlice } from "./slices/location";
 export const { firstAddCourseProduct } = coursesSlice.actions;
@@ -36,7 +37,7 @@ export const {
   changeReplayLikeCounter,
   changeReplayDisLikeCounter,
   changeCommentDB,
-  changeCommentDataFlag
+  changeCommentDataFlag,
 } = courseCommentSlice.actions;
 // course comment actions
 
@@ -59,7 +60,7 @@ export const {
 export const { addLatestSserPanelNewsSlice } = latestSserPanelNewsSlice.actions;
 export const { addSuggestedCourseUserPanel } =
   suggested1courseUserPanel.actions;
-export const { addCourseActivedDataUserPanel } =
+export const { addCourseActivedDataUserPanel, changeCourseActivedTatolCount } =
   courseActivedDataUserPanel.actions;
 export const { addDataTheCourseReserved } = courseReserved.actions;
 export const { addMyCourse } = myCoursesUserPanel.actions;
@@ -93,3 +94,11 @@ export const {
   changeQueryArticles,
 } = articlesQueryFilter.actions;
 export const { SelectLatitude, SelectLongitude } = locationSlice.actions;
+
+// user panel actions
+export const {
+  changeUserPanelQueryFilter,
+  changeUserPanelSortTypeFilter,
+  changeUserPanelSortingColFilter,
+} = userPanelMyCourseFilterParamsSlice.actions;
+// user panel actions

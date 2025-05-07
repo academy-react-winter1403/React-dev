@@ -8,7 +8,7 @@ import { IoMdCloseCircle } from "react-icons/io";
 const PanelDashboard = ({ closeBtnClick }) => {
   const { userProfileInfo } = useSelector((state) => state);
   const { userProfileInfoData } = userProfileInfo;
-
+  
   if (userProfileInfoData) {
     var { fName, lName, userImage } = userProfileInfoData;
     var [data] = userImage;

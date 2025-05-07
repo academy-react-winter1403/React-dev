@@ -23,6 +23,7 @@ import { getProductData } from "./api/get-data/getProductData";
 import { getCourseDataByClick } from "./api/get-data-by-click/getCourseDataByClick";
 import { getCommentOneData } from "./api/get-data/getCommentOneData";
 import { dislikeComment } from "./api/post-data/disLikeComment";
+import { reservCourse } from "./api/post-data/reservCourse";
 
 
 export {
@@ -50,5 +51,6 @@ export {
   getProductData,
   getCourseDataByClick,
   getCommentOneData,
-  dislikeComment
+  dislikeComment,
+  reservCourse
 };
