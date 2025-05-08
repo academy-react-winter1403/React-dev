@@ -7,6 +7,7 @@ import {
   addArticleAndNewsDetailCommentReply,
   addArticleAndNewsDetailData,
   addRelatedCoursesData,
+  changeArticleCommentFlag,
 } from "../../../redux/actions";
 
 import ArticleTitle from "./articleDetailSections/ArticleTitle";
@@ -33,6 +34,7 @@ import { articleDetailComment } from "../../../core/services/api/post-data/artic
 import { QueryClient } from "react-query";
 import { useQueryClient } from "react-query";
 import ScrollToTopButton from "../../common/ScrollToTopBtn";
+import { articleDetailCommentSlice } from "../../../redux/slices";
 
 const ArticleDetail = () => {
   const dispatch = useDispatch();
@@ -44,14 +46,22 @@ const ArticleDetail = () => {
   );
   const { articleAndNewDetailData } = articleDetailSlice;
   const { relatedCoursesData } = relatedCoursesSlice;
-  const { articleAndNewDetailComment, articleAndNewDetailCommentReply } =
+  const { articleAndNewDetailComment, articleAndNewDetailCommentReply, articleCommentFlag } =
     useSelector((state) => state.articleDetailCommentSlice);
 
-  const { googleDescribe, describe, currentImageAddress, newsCatregoryId } =
-    articleAndNewDetailData || {};
+  const {
+    googleDescribe,
+    describe,
+    currentImageAddress,
+    newsCatregoryId,
+    // articleCommentFlag,
+  } = articleAndNewDetailData || {};
 
+  // if (articleDetailCommentSlice) {
+  //   var { articleCommentFlag } = articleDetailCommentSlice
+  // }
+  console.log(articleCommentFlag)
   // Fetch article details
-  
 
   const fetchArticle = async () => {
     if (!articleAndNewDetailData) {
@@ -68,7 +78,6 @@ const ArticleDetail = () => {
   useEffect(() => {
     fetchArticle();
   }, []);
-
 
   const commentDesLikeBtnClickHandler = async (item) => {
     const resData = await desLikeCourseCommentPost(
@@ -105,13 +114,28 @@ const ArticleDetail = () => {
       }
     }
   };
-  
+
   useEffect(() => {
     fetchRelatedCourses();
   }, []);
 
-
   // for comments
+
+  // const { data: dataComment, isLoading: commentLoading } =
+  //   getArticleCommentData("newsComment", `/News/GetNewsComments?NewsId=${id}`);
+  // if (!commentLoading) {
+  //   console.log(dataComment);
+  //   dispatch(addArticleAndNewsDetailCommentData(dataComment));
+  //   if (articleAndNewDetailComment) {
+  //     if (!articleAndNewDetailCommentReply) {
+  //       getNewsCommentsReplay("/News/GetRepliesComments?Id=", dataComment).then(
+  //         (replyResponse) => {
+  //           dispatch(addArticleAndNewsDetailCommentReply(replyResponse));
+  //         }
+  //       );
+  //     }
+  //   }
+  // }
 
   const { data: dataComment, isLoading: commentLoading } =
     getArticleCommentData("newsComment", `/News/GetNewsComments?NewsId=${id}`);
@@ -119,7 +143,8 @@ const ArticleDetail = () => {
     console.log(dataComment);
     dispatch(addArticleAndNewsDetailCommentData(dataComment));
     if (articleAndNewDetailComment) {
-      if (!articleAndNewDetailCommentReply) {
+      if (!articleCommentFlag) {
+        dispatch(changeArticleCommentFlag(true))
         getNewsCommentsReplay("/News/GetRepliesComments?Id=", dataComment).then(
           (replyResponse) => {
             dispatch(addArticleAndNewsDetailCommentReply(replyResponse));
@@ -128,6 +153,15 @@ const ArticleDetail = () => {
       }
     }
   }
+
+
+  // comment like 
+
+  // const {
+  //   mutate: likeMutate,
+  //   isLoading: 
+  // }
+
 
   const {
     mutate,
@@ -153,7 +187,7 @@ const ArticleDetail = () => {
       ],
       {
         onSuccess: (data) => {
-          console.log("success", data);
+          // console.log("success", data);
           // dispatch(addArticleAndNewsDetailCommentData(null));
           dispatch(addArticleAndNewsDetailCommentReply(null));
           queryClient.invalidateQueries(["newsComment"]);
@@ -171,7 +205,7 @@ const ArticleDetail = () => {
   }, []);
 
   return (
-    <div className="w-full bg-[#F7F7F7] font-b-yekan py-10 max-w-[1500px] mx-auto">
+    <div className="w-full bg-[var(--bg-main)] font-b-yekan py-10 max-w-[1550px] mx-auto">
       <div className="w-[80%] m-auto flex md:flex-row md:flex-nowrap gap-0.5 xs:flex-col justify-center md:items-start xs:items-center">
         {/* Article Content */}
         <div className="md:w-2/3 xs:w-full flex flex-col items-center justify-center gap-2.5">
@@ -203,8 +237,7 @@ const ArticleDetail = () => {
 
           <ArticleFeedBack />
 
-
-          {articleAndNewDetailComment ? (
+          {articleAndNewDetailCommentReply ? (
             <CommentBox
               commentData={articleAndNewDetailCommentReply}
               coomentLikeBtnClick={commentDesLikeBtnClickHandler}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 import CommentUserReaction from "./CommentUserReaction";
 import ReplayWrapper from "./ReplayWrapper";
 import AOS from "aos";
@@ -21,6 +21,8 @@ const CommentWrapper = ({
     insertDate,
     commentReplay,
   } = data;
+
+  // console.log(commentReplay)
 
   // useEffect(() => {
   //   AOS.init({
@@ -69,12 +71,12 @@ const CommentWrapper = ({
 
   return (
     <div
-      data-aos={commentReplay.length > 2 ? `fade-up` : `flip-up`}
+      data-aos={commentReplay?.length > 2 ? `fade-up` : `flip-up`}
       className={`comment-card w-full bg-[#F9F9F9] drop-shadow-[0_1px_2px_#00000040]
         rounded-[7px] px-6 py-3 mt-[24px]`}
     >
       <CommentUserReaction
-      commentId={data.id}
+        commentId={data.id}
         likeBtnClick={coomentLikeBtnClick}
         desLikeClick={commentDesLikeBtnClick}
         imageAddress={pictureAddress}

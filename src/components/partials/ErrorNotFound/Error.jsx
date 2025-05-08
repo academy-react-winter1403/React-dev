@@ -25,7 +25,7 @@ const Error = () => {
   return (
     <div
       ref={containerRef}
-      className='w-[80%] h-[260px]  m-auto  flex flex-col font-b-yekan items-center p-8 gap-20 relative overflow-hidden'
+      className='w-[100%] h-[260px]  m-auto  flex flex-col font-b-yekan items-center p-8 gap-20 relative overflow-hidden bg-[var(--bg-main)]'
     >
       {/* <p className='text-2xl font-bold text-red-500 text-center p-2'>
         متاسفانه صفحه ای مطابق با جستجوی شما پیدا نشد ):

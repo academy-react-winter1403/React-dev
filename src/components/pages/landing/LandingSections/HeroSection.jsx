@@ -21,7 +21,7 @@ const HeroSection = () => {
             >
               آکادمی سپهر
             </h1>
-            <p className="text-[#555555] text-base sm:text-lg md:text-[18px] font-normal leading-7 sm:leading-9">
+            <p className="text-[var(--text-main)] text-base sm:text-lg md:text-[18px] font-normal leading-7 sm:leading-9">
               <Typewriter
                 options={{
                   delay: 90,

@@ -14,7 +14,6 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast, ToastContainer } from "react-toastify";
 
-
 const LoginSteps1 = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
@@ -25,15 +24,17 @@ const LoginSteps1 = () => {
         password: values.password,
         rememberMe: rememberMe,
       });
-      console.log(ApiCall);
+      // console.log(ApiCall.data.token);
+      // console.log(ApiCall);
       if (ApiCall.data.success) {
-        console.log(ApiCall.data.token);
+        // console.log(ApiCall.data.token);
+        // console.log(ApiCall.data.id);
         setItemLocalStorage("token", ApiCall.data.token);
-        toast("به سایت خودت خوش اومدی")
-        navigate('/')
+        setItemLocalStorage("UserId", ApiCall.data.id);
+        toast("به سایت خودت خوش اومدی");
+        navigate("/");
       } else {
-        // alert(ApiCall.data.errors[1]);
-        toast("موردی یافت نشد لطفا مقادیر را با دقت وارد کنید.")
+        toast("موردی یافت نشد لطفا مقادیر را با دقت وارد کنید.");
       }
     } catch (error) {
       console.log(error);
@@ -67,75 +68,77 @@ const LoginSteps1 = () => {
   };
   return (
     <>
-    <ToastContainer />
-    <LoginBg>
-      <div className="h-[350px] flex relative">
-        <motion.div
-          className="md:w-[377px] sm:w-[300px] md:h-full sm:h-[330px] xs:w-[275px] xs:h-[300px] sm:mt-0 xs:mt-7 bg-[#fcfcfc] rounded-[15px] flex flex-col gap-[20px] justify-center items-center "
-          initial={{ opacity: 0, scale: 0.6 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{
-            type: "spring",
-            stiffness: 250,
-            damping: 12,
-            duration: 0.6,
-            delay: 0.2,
-          }}
-        >
-          <StageName stageName={"ورود حساب کاربری"} />
-          <Formik
-            initialValues={{ phoneOrGmail: "", password: "" }}
-            onSubmit={handleSendInformation}
-            validationSchema={validation}
+      <ToastContainer />
+      <LoginBg>
+        <div className="h-[350px] flex relative">
+          <motion.div
+            className="md:w-[377px] sm:w-[300px] md:h-full sm:h-[330px] xs:w-[275px] xs:h-[300px] sm:mt-0 xs:mt-7 bg-[#fcfcfc] rounded-[15px] flex flex-col gap-[20px] justify-center items-center "
+            initial={{ opacity: 0, scale: 0.6 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 250,
+              damping: 12,
+              duration: 0.6,
+              delay: 0.2,
+            }}
           >
-            <Form className="flex flex-col items-center justify-center gap-[15px]">
-              <CustomInput
-                name={"phoneOrGmail"}
-                placeholder={"شماره همراه یا ایمیل"}
-                type={"text"}
-              />
-              <CustomInput
-                name={"password"}
-                placeholder={"رمز عبور"}
-                type={"password"}
-              />
-              <div className="w-[266px] h-[17px] flex items-center justify-between">
-                <div className="flex w-[94px] h-[12px] justify-center items-center cursor-pointer">
-                  <label
-                    className="font-normal text-xs font-b-yekan text-gray-400 mr-1 cursor-pointer"
-                    htmlFor="rememberMe"
+            <StageName stageName={"ورود حساب کاربری"} />
+            <Formik
+              initialValues={{ phoneOrGmail: "", password: "" }}
+              onSubmit={handleSendInformation}
+              validationSchema={validation}
+            >
+              <Form className="flex flex-col items-center justify-center gap-[15px]">
+                <CustomInput
+                  name={"phoneOrGmail"}
+                  placeholder={"شماره همراه یا ایمیل"}
+                  Toggle={false}
+                  originalType={"text"}
+                />
+                <CustomInput
+                  name={"password"}
+                  placeholder={"رمز عبور"}
+                  Toggle={true}
+                  originalType={"password"}
+                />
+                <div className="w-[266px] h-[17px] flex items-center justify-between">
+                  <div className="flex w-[94px] h-[12px] justify-center items-center cursor-pointer">
+                    <label
+                      className="font-normal text-xs font-b-yekan text-gray-400 mr-1 cursor-pointer"
+                      htmlFor="rememberMe"
+                    >
+                      <input
+                        className="cursor-pointer"
+                        type="checkbox"
+                        name="rememberMe"
+                        id="rememberMe"
+                        onChange={() => setRememberMe(!rememberMe)}
+                      />
+                      مرا به خاطر بسپار
+                    </label>
+                  </div>
+                  <button
+                    className="w-[71px] h-[17px] font-normal text-[11px] text-[#E48900] font-b-yekan cursor-pointer"
+                    onClick={forgetPassword}
+                    type="button"
                   >
-                    <input
-                    className="cursor-pointer"
-                      type="checkbox"
-                      name="rememberMe"
-                      id="rememberMe"
-                      onChange={() => setRememberMe(!rememberMe)}
-                    />
-                    مرا به خاطر بسپار
-                  </label>
+                    فراموشی رمز عبور
+                  </button>
                 </div>
-                <button
-                  className="w-[71px] h-[17px] font-normal text-[11px] text-[#E48900] font-b-yekan cursor-pointer"
-                  onClick={forgetPassword}
-                  type="button"
-                >
-                  فراموشی رمز عبور
-                </button>
-              </div>
-              <div className="flex flex-col gap-[10px] justify-center items-center">
-                <BtnGetCode text={"دریافت کد تایید"} />
-                <BtnTwoAuthorize text={"ثبت نام"} onClick={RegisterPage} />
-              </div>
-            </Form>
-          </Formik>
-        </motion.div>
-        <div className="size-16 mt-[100px] rounded-xl flex justify-center items-center bg-[#dac9a4] left-[-50px] absolute z-10 rotate-45">
-          <BtnNumberStep number={1} />
+                <div className="flex flex-col gap-[10px] justify-center items-center">
+                  <BtnGetCode text={"وارد شوید"} />
+                  <BtnTwoAuthorize text={"ثبت نام"} onClick={RegisterPage} />
+                </div>
+              </Form>
+            </Formik>
+          </motion.div>
+          <div className="size-16 mt-[100px] rounded-xl flex justify-center items-center bg-[#dac9a4] left-[-50px] absolute z-10 rotate-45">
+            <BtnNumberStep number={1} />
+          </div>
         </div>
-      </div>
-      <GoToOrgPage />
-    </LoginBg>
+        <GoToOrgPage />
+      </LoginBg>
     </>
   );
 };

@@ -19,9 +19,10 @@ import {
   relatedCoursesSlice,
   articlesQueryFilter,
   allDataArticleSlice,
-  articleDetailCommentSlice
+  articleDetailCommentSlice,
 } from "./slices";
-
+import { themeSlice } from "./slices/themeSlice";
+import { locationSlice } from "./slices/location";
 
 export const store = configureStore({
   reducer: {
@@ -39,11 +40,13 @@ export const store = configureStore({
     courseActivedDataUserPanel: courseActivedDataUserPanel.reducer,
     courseReserved: courseReserved.reducer,
     myCourseUserPanel: myCoursesUserPanel.reducer,
+    articlesQueryFilter: articlesQueryFilter.reducer,
+    allDataArticleSlice: allDataArticleSlice.reducer,
+    locationSlice: locationSlice.reducer,
     clientStatus: clientStatusSlice.reducer,
     articleDetailSlice: articleDetailSlice.reducer,
-    relatedCoursesSlice : relatedCoursesSlice.reducer,
-    articlesQueryFilter:articlesQueryFilter.reducer,
-    allDataArticleSlice:allDataArticleSlice.reducer,
-    articleDetailCommentSlice : articleDetailCommentSlice.reducer
+    relatedCoursesSlice: relatedCoursesSlice.reducer,
+    articleDetailCommentSlice: articleDetailCommentSlice.reducer,
+    theme: themeSlice.reducer,
   },
 });

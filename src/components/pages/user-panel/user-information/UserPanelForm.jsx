@@ -41,11 +41,11 @@ const UserPanelForm = ({ submitBtnClick, cancelBtnClick }) => {
 
   const validation = Yup.object({
     fName: Yup.string()
-      .min(2, "حداقل تعداد کاراکتر 4")
-      .max(10, "حداکثر تعداد کاراکتر 10"),
+      .min(2, "حداقل تعداد کاراکتر 4"),
+      // .max(10, "حداکثر تعداد کاراکتر 10"),
     lName: Yup.string()
-      .min(2, "حداقل تعداد کاراکتر 4")
-      .max(10, "حداکثر تعداد کاراکتر 10"),
+      .min(2, "حداقل تعداد کاراکتر 4"),
+      // .max(10, "حداکثر تعداد کاراکتر 10"),
     nationalCode: Yup.string()
       .test("nationalCode", "کد ملی نامعتبر است.", (value) => {
         const nationalIdPattern = /^(?!.*(\d)\1{9})\d{10}$/;
@@ -158,7 +158,7 @@ const UserPanelForm = ({ submitBtnClick, cancelBtnClick }) => {
                 <InputBox
                   boxStyle={"w-full"}
                   inputStyle={"w-full text-left"}
-                  labelText={" لینکداین "}
+                  labelText={" لینکدین "}
                   inputName={"linkdinAddress"}
                   inputType={"url"}
                   inputPlaceholder={"https://linkedin.com"}

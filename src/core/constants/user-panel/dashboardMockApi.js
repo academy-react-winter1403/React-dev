@@ -5,6 +5,7 @@ import myReservedCourseIcon from "../../../assets/pics/userPanel/reservedCourse.
 import myEyeIcon from "../../../assets/pics/userPanel/myEye.svg"
 import myInterestIcon from "../../../assets/pics/userPanel/Interest.svg"
 import settingIcon from "../../../assets/pics/userPanel/SecuritySetting.svg"
+import ExitIcon from "../../../assets/pics/userPanel/exit.svg"
 
 export const dashboardMockApi = [
     {text: " داشبورد ", icon: dashboardIcon},
@@ -14,4 +15,5 @@ export const dashboardMockApi = [
     {text: " دیدگاه های من ", icon: myEyeIcon},
     {text: " علاقه مندی ها ", icon: myInterestIcon},
     {text: " تنظیمات امنیتی ", icon: settingIcon},
+    {text: " خروج از حساب " , icon:ExitIcon}
 ]

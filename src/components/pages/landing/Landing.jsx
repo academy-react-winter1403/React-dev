@@ -54,7 +54,7 @@ const Landing = () => {
   }, [])
 
   return (
-    <div className="bg-[#F7F7F7]">
+    <div className="bg-[var(--bg-main)]">
       {/* <Header/> */}
       {/* <HeroSection /> */}
       {/* <CategorySection />

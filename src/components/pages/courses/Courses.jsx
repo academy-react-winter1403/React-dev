@@ -43,6 +43,8 @@ const Courses = () => {
         "pageCounter",
       ]);
     }
+    dispatch(dispatch(addCourseDetailCommentData(null)));
+    dispatch(dispatch(addCourseCommentReplay(null)));
   }, []);
 
   useEffect(() => {
@@ -56,8 +58,10 @@ const Courses = () => {
     "product",
     `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=${RowsOfPage}`
   );
+  console.log(data)
 
   if (!isLoading) {
+    console.log("dataTotalCount=========>",data)
     if (!addDataFlag) {
       setTimeout(() => {
         dispatch(firstAddCourseProduct(data.courseFilterDtos));
@@ -82,9 +86,9 @@ const Courses = () => {
 
   const { mutateAsync: getDataByClick2 } = getDataByClick();
   const pageChangeHandler = async (pageNum) => {
+
     dispatch(changeCoursesPageCounter(pageNum));
     dispatch(firstAddCourseProduct(null));
-    dispatch(changeAddDataFlag(true));
     dispatch(changeAddDataFlag(true));
 
     const data = await getDataByClick2(
@@ -108,11 +112,12 @@ const Courses = () => {
       <div className="min-md:w-[82%] max-md:w-[90%] font-b-yekan flex flex-col items-center">
         <TopSection />
         <BottomSection>
-          <PaginationData
+          {data && <PaginationData
             initialPageNum={1}
-            totalNum={5}
-            pageChange={pageChangeHandler}
-          />
+            changePageNumber={pageChangeHandler}
+            totalCount={data.totalCount}
+            RowsOfPage={RowsOfPage}
+          />}
         </BottomSection>
       </div>
       <ScrollToTopButton />

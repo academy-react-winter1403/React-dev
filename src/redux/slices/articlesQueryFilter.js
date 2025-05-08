@@ -6,7 +6,7 @@ export const articlesQueryFilter = createSlice({
     PageNumber: 1,
     RowsOfPage: 6,
     SortingCol: "InsertDate",
-    SortType: "ACS",
+    SortType: "DESC",
     Query: null,
   },
   reducers: {

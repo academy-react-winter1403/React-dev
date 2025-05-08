@@ -55,7 +55,8 @@ const DashboardSection = () => {
   );
 
   if (!newsLoading) {
-    console.log(newsData.news);
+    // console.log(newsData)
+    console.log(newsData?.news);
     dispatch(addLatestSserPanelNewsSlice(newsData.news));
   }
   // get lastUpdate data
@@ -99,7 +100,7 @@ const DashboardSection = () => {
   }
 
   return (
-    <div className="dashboard-container w-full flex justify-center ">
+    <div className="dashboard-container w-full flex justify-center">
       <div className="dashboard-control w-full min-lg:w-[90%] p-2">
         {<TopSection />}
         <CenterSection data={latestSserPanelNewsSliceData} />

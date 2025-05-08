@@ -6,8 +6,8 @@ import DateObject from "react-date-object";
 
 const ChangeMoment = (date, format, calendar) => {
     const variants = {
-        "persian": new DateObject(date).convert(persian, persian_fa).format(format),
-        "english": new DateObject(date).convert(gregorian, gregorian_en).format(format),
+        persian: new DateObject(date).convert(persian, persian_fa).format(format),
+        english: new DateObject(date).convert(gregorian, gregorian_en).format(format),
     }
 
     return variants?.[calendar]

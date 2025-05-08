@@ -1,10 +1,28 @@
+@import "tailwindcss";
+
 body {
   /* background: #f9f9f9; */
   background: #F7F7F7 ;
+  background: #F7F7F7;
   user-select: none;
 }
 
-@import "tailwindcss";
+:root{
+  --bg-main: #F7F7F7;
+  --text-main:#555555;
+  --button-bg:#01CEC9;
+  --button-text:#ffffff;
+  --title-text:#01CEC9;
+  --logo: #000000;
+}
+.dark-theme{
+  --bg-main: #0f172a;
+  --text-main:#e2e8f0;
+  --button-bg:#3b82f6;
+  --button-text:#ffffff;
+  --title-text:#60a5fa;
+  --logo: #ffffff;
+}
 
 @font-face {
   font-family: b-yekan;

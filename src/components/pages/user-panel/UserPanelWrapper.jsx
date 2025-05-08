@@ -3,15 +3,17 @@ import PanelDashboard from "./PanelDashboard";
 import { Outlet } from "react-router-dom";
 import { TiHome } from "react-icons/ti";
 import { getDataUserPanel, getNewData } from "../../../core/services";
-import { htttp } from "../../../core/services/interceptor";
+// import { htttp } from "../../../core/services/interceptor";
 import { getItemLocalStorage } from "../../../core/hooks/local-storage/getItemLocalStorage";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addLatestSserPanelNewsSlice,
+  // addLatestSserPanelNewsSlice,
   addUserProfileInfoData,
 } from "../../../redux/actions";
 import Aos from "aos";
 import { motion } from "framer-motion";
+import SelectProfileImage from './../../partials/UserPanel/SelectProfileImage';
+import MapUserPanel from './../../partials/UserPanel/MapUserPanel';
 
 const UserPanelWrapper = () => {
   const dispatch = useDispatch();
@@ -40,8 +42,8 @@ const UserPanelWrapper = () => {
   }
 
   const closeBtnClickHandler = () => {
-    setMenuFlag(false)
-  }
+    setMenuFlag(false);
+  };
 
   return (
     <div className="user-panel-holder w-full flex justify-center">
@@ -60,7 +62,7 @@ const UserPanelWrapper = () => {
               max-lg:block z-10 transition-all`
         }
       >
-        {!isLoading && <PanelDashboard closeBtnClick={closeBtnClickHandler}/>}
+        {!isLoading && <PanelDashboard closeBtnClick={closeBtnClickHandler} />}
       </div>
       <div
         className="dashboard-container w-[77%] max-lg:w-[90%] rounded-[10px] bg-[#FFFFFF]
@@ -74,6 +76,10 @@ const UserPanelWrapper = () => {
             <TiHome size={25} className="text-[#01B4AF] cursor-pointer" />
           </div>
           <Outlet />
+
+          {/* <SelectProfileImage /> */}
+          {/* <MapUserPanel /> */}
+
         </div>
       </div>
       {/* </motion.div> */}

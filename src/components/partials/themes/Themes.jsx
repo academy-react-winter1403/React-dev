@@ -1,13 +1,35 @@
-import React from 'react'
+import useTheme from "../../../core/hooks/HookTheme/useTheme";
 
 const Themes = () => {
-  return (
-    <div className='themes-item-control w-[84px] h-[65px] fixed right-[50px] bottom-[30px] border-[2px]
-        border-blue-950 rounded-[5px] bg-blue-600 z-50 transition-all hover:w-[280px]'
-    >
-      
-    </div>
-  )
-}
+  const {mode,changeTheme} = useTheme()
+  // const changeTheme = (newTheme) => {
+  //   console.log('newTheme=====>',newTheme)
+  // }
 
-export default Themes
+  return (
+    <div
+      className="bg-[var(--bg-main)] text-[var(--text-main)]"
+    >
+      <button
+        onClick={() => changeTheme("light")}
+        className="p-2 m-2 bg-[var(--button-bg)] text-[var(--button-text)] rounded-full"
+      >
+        light theme
+      </button>
+      <button
+        onClick={() => changeTheme("dark")}
+        className="p-2 m-2 bg-[var(--button-bg)] text-[var(--button-text)] rounded-full"
+      >
+        dark theme
+      </button>
+      <button
+        onClick={() => changeTheme("system")}
+        className="p-2 m-2 bg-[var(--button-bg)] text-[var(--button-text)] rounded-full"
+      >
+        system theme
+      </button>
+    </div>
+  );
+};
+
+export default Themes;

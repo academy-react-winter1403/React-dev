@@ -38,6 +38,7 @@ const RegisterSteps1 = () => {
         ApiCall.data.message == "درخواست نامعتبر"
       ) {
         toast("شما قبلا ثبت نام کرده ایید");
+        // alert("شما قبلا ثبت نام کرده ایید")
         navigate("/Authorize/Login/step1");
       }
     } catch (error) {
@@ -56,7 +57,7 @@ const RegisterSteps1 = () => {
 
   return (
     <>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <LoginBg>
         {/* <Toaster position="top-center" reverseOrder={false} /> */}
         <div className="md:h-[400px] xs:h-[300px] flex relative   ">
@@ -82,7 +83,8 @@ const RegisterSteps1 = () => {
                 <CustomInput
                   name={"phoneNumber"}
                   placeholder={"شماره همراه"}
-                  type={"text"}
+                  Toggle={false}
+                  originalType={"text"}
                 />
                 <div className="flex flex-col gap-[10px] justify-center items-center">
                   <BtnGetCode text={"دریافت کد تایید"} />

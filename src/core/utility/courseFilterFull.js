@@ -8,10 +8,9 @@ export const courseFilterFull = async (endUrl, queryParams, dispatch) => {
 
   dispatch(firstAddCourseProduct(null))
   const data = await htttp.get(
-    `/Home/GetCoursesWithPagination?PageNumber=${
-      queryParams.PageNumber
-    }&RowsOfPage=${queryParams.RowsOfPage}&
+    `/Home/GetCoursesWithPagination?RowsOfPage=${queryParams.RowsOfPage}&
     ${`&SortingCol=${queryParams.SortingCol}`}&
+    ${`&SortType=${queryParams.SortType}`}&
     ${`&Query=${queryParams.Query}`}&
     ${`ListTech=${queryParams.ListTech}`}&
     ${`courseLevelId=${queryParams.courseLevelId}`}&

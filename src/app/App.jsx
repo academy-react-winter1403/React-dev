@@ -11,7 +11,7 @@ const App = () => {
   const dispatch = useDispatch()
   const { clientStatus } = useSelector((state) => state);
   const { clientStatusFlag } = clientStatus;
-  console.log(clientStatusFlag);
+  // console.log(clientStatusFlag);
 
   useEffect(() => {
     dispatch(changeClientStatus(navigator.onLine))
@@ -25,7 +25,7 @@ const App = () => {
   });
 
   return (
-    <main dir="rtl" className={`w-full`}>
+    <main dir="rtl" className={`w-full bg-[var(--bg-main)]`}>
       <ToastContainer position="top-right" autoClose={2000} rtl={true}  />
       <div className="control darkMode">
         {clientStatusFlag ? <RouterProvider /> : <NetworkError classStyles={"w-full h-[731px] border"}/>}

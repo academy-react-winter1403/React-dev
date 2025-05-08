@@ -10,9 +10,11 @@ const CommentBox = ({
   replayLikeBtnClick,
   replayDeslikeBtnClick,
   addCommentBtnClick,
-  commentReplay
+  // commentReplay
 }) => {
   const [showAddComment, setShowAddComment] = useState(false);
+
+  // console.log(commentData)
 
   const toggleAddComment = () => {
     setShowAddComment(prev => !prev);

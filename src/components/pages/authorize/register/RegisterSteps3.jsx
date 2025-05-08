@@ -33,7 +33,7 @@ const RegisterSteps3 = () => {
       } else {
         toast(ApiCall.data.message);
       }
-      console.log(ApiCall);
+      // console.log(ApiCall);
     } catch (error) {
       console.log(error);
     }
@@ -81,17 +81,20 @@ const RegisterSteps3 = () => {
                 <CustomInput
                   name={"gmail"}
                   placeholder={"ایمیل"}
-                  type={"email"}
+                  Toggle={false}
+                  originalType={"email"}
                 />
                 <CustomInput
                   name={"password"}
                   placeholder={"رمز عبور"}
-                  type={"password"}
+                  Toggle={true}
+                  originalType={"password"}
                 />
                 <CustomInput
                   name={"confirmPassword"}
                   placeholder={"تایید رمز عبور"}
-                  type={"text"}
+                  Toggle={true}
+                  originalType={"password"}
                 />
                 <div className="flex w-[94px] h-[12px] cursor-pointer">
                   <label
