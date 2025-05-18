@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   addCourseComment,
+  addCourseFavoritePost,
   desLikeCourseCommentPost,
+  dislikeComment,
   getCommentData,
+  getCommentOneData,
   getData,
+  getDataByClick,
   getDataUserPanel,
   likeCourseCommentPost,
 } from "../../../core/services";
@@ -23,6 +27,12 @@ import {
   addCourseDetailCommentData,
   addCourseCommentReplay,
   addUserProfileInfoData,
+  changeCommentLikeCounter,
+  changeCommentDislikeCounter,
+  changeReplayLikeCounter,
+  changeReplayDisLikeCounter,
+  changeCommentDB,
+  changeCommentDataFlag,
 } from "../../../redux/actions";
 import { MotionComp } from "../../partials";
 import LeftItemCard from "./LeftItemCard";
@@ -30,21 +40,43 @@ import { errorMessageHandler } from "../../../core/utility/errorMessageHandler";
 import Aos from "aos";
 import { getItemLocalStorage } from "../../../core/hooks/local-storage/getItemLocalStorage";
 import { useQueryClient } from "react-query";
+// <<<<<<< HEAD
 import ScrollToTopButton from "../../common/ScrollToTopBtn";
+// =======
+import { htttp } from "../../../core/services/interceptor";
+import { toast } from "react-toastify";
+import AddComment from "../../partials/comment-box/AddComment";
+// >>>>>>> bfddc3b24ca4ff50f06f1eb483129d175a014749
 
 const CourseDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const token = getItemLocalStorage("token");
-  const queryClient = useQueryClient()
-  const [commentBoxHeightFlag, setCommentBoxHeightFlag] = useState(true)
+  const queryClient = useQueryClient();
+  const [commentBoxHeightFlag, setCommentBoxHeightFlag] = useState(true);
+  const [helpCommentStatus, setHelpCommentStatus] = useState([]);
+  const [likeAndDisLikeClickFlag, setLikeAndDisLikeClickFlag] = useState(false);
+  const [showReplayBoxFlag, setShowReplayBoxFlag] = useState(false);
+  const [commentId, setCommentId] = useState(null);
 
   const { courseComment, courseDetail, userProfileInfoSlice } = useSelector(
     (state) => state
   );
-  const { commentData, commentReplay } = courseComment;
+
+  // comment data
+  const { commentDataFlag, commentData, commentReplay } = courseComment;
+  // comment data
+
   const { detailData } = courseDetail;
 
+  console.log(detailData);
+  if (detailData) {
+    var { techs } = detailData;
+  }
+
+  console.log(detailData);
+  // console.log(detailData)
+  // get detail data
   const { data, isLoading } = getData(
     "detailProduct",
     `/Home/GetCourseDetails?CourseId=${id}`
@@ -52,48 +84,69 @@ const CourseDetail = () => {
   if (!isLoading) {
     dispatch(addCourseDetailData(data));
   }
+  // get detail data
 
-  const { data: comment, isLoading: commentLoading, isSuccess } = getCommentData(
-    "courseComment",
-    `/Course/GetCourseCommnets/${id}`
-  );
+  // get comment data
+  const {
+    data: comment,
+    isLoading: commentLoading,
+    isSuccess,
+  } = getCommentData("courseComment", `/Course/GetCourseCommnets/${id}`);
   if (!commentLoading) {
     dispatch(addCourseDetailCommentData(comment.data));
     if (commentData) {
-      if (!commentReplay) {
+      if (!commentDataFlag) {
+        dispatch(changeCommentDataFlag(true));
+        console.log(commentDataFlag);
         getCourseCommentReplay(
           "/Course/GetCourseReplyCommnets/",
           commentData
         ).then((replayReponse) => {
-          console.log(replayReponse)
           dispatch(addCourseCommentReplay(replayReponse));
         });
       }
     }
   }
+  // get comment data
 
+  // comment like handle
+  const {
+    mutate: likeMutate,
+    isLoading: commentLikePostLoading,
+    isSuccess: commentLikeSuccess,
+  } = likeCourseCommentPost("commentLike");
   const coomentLikeBtnClickHandler = async (item) => {
-    console.log(item)
-    likeCourseCommentPost("/Course/AddCourseCommentLike?CourseCommandId", item.id).then((response) => {
-      console.log(response)
-    })
+    likeMutate(["/Course/AddCourseCommentLike?CourseCommandId", item.id], {
+      onSuccess: async (data) => {
+        dispatch(changeCommentDataFlag(false));
+        queryClient.invalidateQueries(["courseComment"]);
+      },
+    });
   };
+  // comment like handle
 
+  // comment dislike handle
+  const { mutate: comentDislikeMutate } = dislikeComment("commentDislike");
   const commentDesLikeBtnClickHandler = async (item) => {
-    const resData = await desLikeCourseCommentPost(
-      `/Course/AddCourseCommentDissLike?CourseCommandId`,
-      item.id
+    comentDislikeMutate(
+      ["/Course/AddCourseCommentDissLike?CourseCommandId", item.id],
+      {
+        onSuccess: (data) => {
+          dispatch(changeCommentDataFlag(false));
+          queryClient.invalidateQueries(["courseComment"]);
+        },
+      }
     );
-    errorMessageHandler(resData);
   };
+  // comment dislike handle
 
-  const replayLikeBtnClickHandler = async () => {
-    alert();
-  };
+  // replay like handle
+  const replayLikeBtnClickHandler = async () => {};
+  // replay like handle
 
-  const replayDeslikeBtnClickHandler = async () => {
-    alert();
-  };
+  // replay dislike handle
+  const replayDeslikeBtnClickHandler = async () => {};
+  // replay dislike handle
 
   const {
     isError,
@@ -120,25 +173,75 @@ const CourseDetail = () => {
       Title: event.title,
       Describe: event.description,
     };
-    mutate([
-      "/Course/AddCommentCourse",
-      dataObj,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
+    mutate(
+      [
+        "/Course/AddCommentCourse",
+        dataObj,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         },
-      },
-    ], {
-      onSuccess: () => {
-        dispatch(addCourseCommentReplay(null));
-        queryClient.invalidateQueries(["courseComment"])
+      ],
+      {
+        onSuccess: () => {
+          dispatch(addCourseCommentReplay(null));
+          queryClient.invalidateQueries(["courseComment"]);
+        },
       }
-    });
+    );
   };
+
+  // comment replay form show and hide handler
+  const commentReplayFormShowHandler = (item) => {
+    console.log(item);
+    setShowReplayBoxFlag(true);
+    setCommentId(item.id);
+  };
+
+  const closeReplayCard = () => {
+    setShowReplayBoxFlag(false);
+  };
+  // comment replay form show and hide handler
+
+  // add replay comment handler
+  const { mutate: replayPost } = addCourseComment("courseCommentReplay");
+  const addReplayCommentHandler = (event) => {
+    setShowReplayBoxFlag(false);
+    let dataObj;
+    if (commentId) {
+      dataObj = {
+        CommentId: commentId,
+        CourseId: id,
+        Title: event.title,
+        Describe: event.description,
+      };
+    }
+    replayPost(
+      [
+        "/Course/AddReplyCourseComment",
+        dataObj,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        },
+      ],
+      {
+        onSuccess: (data) => {
+          console.log(data);
+          dispatch(changeCommentDataFlag(false));
+          queryClient.invalidateQueries(["courseComment"]);
+        },
+      }
+    );
+    console.log(dataObj);
+  };
+  // add replay comment handler
 
   useEffect(() => {
     Aos.init({
-      duration: 5000,
+      duration: 10,
       // once: true
     });
     Aos.refresh();
@@ -165,32 +268,60 @@ const CourseDetail = () => {
               </DescriptionBox>
             </MotionComp>
             <div className="headlines-holder h-[300px] w-full border rounded-[10px] mt-3"></div>
-            <div className={`comment-item-holder transition-all ${commentBoxHeightFlag ? "max-h-[990px]" : "h-auto"}
+            <div
+              className={`comment-item-holder transition-all ${
+                commentBoxHeightFlag ? "max-h-[990px]" : "h-auto"
+              }
               overflow-hidden relative`}
             >
+              {showReplayBoxFlag && (
+                <div
+                  className="replay-card-container w-full h-full fixed left-0 top-0
+                flex flex-col justify-center items-center z-50 backdrop-blur-[6px]"
+                >
+                  <p
+                    className="font-b-yekan text-xl cursor-pointer"
+                    onClick={closeReplayCard}
+                  >
+                    نمیخوام نظر ثبت کنم😂
+                  </p>
+                  <div className="replay-form-control w-2/4">
+                    <AddComment btnClick={addReplayCommentHandler} />
+                  </div>
+                </div>
+              )}
               {commentReplay ? (
                 <CommentBox
+                  // commentLikeCount={5}
                   commentData={commentReplay}
                   coomentLikeBtnClick={coomentLikeBtnClickHandler}
                   commentDesLikeBtnClick={commentDesLikeBtnClickHandler}
                   replayLikeBtnClick={replayLikeBtnClickHandler}
                   replayDeslikeBtnClick={replayDeslikeBtnClickHandler}
                   addCommentBtnClick={addCommentBtnClickHandler}
+                  addReplayClick={commentReplayFormShowHandler}
                 />
-              ) : null}
-              <div className="btn-control w-full absolute bottom-2 flex justify-center items-center">
+              ) : <h1> کامنتی وجود ندارد🤣🤣 </h1>}
+              {commentReplay ? 
+                <div className="btn-control w-full absolute bottom-2 flex justify-center items-center">
                 <button
                   className="border border-gray-900 bg-gray-900 text-white
                   py-2 px-7 rounded-2xl cursor-pointer"
                   // data-aos="fade-up"
-                  onClick={() => commentBoxHeightFlag ? setCommentBoxHeightFlag(false) : setCommentBoxHeightFlag(true)}
-                >{commentBoxHeightFlag ? "کامنت بیشتر " : " کامنت کمتر "}</button>
-              </div>
+                  onClick={() =>
+                    commentBoxHeightFlag
+                      ? setCommentBoxHeightFlag(false)
+                      : setCommentBoxHeightFlag(true)
+                  }
+                >
+                  {commentBoxHeightFlag ? "کامنت بیشتر " : " کامنت کمتر "}
+                </button>
+              </div> : null}
             </div>
           </div>
-          <div className="left w-[33%] max-my-breakpoint:w-full ">
+          <div className="left w-[33%] max-my-breakpoint:w-full">
             <MotionComp
-              classNames={`top-section bg-[#FFFFFF] drop-shadow-[0_1px_2px_#00000040] py-[40px] px-[20px] rounded-[15px]`}
+              classNames={`top-section bg-(--filter-box) drop-shadow-[0_1px_2px_#00000040] py-[40px] px-[20px] rounded-[15px]`}
               xInitial={"-100px"}
               xAnimate={0}
               animDuration={2}
@@ -199,7 +330,7 @@ const CourseDetail = () => {
                 <UserCard
                   aosAnim={"fade-left"}
                   text={"دانشجو"}
-                  num={detailData?.currentUserRateNumber}
+                  num={detailData?.currentRegistrants}
                 >
                   <HiUserGroup className="text-[#006865]" size={35} />
                 </UserCard>
@@ -215,7 +346,14 @@ const CourseDetail = () => {
                 <CompletionCourse completionNum={87} />
               </div>
               <HrComp initialWidth={"full"} mtNum={27} />
-              <LeftItemCard detailData={detailData} />
+              <LeftItemCard
+                cardData={{
+                  categoryData: detailData?.techs,
+                  prerequisite: detailData?.googleTitle,
+                  learnLevel: detailData?.courseLevelName,
+                  courseStatus: detailData?.courseStatusName,
+                }}
+              />
               <HrComp initialWidth={"full"} mtNum={27} />
               <div className="teacher-prof-control flex flex-col items-center mt-[10px]">
                 <div

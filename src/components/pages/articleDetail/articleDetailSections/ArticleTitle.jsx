@@ -64,7 +64,7 @@ const ArticleTitle = () => {
       </div>
 
       {/* Info Row */}
-      <div className="w-[90%] h-1/2 flex flex-row justify-end md:gap-4 xs:gap-1 text-[#7d7c7c] items-center whitespace-nowrap">
+      <div className="w-[90%] h-1/2 flex flex-row justify-end md:gap-4 xs:gap-1 text-[var(--article-detail-top-text)] items-center whitespace-nowrap">
         <div className="flex flex-row gap-1 items-center">
           <IoEyeOutline className="text-[16px] mt-1" />
           <p className="text-[12px] md:text-[14px] lg:text-[16px]">{currentView} بازدید</p>

@@ -1,21 +1,59 @@
-import { firstAddCourseProduct } from "../../redux/actions";
-// import { getDataByClick } from "../services/api/get-data-by-click/getDataByClick";
 import { htttp } from "../services/interceptor";
 
-// const { mutateAsync: getFilteData } = getDataByClick()
-export const courseFilterFull = async (endUrl, queryParams, dispatch) => {
-  console.log(queryParams);
+export const courseFilterFull = async (
+  endUrl,
+  queryParams,
+  dispatch,
+  productState,
+  setSearchParams
+) => {
+  dispatch(productState(null));
+  const {
+    PageNumber,
+    RowsOfPage,
+    SortingCol,
+    SortType,
+    Query,
+    CostDown,
+    CostUp,
+    TechCount,
+    ListTech,
+    courseLevelId,
+    CourseTypeId,
+    TeacherId,
+  } = queryParams;
 
-  dispatch(firstAddCourseProduct(null))
-  const data = await htttp.get(
-    `/Home/GetCoursesWithPagination?RowsOfPage=${queryParams.RowsOfPage}&
-    ${`&SortingCol=${queryParams.SortingCol}`}&
-    ${`&SortType=${queryParams.SortType}`}&
-    ${`&Query=${queryParams.Query}`}&
-    ${`ListTech=${queryParams.ListTech}`}&
-    ${`courseLevelId=${queryParams.courseLevelId}`}&
-    ${`CourseTypeId=${queryParams.CourseTypeId}`}`
-  );
-  dispatch(firstAddCourseProduct(data.data.courseFilterDtos))
+  const paramsArray = [
+    PageNumber,
+    RowsOfPage,
+    SortingCol,
+    SortType,
+    Query,
+    CostDown,
+    CostUp,
+    TechCount,
+    ListTech,
+    courseLevelId,
+    CourseTypeId,
+    TeacherId,
+  ];
+
+  const data = await htttp.get(endUrl, {
+    params: {
+      PageNumber,
+      RowsOfPage,
+      SortingCol,
+      SortType,
+      Query,
+      CostDown,
+      CostUp,
+      TechCount,
+      ListTech,
+      courseLevelId,
+      CourseTypeId,
+    },
+  });
+
+  dispatch(productState(data.data.courseFilterDtos));
   return data;
 };

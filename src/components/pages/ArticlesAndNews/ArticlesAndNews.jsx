@@ -79,14 +79,14 @@ const ArticlesAndNews = () => {
     dispatch(changePageNumber(pageNum));
   };
   return (
-    <div className="max-w-8xl flex flex-col justify-center m-auto gap-3 bg-[#F7F7F7] font-b-yekan  max-w-[1500px] mx-auto">
+    <div className="max-w-8xl flex flex-col justify-center m-auto gap-3 bg-[var(--bg-main)] font-b-yekan  max-w-[1500px] mx-auto">
       <div>
         <TopSectionArticlesNew />
       </div>
       <div className="flex lg:flex-row lg:flex-nowrap lg:gap-3 xs:flex-col  m-auto items-start justify-center w-[90%]">
         <div className="lg:w-2/3 flex flex-col gap-7">
           <div className="h-[45px] flex flex-col justify-end items-start gap-4 xs:gap-2">
-            <h1 className="font-b-yekan font-bold text-[#005351] md:text-[27px] xs:text-[20px] text-center whitespace-nowrap">
+            <h1 className="font-b-yekan font-bold text-[var(--filter-text)] md:text-[27px] xs:text-[20px] text-center whitespace-nowrap">
               جدیدترین اخبار و مقالات
             </h1>
             <div className="flex flex-row gap-2.5">
@@ -141,7 +141,7 @@ const ArticlesAndNews = () => {
         </div>
         <div className="lg:w-[298px] xs:w-full flex lg:flex-col flex-row justify-center items-center mt-15 gap-6 ">
           <div
-            className="lg:w-full md:w-1/2 h-[408px] flex flex-col gap-7 shadow-sm items-center justify-center "
+            className="lg:w-full md:w-1/2 h-[408px] flex flex-col gap-7 shadow-sm items-center justify-center bg-(--boxes-article) rounded"
             data-aos="zoom-in-down"
           >
             <TextPagesArticlesNew
@@ -161,7 +161,7 @@ const ArticlesAndNews = () => {
             </div>
           </div>
           <div
-            className="lg:w-full md:w-1/2 h-[408px] flex flex-col gap-7 shadow-sm items-center justify-center "
+            className="lg:w-full md:w-1/2 h-[408px] flex flex-col gap-7 shadow-sm items-center justify-center bg-(--boxes-article) rounded"
             data-aos="zoom-in-down"
           >
             <TextPagesArticlesNew

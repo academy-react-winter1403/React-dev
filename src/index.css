@@ -14,14 +14,53 @@ body {
   --button-text:#ffffff;
   --title-text:#01CEC9;
   --logo: #000000;
+  --boxes: #F7F7F7;
+  --course-text: #888888;
+  --course-top-text: #AAAAAA;
+  --course-filter: #F7F7F7;
+  --filter-box: #FFFFFF;
+  --filter-text: #005b58be;
+  --boxes-article: #F7F7F7;
+  --article-detail-top-text: #7d7c7c;
+  --article-detail-box: #F7F7F7;
+  --user-panel : #FFFFFF;
+  --category-option: #ffffff;
+  --teacher-title: #003231;
+  --teacher-title2: #268582;
+  --teacher-sub-title: #777777;
+  --footer-text-col: #77A9A8;
+  --footer-text-dot: #489A98;
+  --footer-text: #006865;
 }
+
+  /* --bg-main: #074752; */
+
+
+/* d7d5d7 */
 .dark-theme{
-  --bg-main: #0f172a;
+  --bg-main: #1b2a38;
   --text-main:#e2e8f0;
-  --button-bg:#3b82f6;
+  --button-bg:#4f94b4;
   --button-text:#ffffff;
-  --title-text:#60a5fa;
+  --title-text:#4f94b4;
   --logo: #ffffff;
+  --boxes: #c9c6c9;
+  --course-text: #8c3d80;
+  --course-top-text: #666666;
+  --course-filter: #d7d5d7;
+  --filter-box: #c9c6c9;
+  --filter-text: #ffffff;
+  --boxes-article: #c9c6c9;
+  --article-detail-top-text: #544e4e;
+  --article-detail-box: #d7d5d7;
+  --user-panel : #91cece;
+  --category-option: #c9c6c9;
+  --teacher-title: #ffd700;
+  --teacher-title2: #d6ecf3;
+  --teacher-sub-title: #ffffff;
+  --footer-text-col: #ffffff;
+  --footer-text-dot: #b0daf1;
+  --footer-text: #ffffff;
 }
 
 @font-face {
@@ -82,7 +121,8 @@ body {
   border: 2px solid rgb(255, 0, 0);
 }
 
-
 .leaflet-control-zoom {
   display: none;
 }
+
+

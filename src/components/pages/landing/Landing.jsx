@@ -19,32 +19,18 @@ import ScrollToTopButton from "../../common/ScrollToTopBtn"
 const Landing = () => {
   const [coursesData, setCoursesData] = useState(null);
 
-  // const { data, isLoading } = getData(
-  //   "landingProduct",
-  //   "/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=6"
-  // );
-
-  // if (!isLoading) {
-  //   if (!coursesData) {
-  //     console.log("landing ",data);
-  //     setCoursesData(data.courseFilterDtos);
-  //   }
-  
-  const {data, isLoading} = getData(
+  const { data, isLoading } = getData(
     "landingProduct",
     "/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=6"
-  )
+  );
 
   if (!isLoading) {
-    console.log("loginnnnn",data)
-    if (!coursesData) setCoursesData(data.courseFilterDtos);
-  }
-
-  useEffect(() => {
-    if (coursesData) {
-      console.log(coursesData);
+    console.log(data)
+    if (!coursesData) {
+      console.log("landing ",data);
+      setCoursesData(data.courseFilterDtos);
     }
-  }, [coursesData]);
+  }
 
   useEffect(() => {
     AOS.init({
@@ -72,7 +58,7 @@ const Landing = () => {
       {/* <Footer/> */}
       <HeroSection/>
       <CategorySection/>
-      <CourseSection courseData={coursesData}/>
+      {coursesData && <CourseSection courseData={coursesData}/>}
       <BestTeacherSection/>
       <ServiceSection/>
       <NewsSection/>

@@ -6,6 +6,8 @@ import { dashboardMockApi } from "./user-panel/dashboardMockApi";
 import { sortColData } from "./courses-datas/sortColData";
 import { userInformationData } from "./user-panel/userInformationData";
 import { myCourseMockApi } from "./user-panel/myCourseMockApi";
+import { sortCollingData } from "./courses-datas/sortCollingData";
+import { reservCourseSortingApi } from "./user-panel/reservCourseSortingApi";
 
 export {
   filterData,
@@ -15,5 +17,7 @@ export {
   dashboardMockApi,
   sortColData,
   userInformationData,
-  myCourseMockApi
+  myCourseMockApi,
+  sortCollingData,
+  reservCourseSortingApi
 };

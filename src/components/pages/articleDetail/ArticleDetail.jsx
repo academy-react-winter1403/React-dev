@@ -23,6 +23,7 @@ import {
   desLikeCourseCommentPost,
   getArticleCommentData,
   getCommentData,
+  likeCourseCommentPost,
 } from "../../../core/services";
 import { getNewsCommentsReplay } from "../../../core/services/api/get-data/getNewsCommentsReply";
 
@@ -31,7 +32,7 @@ import { errorMessageHandler } from "../../../core/utility/errorMessageHandler";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { articleDetailComment } from "../../../core/services/api/post-data/articleDetailComment";
-import { QueryClient } from "react-query";
+import { QueryClient, useMutation } from "react-query";
 import { useQueryClient } from "react-query";
 import ScrollToTopButton from "../../common/ScrollToTopBtn";
 import { articleDetailCommentSlice } from "../../../redux/slices";
@@ -144,6 +145,7 @@ const ArticleDetail = () => {
     dispatch(addArticleAndNewsDetailCommentData(dataComment));
     if (articleAndNewDetailComment) {
       if (!articleCommentFlag) {
+        console.log("shodd")
         dispatch(changeArticleCommentFlag(true))
         getNewsCommentsReplay("/News/GetRepliesComments?Id=", dataComment).then(
           (replyResponse) => {
@@ -155,12 +157,70 @@ const ArticleDetail = () => {
   }
 
 
-  // comment like 
+   // comment like handle
 
-  // const {
-  //   mutate: likeMutate,
-  //   isLoading: 
-  // }
+   const newsCommentLike = (key) => {
+    return useMutation({
+      mutationKey: key,
+      mutationFn: async (data) => {
+        const [endUrl, commentId] = data
+        const fullData = await htttp.post(endUrl, commentId)
+        return fullData.data
+      }
+    })
+   }
+
+  //  const {mutate: newsCommentLikeMutate} = newsCommentLike("newsCommentLike")
+   const coomentLikeBtnClickHandler = async (item) => {
+    // console.log(item)
+    // newsCommentLikeMutate(["/News/CommentLike/:CommentId", item.id], {
+    //   onSuccess: (data) => {
+    //     console.log(data)
+    //     dispatch(changeArticleCommentFlag(false))
+    //   }
+    // })
+
+    console.log(item.id)
+
+    const data = await htttp.post(`/News/CommentLike/CommentId`, "903e06ef-c42a-f011-b701-a70c348a8e3b")
+    console.log(data.data)
+   }
+
+  //  const {
+  //    mutate: likeMutate,
+  //    isLoading: commentLikePostLoading,
+  //    isSuccess: commentLikeSuccess,
+  //  } = likeCourseCommentPost("commentLike");
+  //  const coomentLikeBtnClickHandler = async (item) => {
+  //   console.log(item)
+  //   let dataObj = {
+  //     CommentId: item.id
+  //   }
+
+  //    likeMutate(["/News/CommentLike/:CommentId", item], {
+  //      onSuccess: async (data) => {
+  //       console.log("like data ==>", data)
+  //        dispatch(changeArticleCommentFlag(false));
+  //        queryClient.invalidateQueries(["newsComment"]);
+  //      },
+  //    });
+  //  };
+   // comment like handle
+ 
+   // comment dislike handle
+  //  const { mutate: comentDislikeMutate } = dislikeComment("commentDislike");
+  //  const commentDesLikeBtnClickHandler = async (item) => {
+  //    comentDislikeMutate(
+  //      ["/Course/AddCourseCommentDissLike?CourseCommandId", item.id],
+  //      {
+  //        onSuccess: (data) => {
+  //          dispatch(changeCommentDataFlag(false));
+  //          queryClient.invalidateQueries(["newsComment"]);
+  //        },
+  //      }
+  //    );
+  //  };
+   // comment dislike handle
 
 
   const {
@@ -212,7 +272,7 @@ const ArticleDetail = () => {
           <ArticleTitle />
 
           <div
-            className="w-[95%] bg-white rounded-[10px] text-[#555555] text-[18px] leading-7 flex flex-col items-center justify-start gap-3 shadow relative overflow-hidden transition-all duration-500"
+            className="w-[95%] bg-(--article-detail-box) rounded-[10px] text-[#555555] text-[18px] leading-7 flex flex-col items-center justify-start gap-3 shadow relative overflow-hidden transition-all duration-500"
             data-aos="fade-up"
           >
             <div className="w-[95%]">
@@ -240,7 +300,7 @@ const ArticleDetail = () => {
           {articleAndNewDetailCommentReply ? (
             <CommentBox
               commentData={articleAndNewDetailCommentReply}
-              coomentLikeBtnClick={commentDesLikeBtnClickHandler}
+              coomentLikeBtnClick={coomentLikeBtnClickHandler}
               commentDesLikeBtnClick={commentDesLikeBtnClickHandler}
               replayLikeBtnClick={replayLikeBtnClickHandler}
               replayDeslikeBtnClick={replayDeslikeBtnClickHandler}

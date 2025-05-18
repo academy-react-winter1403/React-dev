@@ -7,8 +7,11 @@ import students from "../../../../assets/pics/others/students.png";
 import teacher from "../../../../assets/pics/others/teacher.png";
 // import { Typewriter } from "react-simple-typewriter";
 import Typewriter from "typewriter-effect";
+import { useTranslation } from 'react-i18next';
+import i18n from "../../../../core/utility/Bilingual/I18n";
 
 const HeroSection = () => {
+  const { t } = useTranslation();
   return (
     <>
       <HeroBG itemTop={"0"} itemLeft={"0"}>
@@ -19,10 +22,12 @@ const HeroSection = () => {
               className="text-[#01CEC9] text-3xl sm:text-4xl md:text-5xl font-normal drop-shadow-lg"
               data-aos="zoom-in"
             >
-              آکادمی سپهر
+              {/* آکادمی سپهر */}
+              {t("sepehrAcademy")}
             </h1>
             <p className="text-[var(--text-main)] text-base sm:text-lg md:text-[18px] font-normal leading-7 sm:leading-9">
               <Typewriter
+                key={i18n.language}
                 options={{
                   delay: 90,
                   cursor: "",
@@ -31,9 +36,10 @@ const HeroSection = () => {
                 }}
                 onInit={(typewriter) => {
                   typewriter
-                    .typeString(
-                      `مرجع آموزش زنده و تعاملی برنامه نویسی حوزه وب<br/>با دسترسی به بیش از هفت هزار ویدیوی آموزشی به زبان فارسی`
-                    )
+                    // .typeString(
+                    //   `مرجع آموزش زنده و تعاملی برنامه نویسی حوزه وب<br/>با دسترسی به بیش از هفت هزار ویدیوی آموزشی به زبان فارسی`
+                    // )
+                    .typeString(t("heroText"))
                     .pauseFor(3000)
                     .deleteAll()
                     .start();
@@ -54,26 +60,28 @@ const HeroSection = () => {
             <LandingCharacter className="w-full max-w-[400px]" />
 
             {/* Student Info Box */}
-            <div className="w-[120px] sm:w-[140px] md:w-[160px] lg:w-[200px] h-[95px] sm:h-[105px] bg-[#FFFFFF] absolute top-0 left-0 rounded-[10px] shadow-lg">
+            <div className="w-[120px] sm:w-[140px] md:w-[160px] lg:w-[200px] h-[95px] sm:h-[105px] bg-(--boxes) absolute top-0 left-0 rounded-[10px] shadow-lg">
               <img
                 className="absolute top-[-20px] left-1/2 transform -translate-x-1/2 w-[50px] sm:w-[60px]"
                 src={students}
                 alt="#"
               />
               <p className="text-center mt-10 sm:mt-12 text-[#434343] text-lg sm:text-xl">
-                +1000 دانشجو
+                {/* +1000 دانشجو */}
+                1000+{t("students")}
               </p>
             </div>
 
             {/* Teacher Info Box */}
-            <div className="w-[120px] sm:w-[140px] md:w-[160px] lg:w-[200px] h-[95px] sm:h-[105px] bg-[#FFFFFF] absolute bottom-11 sm:bottom-6 md:bottom-42 lg:bottom-18 right-0 rounded-[10px] shadow-lg">
+            <div className="w-[120px] sm:w-[140px] md:w-[160px] lg:w-[200px] h-[95px] sm:h-[105px] bg-(--boxes) absolute bottom-11 sm:bottom-6 md:bottom-42 lg:bottom-18 right-0 rounded-[10px] shadow-lg">
               <img
                 className="absolute top-[-20px] left-1/2 transform -translate-x-1/2 w-[50px] sm:w-[60px]"
                 src={teacher}
                 alt="#"
               />
               <p className="text-center mt-10 sm:mt-12 text-[#434343] text-lg sm:text-xl">
-                +50 مدرس
+                {/* +50 مدرس */}
+                50+{t("teachers")}
               </p>
             </div>
           </div>

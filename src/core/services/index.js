@@ -19,6 +19,11 @@ import { addCourseFavoritePost } from "./api/post-data/addCourseFavoritePost";
 import { addCourseComment } from "./api/post-data/addCourseComment";
 import { getCommentDataByClick } from "./api/get-data/getCommentDataByClick";
 import { getArticleCommentData } from "./api/get-data/getArticleCommentData";
+import { getProductData } from "./api/get-data/getProductData";
+import { getCourseDataByClick } from "./api/get-data-by-click/getCourseDataByClick";
+import { getCommentOneData } from "./api/get-data/getCommentOneData";
+import { dislikeComment } from "./api/post-data/disLikeComment";
+import { reservCourse } from "./api/post-data/reservCourse";
 
 
 export {
@@ -43,4 +48,9 @@ export {
   addCourseComment,
   getArticleCommentData,
   getCommentDataByClick,
+  getProductData,
+  getCourseDataByClick,
+  getCommentOneData,
+  dislikeComment,
+  reservCourse
 };

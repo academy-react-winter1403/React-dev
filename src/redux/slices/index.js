@@ -21,6 +21,7 @@ import { relatedCoursesSlice } from "./relatedCoursesSlice";
 import { articlesQueryFilter } from './ArticlesQueryFilter';
 import {articleDetailCommentSlice} from './articleDetailCommentSlice'
 import allDataArticleSlice from './allDataArticleSlice';
+import { userPanelMyCourseFilterParamsSlice } from "./userPanelMyCourseFilterParamsSlice";
 
 export {
   coursesSlice,
@@ -45,5 +46,6 @@ export {
   relatedCoursesSlice,
   articlesQueryFilter,
   allDataArticleSlice,
-  articleDetailCommentSlice
+  articleDetailCommentSlice,
+  userPanelMyCourseFilterParamsSlice
 };

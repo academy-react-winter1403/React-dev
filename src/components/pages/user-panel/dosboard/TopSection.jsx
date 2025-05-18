@@ -13,8 +13,11 @@ const TopSection = ({ data }) => {
   const { userProfileInfoData } = userProfileInfo;
   const { courseReserv } = courseReserved;
   const { myCourse } = myCourseUserPanel;
-  const { profileCompletionPercentage } = userProfileInfoData;
-  console.log(profileCompletionPercentage)
+
+  if (userProfileInfoData) {
+    var { profileCompletionPercentage } = userProfileInfoData;
+    console.log(profileCompletionPercentage)
+  }
 
   return (
     <div className="top-item-control w-full p-2 flex items-center max-lg:justify-between
@@ -52,7 +55,7 @@ const TopSection = ({ data }) => {
             textColor={"#DC0000"}
             titleChildren={
               <p className="text-[#FFB800] text-[16px] text-start max-xl:text-center font-extrabold font-b-yekan">
-                {`${courseReserv.length} دوره `}
+                {`${courseReserv?.length} دوره `}
               </p>
             }
           >

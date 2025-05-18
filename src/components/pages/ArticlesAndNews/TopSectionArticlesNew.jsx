@@ -36,7 +36,8 @@ const TopSectionArticlesNew = () => {
             <h1 className="font-b-yekan font-bold md:text-3xl xs:text-4xl xs:text-center md:text-start text-[#000]">
               اخبار و مقالات
             </h1>
-            <p className="font-b-yekan font-normal text-md text-[#aaa] xs:text-center md:text-start">
+            <p className="font-b-yekan font-normal text-md text-[var(--course-top-text)]
+ xs:text-center md:text-start">
               با ما خودت رو به روز کن
             </p>
           </li>

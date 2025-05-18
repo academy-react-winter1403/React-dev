@@ -4,7 +4,19 @@ import ImageFedback from "../image-fedback/imageFedback";
 import pic from "../../../assets/pics/userPanel/Ellipse48.png";
 import { FaRegTrashCan } from "react-icons/fa6";
 
-const UserPanelCard = ({ imageAddress, trashcanFlag, bgCalc, divFlag,colorFlag }) => {
+const UserPanelCard = ({
+  imageAddress,
+  trashcanFlag,
+  bgCalc,
+  statusFlag,
+  colorFlag,
+  courseName,
+  teacherName,
+  staerDate,
+  price,
+  trashcanClick,
+  eyeClick
+}) => {
   const calc = bgCalc % 2;
 
   return (
@@ -21,19 +33,34 @@ const UserPanelCard = ({ imageAddress, trashcanFlag, bgCalc, divFlag,colorFlag }
       </div>
       <div className="centerr w-[80%] flex items-center justify-evenly">
         <div className="w-[92%] flex justify-between items-center">
-          <p className="text-sm w-[117px] font-b-yekan text-[#555555]">دوره آموزش جامع Js</p>
-          <p className="text-sm w-[146px] font-b-yekan text-[#555555]">دکتر محمدحسین بحر العلومی</p>
-          <p className="text-sm w-[96px] font-b-yekan text-[#555555]">۱۸ / ۰۳ / ۱۴۰۳</p>
-          <p className="text-sm w-[107px] font-b-yekan text-center text-[#555555]">۲,۵۰۰,۰۰۰</p>
+          <p className="text-sm w-[117px] font-b-yekan text-[#555555]">
+            {courseName}
+          </p>
+          <p className="text-sm w-[146px] font-b-yekan text-[#555555]">
+            دکتر محمدحسین بحر العلومی
+          </p>
+          <p className="text-sm w-[96px] font-b-yekan text-[#555555]">
+            ۱۸ / ۰۳ / ۱۴۰۳
+          </p>
+          <p className="text-sm w-[107px] font-b-yekan text-center text-[#555555]">
+            ۲,۵۰۰,۰۰۰
+          </p>
 
-          {divFlag && <p className="text-xs w-[72px] font-b-yekan text-[#E48900] text-center">در انتظار تایید</p>}
+          <p
+            className={`text-xs w-[72px] font-b-yekan ${
+              statusFlag ? "text-[#00C070]" : "text-[#E48900]"
+            } text-center`}
+          >
+            {statusFlag ? " تایید شده " : " در انتظار تایید "}
+          </p>
         </div>
       </div>
       <div className="left w-[10%] flex justify-center items-center gap-x-3">
         <FaEye
-          className={`${colorFlag ? "text-[#00BFB3]" : "text-[#E48900]"}`}
+          className={`${colorFlag ? "text-[#00BFB3]" : "text-[#E48900]"} cursor-pointer`}
+          onClick={eyeClick}
         />
-        {trashcanFlag && <FaRegTrashCan className="text-[#E48900]" />}
+        {trashcanFlag && <FaRegTrashCan className="text-[#E48900] cursor-pointer" onClick={trashcanClick}/>}
       </div>
     </div>
   );

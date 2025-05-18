@@ -4,14 +4,14 @@ import { Select, SelectItem } from "@heroui/react";
 const SortingCol = ({ dataMap, onChange }) => {
   return (
     <>
-      <div className=""></div>
+      <div className="bg-(--boxes-article)"></div>
       <Select
         placeholder="پرطرفدارترین"
         classNames={{
-          base: "text-black md:text-[20px] xs:text-[16px] text-nowrap md:w-[148px] md:h-[45px] xs:w-[118px] xs:h-[45px] rounded-[10px] font-b-yekan cursor-pointer",
-            label: "bg-red-500 font-b-yekan cursor-pointer",
+          base: "text-black md:text-[20px] xs:text-[16px] text-nowrap md:w-[148px] md:h-[45px] xs:w-[118px] xs:h-[45px] rounded-[10px] font-b-yekan cursor-pointer ",
+            label: "bg-red-500 font-b-yekan cursor-pointer ",
           mainWrapper:
-            "h-full bg-[#FFFFFF] shadow-[0_1px_3px_#00000040] border border-[#cccccc] rounded-[10px] text-[#005B58] font-b-yekan cursor-pointer",
+            "h-full bg-(--boxes-article) shadow-[0_1px_3px_#00000040] border border-[#cccccc] rounded-[10px] text-[#005B58] font-b-yekan cursor-pointer",
           trigger:
             "h-full flex flex-row-reverse items-center justify-center items-center p-0 bg-transparent rounded-[10px] font-b-yekan cursor-pointer",
           selectorIcon: "relative font-b-yekan",

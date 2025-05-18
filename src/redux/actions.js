@@ -21,15 +21,33 @@ import {
   articleDetailSlice,
   relatedCoursesSlice,
   articleDetailCommentSlice,
+  userPanelMyCourseFilterParamsSlice,
 } from "./slices";
 import { locationSlice } from "./slices/location";
 import { themeSlice } from "./slices/themeSlice";
 export const { firstAddCourseProduct } = coursesSlice.actions;
 export const { addCourseDetailData } = courseDetailSlice.actions;
 export const { addArticleData } = articleSlice.actions;
-export const { addCourseDetailCommentData, addCourseCommentReplay } =
-  courseCommentSlice.actions;
-export const { changeAddDataFlag, changeQueryFlag } = coursesFlagsSlice.actions;
+
+// course comment actions
+export const {
+  addCourseDetailCommentData,
+  addCourseCommentReplay,
+  changeCommentLikeCounter,
+  changeCommentDislikeCounter,
+  changeReplayLikeCounter,
+  changeReplayDisLikeCounter,
+  changeCommentDB,
+  changeCommentDataFlag,
+} = courseCommentSlice.actions;
+// course comment actions
+
+export const {
+  changeAddDataFlag,
+  changeQueryFlag,
+  changeFilterBoxFlag,
+  changeViewFlag,
+} = coursesFlagsSlice.actions;
 export const { changeCoursesPageCounter } = coursesPageCounterSlice.actions;
 export const { changeDarkModKey } = dorkModeSlice.actions;
 export const { addFirstFilterData } = filterDataSlice.actions;
@@ -43,7 +61,7 @@ export const {
 export const { addLatestSserPanelNewsSlice } = latestSserPanelNewsSlice.actions;
 export const { addSuggestedCourseUserPanel } =
   suggested1courseUserPanel.actions;
-export const { addCourseActivedDataUserPanel } =
+export const { addCourseActivedDataUserPanel, changeCourseActivedTatolCount } =
   courseActivedDataUserPanel.actions;
 export const { addDataTheCourseReserved } = courseReserved.actions;
 export const { addMyCourse } = myCoursesUserPanel.actions;
@@ -68,6 +86,7 @@ export const {
   changeTechnologiCount,
   changeSortType,
   changePageCounter,
+  changeCoursesSortingCol,
 } = coursesQueryParams.actions;
 export const {
   changePageNumber,
@@ -77,4 +96,15 @@ export const {
   changeQueryArticles,
 } = articlesQueryFilter.actions;
 export const { SelectLatitude, SelectLongitude } = locationSlice.actions;
+
 export const { setMode } = themeSlice.actions;
+
+
+// user panel actions
+export const {
+  changeUserPanelQueryFilter,
+  changeUserPanelSortTypeFilter,
+  changeUserPanelSortingColFilter,
+} = userPanelMyCourseFilterParamsSlice.actions;
+// user panel actions
+

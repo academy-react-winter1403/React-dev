@@ -3,7 +3,7 @@ import { IoSearchCircleSharp } from "react-icons/io5";
 
 const  Input = ({ placeholder, type, change }) => {
   const changeHandler = (event) => {
-    change(event);
+    change(event.target.value);
   };
 
   return (

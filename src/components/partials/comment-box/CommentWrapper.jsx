@@ -10,6 +10,7 @@ const CommentWrapper = ({
   commentDesLikeBtnClick,
   replayLikeBtnClick,
   replayDeslikeBtnClick,
+  addReplayClick
 }) => {
   const {
     author,
@@ -79,6 +80,7 @@ const CommentWrapper = ({
         commentId={data.id}
         likeBtnClick={coomentLikeBtnClick}
         desLikeClick={commentDesLikeBtnClick}
+        addReplayClick={addReplayClick}
         imageAddress={pictureAddress}
         desLikeCount={disslikeCount}
         likeCount={likeCount}

@@ -58,7 +58,7 @@ const ArticleFeedBack = () => {
   };
 
   return (
-    <div className="w-[95%] h-[52px] font-b-yekan px-3.5 shadow bg-white rounded-[8px] flex flex-row flex-nowrap items-center xs:justify-center md:justify-between whitespace-nowrap">
+    <div className="w-[95%] h-[52px] font-b-yekan px-3.5 shadow bg-(--article-detail-box) rounded-[8px] flex flex-row flex-nowrap items-center xs:justify-center md:justify-between whitespace-nowrap">
       {/* score */}
       <div className="h-1/2 flex flex-row items-center gap-1 relative">
         <p className="text-[#888888] hidden md:block text-[16px]">

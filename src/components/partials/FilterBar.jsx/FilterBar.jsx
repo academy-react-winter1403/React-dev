@@ -11,8 +11,22 @@ import { changeRowsOfPage, changeSortingCol, changeSortTypeArticles } from "../.
 const FilterBar = () => {
     const dispatch = useDispatch();
       const viewClickHandler = (viewEvent) => {
+// <<<<<<< HEAD
         // console.log(viewEvent);
         dispatch(changeRowsOfPage(viewEvent));
+// =======
+        console.log(viewEvent);
+        // if (viewEvent === 6) {
+        //   dispatch(changeRowsOfPage(6));
+        // }
+        // if (viewEvent === 9) {
+        //   dispatch(changeRowsOfPage(9));
+        // }
+        // if (viewEvent === 12) {
+        //   dispatch(changeRowsOfPage(12));
+        // }
+        // dispatch(changeRowsOfPage(viewEvent))
+// >>>>>>> bfddc3b24ca4ff50f06f1eb483129d175a014749
       };
       const sortTypeChangeHandler = (sortTypeEvent) => {
         // console.log(sortTypeEvent);
@@ -36,12 +50,16 @@ const FilterBar = () => {
     <>
       <SortingCol dataMap={sortingArticlesNews} onChange={sortChangeHandler} />
       <SelectView
+// <<<<<<< HEAD
         placeholder={"آتیم 6"}
+// =======
+        // placeholder={" 6 "}
+// {/* >>>>>>> bfddc3b24ca4ff50f06f1eb483129d175a014749 */}
         dataMap={viewDataArticles}
         concatText={"آیتم"}
         viewClick={viewClickHandler}
       />
-      <SortTypeCard dataMap={sortColData} onChange={sortTypeChangeHandler} />
+      <SortTypeCard dataMap={sortColData} onChange={sortTypeChangeHandler} placeholder={"نزولی"}/>
     </>
   );
 };

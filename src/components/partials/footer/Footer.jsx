@@ -13,7 +13,7 @@ import FooterInfoBtn from "../../common/FooterInfoBtn";
 
 const Footer = () => {
   return (
-    <div className="bg-[var(--bg-main)]">
+    <div className="bg-[var(--bg-main)] !w-full">
       <FooterBG itemTop={"0"} itemLeft={"0"}>
         <div className="footer-holder w-full h-[80%] flex justify-center max-w-[1515px] mx-auto">
           <div className="footer-container w-[90%]">
@@ -26,7 +26,7 @@ const Footer = () => {
                 lg:block md:block sm:block  lg:h-[50%] sm:h-[90%]"
               >
                 <p
-                  className="text-[#006865] font-normal leading-6
+                  className="text-[var(--footer-text)] font-normal leading-6
                   lg:text-[14px] max-md:text-[17px] max-md:leading-[35px] max-md:text-center"
                 >
                   مجموعه آموزشی فلان فعالیت خود را از سال ۱۳۹۰ آغاز کرده است و
@@ -34,7 +34,7 @@ const Footer = () => {
                   شده است
                 </p>
                 <p
-                  className="text-[#006865d2] font-bold leading-6 mt-[8px]
+                  className="text-[var(--footer-text)] font-bold leading-6 mt-[8px]
                   lg:text-[16px] max-md:text-[14px] max-md:text-center"
                 >
                   ساری ، میدان خــزر ، جــاده فــرح آباد ، جنب <br /> مجتمع
@@ -57,12 +57,12 @@ const Footer = () => {
                   <ul className="flex flex-col max-md:gap-y-[10px]">
                     {FooterItemsP1.map((item, index) => (
                       <li
-                        className="text-[#77A9A8] font-extrabold text-[14px] cursor-pointer flex items-center gap-3
+                        className="text-[var(--footer-text-col)]  font-extrabold text-[14px] cursor-pointer flex items-center gap-3
                         lg:leading-7 md:leading-5.5 sm:leading-4 xs:leading-2 text-nowrap max-md:text-[17px]"
                         key={index}
                       >
                         <span
-                          className="bg-[#489A98] rounded-full inline-block
+                          className="bg-[var(--footer-text-dot)]  rounded-full inline-block
                         lg:w-[5px] lg:h-[5px] xs:w-[4px] xs:h-[4px]"
                         ></span>
                         {item}
@@ -72,12 +72,12 @@ const Footer = () => {
                   <ul className="flex flex-col max-md:gap-y-[10px]">
                     {FooterItemsP2.map((item, index) => (
                       <li
-                        className="text-[#77A9A8] text-[14px] font-extrabold cursor-pointer flex items-center gap-3
+                        className="text-[var(--footer-text-col)] text-[14px] font-extrabold cursor-pointer flex items-center gap-3
                         lg:leading-7 md:leading-5.5 sm:leading-4 xs:leading-2 text-nowrap max-md:text-[17px]"
                         key={index}
                       >
                         <span
-                          className="bg-[#489A98] rounded-full inline-block
+                          className="bg-[var(--footer-text-dot)]  rounded-full inline-block
                         lg:w-[5px] lg:h-[5px] xs:w-[4px] xs:h-[4px]"
                         ></span>
                         {item}
