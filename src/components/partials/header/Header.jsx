@@ -36,7 +36,7 @@ const Header = () => {
 
               {/* Dark and Bilingual */}
 
-            <div className="flex flex-wrap items-center gap-2 px-2 py-1  rounded-md bg-[var(--bg-light)] shadow-sm xs:flex-nowrap ">
+            {/* <div className="flex flex-wrap items-center gap-2 px-2 py-1  rounded-md bg-[var(--bg-light)] shadow-sm xs:flex-nowrap ">
               <Themes />
               <button
                 onClick={() => i18n.changeLanguage("en")}
@@ -62,7 +62,7 @@ const Header = () => {
               >
                 FA
               </button>
-            </div>
+            </div> */}
 
             
           </div>

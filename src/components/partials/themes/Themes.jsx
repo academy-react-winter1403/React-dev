@@ -29,7 +29,9 @@ const Themes = () => {
       </button>
 
       {open && (
-        <div className="absolute z-10 mt-2 w-40 origin-top-right rounded-md shadow-lg bg-white dark:bg-gray-800  focus:outline-none">
+        <div 
+        // className="absolute z-10 mt-2 w-40 origin-top-right rounded-md shadow-lg bg-white dark:bg-gray-800  focus:outline-none"
+         className="absolute bottom-full mb-2 z-10 w-40 origin-bottom-right rounded-md shadow-lg bg-white dark:bg-gray-800 focus:outline-none">
           <ul className="py-1">
             {themes.map((theme) => (
               <li

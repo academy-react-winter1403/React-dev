@@ -4,6 +4,7 @@ import FooterWrapper from "../partials/footer/FooterWrapper";
 import { Outlet, useLocation } from "react-router-dom";
 import { Themes } from "../partials";
 import { ToastContainer } from "react-toastify";
+import LanguageTheme from "../common/LanguageTheme/LanguageTheme";
 
 const MainLayout = () => {
   const location = useLocation();
@@ -21,6 +22,7 @@ const MainLayout = () => {
         currentPath !== "/Authorize/forget-password/step1" &&
         currentPath !== "/Authorize/forget-password/step2" && <FooterWrapper />}
       <ToastContainer />
+      <LanguageTheme/>
     </>
   );
 };
