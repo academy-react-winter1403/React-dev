@@ -7,17 +7,30 @@ import students from "../../../../assets/pics/others/students.png";
 import teacher from "../../../../assets/pics/others/teacher.png";
 // import { Typewriter } from "react-simple-typewriter";
 import Typewriter from "typewriter-effect";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import i18n from "../../../../core/utility/Bilingual/I18n";
 
 const HeroSection = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === "fa";
   return (
     <>
       <HeroBG itemTop={"0"} itemLeft={"0"}>
-        <div className="h-auto md:h-[572px] md:px-7 w-full max-w-[1202px] flex flex-col md:flex-row justify-between mx-auto p-4 md:p-0">
+        <div
+          // className="h-auto md:h-[572px] md:px-7 w-full max-w-[1202px] flex flex-col md:flex-row justify-between mx-auto p-4 md:p-0"
+          className={`h-auto md:h-[572px] md:px-7 w-full max-w-[1202px] 
+  flex flex-col ${isRTL ? "md:flex-row" : "md:flex-row-reverse"} 
+  justify-between mx-auto p-4 md:p-0`}
+        >
           {/* Left Content */}
-          <div className="w-full md:w-[40%] flex flex-col font-b-yekan justify-center gap-4 md:gap-9 text-center md:text-right whitespace-nowrap">
+          <div
+            // className="w-full md:w-[40%] flex flex-col font-b-yekan justify-center gap-4 md:gap-9 text-center md:text-right whitespace-nowrap"
+            className={`
+    w-full md:w-[40%] flex flex-col font-b-yekan justify-center gap-4 md:gap-9 whitespace-nowrap xs:items-center md:items-stretch
+    ${isRTL ? "text-right" : "text-left"}
+    text-center md:${isRTL ? "text-right" : "text-left"}
+  `}
+          >
             <h1
               className="text-[#01CEC9] text-3xl sm:text-4xl md:text-5xl font-normal drop-shadow-lg"
               data-aos="zoom-in"

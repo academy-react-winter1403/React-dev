@@ -8,15 +8,17 @@ import {
 import { MdNavigateBefore } from "react-icons/md";
 import Overlay from "./Overlay";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 const NewsSection = () => {
   const navigate = useNavigate()
-
+  const { t } = useTranslation();
   const handleGoToNews = () => {
     navigate('/ArticlesAndNews')
   }
   return (
     <div className="w-full flex flex-col justify-center items-center mt-7 mb-7 gap-2 font-b-yekan" data-aos="zoom-in">
-      <Titles title={"اخبار و مقالات"} exp={"خـــودت رو با خـــبر کن !"} />
+      {/* <Titles title={"اخبار و مقالات"} exp={"خـــودت رو با خـــبر کن !"} /> */}
+      <Titles title={t("newsSectionTitle")} exp={t("newsSectionExp")} />
       <div className="item-holder flex xs:flex-col md:flex-row">
         <div className="right lg:px-0 md:px-6 sm:p-0 xs:px-6">
           {rightItem.map((item) => {
@@ -43,7 +45,8 @@ const NewsSection = () => {
                                       className="absolute bottom-4 right-6 z-40 text-[#005B58]
                                       font-extrabold text-[15px] font-b-yekan"
                                     >
-                                      {item.desc}
+                                      {/* {item.desc} */}
+                                       {t(item.descKey)}
                                     </p>
                                     <div
                                       className="w-[98.2%] h-[99%] overlay absolute top-[0] right-[5px] inset-0 bg-gradient-to-b
@@ -78,7 +81,8 @@ const NewsSection = () => {
                                       className="absolute bottom-4 right-6 z-40 text-[#005B58]
                                       font-extrabold text-[15px] font-b-yekan"
                                     >
-                                      {item.desc}
+                                      {/* {item.desc} */}
+                                       {t(item.descKey)}
                                     </p>
                                     <Overlay
                                       widthNum={250}
@@ -126,7 +130,8 @@ const NewsSection = () => {
                                       className="absolute bottom-4 right-6 z-40 text-[#005B58]
                                           font-extrabold text-[15px] font-b-yekan"
                                     >
-                                      {item.desc}
+                                      {/* {item.desc} */}
+                                       {t(item.descKey)}
                                     </p>
                                     <Overlay
                                       widthNum={250}
@@ -153,7 +158,8 @@ const NewsSection = () => {
                                       className="absolute bottom-4 right-6 z-40 text-[#005B58]
                                       font-extrabold text-[15px] font-b-yekan"
                                     >
-                                      {item.desc}
+                                      {/* {item.desc} */}
+                                       {t(item.descKey)}
                                     </p>
                                     <Overlay
                                       widthNum={522}
@@ -178,7 +184,8 @@ const NewsSection = () => {
       </div>
       <div className="h-5 flex items-center justify-center flex-row flex-nowrap text-[#AAAAAA] cursor-pointer mt-[28px]"
       onClick={handleGoToNews}>
-        <p>مشاهده بیشتر</p>
+        {/* <p>مشاهده بیشتر</p> */}
+        <p>{t("newsSectionViewMore")}</p>
         <MdNavigateBefore size={23} />
       </div>
     </div>

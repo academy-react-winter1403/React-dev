@@ -3,19 +3,26 @@ import { productMockData } from "../../../../core/constants/courses-datas/produc
 import Titles from "./Titles";
 import SliderOne from "../landingSlider/SliderOne";
 import { MdNavigateBefore } from "react-icons/md";
+import { useTranslation } from "react-i18next";
 
 
 
 const CourseSection = ({ courseData }) => {
+  const { t } = useTranslation();
   return (
     <div className="swiper-container items-center justify-between w-full h-[600px] flex flex-col  font-b-yekan whitespace-nowrap mt-20 overflow-hidden max-w-[1515px] mx-auto" data-aos="zoom-in">
-      <Titles
+      {/* <Titles
         title={"دوره های آموزشی"}
         exp={"به روز ترین دوره هایی که میتونید پیدا کنید"}
+      /> */}
+      <Titles
+        title={t("courseTitle")}
+        exp={t("courseDesc")}
       />
       <div className="slider-control relative w-[80%] h-[500px]">
         <div className="w-full h-5 flex items-end justify-end flex-row flex-nowrap text-[#AAAAAA] cursor-pointer">
-          <p>همه دوره ها</p>
+          {/* <p>همه دوره ها</p> */}
+           <p>{t("allCourses")}</p>
           <MdNavigateBefore size={23} />
         </div>
         <div>

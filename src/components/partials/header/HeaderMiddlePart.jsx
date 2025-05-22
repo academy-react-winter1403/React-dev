@@ -46,7 +46,8 @@ import i18n from "../../../core/utility/Bilingual/I18n";
 const HeaderMiddlePart = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isRtl = i18n.language === "fa";
   const HeaderItemsText = getHeaderItems(t);
 
   // const HeaderItemsText = React.useMemo(() => getHeaderItems(t), [i18n.language]);
@@ -55,11 +56,17 @@ const HeaderMiddlePart = () => {
     <div className="text-center">
       <ul 
       // className="flex flex-row flex-nowrap justify-center mt-2.5 font-b-yekan gap-6 text-[var(--text-main)] text-[17px] font-normal whitespace-nowrap lg:text-[17px] md:text-[14px] sm:text-[11px] xs:text-[11px]"
-       className={`
-    flex flex-nowrap justify-center mt-2.5 font-b-yekan gap-6 text-[var(--text-main)] text-[17px] font-normal whitespace-nowrap
-    lg:text-[17px] md:text-[14px] sm:text-[11px] xs:text-[11px]
+  //      className={`
+  //   flex flex-nowrap justify-center mt-2.5 font-b-yekan gap-6 text-[var(--text-main)] text-[17px] font-normal whitespace-nowrap
+  //   lg:text-[17px] md:text-[14px] sm:text-[11px] xs:text-[11px]
    
-  `}
+  // `}
+  className={`
+          flex ${isRtl ? "flex-row" : "flex-row-reverse"} 
+          flex-nowrap justify-center mt-2.5 font-b-yekan gap-6 
+          text-[var(--text-main)] text-[17px] font-normal whitespace-nowrap
+          lg:text-[17px] md:text-[14px] sm:text-[11px] xs:text-[11px]
+        `}
       >
         {HeaderItemsText.map((item, index) => {
           const isActive = location.pathname === item.path;

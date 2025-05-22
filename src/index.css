@@ -126,3 +126,19 @@ body {
 }
 
 
+/* BestTeacherSlider.css or global styles */
+
+/* Simulate RTL inside Swiper Cards */
+.rtl-fix {
+  direction: ltr;           /* Keep Swiper working correctly */
+  transform: scaleX(-1);    /* Flip Swiper visually */
+}
+
+.rtl-fix .swiper-slide {
+  transform: scaleX(-1);    /* Flip slide content back to normal */
+}
+
+.rtl-fix .slide-inner {
+  direction: rtl;           /* Fix text direction for Persian */
+  text-align: right;        /* Align text properly */
+}

@@ -2,8 +2,10 @@ import React from "react";
 import CategoryBG from "../../../../core/icons/LandingIcons/CategoryBG";
 import { CategorySectionApi } from "../../../../core/constants/LandingMockApi/CategoryMockApi";
 import Titles from "./Titles";
+import { useTranslation } from "react-i18next";
 
 const CategorySection = () => {
+    const { t } = useTranslation();
   
   return (
     <div
@@ -11,11 +13,12 @@ const CategorySection = () => {
       data-aos="fade-up"
     >
       {/* category title */}
+      <Titles title={t("categoryTitle")} exp={t("categoryDesc")} />
 
-      <Titles
+      {/* <Titles
         title={"محبوب ترین دسته بندی ها"}
         exp={"گستره وسیعی از محبوب ترین دوره ها"}
-      />
+      /> */}
 
       {/* category items */}
       <div className="w-full h-[500px] relative">
@@ -34,7 +37,8 @@ const CategorySection = () => {
                   className="text-center lg:indent-[38px] md:indent-[50px] xs:indent-[40px] -rotate-45 font-bold text-[#006865] group-hover:text-white
                 lg:text-2xl md:text-[18px] xs:text-[14px]"
                 >
-                  {item.title}
+                  {/* {item.title} */}
+                  {t(item.titleKey)}
                 </p>
                 {/* Icon */}
                 <div className="-rotate-45 md:ml-18 xs:ml-10 flex justify-center items-center  text-[#006865] group-hover:text-white">
