@@ -31,12 +31,13 @@ body {
   --footer-text-col: #77A9A8;
   --footer-text-dot: #489A98;
   --footer-text: #006865;
+  --login-text: #005351;
 }
 
-  /* --bg-main: #074752; */
+  
 
 
-/* d7d5d7 */
+
 .dark-theme{
   --bg-main: #1b2a38;
   --text-main:#e2e8f0;
@@ -61,6 +62,7 @@ body {
   --footer-text-col: #ffffff;
   --footer-text-dot: #b0daf1;
   --footer-text: #ffffff;
+  --login-text: #ffffff;
 }
 
 @font-face {

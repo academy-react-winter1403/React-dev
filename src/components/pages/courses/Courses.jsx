@@ -208,7 +208,7 @@ const Courses = () => {
   };
   return (
     <div
-      className="courses-holder flex justify-center mt-10 max-w-[1500px] mx-auto"
+      className="courses-holder flex justify-center mt-10 max-w-[1500px] mx-auto "
       style={{
         background: `url(${bg})`,
         backgroundRepeat: "repeat-y",

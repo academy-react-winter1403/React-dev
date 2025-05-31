@@ -20,6 +20,9 @@ import { getDataByClick } from "../../../core/services";
 import SortTypeCard from "../../common/SortTypeCard";
 import SelectView from "./SelectView";
 import { GridIcon, MenuIcon } from "../../../core/icons/icons";
+import { useTranslation } from "react-i18next";
+
+
 
 const FilterBar = () => {
   const dispatch = useDispatch();
@@ -131,6 +134,9 @@ const FilterBar = () => {
     dispatch(changeViewFlag(true))
   };
 
+   const { t } = useTranslation();
+   const getSortColData = sortColData(t);
+   const getsortCollingData = sortCollingData(t);
   return (
     <div className="sort-viw-btn-control flex lg:flex-row xs:flex-col-reverse gap-1 justify-between">
       <div
@@ -143,19 +149,19 @@ const FilterBar = () => {
             max-lg:py-[5px] max-lg:w-[305px]"
           onClick={openFilterBox}
         >
-          فیلتر
+          {t("filters")}
         </button>
         <div className="sorting-control flex items-center justify-center max-lg:flex-col gap-x-2
          text-[var(--filter-text)] relative max-lg:order-3 max-lg:mt-2 max-lg:w-[305px]"
         >
           <p className="text-[16px] font-b-yekan text-center relative max-lg:top-[-5px]">
-            فیلتر بر اساس :
+          {t("filtersBy")}
           </p>
           <SortTypeCard
             wrapperWidth={"max-lg:w-[305px]"}
-            placeholder={"جدیدترین"}
+            placeholder={t("Newest")}
             borderWidth={"rounded-[10px]"}
-            dataMap={sortCollingData}
+            dataMap={getsortCollingData}
             onChange={changeSortHandler}
           />
         </div>
@@ -163,18 +169,18 @@ const FilterBar = () => {
           className="left-control flex xs:justify-between items-center min-lg:gap-x-[10px] 
           lg:justify-center max-lg:flex-col max-lg:w-full"
         >
-          <div className="select-view-control flex max-lg:w-[70%] max-lg:gap-x-10 gap-x-2.5 justify-center">
+          <div className="select-view-control flex max-lg:w-[70%] max-lg:gap-x-10 gap-x-2.5 justify-center ">
             <SelectView
               placeholder={RowsOfPage}
               dataMap={viewData}
-              concatText={"آیتم"}
+              concatText={t("items")}
               viewClick={viewClickHandler}
             />
             <SortTypeCard
               wrapperWidth={"max-lg:w-[140px]"}
-              placeholder={"صعودی"}
+              placeholder={t("Ascending")}
               borderWidth={"rounded-[10px]"}
-              dataMap={sortColData}
+              dataMap={getSortColData}
               onChange={sortChangeHandler}
             />
           </div>

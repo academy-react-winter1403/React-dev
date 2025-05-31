@@ -16,7 +16,7 @@ const SortingCol = ({ dataMap, onChange }) => {
             "h-full flex flex-row-reverse items-center justify-center items-center p-0 bg-transparent rounded-[10px] font-b-yekan cursor-pointer",
           selectorIcon: "relative font-b-yekan",
           listboxWrapper:
-            "bg-[#FFFFFFF7] shadow-[0_1px_3px_#00000040] border border-[#cccccc] rounded-[5px] font-b-yekan",
+            " bg-(--course-filter) shadow-[0_1px_3px_#00000040] border border-[#cccccc] rounded-[5px] font-b-yekan",
           helperWrapper: "bg-transparent font-b-yekan",
         }}
       >

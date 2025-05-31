@@ -1,6 +1,7 @@
 import React from "react";
 import { TrashCanIcon } from "../../../core/icons/icons";
 import { FaWindowClose } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const FilterLabel = ({ closeBtnClick, removeFilterClick }) => {
 
@@ -11,6 +12,8 @@ const FilterLabel = ({ closeBtnClick, removeFilterClick }) => {
   const removeFilterClickHandler = () => {
     removeFilterClick()
   }
+
+   const { t } = useTranslation();
 
   return (
     <button className="filter-label-control flex gap-x-[141px] py-[8px] px-[14px] bg-[#E7E7E7]
@@ -39,7 +42,7 @@ const FilterLabel = ({ closeBtnClick, removeFilterClick }) => {
           />
         </svg>
 
-        <p className="text-[#333333] text-[16px] font-[400]"> فیلترها </p>
+        <p className="text-[#333333] text-[16px] font-[400]"> {t("filters")} </p>
       </button>
       <TrashCanIcon TrashCanIconClick={removeFilterClickHandler}/>
     </button>

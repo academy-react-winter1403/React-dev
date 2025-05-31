@@ -13,8 +13,12 @@ import { setItemLocalStorage } from "../../../../core/hooks/local-storage/setIte
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast, ToastContainer } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const LoginSteps1 = () => {
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
+  const direction = currentLang === "fa" ? "rtl" : "ltr";
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
   const handleSendInformation = async (values) => {
@@ -70,9 +74,10 @@ const LoginSteps1 = () => {
     <>
       <ToastContainer />
       <LoginBg>
-        <div className="h-[350px] flex relative">
+        <div className="h-[350px] flex relative"
+        dir={direction} lang={currentLang}>
           <motion.div
-            className="md:w-[377px] sm:w-[300px] md:h-full sm:h-[330px] xs:w-[275px] xs:h-[300px] sm:mt-0 xs:mt-7 bg-[#fcfcfc] rounded-[15px] flex flex-col gap-[20px] justify-center items-center "
+            className="md:w-[377px] sm:w-[300px] md:h-full sm:h-[330px] xs:w-[275px] xs:h-[300px] sm:mt-0 xs:mt-7 bg-(--bg-main) rounded-[15px] flex flex-col gap-[20px] justify-center items-center "
             initial={{ opacity: 0, scale: 0.6 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{
@@ -83,7 +88,7 @@ const LoginSteps1 = () => {
               delay: 0.2,
             }}
           >
-            <StageName stageName={"ورود حساب کاربری"} />
+            <StageName stageName={t("loginTitle")} />
             <Formik
               initialValues={{ phoneOrGmail: "", password: "" }}
               onSubmit={handleSendInformation}
@@ -92,13 +97,13 @@ const LoginSteps1 = () => {
               <Form className="flex flex-col items-center justify-center gap-[15px]">
                 <CustomInput
                   name={"phoneOrGmail"}
-                  placeholder={"شماره همراه یا ایمیل"}
+                  placeholder={t("phoneOrEmail")}
                   Toggle={false}
                   originalType={"text"}
                 />
                 <CustomInput
                   name={"password"}
-                  placeholder={"رمز عبور"}
+                  placeholder={t("password")}
                   Toggle={true}
                   originalType={"password"}
                 />
@@ -115,7 +120,7 @@ const LoginSteps1 = () => {
                         id="rememberMe"
                         onChange={() => setRememberMe(!rememberMe)}
                       />
-                      مرا به خاطر بسپار
+                      {t("rememberMe")}
                     </label>
                   </div>
                   <button
@@ -123,12 +128,15 @@ const LoginSteps1 = () => {
                     onClick={forgetPassword}
                     type="button"
                   >
-                    فراموشی رمز عبور
+                    {t("forgotPassword")}
                   </button>
                 </div>
                 <div className="flex flex-col gap-[10px] justify-center items-center">
-                  <BtnGetCode text={"وارد شوید"} />
-                  <BtnTwoAuthorize text={"ثبت نام"} onClick={RegisterPage} />
+                  <BtnGetCode text={t("login")} />
+                  <BtnTwoAuthorize
+                    text={t("register")}
+                    onClick={RegisterPage}
+                  />
                 </div>
               </Form>
             </Formik>

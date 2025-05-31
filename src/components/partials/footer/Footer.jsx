@@ -35,8 +35,12 @@ const Footer = () => {
                 lg:block md:block sm:block  lg:h-[50%] sm:h-[90%]"
               >
                 <p
-                  className="text-[var(--footer-text)] font-normal leading-6
-                  lg:text-[14px] max-md:text-[17px] max-md:leading-[35px] max-md:text-center"
+                  // className="text-[var(--footer-text)] font-normal leading-6
+                  // lg:text-[14px] max-md:text-[17px] max-md:leading-[35px] max-md:text-center"
+                  dir={isRTL ? "rtl" : "ltr"}
+                  className={`text-[var(--footer-text)] font-normal leading-6
+    lg:text-[14px] max-md:text-[17px] max-md:leading-[35px] max-md:text-center 
+    ${isRTL ? "text-right" : "text-left"}`}
                 >
                   {/* مجموعه آموزشی فلان فعالیت خود را از سال ۱۳۹۰ آغاز کرده است و
                   <br /> امروز به بزرگترین کلونی برنامه نویسی شمال کشور تبدیل
@@ -44,8 +48,12 @@ const Footer = () => {
                   {t("footerAbout")}
                 </p>
                 <p
-                  className="text-[var(--footer-text)] font-bold leading-6 mt-[8px]
-                  lg:text-[16px] max-md:text-[14px] max-md:text-center"
+                  // className="text-[var(--footer-text)] font-bold leading-6 mt-[8px]
+                  // lg:text-[16px] max-md:text-[14px] max-md:text-center"
+                  dir={isRTL ? "rtl" : "ltr"}
+                  className={`text-[var(--footer-text)] font-bold leading-6 mt-[8px]
+    lg:text-[16px] max-md:text-[14px] max-md:text-center 
+    ${isRTL ? "text-right" : "text-left"}`}
                 >
                   {/* ساری ، میدان خــزر ، جــاده فــرح آباد ، جنب <br /> مجتمع
                   دنیای آرزو &nbsp; &nbsp; &nbsp; &nbsp; 011 - 43332000 */}

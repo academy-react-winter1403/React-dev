@@ -5,18 +5,23 @@ import {
   NewsApi,
   rightItem,
 } from "../../../../core/constants/LandingMockApi/NewsMockApi";
-import { MdNavigateBefore } from "react-icons/md";
+// import { MdNavigateBefore } from "react-icons/md";
+import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import Overlay from "./Overlay";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 const NewsSection = () => {
-  const navigate = useNavigate()
-  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === "fa";
   const handleGoToNews = () => {
-    navigate('/ArticlesAndNews')
-  }
+    navigate("/ArticlesAndNews");
+  };
   return (
-    <div className="w-full flex flex-col justify-center items-center mt-7 mb-7 gap-2 font-b-yekan" data-aos="zoom-in">
+    <div
+      className="w-full flex flex-col justify-center items-center mt-7 mb-7 gap-2 font-b-yekan"
+      data-aos="zoom-in"
+    >
       {/* <Titles title={"اخبار و مقالات"} exp={"خـــودت رو با خـــبر کن !"} /> */}
       <Titles title={t("newsSectionTitle")} exp={t("newsSectionExp")} />
       <div className="item-holder flex xs:flex-col md:flex-row">
@@ -46,7 +51,7 @@ const NewsSection = () => {
                                       font-extrabold text-[15px] font-b-yekan"
                                     >
                                       {/* {item.desc} */}
-                                       {t(item.descKey)}
+                                      {t(item.descKey)}
                                     </p>
                                     <div
                                       className="w-[98.2%] h-[99%] overlay absolute top-[0] right-[5px] inset-0 bg-gradient-to-b
@@ -82,7 +87,7 @@ const NewsSection = () => {
                                       font-extrabold text-[15px] font-b-yekan"
                                     >
                                       {/* {item.desc} */}
-                                       {t(item.descKey)}
+                                      {t(item.descKey)}
                                     </p>
                                     <Overlay
                                       widthNum={250}
@@ -131,7 +136,7 @@ const NewsSection = () => {
                                           font-extrabold text-[15px] font-b-yekan"
                                     >
                                       {/* {item.desc} */}
-                                       {t(item.descKey)}
+                                      {t(item.descKey)}
                                     </p>
                                     <Overlay
                                       widthNum={250}
@@ -159,7 +164,7 @@ const NewsSection = () => {
                                       font-extrabold text-[15px] font-b-yekan"
                                     >
                                       {/* {item.desc} */}
-                                       {t(item.descKey)}
+                                      {t(item.descKey)}
                                     </p>
                                     <Overlay
                                       widthNum={522}
@@ -182,16 +187,17 @@ const NewsSection = () => {
           })}
         </div>
       </div>
-      <div className="h-5 flex items-center justify-center flex-row flex-nowrap text-[#AAAAAA] cursor-pointer mt-[28px]"
-      onClick={handleGoToNews}>
-        {/* <p>مشاهده بیشتر</p> */}
-        <p>{t("newsSectionViewMore")}</p>
-        <MdNavigateBefore size={23} />
+      <div
+        className={`h-5 flex items-center justify-center flex-nowrap text-[#AAAAAA] cursor-pointer mt-[28px] ${
+          isRTL ? "flex-row" : "flex-row-reverse"
+        }`}
+        onClick={handleGoToNews}
+      >
+        <p className={isRTL ? "ml-1" : "mr-1"}>{t("newsSectionViewMore")}</p>
+        {isRTL ? <MdNavigateBefore size={23} /> : <MdNavigateNext size={23} />}
       </div>
     </div>
   );
 };
 
 export default NewsSection;
-
-

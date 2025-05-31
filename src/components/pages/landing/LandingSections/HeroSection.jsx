@@ -9,6 +9,7 @@ import teacher from "../../../../assets/pics/others/teacher.png";
 import Typewriter from "typewriter-effect";
 import { useTranslation } from "react-i18next";
 import i18n from "../../../../core/utility/Bilingual/I18n";
+// import SearchModal from "../../../common/LandingInput/SeachModal";
 
 const HeroSection = () => {
   const { t, i18n } = useTranslation();
@@ -65,6 +66,8 @@ const HeroSection = () => {
                     </p> */}
             {/* <Input placeholder={"دنبال چی میگردی؟..."}/> */}
             <SearchBox placeholder={"دنبال چی میگردی؟..."} />
+            {/* <SearchModal setVisible={setVisibleSearch} visible={visibleSearch}/> */}
+            
           </div>
 
           {/* Right Content */}

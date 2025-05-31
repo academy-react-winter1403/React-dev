@@ -8,7 +8,7 @@ const MenuIcon = ({ click,view}) => {
   }
 
   return (
-    <button className={view ? 'gridBtn bg-white' : 'gridBtn bg-gray-200'} onClick={clickHandler}>
+    <button className={view ? 'gridBtn  bg-(--course-filter)' : 'gridBtn bg-gray-200'} onClick={clickHandler}>
         <MdOutlineMenu size={28} style={{color: "#005B58",borderRadius:'1px 10px 1px 1px'}}/>
     </button>
   )
