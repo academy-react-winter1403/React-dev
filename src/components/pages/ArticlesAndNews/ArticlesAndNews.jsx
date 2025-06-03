@@ -35,9 +35,12 @@ import BgThree from "./../../../assets/pics/articles/01.jfif";
 import BgFour from "./../../../assets/pics/articles/02.jfif";
 import BgFive from "./../../../assets/pics/articles/03.jfif";
 import BgSix from "./../../../assets/pics/articles/03.png";
+import { useTranslation } from "react-i18next";
 
 
 const ArticlesAndNews = () => {
+       const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === "fa";
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [view, setView] = useState(true);
@@ -80,16 +83,22 @@ const ArticlesAndNews = () => {
   };
   return (
     <div className="max-w-8xl flex flex-col justify-center m-auto gap-3 bg-[var(--bg-main)] font-b-yekan  max-w-[1500px] mx-auto">
-      <div>
+      <div  dir={isRTL ? "rtl" : "ltr"} className="mb-9">
         <TopSectionArticlesNew />
       </div>
-      <div className="flex lg:flex-row lg:flex-nowrap lg:gap-3 xs:flex-col  m-auto items-start justify-center w-[90%]">
-        <div className="lg:w-2/3 flex flex-col gap-7">
-          <div className="h-[45px] flex flex-col justify-end items-start gap-4 xs:gap-2">
+      <div 
+      // className="flex lg:flex-row lg:flex-nowrap lg:gap-3 xs:flex-col  m-auto items-start justify-center w-[90%]"
+      className={`flex lg:flex-nowrap flex-col lg:w-[90%] m-auto items-start justify-center gap-3 ${
+    isRTL ? "lg:flex-row" : "lg:flex-row-reverse"
+  }`}
+      >
+        <div className="lg:w-2/3 flex flex-col gap-7 ">
+          <div className="h-[45px] flex flex-col justify-end items-start gap-4 xs:gap-2"  dir={isRTL ? "rtl" : "ltr"}>
             <h1 className="font-b-yekan font-bold text-[var(--filter-text)] md:text-[27px] xs:text-[20px] text-center whitespace-nowrap">
-              جدیدترین اخبار و مقالات
+              {/* جدیدترین اخبار و مقالات */}
+              {t("articleTopTitle")}
             </h1>
-            <div className="flex flex-row gap-2.5">
+            <div className="flex flex-row gap-2.5" dir={isRTL ? "rtl" : "ltr"}>
               <FilterBar />
               <div className="flex gap-x-[15px]">
                 <MenuIcon click={() => setView(false)} view={view} />
@@ -145,8 +154,10 @@ const ArticlesAndNews = () => {
             data-aos="zoom-in-down"
           >
             <TextPagesArticlesNew
-              title={"مطالب پیشنهادی"}
-              explan={"این مطالب هم میتونه براتون جالب باشه"}
+              // title={"مطالب پیشنهادی"}
+              // explan={"این مطالب هم میتونه براتون جالب باشه"}
+              title={t("recCourse1")}
+              explan={t("recCourse1Exp")}
             />
             <div className="flex flex-col justify-center items-center gap-10">
               <CardArticlesOther title={"چرا فیگما؟"} image={BgFive} />
@@ -165,8 +176,10 @@ const ArticlesAndNews = () => {
             data-aos="zoom-in-down"
           >
             <TextPagesArticlesNew
-              title={"محبوب ترین دوره ها"}
-              explan={"بهترین چیزهایی که میتونید یاد بگیرید"}
+              // title={"محبوب ترین دوره ها"}
+              // explan={"بهترین چیزهایی که میتونید یاد بگیرید"}
+              title={t("recCourse2")}
+              explan={t("recCourse2Exp")}
             />
             <div className="flex flex-col justify-center items-center gap-10">
               <CardArticlesOther title={"دوره جامع انگولار"} image={BgOne} />

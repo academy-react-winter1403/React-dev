@@ -10,6 +10,12 @@ const LoginBg = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
+
+  const getCssVar = (varName) =>
+    getComputedStyle(document.documentElement).getPropertyValue(varName);
+
+  const loginPointerColor = getCssVar("--login-pointer-div") || "#c3d3bd";
+
   return (
     <>
       <div
@@ -44,7 +50,7 @@ const LoginBg = ({ children }) => {
             </button>
           </div>
           <div className="lg:w-[869px] lg:h-[631px] md:w-[750px] md:h-[500px] sm:w-[500px] sm:h-[450px] xs:w-[450px] xs:h-[400px]  flex justify-center items-center relative backdrop-blur-xs bg-gradient-to-tl from-[#01CEC9BF]/75 to-[#E48900BF]/75 rounded-4xl">
-            <motion.div
+            {/* <motion.div
               className="size-20 rounded-3xl absolute right-[0] top-[85px] "
               initial={{
                 y: location.pathname === "/Authorize/Login/step1" ? 0 : 85,
@@ -62,8 +68,25 @@ const LoginBg = ({ children }) => {
                     : "#c3d3bd",
                 x: 15,
               }}
-              transition={{ duration: 1,delay: 0.6}}
+              transition={{ duration: 1, delay: 0.6 }}
+            ></motion.div> */}
+
+            <motion.div
+              className="size-20 rounded-3xl absolute right-[0] top-[85px]"
+              initial={{
+                y: location.pathname === "/Authorize/Login/step1" ? 0 : 85,
+                rotate: 45,
+                x: 15,
+                backgroundColor: loginPointerColor,
+              }}
+              animate={{
+                y: location.pathname === "/Authorize/Login/step1" ? 85 : 0,
+                backgroundColor: loginPointerColor,
+                x: 15,
+              }}
+              transition={{ duration: 1, delay: 0.6 }}
             ></motion.div>
+
             {children}
           </div>
         </div>

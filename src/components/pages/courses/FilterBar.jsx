@@ -134,11 +134,15 @@ const FilterBar = () => {
     dispatch(changeViewFlag(true))
   };
 
-   const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+// const isRTL = i18n.language === "fa";
    const getSortColData = sortColData(t);
    const getsortCollingData = sortCollingData(t);
   return (
-    <div className="sort-viw-btn-control flex lg:flex-row xs:flex-col-reverse gap-1 justify-between">
+    <div 
+    className="sort-viw-btn-control flex lg:flex-row xs:flex-col-reverse gap-1 justify-between" 
+    // className={`sort-viw-btn-control flex lg:flex-row xs:flex-col-reverse gap-1 justify-between ${isRTL ? "lg:flex-row" : "lg:flex-row-reverse"}`}
+    >
       <div
         className="btn-control flex items-end min-lg:gap-x-[49px] lg:w-full max-lg:items-center justify-between
           md:mt-0 xs:mt-2 gap-y-3 lg:flex-row max-xl:flex-col"

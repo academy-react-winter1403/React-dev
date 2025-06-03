@@ -1,5 +1,7 @@
 import React from "react";
 import { Select, SelectItem } from "@heroui/react";
+import { useTranslation } from "react-i18next";
+
 
 
 const SelectView = ({ viewClick, dataMap, concatText, placeholder }) => {
@@ -8,6 +10,7 @@ const SelectView = ({ viewClick, dataMap, concatText, placeholder }) => {
     viewClick(value);
   };
 
+   const { t } = useTranslation();
   
   return (
     <>
@@ -28,7 +31,7 @@ const SelectView = ({ viewClick, dataMap, concatText, placeholder }) => {
         }}
         // value={"title"}
         // children={"title"}
-        placeholder={`${placeholder} آیتم`}
+        placeholder={`${placeholder} ${t("items")}`}
       >
         {dataMap.map((item, index) => {
           return (

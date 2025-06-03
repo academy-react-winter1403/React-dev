@@ -32,6 +32,12 @@ body {
   --footer-text-dot: #489A98;
   --footer-text: #006865;
   --login-text: #005351;
+  --login-pointer-div: #c3d3bd;
+  --panel-dashboard:#01CEC9;
+  --dashboard-text-option: #003B39;
+  --dashboard-card-title-text: #005250;
+  --dashboard-userinfo: #F6FFFF;
+  --dashboard-text: #003B39;
 }
 
   
@@ -54,7 +60,7 @@ body {
   --boxes-article: #c9c6c9;
   --article-detail-top-text: #544e4e;
   --article-detail-box: #d7d5d7;
-  --user-panel : #91cece;
+  --user-panel : #374d6d;
   --category-option: #c9c6c9;
   --teacher-title: #ffd700;
   --teacher-title2: #d6ecf3;
@@ -63,6 +69,12 @@ body {
   --footer-text-dot: #b0daf1;
   --footer-text: #ffffff;
   --login-text: #ffffff;
+  --login-pointer-div: #01CEC9BF;
+  --panel-dashboard:#42768f;
+  --dashboard-text-option: #aba9a9;
+  --dashboard-card-title-text: #ffffff;
+  --dashboard-userinfo: #1b2a38;
+  --dashboard-text: #ffffff;
 }
 
 @font-face {

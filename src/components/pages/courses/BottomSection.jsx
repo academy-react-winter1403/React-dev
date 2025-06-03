@@ -304,7 +304,7 @@ const BottomSection = ({ children }) => {
         }}
       >
         <div
-          className="filter-box-control justify-center p-2 bg-(--filter-box) border
+          className="filter-box-control justify-center p-2 bg-(--filter-box) 
           drop-shadow-[0_1px_2px_#0000004D] rounded-[10px]"
         >
           <FilterLabel
@@ -312,7 +312,7 @@ const BottomSection = ({ children }) => {
             removeFilterClick={removeFilterClickHandler}
           />
           <div
-            className="filter-box-control mt-[5px] max-lg:max-h-[522px]
+            className="filter-box-control mt-[5px] max-lg:max-h-[522px] 
             overflow-x-hidden flex flex-col gap-y-[5px]"
           >
             {filterData.map((item, index) => {
@@ -361,7 +361,7 @@ const BottomSection = ({ children }) => {
         </div>
       </div>
       <div
-        className="main w-[90%] max-lg:w-full border border-amber-500"
+        className="main w-[90%] max-lg:w-full "
         style={{ order: isRTL ? 0 : 2 }}
       >
         {/* <div className="sort-viw-btn-control flex lg:flex-row xs:flex-col-reverse gap-1 justify-between">
@@ -413,7 +413,7 @@ const BottomSection = ({ children }) => {
         <div
           className={
             viewFlag
-              ? `transition-colors product-card-container grid max-xl:grid-cols-2 grid-cols-3
+              ? `transition-colors product-card-container grid max-xl:grid-cols-2 grid-cols-3 
                 max-sm:grid-cols-1 mt-[54px] gap-x-[23px] gap-y-[50px]`
               : `transition-colors product-card-container grid grid-cols-1
                 max-sm:grid-cols-1 mt-[54px] gap-x-[23px] gap-y-[50px]`

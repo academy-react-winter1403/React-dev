@@ -6,60 +6,74 @@ import { sortColData } from "../../../core/constants";
 import SelectView from "../../pages/courses/SelectView";
 import SortTypeCard from "../../common/SortTypeCard";
 import { useDispatch } from "react-redux";
-import { changeRowsOfPage, changeSortingCol, changeSortTypeArticles } from "../../../redux/actions";
+import {
+  changeRowsOfPage,
+  changeSortingCol,
+  changeSortTypeArticles,
+} from "../../../redux/actions";
+import { useTranslation } from "react-i18next";
 
 const FilterBar = () => {
-    const dispatch = useDispatch();
-      const viewClickHandler = (viewEvent) => {
-// <<<<<<< HEAD
-        // console.log(viewEvent);
-        dispatch(changeRowsOfPage(viewEvent));
-// =======
-        console.log(viewEvent);
-        // if (viewEvent === 6) {
-        //   dispatch(changeRowsOfPage(6));
-        // }
-        // if (viewEvent === 9) {
-        //   dispatch(changeRowsOfPage(9));
-        // }
-        // if (viewEvent === 12) {
-        //   dispatch(changeRowsOfPage(12));
-        // }
-        // dispatch(changeRowsOfPage(viewEvent))
-// >>>>>>> bfddc3b24ca4ff50f06f1eb483129d175a014749
-      };
-      const sortTypeChangeHandler = (sortTypeEvent) => {
-        // console.log(sortTypeEvent);
-        if (sortTypeEvent === "صعودی") {
-          dispatch(changeSortTypeArticles("ASC"));
-        }
-        if (sortTypeEvent === "نزولی") {
-          dispatch(changeSortTypeArticles("DESC"));
-        }
-      };
-      const sortChangeHandler = (sortEvent) => {
-        // console.log(sortEvent);
-        if (sortEvent === "جدیدترین") {
-          dispatch(changeSortingCol("Active"));
-        }
-        if (sortEvent === "پرطرفدارترین") {
-          dispatch(changeSortingCol("InsertDate"));
-        }
-      };
+  const dispatch = useDispatch();
+  const viewClickHandler = (viewEvent) => {
+    // <<<<<<< HEAD
+    // console.log(viewEvent);
+    dispatch(changeRowsOfPage(viewEvent));
+    // =======
+    console.log(viewEvent);
+    // if (viewEvent === 6) {
+    //   dispatch(changeRowsOfPage(6));
+    // }
+    // if (viewEvent === 9) {
+    //   dispatch(changeRowsOfPage(9));
+    // }
+    // if (viewEvent === 12) {
+    //   dispatch(changeRowsOfPage(12));
+    // }
+    // dispatch(changeRowsOfPage(viewEvent))
+    // >>>>>>> bfddc3b24ca4ff50f06f1eb483129d175a014749
+  };
+  const sortTypeChangeHandler = (sortTypeEvent) => {
+    // console.log(sortTypeEvent);
+    if (sortTypeEvent === "صعودی") {
+      dispatch(changeSortTypeArticles("ASC"));
+    }
+    if (sortTypeEvent === "نزولی") {
+      dispatch(changeSortTypeArticles("DESC"));
+    }
+  };
+  const sortChangeHandler = (sortEvent) => {
+    // console.log(sortEvent);
+    if (sortEvent === "جدیدترین") {
+      dispatch(changeSortingCol("Active"));
+    }
+    if (sortEvent === "پرطرفدارترین") {
+      dispatch(changeSortingCol("InsertDate"));
+    }
+  };
+
+  const { t } = useTranslation();
+  const getSortColData = sortColData(t);
+  // const getsortCollingData = sortCollingData(t);
   return (
     <>
-      <SortingCol dataMap={sortingArticlesNews} onChange={sortChangeHandler} />
+      <SortingCol  dataMap={sortingArticlesNews(t)}  onChange={sortChangeHandler} />
       <SelectView
-// <<<<<<< HEAD
-        placeholder={"آتیم 6"}
-// =======
+        // <<<<<<< HEAD
+        placeholder={" 6"}
+        // =======
         // placeholder={" 6 "}
-// {/* >>>>>>> bfddc3b24ca4ff50f06f1eb483129d175a014749 */}
+        // {/* >>>>>>> bfddc3b24ca4ff50f06f1eb483129d175a014749 */}
         dataMap={viewDataArticles}
-        concatText={"آیتم"}
+        concatText={t("items")}
         viewClick={viewClickHandler}
       />
-      <SortTypeCard dataMap={sortColData} onChange={sortTypeChangeHandler} placeholder={"نزولی"}/>
+      <SortTypeCard
+        dataMap={getSortColData}
+        onChange={sortTypeChangeHandler}
+        // placeholder={"نزولی"}
+        placeholder={t("Ascending")}
+      />
     </>
   );
 };

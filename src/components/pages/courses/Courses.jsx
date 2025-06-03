@@ -215,7 +215,9 @@ const Courses = () => {
         backgroundPosition: "50% 80px",
       }}
     >
-      <div className="min-md:w-[82%] max-md:w-[90%] font-b-yekan flex flex-col items-center">
+      <div 
+      className="min-md:w-[82%] max-md:w-[90%] font-b-yekan flex flex-col items-center"
+      >
         <TopSection />
         {/* <FilterBar /> */}
         <BottomSection>
