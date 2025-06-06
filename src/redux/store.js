@@ -24,6 +24,7 @@ import {
 } from "./slices";
 import { themeSlice } from "./slices/themeSlice";
 import { locationSlice } from "./slices/location";
+import teachersQuerySlice from "./slices/teachersQuerySlice";
 //   userPanelMyCourseFilterParamsSlice
 // } from "./slices";
 
@@ -54,6 +55,7 @@ export const store = configureStore({
     articleDetailCommentSlice: articleDetailCommentSlice.reducer,
     theme: themeSlice.reducer,
     userPanelMyCourseFilterParamsSlice: userPanelMyCourseFilterParamsSlice.reducer,
+    teachersQuery: teachersQuerySlice.reducer,
 
   },
 });

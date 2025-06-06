@@ -37,9 +37,8 @@ import BgFive from "./../../../assets/pics/articles/03.jfif";
 import BgSix from "./../../../assets/pics/articles/03.png";
 import { useTranslation } from "react-i18next";
 
-
 const ArticlesAndNews = () => {
-       const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const isRTL = i18n.language === "fa";
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -83,17 +82,20 @@ const ArticlesAndNews = () => {
   };
   return (
     <div className="max-w-8xl flex flex-col justify-center m-auto gap-3 bg-[var(--bg-main)] font-b-yekan  max-w-[1500px] mx-auto">
-      <div  dir={isRTL ? "rtl" : "ltr"} className="mb-9">
+      <div dir={isRTL ? "rtl" : "ltr"} className="mb-9">
         <TopSectionArticlesNew />
       </div>
-      <div 
-      // className="flex lg:flex-row lg:flex-nowrap lg:gap-3 xs:flex-col  m-auto items-start justify-center w-[90%]"
-      className={`flex lg:flex-nowrap flex-col lg:w-[90%] m-auto items-start justify-center gap-3 ${
-    isRTL ? "lg:flex-row" : "lg:flex-row-reverse"
-  }`}
+      <div
+        // className="flex lg:flex-row lg:flex-nowrap lg:gap-3 xs:flex-col  m-auto items-start justify-center w-[90%]"
+        className={`flex lg:flex-nowrap flex-col lg:w-[90%] m-auto items-start justify-center gap-3 ${
+          isRTL ? "lg:flex-row" : "lg:flex-row-reverse"
+        }`}
       >
         <div className="lg:w-2/3 flex flex-col gap-7 ">
-          <div className="h-[45px] flex flex-col justify-end items-start gap-4 xs:gap-2"  dir={isRTL ? "rtl" : "ltr"}>
+          <div
+            className="h-[45px] flex flex-col justify-end items-start gap-4 xs:gap-2"
+            dir={isRTL ? "rtl" : "ltr"}
+          >
             <h1 className="font-b-yekan font-bold text-[var(--filter-text)] md:text-[27px] xs:text-[20px] text-center whitespace-nowrap">
               {/* جدیدترین اخبار و مقالات */}
               {t("articleTopTitle")}
@@ -112,7 +114,9 @@ const ArticlesAndNews = () => {
           </div>
           <div className="flex flex-row flex-wrap gap-3 justify-center">
             {isLoading ? (
-              productMockData.map((item, index) => <LoadingCardArticles key={index} view={view}/>)
+              productMockData.map((item, index) => (
+                <LoadingCardArticles key={index} view={view} />
+              ))
             ) : articleState && articleState.length > 0 ? (
               articleState.map((item, index) =>
                 view ? (
@@ -138,7 +142,7 @@ const ArticlesAndNews = () => {
                 )
               )
             ) : (
-              <img src={NotResultFound}/>
+              <img src={NotResultFound} />
             )}
           </div>
           <PaginationData

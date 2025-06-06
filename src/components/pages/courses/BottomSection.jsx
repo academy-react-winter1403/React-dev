@@ -258,11 +258,14 @@ const BottomSection = ({ children }) => {
     console.log("BottomSection");
   }, []);
 
-  const isRTL = language === "fa";
+  const isRTL = language === "fa" ? true : false;
 
   const openFilterBox = () => {
     dispatch(changeFilterBoxFlag(true));
   };
+
+  console.log(isRTL)
+  console.log(language)
 
   return (
     <div
