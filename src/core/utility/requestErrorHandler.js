@@ -9,9 +9,9 @@ export const requestErrorHandler = (error) => {
     // toast("Network Error")
   }
   if (error.status === 200) {
-    toast(error.data.message)
+    toast.success(error.data.message)
   }
   if (error.status >= 400 && error.status < 500) {
-    toast(error.response.data.ErrorMessage[0])
+    toast.error(error.response.data.ErrorMessage[0])
   }
 };

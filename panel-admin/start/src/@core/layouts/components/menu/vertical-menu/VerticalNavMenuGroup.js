@@ -155,7 +155,7 @@ const VerticalNavMenuGroup = ({
       </Link>
 
       {/* Render Child Recursively Through VerticalNavMenuItems Component */}
-      <ul className="menu-content">
+      <ul className="menu-content rounded-circle text-black-50">
         <Collapse
           isOpen={
             (groupActive && groupActive.includes(item.id)) ||

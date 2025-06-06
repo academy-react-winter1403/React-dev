@@ -30,7 +30,7 @@ import { errorMessageHandler } from "../../../core/utility/errorMessageHandler";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { articleDetailComment } from "../../../core/services/api/post-data/articleDetailComment";
-import { QueryClient } from "react-query";
+import { QueryClient, useMutation } from "react-query";
 import { useQueryClient } from "react-query";
 
 const ArticleDetail = () => {
@@ -157,6 +157,41 @@ const ArticleDetail = () => {
       }
     }
   };
+
+
+  // like function api
+  const newsCommentLike = (key) => {
+    return useMutation({
+      mutationKey: key,
+      mutationFn: async (data) => {
+        const [endUrl, commentId, dataObj, params] = data
+        const response = await htttp.post(`${endUrl}${commentId}`, dataObj, {
+          params: params
+        })
+        return response.data
+      }
+    })
+  }
+  // like function api
+
+  // like handle
+  const { mutate: commentLikeMutate } = newsCommentLike("newsCommentLike")
+  const commentLikeHandler = async (item) => {
+    const dataObj = {
+      CommentId: item.id
+    }
+    const query = {
+      LikeType: true
+    }
+    commentLikeMutate(["/News/CommentLike/", item.id, dataObj, query], {
+      onSuccess: (data) => {
+        console.log(data)
+      }
+    })
+  }
+  // like handle
+
+
   // useEffect(() => {
   //   fetchRelatedCourses();
   // }, [newsCatregoryId, relatedCoursesData, dispatch]);
@@ -280,7 +315,7 @@ const ArticleDetail = () => {
           {articleAndNewDetailComment ? (
             <CommentBox
               commentData={articleAndNewDetailCommentReply}
-              coomentLikeBtnClick={commentDesLikeBtnClickHandler}
+              coomentLikeBtnClick={commentLikeHandler}
               commentDesLikeBtnClick={commentDesLikeBtnClickHandler}
               replayLikeBtnClick={replayLikeBtnClickHandler}
               replayDeslikeBtnClick={replayDeslikeBtnClickHandler}

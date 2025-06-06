@@ -86,14 +86,14 @@ const CourseDetail = () => {
   const {
     data: comment,
     isLoading: commentLoading,
-    isSuccess,
+    // isSuccess,
   } = getCommentData("courseComment", `/Course/GetCourseCommnets/${id}`);
   if (!commentLoading) {
     dispatch(addCourseDetailCommentData(comment.data));
     if (commentData) {
       if (!commentDataFlag) {
         dispatch(changeCommentDataFlag(true));
-        console.log(commentDataFlag);
+        // console.log(commentDataFlag);
         getCourseCommentReplay(
           "/Course/GetCourseReplyCommnets/",
           commentData

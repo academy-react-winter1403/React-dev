@@ -12,6 +12,7 @@ import PublicRoute from "@components/routes/PublicRoute";
 
 // ** Utils
 import { isObjEmpty } from "@utils";
+// import { User } from "react-feather";
 
 const getLayout = {
   blank: <BlankLayout />,
@@ -32,6 +33,7 @@ const Register = lazy(() => import("../../pages/Register"));
 const ForgotPassword = lazy(() => import("../../pages/ForgotPassword"));
 const Error = lazy(() => import("../../pages/Error"));
 const Sample = lazy(() => import("../../pages/Sample"));
+const User = lazy(() => import("../../pages/User"))
 
 // ** Merge Routes
 const Routes = [
@@ -79,6 +81,11 @@ const Routes = [
     meta: {
       layout: "blank",
     },
+  },
+  {
+    path: "user-liset",
+    element: <User />,
+    // access: ["Administrator"],
   },
   {
     path: "*",
