@@ -1,4 +1,5 @@
 @import "tailwindcss";
+/* @import './assets/fonts'; */
 
 body {
   /* background: #f9f9f9; */
@@ -91,6 +92,15 @@ body {
   font-weight: 200 700;
   font-display: swap;
   src: url("./assets/fonts/IranianSans.ttf") format("woff2");
+}
+
+
+
+@font-face {
+  font-family: 'Cherry Bomb';
+  src: url('/fonts/CherryBombOne-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @theme {
