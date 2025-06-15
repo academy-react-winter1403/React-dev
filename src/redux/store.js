@@ -23,6 +23,8 @@ import {
 } from "./slices";
 import { themeSlice } from "./slices/themeSlice";
 import { locationSlice } from "./slices/location";
+import favoritesSlice from "./slices/favoritesSlice";
+import MyCommentsSlice from "./slices/MyComments";
 
 export const store = configureStore({
   reducer: {
@@ -48,5 +50,7 @@ export const store = configureStore({
     relatedCoursesSlice: relatedCoursesSlice.reducer,
     articleDetailCommentSlice: articleDetailCommentSlice.reducer,
     theme: themeSlice.reducer,
+    favorites:favoritesSlice.reducer,
+    MyComments:MyCommentsSlice.reducer
   },
 });

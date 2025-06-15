@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";  
 import { Icon } from "leaflet";  
 
-// تنظیم آیکون برای مارکر  
+ 
 const markerIcon = new Icon({  
   iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",  
   iconSize: [25, 41],  
@@ -13,13 +13,13 @@ const markerIcon = new Icon({
 });  
 
 const Maps = ({ classNameStyles }) => {  
-  const [position, setPosition] = useState([35.6892, 51.389]); // مختصات برای تهران  
+  const [position, setPosition] = useState([35.6892, 51.389]); 
 
-  // تابعی برای مدیریت کلیک روی نقشه  
+ 
   const mapClick = (event) => {  
-    const { lat, lng } = event.latlng; // گرفتن مختصات  
-    setPosition([lat, lng]); // به‌روزرسانی مختصات  
-    console.log('Clicked position:', { lat, lng }); // نمایش مختصات در کنسول  
+    const { lat, lng } = event.latlng; 
+    setPosition([lat, lng]);
+    console.log('Clicked position:', { lat, lng }); 
   };  
 
   return (  

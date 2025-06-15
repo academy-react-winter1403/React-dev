@@ -21,28 +21,30 @@ import { IoMdCopy } from "react-icons/io";
 import { productMockData } from "../../../core/constants";
 import LoadingCardArticles from "../../partials/Loading-card-articles/LoadingCardArticles";
 //
-import BgOne from "./../../../assets/pics/articles/01.png";
-import BgTwo from "./../../../assets/pics/articles/02.png";
 import BgThree from "./../../../assets/pics/articles/01.jfif";
 import BgFour from "./../../../assets/pics/articles/02.jfif";
 import BgFive from "./../../../assets/pics/articles/03.jfif";
-import BgSix from "./../../../assets/pics/articles/03.png";
+import { getData } from "../../../core/services";
+import Chat from "../chat/Chat";
+import ChatWithAI from "../chat/ChatAi";
+import ChatBot from "../chat/ChatAi";
 
 const ArticlesAndNews = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [view, setView] = useState(true);
+  const [popularNews, setPopularNews] = useState(null);
   const { PageNumber, RowsOfPage, SortingCol, SortType, Query } = useSelector(
     (state) => state.articlesQueryFilter
   );
   const { articleState, totalCount } = useSelector(
     (state) => state.allDataArticleSlice
   );
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingAll, setIsLoadingAll] = useState(false);
 
   useEffect(() => {
-    const getData = async () => {
-      setIsLoading(true);
+    const getAllData = async () => {
+      setIsLoadingAll(true);
       const articles = await filterDataArticles({
         PageNumber,
         RowsOfPage,
@@ -51,9 +53,9 @@ const ArticlesAndNews = () => {
         Query,
       });
       dispatch(firstAddArticleProduct(articles));
-      setIsLoading(false);
+      setIsLoadingAll(false);
     };
-    getData();
+    getAllData();
   }, [PageNumber, RowsOfPage, SortingCol, SortType, Query, dispatch]);
 
   useEffect(() => {
@@ -69,6 +71,17 @@ const ArticlesAndNews = () => {
   const changePageHandler = (pageNum) => {
     dispatch(changePageNumber(pageNum));
   };
+
+  const { data, isLoading } = getData(
+    "MostPopularNews",
+    "/News?SortingCol=InsertDate&SortType=ASC"
+  );
+  if (!isLoading) {
+    if (!popularNews) {
+      setPopularNews(data.news);
+      console.log(data.news);
+    }
+  }
   return (
     <div className="max-w-8xl flex flex-col justify-center m-auto gap-3 bg-[#F7F7F7] font-b-yekan">
       <div>
@@ -93,8 +106,10 @@ const ArticlesAndNews = () => {
             </div>
           </div>
           <div className="flex flex-row flex-wrap gap-3 justify-center">
-            {isLoading ? (
-              productMockData.map((item, index) => <LoadingCardArticles key={index} view={view}/>)
+            {isLoadingAll ? (
+              productMockData.map((item, index) => (
+                <LoadingCardArticles key={index} view={view} />
+              ))
             ) : articleState && articleState.length > 0 ? (
               articleState.map((item, index) =>
                 view ? (
@@ -120,7 +135,7 @@ const ArticlesAndNews = () => {
                 )
               )
             ) : (
-              <img src={NotResultFound}/>
+              <img src={NotResultFound} />
             )}
           </div>
           <PaginationData
@@ -129,6 +144,8 @@ const ArticlesAndNews = () => {
             RowsOfPage={RowsOfPage}
             changePageNumber={changePageHandler}
           />
+          <Chat />
+          <ChatBot />
         </div>
         <div className="lg:w-[298px] xs:w-full flex lg:flex-col flex-row justify-center items-center mt-15 gap-6 ">
           <div
@@ -156,13 +173,22 @@ const ArticlesAndNews = () => {
             data-aos="zoom-in-down"
           >
             <TextPagesArticlesNew
-              title={"محبوب ترین دوره ها"}
+              title={"محبوب ترین اخبار ها"}
               explan={"بهترین چیزهایی که میتونید یاد بگیرید"}
             />
             <div className="flex flex-col justify-center items-center gap-10">
-              <CardArticlesOther title={"دوره جامع انگولار"} image={BgOne} />
-              <CardArticlesOther title={"دوره جامع فیگما"} image={BgTwo} />
-              <CardArticlesOther title={"دوره جامع ری اکت"} image={BgSix} />
+              {popularNews && popularNews.length > 0
+                ? popularNews.slice(0, 3).map((item, index) => {
+                    return (
+                      <CardArticlesOther
+                        key={index}
+                        title={item.title}
+                        image={item.addUserProfileImage}
+                        onClick={() => handleCardClick(item.id)}
+                      />
+                    );
+                  })
+                : null}
             </div>
           </div>
         </div>

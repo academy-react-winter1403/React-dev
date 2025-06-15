@@ -1,31 +1,95 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Input from "../../../common/input/Input";
-// import SortTypeCard from "../../../common/SortTypeCard";
-// import { sortColData } from "../../../../core/constants";
 import TextComp from "../../../common/user-panel-input/TextComp";
 import UserPanelCard from "../../../partials/user-panel/UserPanelCard";
-import { sortingArticlesNews } from "../../../../core/constants/articlesMockApi/sort_data";
-// import { useDispatch } from "react-redux";
-import SortingCol from "../../ArticlesAndNews/Sorting-Articles/SortingCol";
 import { PaginationData } from "../../../partials";
 import { myFavoriteMockApi } from "../../../../core/constants/user-panel/favorite";
+import { UserPanelSubscribers } from "../../../../core/constants/user-panel/UserPanelSubscribers";
+import TypeSortingUserPanel from "../../../partials/UserPanel/TypeSortingUserPanel";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setCourseFavorites,
+  setFilter,
+  setNewsFavorites,
+  setSearchQuery,
+} from "../../../../redux/actions";
+import { deleteDataApi, getData } from "../../../../core/services";
+import { useNavigate } from "react-router-dom";
 
 const Favorite = () => {
-  const changeHandler = (QueryEvent) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { displayedFavorites, searchQuery } = useSelector(
+    (state) => state.favorites
+  );
+
+  const { data: coursesData, isLoading: isCoursesLoading } = getData(
+    "FavoriteCourses",
+    "/SharePanel/GetMyFavoriteCourses"
+  );
+  const { data: newsData, isLoading: isNewsLoading } = getData(
+    "FavoriteNews",
+    "/SharePanel/GetMyFavoriteNews"
+  );
+  useEffect(() => {
+    if (!isCoursesLoading && coursesData) {
+      dispatch(setCourseFavorites(coursesData.favoriteCourseDto));
+    }
+    if (!isNewsLoading && newsData) {
+      dispatch(setNewsFavorites(newsData.myFavoriteNews));
+    }
+    if (!isCoursesLoading && !isNewsLoading && coursesData && newsData) {
+      dispatch(setFilter("همه"));
+      console.log("نمایش داده میشه");
+    }
+  }, [isCoursesLoading, isNewsLoading, coursesData, newsData, dispatch]);
+
+  // Search Handler
+  const handleSearch = (QueryEvent) => {
     console.log(QueryEvent.target.value);
+    dispatch(setSearchQuery(QueryEvent.target.value));
   };
-  //   const dispatch = useDispatch()
-  const sortChangeHandler = (sortEvent) => {
-    console.log(sortEvent);
-    if (sortEvent === "جدیدترین") {
-      //   dispatch(changeSortingCol("Active"));
-    }
-    if (sortEvent === "پرطرفدارترین") {
-      //   dispatch(changeSortingCol("InsertDate"));
-    }
+  const filteredResults = displayedFavorites.filter((favorites) => {
+    return favorites?.courseTitle?.toLowerCase().includes(searchQuery.toLowerCase());
+  });
+  // const filteredResults = displayedFavorites.filter((item) => {
+  //   if (item?.type === "دوره ها") {
+  //     return item?.courseTitle?.toLowerCase().includes(searchQuery.toLowerCase());
+  //   } else if (item?.type === "اخبارها") {
+  //     return item?.newsTitle?.toLowerCase().includes(searchQuery.toLowerCase());
+  //   }
+  //   return false;
+  // });
+  console.log("filteredResults", displayedFavorites);
+  // Filter Handler
+  const handleCommon = (type) => {
+    console.log(type);
+    dispatch(setFilter(type));
   };
+  // Pagination
   const changePageNumber = (pageNum) => {
     console.log(pageNum);
+  };
+
+  // const handleDelete = async (FavoritesId) => {
+  //   const formData = new FormData();
+  //   formData.append("CourseFavoriteId", FavoritesId);
+  //   try {
+  //     const response = await deleteDataApi("/Course/DeleteCourseFavorite", {
+  //       data: formData,
+  //     });
+  //     console.log(response);
+  //     console.log(FavoritesId);
+  //     // toast(response.data.message);
+  //     // queryClient.invalidateQueries(["allImageProfile"]);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  const handleView = (id) => {
+    navigate(`/course-detail/${id}`);
+    // navigate(`/article-detail/${id}`);
   };
 
   return (
@@ -36,12 +100,12 @@ const Favorite = () => {
             <Input
               type={"text"}
               placeholder={"چی میخوای یاد بگیری؟..."}
-              change={changeHandler}
+              change={handleSearch}
             />
           </div>
-          <SortingCol
-            dataMap={sortingArticlesNews}
-            onChange={sortChangeHandler}
+          <TypeSortingUserPanel
+            dataMap={UserPanelSubscribers}
+            onChange={handleCommon}
           />
         </div>
       </div>
@@ -51,7 +115,24 @@ const Favorite = () => {
           boxControlStyle={"w-[65%]"}
           boxContainerStyle={"mt-[23px]"}
         />
-        <UserPanelCard trashcanFlag={true} bgCalc={3} divFlag={false} colorFlag={false}/>
+        {filteredResults.map((item, index) => {
+          return (
+            <UserPanelCard
+              key={index}
+              trashcanFlag={true}
+              bgCalc={3}
+              divFlag={false}
+              colorFlag={false}
+              onView={() => handleView(item.courseId)}
+              // onDelete={() => handleDelete(item.courseId)}
+              imageAddress={item.tumbImageAddress}
+              titleOne={item.courseTitle}
+              titleTwo={"دوره ها"}
+              titleThree={item.lastUpdate}
+              titleFour={item.teacheName}
+            />
+          );
+        })}
       </div>
       <div className="bottom">
         <PaginationData
@@ -66,4 +147,3 @@ const Favorite = () => {
 };
 
 export default Favorite;
-

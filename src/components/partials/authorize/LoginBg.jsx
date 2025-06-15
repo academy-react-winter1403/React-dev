@@ -38,7 +38,7 @@ const LoginBg = ({ children }) => {
               ورود
             </button>
           </div>
-          <div className="lg:w-[869px] lg:h-[631px] md:w-[750px] md:h-[500px] sm:w-[500px] sm:h-[450px] xs:w-[450px] xs:h-[400px]  flex justify-center items-center relative backdrop-blur-xs bg-gradient-to-tl from-[#01CEC9BF]/75 to-[#E48900BF]/75 rounded-4xl">
+          <div className="lg:w-[869px] lg:h-[631px] md:w-[750px] md:h-[500px] sm:w-[500px] sm:h-[450px] xs:w-[450px] xs:h-[400px]  flex justify-center items-center relative backdrop-blur-xs bg-gradient-to-tl from-[#01CEC9]/75 to-[#E48900]/75 rounded-4xl">
             <motion.div
               className="size-20 rounded-3xl absolute right-[0] top-[85px]"
               initial={{

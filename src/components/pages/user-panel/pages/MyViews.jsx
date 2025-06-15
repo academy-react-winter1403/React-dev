@@ -1,33 +1,72 @@
-
-import React from "react";
+import React, { useEffect } from "react";
 import Input from "../../../common/input/Input";
-// import SortTypeCard from "../../../common/SortTypeCard";
-// import { sortColData } from "../../../../core/constants";
 import TextComp from "../../../common/user-panel-input/TextComp";
 import UserPanelCard from "../../../partials/user-panel/UserPanelCard";
-import { sortingArticlesNews } from "../../../../core/constants/articlesMockApi/sort_data";
-// import { useDispatch } from "react-redux";
-import SortingCol from "../../ArticlesAndNews/Sorting-Articles/SortingCol";
 import { PaginationData } from "../../../partials";
 import { MyViewsMockApi } from "../../../../core/constants/user-panel/myViews";
+import TypeSortingUserPanel from "../../../partials/UserPanel/TypeSortingUserPanel";
+import { UserPanelSubscribers } from "../../../../core/constants/user-panel/UserPanelSubscribers";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getData } from "../../../../core/services";
+import {
+  setCourseComments,
+  setFilterComments,
+  setNewsComments,
+  setSearchComments,
+} from "../../../../redux/actions";
 
 const MyViews = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { displayedComments, searchComments } = useSelector(
+    (state) => state.MyComments
+  );
+  const { data: coursesData, isLoading: isCoursesLoading } = getData(
+    "MyCommentsCourses",
+    "/SharePanel/GetMyCoursesComments"
+  );
+  const { data: newsData, isLoading: isNewsLoading } = getData(
+    "MyCommentsNews",
+    "/SharePanel/GetMyNewsComments"
+  );
+  useEffect(() => {
+    if (!isCoursesLoading && coursesData) {
+      console.log("coursesData",coursesData.myCommentsDtos)
+      dispatch(setCourseComments(coursesData.myCommentsDtos));
+    }
+    if (!isNewsLoading && newsData) {
+      console.log("newsData",newsData.myNewsCommetDtos)
+      dispatch(setNewsComments(newsData.myNewsCommetDtos));
+    }
+    if (!isCoursesLoading && !isNewsLoading && coursesData && newsData) {
+      dispatch(setFilterComments("همه"));
+      console.log("نمایش داده میشه");
+    }
+  }, [isCoursesLoading, isNewsLoading, coursesData, newsData, dispatch]);
+  // Search Handler
   const changeHandler = (QueryEvent) => {
     console.log(QueryEvent.target.value);
+    dispatch(setSearchComments(QueryEvent.target.value));
   };
-  //   const dispatch = useDispatch()
-  const sortChangeHandler = (sortEvent) => {
-    console.log(sortEvent);
-    if (sortEvent === "جدیدترین") {
-      //   dispatch(changeSortingCol("Active"));
-    }
-    if (sortEvent === "پرطرفدارترین") {
-      //   dispatch(changeSortingCol("InsertDate"));
-    }
+  const filteredResults = displayedComments.filter((comments) => {
+    return comments?.courseTitle?.toLowerCase().includes(searchComments.toLowerCase());
+  });
+  console.log("filteredResults", displayedComments);
+  // Filter Handler
+  const handleCommon = (type) => {
+    console.log(type);
+    dispatch(setFilterComments(type));
   };
+  // Pagination
   const changePageNumber = (pageNum) => {
     console.log(pageNum);
   };
+  // View Comment
+  const handleView = (id) => {
+    navigate(`/course-detail/${id}`)
+    // navigate(`/article-detail/${id}`);
+  }
 
   return (
     <div className="my-course-container mt-2.5">
@@ -40,9 +79,9 @@ const MyViews = () => {
               change={changeHandler}
             />
           </div>
-          <SortingCol
-            dataMap={sortingArticlesNews}
-            onChange={sortChangeHandler}
+          <TypeSortingUserPanel
+            dataMap={UserPanelSubscribers}
+            onChange={handleCommon}
           />
         </div>
       </div>
@@ -52,7 +91,24 @@ const MyViews = () => {
           boxControlStyle={"w-[65%]"}
           boxContainerStyle={"mt-[23px]"}
         />
-        <UserPanelCard trashcanFlag={true} bgCalc={3} divFlag={false} colorFlag={false}/>
+        {filteredResults.map((item, index) => {
+          return (
+            <UserPanelCard
+              key={index}
+              trashcanFlag={true}
+              bgCalc={3}
+              divFlag={false}
+              colorFlag={false}
+              onView={() => handleView(item.commentId)}
+              // onDelete={() => handleDelete(item.courseId)}
+              titleOne={item.courseTitle}
+              titleTwo={"دوره ها"}
+              titleThree={item.insertDate}
+              accept={item.accept}
+              // titleFour={item.teacheName}
+            />
+          );
+        })}
       </div>
       <div className="bottom">
         <PaginationData

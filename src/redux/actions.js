@@ -22,7 +22,9 @@ import {
   relatedCoursesSlice,
   articleDetailCommentSlice,
 } from "./slices";
+import favoritesSlice from "./slices/favoritesSlice";
 import { locationSlice } from "./slices/location";
+import MyCommentsSlice from "./slices/MyComments";
 import { themeSlice } from "./slices/themeSlice";
 export const { firstAddCourseProduct } = coursesSlice.actions;
 export const { addCourseDetailData } = courseDetailSlice.actions;
@@ -77,3 +79,15 @@ export const {
 } = articlesQueryFilter.actions;
 export const { SelectLatitude, SelectLongitude } = locationSlice.actions;
 export const { setMode } = themeSlice.actions;
+export const {
+  setNewsFavorites,
+  setCourseFavorites,
+  setFilter,
+  setSearchQuery,
+} = favoritesSlice.actions;
+export const {
+  setNewsComments,
+  setCourseComments,
+  setFilterComments,
+  setSearchComments,
+} = MyCommentsSlice.actions;
