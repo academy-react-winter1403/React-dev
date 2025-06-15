@@ -4,6 +4,9 @@ import FooterWrapper from "../partials/footer/FooterWrapper";
 import { Outlet, useLocation } from "react-router-dom";
 import { Themes } from "../partials";
 import { ToastContainer } from "react-toastify";
+import LanguageTheme from "../common/LanguageTheme/LanguageTheme";
+import VoiceNavigation from "../pages/voiceNavigation/VoiceNavigation";
+import { Chat } from "openai/resources/index.js";
 
 const MainLayout = () => {
   const location = useLocation();
@@ -11,6 +14,8 @@ const MainLayout = () => {
   return (
     <>
       <HeaderWrapper />
+      <VoiceNavigation />
+      {/* <Chat /> */}
       <Outlet />
       {/* <Themes/> */}
       {currentPath !== "/Authorize/Register/step1" &&
@@ -20,7 +25,8 @@ const MainLayout = () => {
         currentPath !== "/Authorize/Login/step2" &&
         currentPath !== "/Authorize/forget-password/step1" &&
         currentPath !== "/Authorize/forget-password/step2" && <FooterWrapper />}
-      <ToastContainer />
+      {/* <ToastContainer /> */}
+      <LanguageTheme/>
     </>
   );
 };

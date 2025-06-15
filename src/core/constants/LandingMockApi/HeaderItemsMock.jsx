@@ -6,3 +6,11 @@ export const HeaderItemsText = [
    { name: "تماس با ما", path: "/contact" }
  ];
  
+
+export const getHeaderItems = (t) => [
+  { name: t('home'), path: '/' },
+  { name: t('courses'), path: '/courses' },
+  { name: t('teachers'), path: '/teachers' },
+  { name: t('articles'), path: '/article' },
+  { name: t('contact'), path: '/contact' }
+];

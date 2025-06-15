@@ -1,15 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const courseActivedDataUserPanel = createSlice({
-    name: "courseActivedUserPanel",
+  name: "courseActivedUserPanel",
 
-    initialState: {
-        courseActivedData: []
+  initialState: {
+    courseActivedData: [],
+    courseActivedTotalCount: null,
+  },
+
+  reducers: {
+    addCourseActivedDataUserPanel: (state, action) => {
+      state.courseActivedData = action.payload;
     },
-
-    reducers: {
-        addCourseActivedDataUserPanel: (state, action) => {
-            state.courseActivedData = action.payload
-        }
+    changeCourseActivedTatolCount: (state, action) => {
+      state.courseActivedTotalCount = action.payload;
     }
-})
+  },
+});

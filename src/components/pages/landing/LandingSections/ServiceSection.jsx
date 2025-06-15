@@ -2,14 +2,20 @@ import React from 'react'
 import HeroBG from '../../../../core/icons/LandingIcons/HeroBG'
 import Titles from './Titles'
 import { ServiceApi } from '../../../../core/constants/LandingMockApi/ServiceMockApi'
+import { useTranslation } from 'react-i18next'
 
 const ServiceSection = () => {
+  const { t } = useTranslation();
   return (
     <>
       <HeroBG itemTop={"0"} itemLeft={"0"}>
-        <div className='w-full min-h-[400px] h-full flex flex-col justify-between items-center font-b-yekan whitespace-nowrap z-60'>
+        <div className='w-full min-h-[400px] h-full flex flex-col justify-between items-center font-b-yekan whitespace-nowrap z-60 max-w-[1515px] mx-auto'>
           {/* title */}
-          <Titles title={"خدمات ما"} exp={"مجموعه ای از تمام آنچه شما نیاز دارید"}/>
+          <Titles 
+          // title={"خدمات ما"} exp={"مجموعه ای از تمام آنچه شما نیاز دارید"}
+         title={t("servicesTitle")} 
+            exp={t("servicesDesc")}
+          />
            {/* service */}
            <div className='w-[80%] h-[400px] flex flex-row flex-nowrap justify-between  relative' data-aos="fade-up-right">
             {
@@ -39,14 +45,16 @@ const ServiceSection = () => {
                         lg:text-[25px] md:text-[20px] sm:text-[16px] xs:text-[13px] xs:whitespace-pre-line'
                         style={{ color: item.color }}
                         >
-                          {item.title}
+                          {/* {item.title} */}
+                          {t(item.titleKey)}
                         </h3>
                         <p 
                         className='text-[#AAAAAA] font-bold text-center
                         lg:text-[12px] md:text-[9px] sm:text-[6px] xs:text-[5px] lg:indent-[-20px] md:indent-[-15px] sm:indent-[-10px] xs:indent-[-2px] '
                         style={{ whiteSpace: "pre-line" }}
                         >
-                          {item.desc}
+                          {/* {item.desc} */}
+                          {t(item.descKey)}
                         </p>
                       </div>
                     </div>

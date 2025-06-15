@@ -2,7 +2,7 @@ import React from "react";
 import { IoEyeOutline } from "react-icons/io5";
 import { MdOutlineDateRange } from "react-icons/md";
 import { SlArrowLeft } from "react-icons/sl";
-import ChangeMoment from "../../../core/utility/changeMoment";
+import ChangeMoment from "../changeMoment/changeMoment";
 
 const ArticlesCardView2 = ({
   src,
@@ -16,7 +16,7 @@ const ArticlesCardView2 = ({
   const persianDate = ChangeMoment(DateArticle,'YYYY/MM/DD','persian')
   return (
     <div
-      className="w-[90%] h-[200px] shadow-sm flex flex-row items-center gap-2.5 rounded-r-[145px]"
+      className="w-[90%] h-[200px] shadow-sm flex flex-row items-center gap-2.5 rounded-r-[145px] bg-(--boxes-article)"
       data-aos="zoom-in-down"
       data-aos-easing="ease-out-cubic"
       data-aos-duration="1500"

@@ -1,18 +1,21 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const TextComp = ({ dataMaper, boxContainerStyle, boxControlStyle }) => {
+  const { t } = useTranslation();
+
   return (
     <div
-      className={`tab-text-container flex justify-center items-center
-        border-b-2 border-[#007875] pb-2 ${boxContainerStyle}`
-    }
+      className={`tab-text-container flex justify-center items-center 
+        border-b-2 border-[#007875] pb-2 ${boxContainerStyle}`}
     >
       <div className={`tab-text-control flex items-center justify-between ${boxControlStyle}`}>
         {dataMaper.map((item, index) => {
+          const translated = t(item);
           return (
-            <p key={index} className="text-[#003B39] font-b-yekan text-[15px]">
-              {item}
-              {item === "قیمت" && <span className="">{" (تومان)"}</span>}
+            <p key={index} className="text-[var(--dashboard-text)] font-b-yekan text-[15px]">
+              {translated}
+              {item === "price" && <span>{" (تومان)"}</span>}
             </p>
           );
         })}

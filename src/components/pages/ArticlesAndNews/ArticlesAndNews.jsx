@@ -12,6 +12,14 @@ import {
   changePageNumber,
   firstAddArticleProduct,
 } from "../../../redux/actions";
+
+import SelectView from "../courses/SelectView";
+import { viewDataArticles } from "../../../core/constants/articlesMockApi/view-data-articles";
+import SortTypeCard from "../../common/SortTypeCard";
+import { sortColData } from "../../../core/constants";
+import { sortingArticlesNews } from "../../../core/constants/articlesMockApi/sort_data";
+import ScrollToTopButton from "../../common/ScrollToTopBtn";
+
 import { useNavigate } from "react-router-dom";
 import FilterBar from "../../partials/FilterBar.jsx/FilterBar";
 import ArticlesCardView1 from "../../partials/ArticlesCard/ArticlesCardView1";
@@ -20,16 +28,27 @@ import { GridIcon, MenuIcon } from "../../../core/icons/icons";
 import { IoMdCopy } from "react-icons/io";
 import { productMockData } from "../../../core/constants";
 import LoadingCardArticles from "../../partials/Loading-card-articles/LoadingCardArticles";
+// <<<<<<< HEAD
 //
 import BgThree from "./../../../assets/pics/articles/01.jfif";
 import BgFour from "./../../../assets/pics/articles/02.jfif";
 import BgFive from "./../../../assets/pics/articles/03.jfif";
 import { getData } from "../../../core/services";
 import Chat from "../chat/Chat";
-import ChatWithAI from "../chat/ChatAi";
 import ChatBot from "../chat/ChatAi";
+// =======
+
+import BgOne from "./../../../assets/pics/articles/01.png";
+import BgTwo from "./../../../assets/pics/articles/02.png";
+// import BgThree from "./../../../assets/pics/articles/01.jfif";
+// import BgFour from "./../../../assets/pics/articles/02.jfif";
+// import BgFive from "./../../../assets/pics/articles/03.jfif";
+import BgSix from "./../../../assets/pics/articles/03.png";
+import { useTranslation } from "react-i18next";
 
 const ArticlesAndNews = () => {
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === "fa";
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [view, setView] = useState(true);
@@ -83,30 +102,38 @@ const ArticlesAndNews = () => {
     }
   }
   return (
-    <div className="max-w-8xl flex flex-col justify-center m-auto gap-3 bg-[#F7F7F7] font-b-yekan">
-      <div>
+    <div className="max-w-8xl flex flex-col justify-center m-auto gap-3 bg-[var(--bg-main)] font-b-yekan  max-w-[1500px] mx-auto">
+      <div dir={isRTL ? "rtl" : "ltr"} className="mb-9">
         <TopSectionArticlesNew />
       </div>
-      <div className="flex lg:flex-row lg:flex-nowrap lg:gap-3 xs:flex-col  m-auto items-start justify-center w-[90%]">
-        <div className="lg:w-2/3 flex flex-col gap-7">
-          <div className="h-[45px] flex flex-col justify-end items-start gap-4 xs:gap-2">
-            <h1 className="font-b-yekan font-bold text-[#005351] md:text-[27px] xs:text-[20px] text-center whitespace-nowrap">
-              جدیدترین اخبار و مقالات
+      <div
+        className={`flex lg:flex-nowrap flex-col lg:w-[90%] m-auto items-start justify-center gap-3 ${
+          isRTL ? "lg:flex-row" : "lg:flex-row-reverse"
+        }`}
+      >
+        <div className="lg:w-2/3 flex flex-col gap-7 ">
+          <div
+            className="h-[45px] flex flex-col justify-end items-start gap-4 xs:gap-2"
+            dir={isRTL ? "rtl" : "ltr"}
+          >
+            <h1 className="font-b-yekan font-bold text-[var(--filter-text)] md:text-[27px] xs:text-[20px] text-center whitespace-nowrap">
+              {t("articleTopTitle")}
             </h1>
-            <div className="flex flex-row gap-2.5">
+            <div className="flex flex-row gap-2.5" dir={isRTL ? "rtl" : "ltr"}>
               <FilterBar />
               <div className="flex gap-x-[15px]">
                 <MenuIcon click={() => setView(false)} view={view} />
                 <GridIcon click={() => setView(true)} view={view} />
-                <IoMdCopy
+                {/* <IoMdCopy
                   style={{ color: "#005B58" }}
                   className="size-[35px]"
-                />
+                /> */}
               </div>
             </div>
           </div>
           <div className="flex flex-row flex-wrap gap-3 justify-center">
             {isLoadingAll ? (
+
               productMockData.map((item, index) => (
                 <LoadingCardArticles key={index} view={view} />
               ))
@@ -149,12 +176,12 @@ const ArticlesAndNews = () => {
         </div>
         <div className="lg:w-[298px] xs:w-full flex lg:flex-col flex-row justify-center items-center mt-15 gap-6 ">
           <div
-            className="lg:w-full md:w-1/2 h-[408px] flex flex-col gap-7 shadow-sm items-center justify-center "
+            className="lg:w-full md:w-1/2 h-[408px] flex flex-col gap-7 shadow-sm items-center justify-center bg-(--boxes-article) rounded"
             data-aos="zoom-in-down"
           >
             <TextPagesArticlesNew
-              title={"مطالب پیشنهادی"}
-              explan={"این مطالب هم میتونه براتون جالب باشه"}
+              title={t("recCourse1")}
+              explan={t("recCourse1Exp")}
             />
             <div className="flex flex-col justify-center items-center gap-10">
               <CardArticlesOther title={"چرا فیگما؟"} image={BgFive} />
@@ -169,12 +196,13 @@ const ArticlesAndNews = () => {
             </div>
           </div>
           <div
-            className="lg:w-full md:w-1/2 h-[408px] flex flex-col gap-7 shadow-sm items-center justify-center "
+            className="lg:w-full md:w-1/2 h-[408px] flex flex-col gap-7 shadow-sm items-center justify-center bg-(--boxes-article) rounded"
             data-aos="zoom-in-down"
           >
             <TextPagesArticlesNew
-              title={"محبوب ترین اخبار ها"}
-              explan={"بهترین چیزهایی که میتونید یاد بگیرید"}
+              title={t("recCourse2")}
+              explan={t("recCourse2Exp")}
+
             />
             <div className="flex flex-col justify-center items-center gap-10">
               {popularNews && popularNews.length > 0
@@ -193,6 +221,7 @@ const ArticlesAndNews = () => {
           </div>
         </div>
       </div>
+      <ScrollToTopButton />
     </div>
   );
 };

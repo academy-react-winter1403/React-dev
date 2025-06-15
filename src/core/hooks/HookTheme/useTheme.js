@@ -27,6 +27,10 @@ const useTheme = () => {
         console.log("themeNameIsDark");
         document.documentElement.classList.add("dark-theme");
       }
+      // document.documentElement.classList.remove("dark");
+      // if (themeName === "dark") {
+      // document.documentElement.classList.add("dark");
+      // }
     };
 
     const systemTheme = window.matchMedia("(prefers-color-scheme:dark)").matches

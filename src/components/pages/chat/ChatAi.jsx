@@ -1,113 +1,173 @@
-// ChatWithAI.jsx
-import React, { useState } from 'react';
-import {sendMessageToAI} from '../../../openAi/OpenAiConfig';
+// // ChatWithAI.jsx
+// import React, { useState } from 'react';
+// import {sendMessageToAI} from '../../../openAi/OpenAiConfig';
 
-// const ChatWithAI = () => {
-//   const [messages, setMessages] = useState([]);
-//   const [input, setInput] = useState('');
-//   const [loading, setLoading] = useState(false);
+// export default function ChatBot() {
+//   const [input, setInput] = useState("");
+//   const [chat, setChat] = useState([]);
 
-//   const sendMessage = async () => {
+//   const handleSend = async () => {
 //     if (!input.trim()) return;
-
-//     const newMessages = [...messages, { role: 'user', content: input }];
-//     setMessages(newMessages);
-//     setInput('');
-//     setLoading(true);
-
-//     try {
-//       const res = await openai.chat.completions.create({
-//         model: 'gpt-3.5-turbo',
-//         messages: newMessages,
-//       });
-
-//       const reply = res.choices[0].message;
-//       setMessages([...newMessages, reply]);
-//     } catch (err) {
-//       console.error('خطا در دریافت پاسخ:', err);
-//       setMessages([...newMessages, { role: 'assistant', content: 'خطا در پاسخ از سرور.' }]);
-//     } finally {
-//       setLoading(false);
-//     }
+//     const reply = await sendMessageToAI(input);
+//     setChat([...chat, { role: "user", content: input }, { role: "assistant", content: reply }]);
+//     setInput("");
 //   };
 
 //   return (
-//     <div className="max-w-2xl mx-auto mt-10 p-6 rounded-2xl border border-gray-300 bg-gray-50 shadow-md">
-//       <h2 className="text-2xl font-bold text-center mb-4">🤖 چت با هوش مصنوعی</h2>
-
-//       <div className="h-96 overflow-y-auto flex flex-col gap-3 p-2 border-b border-gray-300 mb-4">
-//         {messages.map((msg, index) => (
-//           <div
-//             key={index}
-//             className={`p-3 rounded-xl text-sm whitespace-pre-wrap max-w-[80%] ${
-//               msg.role === 'user'
-//                 ? 'bg-green-100 self-end text-right'
-//                 : 'bg-gray-200 self-start text-left'
-//             }`}
-//           >
-//             {msg.content}
+//     <div style={{ padding: "20px", maxWidth: "600px", margin: "0 auto" }}>
+//       <h2>چت با هوش مصنوعی</h2>
+//       <div style={{ border: "1px solid #ccc", padding: "10px", height: "300px", overflowY: "auto", marginBottom: "10px" }}>
+//         {chat.map((msg, i) => (
+//           <div key={i} style={{ textAlign: msg.role === "user" ? "right" : "left", margin: "10px 0" }}>
+//             <strong>{msg.role === "user" ? "شما" : "هوش مصنوعی"}:</strong> {msg.content}
 //           </div>
 //         ))}
-//         {loading && (
-//           <div className="text-gray-500 italic text-sm">در حال نوشتن...</div>
-//         )}
 //       </div>
 
-//       <div className="flex gap-2">
+//       <div style={{ display: "flex", gap: "10px" }}>
 //         <input
+//           style={{ flex: 1, padding: "10px", fontSize: "16px" }}
 //           type="text"
-//           className="flex-1 p-3 border rounded-xl border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
-//           placeholder="پیامتو بنویس..."
 //           value={input}
 //           onChange={(e) => setInput(e.target.value)}
-//           onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+//           placeholder="پیام خود را وارد کنید..."
 //         />
 //         <button
-//           onClick={sendMessage}
-//           className="bg-blue-600 text-white px-4 py-2 rounded-xl text-sm hover:bg-blue-700 transition-all"
+//           onClick={handleSend}
+//           style={{ padding: "10px 20px", background: "#007bff", color: "#fff", border: "none", cursor: "pointer" }}
 //         >
 //           ارسال
 //         </button>
 //       </div>
 //     </div>
 //   );
-// };
+// }
 
-// export default ChatWithAI;
+
+import React, { useState, useRef, useEffect } from 'react';
+import { sendMessageToAI } from '../../../openAi/OpenAiConfig';
 
 export default function ChatBot() {
   const [input, setInput] = useState("");
   const [chat, setChat] = useState([]);
+  const chatEndRef = useRef(null);
 
   const handleSend = async () => {
     if (!input.trim()) return;
-    const reply = await sendMessageToAI(input);
-    setChat([...chat, { role: "user", content: input }, { role: "assistant", content: reply }]);
+    const userMessage = { role: "user", content: input };
+    setChat((prev) => [...prev, userMessage]);
     setInput("");
+
+    const reply = await sendMessageToAI(input);
+    const aiMessage = { role: "assistant", content: reply };
+    setChat((prev) => [...prev, aiMessage]);
   };
 
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chat]);
+
   return (
-    <div style={{ padding: "20px", maxWidth: "600px", margin: "0 auto" }}>
-      <h2>چت با هوش مصنوعی</h2>
-      <div style={{ border: "1px solid #ccc", padding: "10px", height: "300px", overflowY: "auto", marginBottom: "10px" }}>
-        {chat.map((msg, i) => (
-          <div key={i} style={{ textAlign: msg.role === "user" ? "right" : "left", margin: "10px 0" }}>
-            <strong>{msg.role === "user" ? "شما" : "هوش مصنوعی"}:</strong> {msg.content}
-          </div>
-        ))}
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        maxWidth: "800px",
+        height: "90vh",
+        margin: "0 auto",
+        border: "1px solid #ccc",
+        borderRadius: "8px",
+        overflow: "hidden",
+        boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+      }}
+    >
+      {/* Header */}
+      <div
+        style={{
+          backgroundColor: "#343541",
+          color: "#fff",
+          padding: "16px",
+          fontSize: "18px",
+          fontWeight: "bold",
+          textAlign: "center",
+        }}
+      >
+        چت با هوش مصنوعی
       </div>
 
-      <div style={{ display: "flex", gap: "10px" }}>
+      {/* Chat area */}
+      <div
+        style={{
+          flex: 1,
+          padding: "20px",
+          overflowY: "auto",
+          backgroundColor: "#f7f7f8",
+        }}
+      >
+        {chat.map((msg, i) => (
+          <div
+            key={i}
+            style={{
+              display: "flex",
+              justifyContent: msg.role === "user" ? "flex-end" : "flex-start",
+              marginBottom: "12px",
+            }}
+          >
+            <div
+              style={{
+                maxWidth: "75%",
+                padding: "12px 16px",
+                borderRadius: "12px",
+                backgroundColor:
+                  msg.role === "user" ? "#007bff" : "#e4e6eb",
+                color: msg.role === "user" ? "#fff" : "#000",
+                whiteSpace: "pre-wrap",
+                lineHeight: "1.6",
+              }}
+            >
+              {msg.content}
+            </div>
+          </div>
+        ))}
+        <div ref={chatEndRef} />
+      </div>
+
+      {/* Input area */}
+      <div
+        style={{
+          padding: "12px",
+          borderTop: "1px solid #ccc",
+          backgroundColor: "#fff",
+          display: "flex",
+          gap: "10px",
+        }}
+      >
         <input
-          style={{ flex: 1, padding: "10px", fontSize: "16px" }}
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="پیام خود را وارد کنید..."
+          onKeyDown={(e) => e.key === "Enter" && handleSend()}
+          placeholder="پیام خود را بنویسید..."
+          style={{
+            flex: 1,
+            padding: "12px 16px",
+            borderRadius: "8px",
+            border: "1px solid #ccc",
+            fontSize: "16px",
+            outline: "none",
+          }}
         />
         <button
           onClick={handleSend}
-          style={{ padding: "10px 20px", background: "#007bff", color: "#fff", border: "none", cursor: "pointer" }}
+          style={{
+            padding: "0 24px",
+            backgroundColor: "#007bff",
+            color: "#fff",
+            border: "none",
+            borderRadius: "8px",
+            fontSize: "16px",
+            cursor: "pointer",
+          }}
         >
           ارسال
         </button>

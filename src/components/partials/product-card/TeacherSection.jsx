@@ -6,15 +6,15 @@ const TeacherSection = ({ studentsOfNum, teacherName }) => {
   return (
     <>
       <div className="right w-[75%] flex items-center gap-x-[3px]">
-        <HiOutlineUser style={{ color: "#888888" }} />
+        <HiOutlineUser style={{ color: "text-[var(--course-text)]" }} />
         <p 
-          className="teacher-name text-[#888888] w-[100%] text-ellipsis overflow-hidden text-nowrap"
+          className="teacher-name text-[var(--course-text)] w-[100%] text-ellipsis overflow-hidden text-nowrap"
           title={teacherName}
         >{teacherName}</p>
       </div>
       <div className="left flex items-center gap-x-[5px]">
-        <span className="text-[#AAAAAA]">{studentsOfNum}</span>
-        <StudentIcon />
+        <span className="text-[#888888]">{studentsOfNum}</span>
+        <StudentIcon style={{ color: "text-[var(--course-text)]" }}/>
       </div>
     </>
   );

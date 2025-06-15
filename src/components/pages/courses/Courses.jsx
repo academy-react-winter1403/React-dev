@@ -1,14 +1,21 @@
 import React, { useEffect } from "react";
 import TopSection from "./TopSection";
 import BottomSection from "./BottomSection";
-import { getData, getFilterData } from "../../../core/services";
+import {
+  getCourseDataByClick,
+  getData,
+  getFilterData,
+  getProductData,
+} from "../../../core/services";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addCourseCommentReplay,
   addCourseDetailCommentData,
   addFirstFilterData,
   changeAddDataFlag,
+  changeCommentDataFlag,
   changeCoursesPageCounter,
+  changeQueryFlag,
   firstAddCourseProduct,
 } from "../../../redux/actions";
 import { PaginationData } from "../../partials";
@@ -16,19 +23,124 @@ import bg from "../../../assets/pics/courses/bg1.png";
 import { deleteAllItemLocalStorage } from "../../../core/hooks/local-storage/deleteAllItem";
 import { getDataByClick } from "../../../core/services/api/get-data-by-click/getDataByClick";
 import Aos from "aos";
+// <<<<<<< HEAD
+import ScrollToTopButton from "../../common/ScrollToTopBtn";
+// =======
+// import { updateCourseQueryState } from "../../../core/utility/updateCourseQueryState";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import FilterBar from "./FilterBar";
+// <<<<<<< HEAD
+// =======
+// import { filterData } from "../../../core/constants";
+// import { useSelect } from "@heroui/react";
+// import { deleteItemLocalStorage } from "../../../core/hooks/local-storage/deleteItemLocalStorage";
+// import { htttp } from "../../../core/services/interceptor";
+// import { setItemLocalStorage } from "../../../core/hooks/local-storage/setItemLocalstorage";
+// import { locStorageUpdateItem } from "../../../core/hooks/local-storage/updateItem";
+// import { getItemLocalStorage } from "../../../core/hooks/local-storage/getItemLocalStorage";
+// >>>>>>> 21a038ce3feace628afe1f449fc089c5a5248056
+// >>>>>>> 2ace4c80c7263ea9285540bcb5eccb04035e1996
+// >>>>>>> bfddc3b24ca4ff50f06f1eb483129d175a014749
 
 const Courses = () => {
+  const navigation = useNavigate();
   const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { coursesFlags, coursesPageCounter, courseComment, courseQueryParams } =
     useSelector((state) => state);
+  const {
+    PageNumber,
+    RowsOfPage,
+    SortingCol,
+    SortType,
+    Query,
+    CostDown,
+    CostUp,
+    TechCount,
+    ListTech,
+    courseLevelId,
+    CourseTypeId,
+    TeacherId,
+  } = courseQueryParams;
   const { pageCount } = coursesPageCounter;
   const { addDataFlag, queryFlag } = coursesFlags;
-  const { RowsOfPage } = courseQueryParams;
+  // const { PageNumber, RowsOfPage } = courseQueryParams;
+
+  // let recognition = new (window.SpeechRecognition ||
+  //   window.webkitSpeechRecognition)();
+
+  // recognition.continuous = false; // تشخیص مداوم غیرفعال
+  // recognition.interimResults = false; // نتایج موقت غیرفعال
+
+  // recognition.onresult = function (event) {
+  //   let transcript = event.results[event.resultIndex][0].transcript.trim();
+  //   console.log("شما گفتید: " + transcript);
+
+  //   // پاک کردن مسیر قبلی و تنظیم مسیر جدید
+  //   window.history.replaceState({}, "", `/${encodeURIComponent(transcript)}`);
+  // };
+
+  // recognition.onend = function () {
+  //   // بعد از پایان تشخیص، دوباره شروع می‌کنیم تا برای گفتار بعدی آماده باشد
+  //   recognition.start();
+  // };
+
+  // // شروع شناسایی صوت
+  // recognition.start();
 
   useEffect(() => {
     dispatch(dispatch(addCourseDetailCommentData(null)));
     dispatch(dispatch(addCourseCommentReplay(null)));
-  }, [])
+  }, []);
+
+  const setParams = () => {
+    setSearchParams((params) => {
+      params.set("PageNumber", PageNumber);
+      params.set("RowsOfPage", RowsOfPage);
+      return params;
+    });
+  };
+
+  /////////////////////////////////////////////////////////
+  const {
+    mutate,
+    isLoading: dataLoading,
+    data: filterData,
+  } = getCourseDataByClick("coursesData");
+  const { mutate: getByClick } = getDataByClick();
+  useEffect(() => {
+    console.log("courseQueryParams ==>", courseQueryParams);
+    mutate(["/Home/GetCoursesWithPagination?", courseQueryParams], {
+      onSuccess: (data) => {
+        console.log("getByFilter ==>", data);
+        dispatch(firstAddCourseProduct(data.courseFilterDtos));
+      },
+    });
+    // if (Query === "") {
+    //   getByClick("/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=6", {
+    //     onSuccess: (data) => {
+    //       dispatch(firstAddCourseProduct(data.courseFilterDtos))
+    //     }
+    //   })
+    // }
+  }, [
+    PageNumber,
+    RowsOfPage,
+    SortingCol,
+    SortType,
+    Query,
+    CostDown,
+    CostUp,
+    TechCount,
+    ListTech,
+    courseLevelId,
+    CourseTypeId,
+    TeacherId,
+  ]);
+  if (dataLoading) {
+    dispatch(firstAddCourseProduct(null));
+  }
+  ///////////////////////////////////////
 
   useEffect(() => {
     if (!queryFlag) {
@@ -42,9 +154,30 @@ const Courses = () => {
         "pageCounter",
       ]);
     }
-    dispatch(dispatch(addCourseDetailCommentData(null)));
-    dispatch(dispatch(addCourseCommentReplay(null)));
+    // dispatch(changeQueryFlag(true))
+    setParams();
+    dispatch(changeCommentDataFlag(false));
+    dispatch(addCourseDetailCommentData(null));
+    dispatch(addCourseCommentReplay(null));
+    // updateCourseQueryState(searchParams, dispatch, firstAddCourseProduct, [
+    //   "Query",
+    //   "PageNumber",
+    //   "RowsOfPage",
+    //   "SortingCol",
+    //   "SortType",
+    //   "CostDown",
+    //   "CostUp",
+    //   "TechCount",
+    //   "ListTech",
+    //   "courseLevelId",
+    //   "CourseTypeId",
+    // ]);
   }, []);
+
+  // const { courseQueryParams } = useSelector((state) => state);
+  // const { PageNumber, RowsOfPage } = courseQueryParams;
+
+  // console.log("update ===>", courseQueryParams)
 
   useEffect(() => {
     Aos.init({
@@ -53,14 +186,20 @@ const Courses = () => {
     Aos.refresh();
   }, []);
 
-  const { data, isLoading } = getData(
+  // if (queryFlag) {
+  // console.log(queryFlag)
+  const { data, isLoading } = getProductData(
     "product",
-    `/Home/GetCoursesWithPagination?PageNumber=${pageCount}&RowsOfPage=${RowsOfPage}`
+    "/Home/GetCoursesWithPagination?",
+    courseQueryParams
   );
-  console.log(data)
+  // }
+
+  // console.log(data)
 
   if (!isLoading) {
-    console.log("dataTotalCount=========>",data)
+    // console.log(data)
+    // console.log("dataTotalCount=========>",data)
     if (!addDataFlag) {
       setTimeout(() => {
         dispatch(firstAddCourseProduct(data.courseFilterDtos));
@@ -85,7 +224,6 @@ const Courses = () => {
 
   const { mutateAsync: getDataByClick2 } = getDataByClick();
   const pageChangeHandler = async (pageNum) => {
-
     dispatch(changeCoursesPageCounter(pageNum));
     dispatch(firstAddCourseProduct(null));
     dispatch(changeAddDataFlag(true));
@@ -101,7 +239,7 @@ const Courses = () => {
   };
   return (
     <div
-      className="courses-holder flex justify-center mt-10"
+      className="courses-holder flex justify-center mt-10 max-w-[1500px] mx-auto "
       style={{
         background: `url(${bg})`,
         backgroundRepeat: "repeat-y",
@@ -110,15 +248,30 @@ const Courses = () => {
     >
       <div className="min-md:w-[82%] max-md:w-[90%] font-b-yekan flex flex-col items-center">
         <TopSection />
+        {/* <FilterBar /> */}
         <BottomSection>
-          {data && <PaginationData
+          {/* <<<<<<< HEAD */}
+          {/* {data && <PaginationData
             initialPageNum={1}
             changePageNumber={pageChangeHandler}
             totalCount={data.totalCount}
             RowsOfPage={RowsOfPage}
-          />}
+          />} */}
+          {/* ======= */}
+          {filterData && (
+            <PaginationData
+              initialPageNum={1}
+              changePageNumber={pageChangeHandler}
+              totalCount={filterData.totalCount}
+              RowsOfPage={RowsOfPage}
+              // totalNum={5}
+              // changePageNumber={changePageHandler}
+            />
+          )}
+          {/* >>>>>>> bfddc3b24ca4ff50f06f1eb483129d175a014749 */}
         </BottomSection>
       </div>
+      <ScrollToTopButton />
     </div>
   );
 };

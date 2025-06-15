@@ -9,7 +9,7 @@ const GridIcon = ({ click,view}) => {
 
   return (
     <button
-      className={view ? 'gridBtn bg-gray-200' : 'gridBtn bg-white'}
+      className={view ? 'gridBtn bg-gray-200' : 'gridBtn  bg-(--course-filter)'}
       onClick={clickHandler}
     >
       <LuLayoutGrid size={25} style={{ color: "#005B58"}} />

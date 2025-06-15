@@ -20,11 +20,21 @@ import {
   articlesQueryFilter,
   allDataArticleSlice,
   articleDetailCommentSlice,
+  userPanelMyCourseFilterParamsSlice,
 } from "./slices";
 import { themeSlice } from "./slices/themeSlice";
 import { locationSlice } from "./slices/location";
+// <<<<<<< HEAD
 import favoritesSlice from "./slices/favoritesSlice";
 import MyCommentsSlice from "./slices/MyComments";
+// =======
+import teachersQuerySlice from "./slices/teachersQuerySlice";
+import { landingSearchSlice } from "./slices/landingSearchSlice";
+//   userPanelMyCourseFilterParamsSlice
+// } from "./slices";
+
+// import { locationSlice } from "./slices/location";
+// >>>>>>> b6267ed1b82df788837059dfa4276a84030a3184
 
 export const store = configureStore({
   reducer: {
@@ -50,7 +60,13 @@ export const store = configureStore({
     relatedCoursesSlice: relatedCoursesSlice.reducer,
     articleDetailCommentSlice: articleDetailCommentSlice.reducer,
     theme: themeSlice.reducer,
+// <<<<<<< HEAD
     favorites:favoritesSlice.reducer,
-    MyComments:MyCommentsSlice.reducer
+    MyComments:MyCommentsSlice.reducer,
+// =======
+    userPanelMyCourseFilterParamsSlice: userPanelMyCourseFilterParamsSlice.reducer,
+    teachersQuery: teachersQuerySlice.reducer,
+    landingSearchSlice: landingSearchSlice.reducer
+// >>>>>>> b6267ed1b82df788837059dfa4276a84030a3184
   },
 });

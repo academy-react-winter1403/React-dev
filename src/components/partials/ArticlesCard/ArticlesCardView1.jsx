@@ -1,8 +1,7 @@
 import { IoEyeOutline } from "react-icons/io5";
 import { MdOutlineDateRange } from "react-icons/md";
 import { SlArrowLeft } from "react-icons/sl";
-import ChangeMoment from "../../../core/utility/changeMoment";
-
+import ChangeMoment from "../changeMoment/changeMoment";
 const ArticlesCardView1 = ({
   title,
   Describe,
@@ -16,7 +15,7 @@ const ArticlesCardView1 = ({
   // console.log(DataArticle)
   return (
     <div
-      className="w-[291px] h-[381px] rounded-t-[145px] rounded-b-xs shadow-sm flex flex-col items-center justify-center gap-4 cursor-pointer"
+      className="w-[291px] h-[381px] rounded-t-[145px] rounded-b-xs shadow-sm flex flex-col items-center justify-center gap-4 cursor-pointer bg-(--boxes-article)"
       data-aos="flip-left"
       data-aos-easing="ease-out-cubic"
       data-aos-duration="2000"
