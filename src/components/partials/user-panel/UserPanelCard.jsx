@@ -20,10 +20,10 @@ const UserPanelCard = ({
   titleThree,
   titleFour,
   accept,
+  statusFlag,
 }) => {
   const DataArticle = titleThree;
   const persianDate = ChangeMoment(DataArticle, "YYYY/MM/DD", "persian");
-  statusFlag,
   colorFlag,
   courseName,
   teacherName,

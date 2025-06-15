@@ -218,8 +218,8 @@ export default function UserChatWidget() {
         <div
           style={{
             position: "fixed",
-            bottom: 90,
-            right: 20,
+            bottom: 150,
+            right: 70,
             width: 350,
             height: 450,
             backgroundColor: "#fff",

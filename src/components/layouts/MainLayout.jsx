@@ -6,6 +6,7 @@ import { Themes } from "../partials";
 import { ToastContainer } from "react-toastify";
 import LanguageTheme from "../common/LanguageTheme/LanguageTheme";
 import VoiceNavigation from "../pages/voiceNavigation/VoiceNavigation";
+import UserChatWidget from "../pages/chat/Chat";
 
 const MainLayout = () => {
   const location = useLocation();
@@ -15,6 +16,7 @@ const MainLayout = () => {
       <HeaderWrapper />
       <VoiceNavigation />
       <Outlet />
+      <UserChatWidget/>
       {/* <Themes/> */}
       {currentPath !== "/Authorize/Register/step1" &&
         currentPath !== "/Authorize/Register/step2" &&
