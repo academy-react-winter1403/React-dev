@@ -211,6 +211,11 @@ i18n.use(initReactI18next).init({
         article: "Articles",
         socialMedia: "Social Medias",
         link: "Link",
+        // error
+        notFound: "Not Found",
+        lostMessage: "Looks like you're lost, friend",
+        notAvailable: "The page you're looking for doesn't exist",
+        goHome: "Go To Home",
       },
     },
     fa: {
@@ -420,6 +425,11 @@ i18n.use(initReactI18next).init({
         article: "مقاله",
         socialMedia: "شبکه اجتماعی",
         link: "لینک",
+        // Error
+        notFound: "نداریم !",
+        lostMessage: "فکر کنم راهتو گم کردی رفیق !",
+        notAvailable: "صفحه مورد نظر شما اینجا موجود نیست",
+        goHome: "بازگشت به خانه",
       },
     },
   },
