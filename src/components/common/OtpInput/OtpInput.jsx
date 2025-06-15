@@ -44,7 +44,7 @@ const OTPInput = ({ length,name,setFieldValue }) => {
     }
   };
   return (
-    <div dir="ltr" style={{ display: "flex", gap: "10px", direction:"ltr" }}>
+    <div dir="ltr" className="flex justify-center gap-2.5">
       {otp.map((_, index) => (
         <input
           className="inset-shadow-sm bg-[#F7F7F7]"

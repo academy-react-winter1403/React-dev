@@ -5,7 +5,8 @@ export const articleDetailCommentSlice = createSlice({
 
     initialState: {
         articleAndNewDetailComment: null,
-        articleAndNewDetailCommentReply: null
+        articleAndNewDetailCommentReply: null,
+        articleCommentFlag: false,
     },
   
     reducers : {
@@ -14,6 +15,9 @@ export const articleDetailCommentSlice = createSlice({
           },
           addArticleAndNewsDetailCommentReply: (state, action) => {
             state.articleAndNewDetailCommentReply = action.payload
+          },
+          changeArticleCommentFlag: (state, action) => {
+            state.articleCommentFlag = action.payload
           }
     }
 })

@@ -5,7 +5,7 @@ import "aos/dist/aos.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 
-const AddComment = ({ btnClick }) => {
+const AddComment = ({ btnClick, closeBtnClick }) => {
   // AOS
   useEffect(() => {
     AOS.init({
@@ -75,7 +75,14 @@ const AddComment = ({ btnClick }) => {
             />
           </div>
           {/* buttons */}
-          <div className="p-1 flex md:justify-end xs:justify-center">
+          <div className="p-1 flex md:justify-end xs:justify-center gap-2">
+            <button
+              className="bg-red-500 hover:bg-red-600  transition h-10 w-30 rounded-xl shadow-lg text-white p-1
+                cursor-pointer text-center"
+              onClick={closeBtnClick}
+            >
+              لغو
+            </button>
             <button
               type="submit"
               className="bg-green-500 hover:bg-green-600  transition h-10 w-30 rounded-xl shadow-lg text-white p-1 cursor-pointer text-center"

@@ -1,0 +1,1 @@
+export const TeacherData = (t) => [t("mostExperienced")];

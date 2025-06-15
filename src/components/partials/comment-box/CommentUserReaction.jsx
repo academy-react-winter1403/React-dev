@@ -11,6 +11,7 @@ const CommentUserReaction = ({
   imageAddress,
   likeBtnClick,
   desLikeClick,
+  addReplayClick,
   commentId,
 }) => {
   const commentLikeClickHandler = () => {
@@ -51,6 +52,7 @@ const CommentUserReaction = ({
           <RiArrowGoBackFill
             className="text-[#01B4AF] cursor-pointer"
             size={23}
+            onClick={addReplayClick}
           />
         </div>
       </div>

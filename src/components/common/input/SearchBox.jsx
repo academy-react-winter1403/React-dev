@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { IoSearchCircleSharp } from "react-icons/io5";
 import { pagesList } from "../../../core/constants/PageLinks/PageLinks";
 
-const SearchBox = ({ placeholder }) => {
+const SearchBox = ({ placeholder, inputChange, onClick, children }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredPages, setFilteredPages] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -13,6 +13,7 @@ const SearchBox = ({ placeholder }) => {
   const handleChange = (e) => {
     const value = e.target.value;
     setSearchTerm(value);
+    inputChange(value)
 
     if (value.trim() === "") {
       setFilteredPages([]);
@@ -50,6 +51,7 @@ const SearchBox = ({ placeholder }) => {
         value={searchTerm}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
+        onClick={onClick}
       />
       <IoSearchCircleSharp
         color="#D47300"
@@ -69,6 +71,7 @@ const SearchBox = ({ placeholder }) => {
           ))}
         </ul>
       )}
+      {children}
     </div>
   );
 };

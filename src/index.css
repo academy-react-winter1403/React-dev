@@ -1,9 +1,82 @@
+@import "tailwindcss";
+/* @import './assets/fonts'; */
+
 body {
-  background: #f9f9f9;
+  /* background: #f9f9f9; */
+  background: #F7F7F7 ;
+  background: #F7F7F7;
   user-select: none;
 }
 
-@import "tailwindcss";
+:root{
+  --bg-main: #F7F7F7;
+  --text-main:#555555;
+  --button-bg:#01CEC9;
+  --button-text:#ffffff;
+  --title-text:#01CEC9;
+  --logo: #000000;
+  --boxes: #F7F7F7;
+  --course-text: #888888;
+  --course-top-text: #AAAAAA;
+  --course-filter: #F7F7F7;
+  --filter-box: #FFFFFF;
+  --filter-text: #005b58be;
+  --boxes-article: #F7F7F7;
+  --article-detail-top-text: #7d7c7c;
+  --article-detail-box: #F7F7F7;
+  --user-panel : #FFFFFF;
+  --category-option: #ffffff;
+  --teacher-title: #003231;
+  --teacher-title2: #268582;
+  --teacher-sub-title: #777777;
+  --footer-text-col: #77A9A8;
+  --footer-text-dot: #489A98;
+  --footer-text: #006865;
+  --login-text: #005351;
+  --login-pointer-div: #c3d3bd;
+  --panel-dashboard:#01CEC9;
+  --dashboard-text-option: #003B39;
+  --dashboard-card-title-text: #005250;
+  --dashboard-userinfo: #F6FFFF;
+  --dashboard-text: #003B39;
+}
+
+  
+
+
+
+.dark-theme{
+  --bg-main: #1b2a38;
+  --text-main:#e2e8f0;
+  --button-bg:#4f94b4;
+  --button-text:#ffffff;
+  --title-text:#4f94b4;
+  --logo: #ffffff;
+  --boxes: #c9c6c9;
+  --course-text: #8c3d80;
+  --course-top-text: #666666;
+  --course-filter: #d7d5d7;
+  --filter-box: #c9c6c9;
+  --filter-text: #ffffff;
+  --boxes-article: #c9c6c9;
+  --article-detail-top-text: #544e4e;
+  --article-detail-box: #d7d5d7;
+  --user-panel : #374d6d;
+  --category-option: #c9c6c9;
+  --teacher-title: #ffd700;
+  --teacher-title2: #d6ecf3;
+  --teacher-sub-title: #ffffff;
+  --footer-text-col: #ffffff;
+  --footer-text-dot: #b0daf1;
+  --footer-text: #ffffff;
+  --login-text: #ffffff;
+  --login-pointer-div: #01CEC9BF;
+  --panel-dashboard:#42768f;
+  --dashboard-text-option: #aba9a9;
+  --dashboard-card-title-text: #ffffff;
+  --dashboard-userinfo: #1b2a38;
+  --dashboard-text: #ffffff;
+}
 
 @font-face {
   font-family: b-yekan;
@@ -19,6 +92,15 @@ body {
   font-weight: 200 700;
   font-display: swap;
   src: url("./assets/fonts/IranianSans.ttf") format("woff2");
+}
+
+
+
+@font-face {
+  font-family: 'Cherry Bomb';
+  src: url('/fonts/CherryBombOne-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @theme {
@@ -63,7 +145,24 @@ body {
   border: 2px solid rgb(255, 0, 0);
 }
 
-
 .leaflet-control-zoom {
   display: none;
+}
+
+
+/* BestTeacherSlider.css or global styles */
+
+/* Simulate RTL inside Swiper Cards */
+.rtl-fix {
+  direction: ltr;           /* Keep Swiper working correctly */
+  transform: scaleX(-1);    /* Flip Swiper visually */
+}
+
+.rtl-fix .swiper-slide {
+  transform: scaleX(-1);    /* Flip slide content back to normal */
+}
+
+.rtl-fix .slide-inner {
+  direction: rtl;           /* Fix text direction for Persian */
+  text-align: right;        /* Align text properly */
 }

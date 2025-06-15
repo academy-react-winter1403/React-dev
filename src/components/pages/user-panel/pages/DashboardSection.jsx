@@ -55,7 +55,8 @@ const DashboardSection = () => {
   );
 
   if (!newsLoading) {
-    console.log(newsData.news);
+    // console.log(newsData)
+    console.log(newsData?.news);
     dispatch(addLatestSserPanelNewsSlice(newsData.news));
   }
   // get lastUpdate data
@@ -116,5 +117,6 @@ const DashboardSection = () => {
     </div>
   );
 };
+
 
 export default DashboardSection;

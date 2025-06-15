@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import pic from "../../../assets/pics/courses/course-detail-pic.png";
 import { BiBookmark } from "react-icons/bi";
+import { BsBookmarkFill } from "react-icons/bs";
 import { CameraIcon, DBasketIcon } from "../../../core/icons/icons";
 import { HiOutlineUser } from "react-icons/hi2";
 import { useSelector } from "react-redux";
@@ -8,12 +9,16 @@ import { SeparationPrice } from "../../../core/utility/SeparationPrice";
 import { MotionComp } from "../../partials";
 import Aos from "aos";
 import { useParams } from "react-router-dom";
-import { addCourseFavoritePost } from "../../../core/services";
+import { addCourseFavoritePost, reservCourse } from "../../../core/services";
 import ImageFedback from "../../partials/image-fedback/imageFedback";
+import { toast } from "react-toastify";
+import { useQueryClient } from "react-query";
+import { deleteFavoriteProduct } from "../../../core";
 
-const DetailTop = () => {
+const DetailTop = ({}) => {
+  const queryClient = useQueryClient();
   const [price, setPrice] = useState(null);
-  const { id } = useParams()
+  const { id } = useParams();
 
   const { courseDetail } = useSelector((state) => state);
   const { detailData } = courseDetail;
@@ -34,14 +39,57 @@ const DetailTop = () => {
     Aos.refresh();
   }, [detailData]);
 
-  const {mutate, data, isLoading} = addCourseFavoritePost("saveCourse")
+  const { mutate, data, isLoading } = addCourseFavoritePost("saveCourse");
   const productSaveClick = () => {
-    mutate(["/Course/AddCourseFavorite", {courseId: id}])
+    const dataObj = {
+      courseId: id,
+    };
+    mutate(["/Course/AddCourseFavorite", dataObj], {
+      onSuccess: (data) => {
+        console.log(data);
+        // toast("عملیات با موفقیت انجام شد")
+        queryClient.invalidateQueries(["detailProduct"]);
+      },
+    });
+  };
+
+  const { mutate: deleteFavoriteCourse } = deleteFavoriteProduct(
+    "deleteFavoriteCourse"
+  );
+  const productDeleteFavoriteClick = () => {
+    deleteFavoriteCourse([
+      "/Course/DeleteCourseFavorite/CourseFavoriteId",
+      { "CourseFavoriteId" : detailData.userFavoriteId}
+    ],{
+      onSuccess: () => {
+        queryClient.invalidateQueries(["detailProduct"]);
+      }
+    });
+  };
+
+
+  // reserv course handle
+  const {mutate: reservCourseMutate} = reservCourse()
+  const addCourseReservedClickHandler = () => {
+    reservCourseMutate(["/CourseReserve/ReserveAdd",
+      {
+        courseId: id,
+      }
+    ], {
+      onSuccess: (data) => {
+        console.log(data)
+        // toast.success(data.message)
+      },
+      onError: (error) => {
+        console.log("error ==>", error)
+      }
+    })
   }
+  // reserv course handle
 
   return (
     <div
-      className={`w-full relative flex justify-center items-start min-lg:gap-x-[10px] font-b-yekan
+      className={`w-full relative flex justify-center items-start min-lg:gap-x-[10px] font-b-yekan 
       max-lg:flex-col-reverse max-lg:gap-y-[15px] max-lg:w-[80%] max-lg:items-center
       max-lg:bg-[#FFFFFF] max-lg:drop-shadow-[0_1px_2px_#00000040] rounded-[10px] max-lg:pt-[10px]`}
     >
@@ -51,7 +99,7 @@ const DetailTop = () => {
         yInitial={"-50px"}
         yAnimate={0}
         animDuration={2}
-        classNames={`info-control w-[40%] min-lg:bg-[#FFFFFF] flex flex-col justify-between
+        classNames={`info-control w-[40%] min-lg:bg-(--filter-box) flex flex-col justify-between 
               min-lg:drop-shadow-[0_1px_2px_#00000040] rounded-[15px] p-[30px] max-md:px-[15px] max-md:pt-[0] max-md:pb-[18px]
               max-lg:w-[90%]`}
       >
@@ -59,7 +107,19 @@ const DetailTop = () => {
           <h1 className="text-[29px] font-bold text-[#333333] font-b-yekan">
             {detailData?.title}
           </h1>
-          <BiBookmark className="text-[#00B4AF]" size={27} onClick={productSaveClick}/>
+          {detailData?.isUserFavorite ? (
+            <BsBookmarkFill
+              className="text-[#00B4AF] cursor-pointer"
+              size={27}
+              onClick={productDeleteFavoriteClick}
+            />
+          ) : (
+            <BiBookmark
+              className="text-[#00B4AF] cursor-pointer"
+              size={27}
+              onClick={productSaveClick}
+            />
+          )}
         </div>
         <p
           className="text-[#777777] font-[400] font-b-yekan mt-[16px] w-[90%] h-[72px]
@@ -100,6 +160,7 @@ const DetailTop = () => {
             className="bg-[#FF8A00] text-[#FFFFFF]
               px-[80px] py-[10px] rounded-[9px] font-[700] text-[18px] flex items-center gap-x-[10px] cursor-pointer
               max-xl:text-[15px] max-xl:px-[70px] max-xl:py-[11px]"
+            onClick={addCourseReservedClickHandler}
           >
             <DBasketIcon />
             <span> شرکت در دوره! </span>
@@ -116,7 +177,7 @@ const DetailTop = () => {
         classNames={`product-image-control w-[40%] h-[344px] max-xl:h-[302px] overflow-hidden rounded-[10px]
           max-lg:w-[90%]`}
       >
-        <ImageFedback imageAddress={detailData?.imageAddress} pic={pic}/>
+        <ImageFedback imageAddress={detailData?.imageAddress} pic={pic} />
       </MotionComp>
     </div>
   );

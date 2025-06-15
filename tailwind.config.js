@@ -1,19 +1,26 @@
-import { heroui } from "@heroui/react";
+// module.exports = {
+//   darkMode: "class", // یا 'media' برای استفاده از تنظیمات سیستم کاربر
+//   theme: {
+//     extend: {},
+//   },
+//   variants: {
+//     extend: {},
+//   },
+//   plugins: [],
+// };
 
-/** @type {import('tailwindcss').Config} */
-export default {
-	content: [
-		"./index.html",
-		"./src/**/*.{js,ts,jsx,tsx}",
-		"./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
-	],
-	theme: {
-		extend: {
-      dorkMode: {
-        
-      }
+
+module.exports = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      fontFamily: {
+        cherry: ['"Cherry Bomb"', 'cursive'], 
+      },
     },
-	},
-	darkMode: "class",
-	plugins: [heroui()],
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
 };
