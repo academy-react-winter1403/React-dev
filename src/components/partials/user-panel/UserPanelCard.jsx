@@ -21,20 +21,26 @@ const UserPanelCard = ({
   titleFour,
   accept,
   statusFlag,
+  staerDate,
+  price,
+  courseName,
+  teacherName,
+  showStatus,
+  CiWalletFlag,
+  ciWalletClick,
+  eyeClick
 }) => {
   const DataArticle = titleThree;
   const persianDate = ChangeMoment(DataArticle, "YYYY/MM/DD", "persian");
-  colorFlag,
-  courseName,
-  teacherName,
-  staerDate,
-  price,
-  trashcanClick,
-  eyeClick,
-  statusText,
-  showStatus,
-  CiWalletFlag,
-  ciWalletClick
+  // ,
+  // courseName,
+  // teacherName,
+  // staerDate,
+  // trashcanClick,
+  // ,
+  // statusText,
+  // ,
+  // 
   const calc = bgCalc % 2;
   const [date, setDate] = useState(null);
   const [cost, setCost] = useState(null);

@@ -159,9 +159,11 @@ const CourseReserveSection = () => {
                   bgCalc={index}
                   statusFlag={item.accept}
                   colorFlag={true}
-                  courseName={item.courseName}
+                  courseName={item.courseTitle}
+                  price={item.cost}
                   trashcanClick={() => trashcanClickHandler(item)}
                   eyeClick={() => eyeClickHandler(item)}
+                  // titleOne={}
                 />
               );
             })

@@ -45,6 +45,7 @@ import BgTwo from "./../../../assets/pics/articles/02.png";
 // import BgFive from "./../../../assets/pics/articles/03.jfif";
 import BgSix from "./../../../assets/pics/articles/03.png";
 import { useTranslation } from "react-i18next";
+import ChatModal from "../chat/ChatModal";
 
 const ArticlesAndNews = () => {
   const { t, i18n } = useTranslation();
@@ -171,8 +172,9 @@ const ArticlesAndNews = () => {
             RowsOfPage={RowsOfPage}
             changePageNumber={changePageHandler}
           />
-          <Chat />
-          <ChatBot />
+          {/* <Chat /> */}
+          {/* <ChatBot /> */}
+          <ChatModal />
         </div>
         <div className="lg:w-[298px] xs:w-full flex lg:flex-col flex-row justify-center items-center mt-15 gap-6 ">
           <div
