@@ -172,9 +172,7 @@ const ArticlesAndNews = () => {
             RowsOfPage={RowsOfPage}
             changePageNumber={changePageHandler}
           />
-          {/* <Chat /> */}
-          {/* <ChatBot /> */}
-          <ChatModal />
+
         </div>
         <div className="lg:w-[298px] xs:w-full flex lg:flex-col flex-row justify-center items-center mt-15 gap-6 ">
           <div

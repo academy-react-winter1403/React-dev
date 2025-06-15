@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import LanguageTheme from "../common/LanguageTheme/LanguageTheme";
 import VoiceNavigation from "../pages/voiceNavigation/VoiceNavigation";
 import UserChatWidget from "../pages/chat/Chat";
+import ChatModal from "../pages/chat/ChatModal";
 
 const MainLayout = () => {
   const location = useLocation();
@@ -15,8 +16,9 @@ const MainLayout = () => {
     <>
       <HeaderWrapper />
       <VoiceNavigation />
+      <UserChatWidget />
+      <ChatModal />
       <Outlet />
-      <UserChatWidget/>
       {/* <Themes/> */}
       {currentPath !== "/Authorize/Register/step1" &&
         currentPath !== "/Authorize/Register/step2" &&
@@ -26,7 +28,7 @@ const MainLayout = () => {
         currentPath !== "/Authorize/forget-password/step1" &&
         currentPath !== "/Authorize/forget-password/step2" && <FooterWrapper />}
       {/* <ToastContainer /> */}
-      <LanguageTheme/>
+      <LanguageTheme />
     </>
   );
 };
