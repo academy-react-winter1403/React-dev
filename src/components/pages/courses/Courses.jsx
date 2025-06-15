@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
 import TopSection from "./TopSection";
 import BottomSection from "./BottomSection";
-import { getCourseDataByClick, getData, getFilterData, getProductData } from "../../../core/services";
+import {
+  getCourseDataByClick,
+  getData,
+  getFilterData,
+  getProductData,
+} from "../../../core/services";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addCourseCommentReplay,
@@ -12,21 +17,17 @@ import {
   changeCoursesPageCounter,
   changeQueryFlag,
   firstAddCourseProduct,
-  // <<<<<<< HEAD
-  // =======
-  // <<<<<<< HEAD
-  // changePageCounter,
-  // changeQueryFlag,
-  // firstAddProduct,
-  // >>>>>>> 2ace4c80c7263ea9285540bcb5eccb04035e1996
 } from "../../../redux/actions";
 import { PaginationData } from "../../partials";
 import bg from "../../../assets/pics/courses/bg1.png";
 import { deleteAllItemLocalStorage } from "../../../core/hooks/local-storage/deleteAllItem";
 import { getDataByClick } from "../../../core/services/api/get-data-by-click/getDataByClick";
 import Aos from "aos";
+// <<<<<<< HEAD
+import ScrollToTopButton from "../../common/ScrollToTopBtn";
+// =======
 // import { updateCourseQueryState } from "../../../core/utility/updateCourseQueryState";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import FilterBar from "./FilterBar";
 // <<<<<<< HEAD
 // =======
@@ -39,13 +40,14 @@ import FilterBar from "./FilterBar";
 // import { getItemLocalStorage } from "../../../core/hooks/local-storage/getItemLocalStorage";
 // >>>>>>> 21a038ce3feace628afe1f449fc089c5a5248056
 // >>>>>>> 2ace4c80c7263ea9285540bcb5eccb04035e1996
+// >>>>>>> bfddc3b24ca4ff50f06f1eb483129d175a014749
 
 const Courses = () => {
+  const navigation = useNavigate();
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { coursesFlags, coursesPageCounter, courseComment, courseQueryParams } = useSelector(
-    (state) => state
-  );
+  const { coursesFlags, coursesPageCounter, courseComment, courseQueryParams } =
+    useSelector((state) => state);
   const {
     PageNumber,
     RowsOfPage,
@@ -64,6 +66,28 @@ const Courses = () => {
   const { addDataFlag, queryFlag } = coursesFlags;
   // const { PageNumber, RowsOfPage } = courseQueryParams;
 
+  // let recognition = new (window.SpeechRecognition ||
+  //   window.webkitSpeechRecognition)();
+
+  // recognition.continuous = false; // تشخیص مداوم غیرفعال
+  // recognition.interimResults = false; // نتایج موقت غیرفعال
+
+  // recognition.onresult = function (event) {
+  //   let transcript = event.results[event.resultIndex][0].transcript.trim();
+  //   console.log("شما گفتید: " + transcript);
+
+  //   // پاک کردن مسیر قبلی و تنظیم مسیر جدید
+  //   window.history.replaceState({}, "", `/${encodeURIComponent(transcript)}`);
+  // };
+
+  // recognition.onend = function () {
+  //   // بعد از پایان تشخیص، دوباره شروع می‌کنیم تا برای گفتار بعدی آماده باشد
+  //   recognition.start();
+  // };
+
+  // // شروع شناسایی صوت
+  // recognition.start();
+
   useEffect(() => {
     dispatch(dispatch(addCourseDetailCommentData(null)));
     dispatch(dispatch(addCourseCommentReplay(null)));
@@ -78,14 +102,18 @@ const Courses = () => {
   };
 
   /////////////////////////////////////////////////////////
-  const { mutate, isLoading:dataLoading, data:filterData } = getCourseDataByClick("coursesData");
+  const {
+    mutate,
+    isLoading: dataLoading,
+    data: filterData,
+  } = getCourseDataByClick("coursesData");
   const { mutate: getByClick } = getDataByClick();
   useEffect(() => {
-    console.log("courseQueryParams ==>", courseQueryParams)
+    console.log("courseQueryParams ==>", courseQueryParams);
     mutate(["/Home/GetCoursesWithPagination?", courseQueryParams], {
       onSuccess: (data) => {
-        console.log("getByFilter ==>", data)
-        dispatch(firstAddCourseProduct(data.courseFilterDtos))
+        console.log("getByFilter ==>", data);
+        dispatch(firstAddCourseProduct(data.courseFilterDtos));
       },
     });
     // if (Query === "") {
@@ -110,7 +138,7 @@ const Courses = () => {
     TeacherId,
   ]);
   if (dataLoading) {
-    dispatch(firstAddCourseProduct(null))
+    dispatch(firstAddCourseProduct(null));
   }
   ///////////////////////////////////////
 
@@ -200,11 +228,6 @@ const Courses = () => {
     dispatch(firstAddCourseProduct(null));
     dispatch(changeAddDataFlag(true));
 
-    // dispatch(changeCoursesPageCounter(pageNum));
-    // dispatch(firstAddCourseProduct(null));
-
-    // dispatch(changeAddDataFlag(true));
-
     const data = await getDataByClick2(
       `/Home/GetCoursesWithPagination?PageNumber=${pageNum}&RowsOfPage=6`
     );
@@ -216,7 +239,7 @@ const Courses = () => {
   };
   return (
     <div
-      className="courses-holder flex justify-center mt-10"
+      className="courses-holder flex justify-center mt-10 max-w-[1500px] mx-auto "
       style={{
         background: `url(${bg})`,
         backgroundRepeat: "repeat-y",
@@ -227,6 +250,14 @@ const Courses = () => {
         <TopSection />
         {/* <FilterBar /> */}
         <BottomSection>
+          {/* <<<<<<< HEAD */}
+          {/* {data && <PaginationData
+            initialPageNum={1}
+            changePageNumber={pageChangeHandler}
+            totalCount={data.totalCount}
+            RowsOfPage={RowsOfPage}
+          />} */}
+          {/* ======= */}
           {filterData && (
             <PaginationData
               initialPageNum={1}
@@ -237,8 +268,10 @@ const Courses = () => {
               // changePageNumber={changePageHandler}
             />
           )}
+          {/* >>>>>>> bfddc3b24ca4ff50f06f1eb483129d175a014749 */}
         </BottomSection>
       </div>
+      <ScrollToTopButton />
     </div>
   );
 };

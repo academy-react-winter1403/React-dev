@@ -7,6 +7,7 @@ import {
   dislikeComment,
   getCommentData,
   getCommentOneData,
+  getCourseCommentData,
   getData,
   getDataByClick,
   getDataUserPanel,
@@ -40,9 +41,13 @@ import { errorMessageHandler } from "../../../core/utility/errorMessageHandler";
 import Aos from "aos";
 import { getItemLocalStorage } from "../../../core/hooks/local-storage/getItemLocalStorage";
 import { useQueryClient } from "react-query";
+// <<<<<<< HEAD
+import ScrollToTopButton from "../../common/ScrollToTopBtn";
+// =======
 import { htttp } from "../../../core/services/interceptor";
 import { toast } from "react-toastify";
 import AddComment from "../../partials/comment-box/AddComment";
+// >>>>>>> bfddc3b24ca4ff50f06f1eb483129d175a014749
 
 const CourseDetail = () => {
   const { id } = useParams();
@@ -83,26 +88,42 @@ const CourseDetail = () => {
   // get detail data
 
   // get comment data
+  // const {
+  //   data: comment,
+  //   isLoading: commentLoading,
+  //   // isSuccess,
+  // } = getCommentData("courseComment", `/Course/GetCourseCommnets/${id}`);
+  // if (!commentLoading) {
+  //   dispatch(addCourseDetailCommentData(comment.data));
+  //   if (commentData) {
+  //     if (!commentDataFlag) {
+  //       dispatch(changeCommentDataFlag(true));
+  //       // console.log(commentDataFlag);
+  //       getCourseCommentReplay(
+  //         "/Course/GetCourseReplyCommnets/",
+  //         commentData
+  //       ).then((replayReponse) => {
+  //         dispatch(addCourseCommentReplay(replayReponse));
+  //       });
+  //     }
+  //   }
+  // }
+
   const {
-    data: comment,
-    isLoading: commentLoading,
-    // isSuccess,
-  } = getCommentData("courseComment", `/Course/GetCourseCommnets/${id}`);
-  if (!commentLoading) {
-    dispatch(addCourseDetailCommentData(comment.data));
-    if (commentData) {
-      if (!commentDataFlag) {
-        dispatch(changeCommentDataFlag(true));
-        // console.log(commentDataFlag);
-        getCourseCommentReplay(
-          "/Course/GetCourseReplyCommnets/",
-          commentData
-        ).then((replayReponse) => {
-          dispatch(addCourseCommentReplay(replayReponse));
-        });
-      }
-    }
+    data: commentData2,
+    isLoading: getCommentData2Loading,
+    refetch: getCommentDataRefetch,
+  } = getCourseCommentData(
+    "getCourseCommentData",
+    `/Course/GetCourseCommnets/${id}`
+  );
+
+  if (!getCommentData2Loading) {
+    console.log("commentData2 ==>", commentData2);
+    dispatch(addCourseCommentReplay(commentData2));
   }
+
+  // const {} =
   // get comment data
 
   // comment like handle
@@ -114,8 +135,9 @@ const CourseDetail = () => {
   const coomentLikeBtnClickHandler = async (item) => {
     likeMutate(["/Course/AddCourseCommentLike?CourseCommandId", item.id], {
       onSuccess: async (data) => {
-        dispatch(changeCommentDataFlag(false));
-        queryClient.invalidateQueries(["courseComment"]);
+        getCommentDataRefetch()
+        // dispatch(changeCommentDataFlag(false));
+        // queryClient.invalidateQueries(["courseComment"]);
       },
     });
   };
@@ -128,8 +150,9 @@ const CourseDetail = () => {
       ["/Course/AddCourseCommentDissLike?CourseCommandId", item.id],
       {
         onSuccess: (data) => {
-          dispatch(changeCommentDataFlag(false));
-          queryClient.invalidateQueries(["courseComment"]);
+          getCommentDataRefetch()
+          // dispatch(changeCommentDataFlag(false));
+          // queryClient.invalidateQueries(["courseComment"]);
         },
       }
     );
@@ -297,27 +320,30 @@ const CourseDetail = () => {
                   addCommentBtnClick={addCommentBtnClickHandler}
                   addReplayClick={commentReplayFormShowHandler}
                 />
-              ) : <h1> کامنتی وجود ندارد🤣🤣 </h1>}
-              {commentReplay ? 
+              ) : (
+                <h1> کامنتی وجود ندارد🤣🤣 </h1>
+              )}
+              {commentReplay ? (
                 <div className="btn-control w-full absolute bottom-2 flex justify-center items-center">
-                <button
-                  className="border border-gray-900 bg-gray-900 text-white
+                  <button
+                    className="border border-gray-900 bg-gray-900 text-white
                   py-2 px-7 rounded-2xl cursor-pointer"
-                  // data-aos="fade-up"
-                  onClick={() =>
-                    commentBoxHeightFlag
-                      ? setCommentBoxHeightFlag(false)
-                      : setCommentBoxHeightFlag(true)
-                  }
-                >
-                  {commentBoxHeightFlag ? "کامنت بیشتر " : " کامنت کمتر "}
-                </button>
-              </div> : null}
+                    // data-aos="fade-up"
+                    onClick={() =>
+                      commentBoxHeightFlag
+                        ? setCommentBoxHeightFlag(false)
+                        : setCommentBoxHeightFlag(true)
+                    }
+                  >
+                    {commentBoxHeightFlag ? "کامنت بیشتر " : " کامنت کمتر "}
+                  </button>
+                </div>
+              ) : null}
             </div>
           </div>
-          <div className="left w-[33%] max-my-breakpoint:w-full ">
+          <div className="left w-[33%] max-my-breakpoint:w-full">
             <MotionComp
-              classNames={`top-section bg-[#FFFFFF] drop-shadow-[0_1px_2px_#00000040] py-[40px] px-[20px] rounded-[15px]`}
+              classNames={`top-section bg-(--filter-box) drop-shadow-[0_1px_2px_#00000040] py-[40px] px-[20px] rounded-[15px]`}
               xInitial={"-100px"}
               xAnimate={0}
               animDuration={2}
@@ -370,6 +396,7 @@ const CourseDetail = () => {
           </div>
         </div>
       </div>
+      <ScrollToTopButton />
     </div>
   );
 };

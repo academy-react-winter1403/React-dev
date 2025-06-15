@@ -1,7 +1,5 @@
 import FilteredBox from "./filter-box/FilteredBox";
-import {
-  productMockData,
-} from "../../../core/constants";
+import { productMockData } from "../../../core/constants";
 import FilterOption from "./filter-box/FilterOption";
 import React, { useEffect, useState } from "react";
 import FilterLabel from "./FilterLabel";
@@ -33,10 +31,16 @@ import {
 import { getDataByClick } from "../../../core/services/api/get-data-by-click/getDataByClick";
 import PriceInput from "../../partials/price-input/PriceInput";
 import { getItemLocalStorage } from "../../../core/hooks/local-storage/getItemLocalStorage";
-import { deleteAllParams, updateCoursesQueryParams, updateSearchParamsHook } from "../../../core";
+import {
+  deleteAllParams,
+  updateCoursesQueryParams,
+  updateSearchParamsHook,
+} from "../../../core";
 import FilterBar from "./FilterBar";
+import { useTranslation } from "react-i18next";
 
 const BottomSection = ({ children }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -47,6 +51,7 @@ const BottomSection = ({ children }) => {
     coursesPageCounter,
     courseQueryParams,
     coursesFlags,
+    language,
   } = useSelector((state) => state);
   const { filterData } = courseFilterData;
   const { sortText } = coursesSort;
@@ -70,12 +75,38 @@ const BottomSection = ({ children }) => {
 
   const [windowWidthNum, setWindowWidthNum] = useState(window.innerWidth);
 
-  window.addEventListener("resize", () => {
+  // window.addEventListener("resize", () => {
+  //   setWindowWidthNum(window.innerWidth);
+  //   if (window.innerWidth <= 640) {
+  //     dispatch(changeViewFlag(true))
+  //   }
+  // });
+
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setWindowWidthNum(window.innerWidth);
+  //     if (window.innerWidth <= 640) {
+  //       dispatch(changeViewFlag(true));
+  //     }
+  //   };
+
+  //   window.addEventListener("resize", handleResize);
+
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
+
+
+  useEffect(() => {
+  const handleResize = () => {
     setWindowWidthNum(window.innerWidth);
     if (window.innerWidth <= 640) {
-      dispatch(changeViewFlag(true))
+      dispatch(changeViewFlag(true));
     }
-  });
+  };
+
+  window.addEventListener("resize", handleResize);
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
 
   const closeBtnClickHandler = () => {
     dispatch(changeFilterBoxFlag(false));
@@ -85,27 +116,37 @@ const BottomSection = ({ children }) => {
   const removeFilterClickHandler = async () => {
     dispatch(changeFilterBoxFlag(false));
     updateCoursesQueryParams(
-      [{paramsData: 1, action: changePageCounter},
-      {paramsData: 6, action: changeRowOfPageNum},
-      {paramsData: null, action: changeQuery},
-      {paramsData: null, action: changeCourseTypeId},
-      {paramsData: 0, action: changeCostDown},
-      {paramsData: 100000000, action: changeCostUp},
-      {paramsData: null, action: changeTechnologiList},
-      {paramsData: undefined, action: changeTechnologiCount},
-      {paramsData: "DESC", action: changeSortType},
-      {paramsData: "Active", action: changeCoursesSortingCol},],
+      [
+        { paramsData: 1, action: changePageCounter },
+        { paramsData: 6, action: changeRowOfPageNum },
+        { paramsData: null, action: changeQuery },
+        { paramsData: null, action: changeCourseTypeId },
+        { paramsData: 0, action: changeCostDown },
+        { paramsData: 100000000, action: changeCostUp },
+        { paramsData: null, action: changeTechnologiList },
+        { paramsData: undefined, action: changeTechnologiCount },
+        { paramsData: "DESC", action: changeSortType },
+        { paramsData: "Active", action: changeCoursesSortingCol },
+      ],
       dispatch
-    )
-    deleteAllParams(["SortingCol", "SortType",
-      "CostDown", "CostUp", "TechCount",
-      "ListTech", "courseLevelId", "CourseTypeId"
-    ], setSearchParams) 
+    );
+    deleteAllParams(
+      [
+        "SortingCol",
+        "SortType",
+        "CostDown",
+        "CostUp",
+        "TechCount",
+        "ListTech",
+        "courseLevelId",
+        "CourseTypeId",
+      ],
+      setSearchParams
+    );
   };
 
   const setFilterHandler = () => {
     dispatch(changeFilterBoxFlag(false));
-
   };
 
   const filterHandler = async (productId, flag, filterName) => {
@@ -164,7 +205,7 @@ const BottomSection = ({ children }) => {
           params.delete("CourseTypeId");
           return params;
         });
-        dispatch(changeCourseTypeId(null))
+        dispatch(changeCourseTypeId(null));
       }
     }
     if (filterName === "سطح") {
@@ -181,7 +222,7 @@ const BottomSection = ({ children }) => {
           params.delete("courseLevelId");
           return params;
         });
-        dispatch(changeCourseLevelId(null))
+        dispatch(changeCourseLevelId(null));
       }
     }
   };
@@ -191,8 +232,8 @@ const BottomSection = ({ children }) => {
   };
 
   const priceChangeHandler = async (value) => {
-    const priceFrom = value[0]
-    const priceTo = value[1]
+    const priceFrom = value[0];
+    const priceTo = value[1];
     dispatch(changeCostDown(value[0]));
     dispatch(changeCostUp(value[1]));
 
@@ -217,19 +258,56 @@ const BottomSection = ({ children }) => {
     console.log("BottomSection");
   }, []);
 
+  const isRTL = language === "fa" ? true : false;
+
+  const openFilterBox = () => {
+    dispatch(changeFilterBoxFlag(true));
+  };
+
+  console.log(isRTL)
+  console.log(language)
+
   return (
-    <div className="bottom-section-container w-full mt-0 max-sm:mt-[8px] flex justify-center gap-x-[28px] items-start">
+    <div
+      // className="bottom-section-container w-full mt-0 max-sm:mt-[8px] flex justify-center gap-x-[28px] items-start"
+      // className="bottom-section-container w-full mt-0 max-sm:mt-[8px] flex flex-row justify-center gap-x-[28px] items-start"
+      // className="bottom-section-container w-full mt-0 max-sm:mt-[8px] flex lg:flex-row flex-col justify-center gap-x-[28px] items-start"
+      className={`bottom-section-container w-full mt-0 max-sm:mt-[8px] flex ${
+        isRTL ? "lg:flex-row-reverse" : "lg:flex-row"
+      } flex-col justify-center gap-x-[28px] items-start`}
+    >
       <div
-        className={
+        // className={
+        //   windowWidthNum < 1024
+        //     ? filterBoxFlag === true
+        //       ? "side flex justify-center items-center max-lg:w-full max-lg:h-full max-lg:fixed max-lg:top-[0] max-lg:left-0 z-20 max-lg:z-30 max-lg:backdrop-blur-[4px]"
+        //       : "hidden"
+        //     : null
+        // }
+        // style={{
+        //   order: isRTL ? 2 : 0,
+        // }}
+
+        //       className={
+        //   `side ${windowWidthNum < 1024
+        //     ? filterBoxFlag ? "flex fixed z-30 backdrop-blur-sm w-full h-full left-0 top-0 justify-center items-center"
+        //     : "hidden"
+        //     : "block w-[300px]"}`
+        // }
+
+        className={`side ${
           windowWidthNum < 1024
-            ? filterBoxFlag === true
-              ? "side flex justify-center items-center max-lg:w-full max-lg:h-full max-lg:fixed max-lg:top-[0] max-lg:left-0 z-20 max-lg:z-30 max-lg:backdrop-blur-[4px]"
+            ? filterBoxFlag
+              ? "flex fixed z-30 backdrop-blur-sm w-full h-full left-0 top-0 justify-center items-center"
               : "hidden"
-            : null
-        }
+            : "block w-[300px]"
+        }`}
+        style={{
+          order: isRTL ? 2 : 0,
+        }}
       >
         <div
-          className="filter-box-control justify-center p-2 bg-[#FFFFFF]
+          className="filter-box-control justify-center p-2 bg-(--filter-box) 
           drop-shadow-[0_1px_2px_#0000004D] rounded-[10px]"
         >
           <FilterLabel
@@ -237,7 +315,7 @@ const BottomSection = ({ children }) => {
             removeFilterClick={removeFilterClickHandler}
           />
           <div
-            className="filter-box-control mt-[5px] max-lg:max-h-[522px]
+            className="filter-box-control mt-[5px] max-lg:max-h-[522px] 
             overflow-x-hidden flex flex-col gap-y-[5px]"
           >
             {filterData.map((item, index) => {
@@ -285,7 +363,10 @@ const BottomSection = ({ children }) => {
           </h1>
         </div>
       </div>
-      <div className="main w-[90%] max-lg:w-full">
+      <div
+        className="main w-[90%] max-lg:w-full "
+        style={{ order: isRTL ? 0 : 2 }}
+      >
         {/* <div className="sort-viw-btn-control flex lg:flex-row xs:flex-col-reverse gap-1 justify-between">
           <div className="sorting-control flex items-center gap-x-2 text-[#005B58]">
             <p className="text-xl"> فیلتر بر اساس : </p>
@@ -335,7 +416,7 @@ const BottomSection = ({ children }) => {
         <div
           className={
             viewFlag
-              ? `transition-colors product-card-container grid max-xl:grid-cols-2 grid-cols-3
+              ? `transition-colors product-card-container grid max-xl:grid-cols-2 grid-cols-3 
                 max-sm:grid-cols-1 mt-[54px] gap-x-[23px] gap-y-[50px]`
               : `transition-colors product-card-container grid grid-cols-1
                 max-sm:grid-cols-1 mt-[54px] gap-x-[23px] gap-y-[50px]`

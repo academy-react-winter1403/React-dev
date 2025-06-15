@@ -14,6 +14,6 @@ export const courseActivedDataUserPanel = createSlice({
     },
     changeCourseActivedTatolCount: (state, action) => {
       state.courseActivedTotalCount = action.payload;
-    },
+    }
   },
 });

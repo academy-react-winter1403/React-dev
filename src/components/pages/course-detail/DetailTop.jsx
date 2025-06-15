@@ -76,8 +76,12 @@ const DetailTop = ({}) => {
         courseId: id,
       }
     ], {
-      onSuccess: () => {
-
+      onSuccess: (data) => {
+        console.log(data)
+        // toast.success(data.message)
+      },
+      onError: (error) => {
+        console.log("error ==>", error)
       }
     })
   }
@@ -85,7 +89,7 @@ const DetailTop = ({}) => {
 
   return (
     <div
-      className={`w-full relative flex justify-center items-start min-lg:gap-x-[10px] font-b-yekan
+      className={`w-full relative flex justify-center items-start min-lg:gap-x-[10px] font-b-yekan 
       max-lg:flex-col-reverse max-lg:gap-y-[15px] max-lg:w-[80%] max-lg:items-center
       max-lg:bg-[#FFFFFF] max-lg:drop-shadow-[0_1px_2px_#00000040] rounded-[10px] max-lg:pt-[10px]`}
     >
@@ -95,7 +99,7 @@ const DetailTop = ({}) => {
         yInitial={"-50px"}
         yAnimate={0}
         animDuration={2}
-        classNames={`info-control w-[40%] min-lg:bg-[#FFFFFF] flex flex-col justify-between
+        classNames={`info-control w-[40%] min-lg:bg-(--filter-box) flex flex-col justify-between 
               min-lg:drop-shadow-[0_1px_2px_#00000040] rounded-[15px] p-[30px] max-md:px-[15px] max-md:pt-[0] max-md:pb-[18px]
               max-lg:w-[90%]`}
       >

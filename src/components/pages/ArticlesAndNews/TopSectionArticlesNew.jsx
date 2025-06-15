@@ -7,15 +7,19 @@ import BgStudent from "./../../../assets/pics/articles/student.png";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { changeQueryArticles } from "../../../redux/actions";
+import { useTranslation } from "react-i18next";
 
 const TopSectionArticlesNew = () => {
   const dispatch = useDispatch();
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === "fa";
   const changeQueryHandler = (QueryEvent) => {
-    console.log(QueryEvent.target.value);
+    // console.log(QueryEvent.target.value);
     dispatch(changeQueryArticles(QueryEvent.target.value));
   };
   return (
     <motion.div
+     xInitial={isRTL ? 100 : -100}
       className="w-full h-[400px] flex justify-center relative"
       initial={{
         x: -1000,
@@ -30,30 +34,39 @@ const TopSectionArticlesNew = () => {
         ease: "easeOut",
       }}
     >
-      <div className="w-10/12 h-[271px] bg-[#EBF9F9]/51 rounded-tl-[10px] rounded-tr-[80px] rounded-br-[10px] rounded-bl-[80px] shadow-sm mt-10 flex flex-col justify-center gap-10">
-        <ul className="list-disc md:marker:text-[#01CEC9] xs:marker:text-[#EBF9F9] marker:text-3xl pl-5 mr-11 ">
+      <div className="w-10/12 h-[271px] bg-[#EBF9F9]/51 rounded-tl-[10px] rounded-tr-[80px] rounded-br-[10px] rounded-bl-[80px] shadow-sm mt-10  flex flex-col justify-center gap-10">
+        <ul className="list-disc md:marker:text-[#01CEC9] xs:marker:text-[#EBF9F9] marker:text-3xl pl-5 mr-11 ml-8">
           <li>
             <h1 className="font-b-yekan font-bold md:text-3xl xs:text-4xl xs:text-center md:text-start text-[#000]">
-              اخبار و مقالات
+              {/* اخبار و مقالات */}
+              {t("articleTitle")}
             </h1>
-            <p className="font-b-yekan font-normal text-md text-[#aaa] xs:text-center md:text-start">
-              با ما خودت رو به روز کن
+            <p
+              className="font-b-yekan font-normal text-md text-[var(--course-top-text)]
+ xs:text-center md:text-start"
+            >
+              {/* با ما خودت رو به روز کن */}
+              {t("articleTopTitleSub")}
             </p>
           </li>
         </ul>
-        <div className="md:w-[50%] mr-8 xs:w-[90%]">
+        <div className="md:w-[50%] mr-8 xs:w-[90%] ml-6">
           <Input
-            placeholder={"چی میخوای یاد بدونی؟..."}
+            // placeholder={"چی میخوای یاد بدونی؟..."}
+            placeholder={t("topSectionPlaceholder")}
             type={"text"}
             change={changeQueryHandler}
           />
         </div>
       </div>
       <motion.div
-        className="absolute lg:left-0 md:left-0 lg:w-[550px] md:w-[450px] hidden md:block "
+        className="absolute lg:left-0 md:left-0 lg:w-[500px] md:w-[400px] hidden md:block "
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1, delay: 0.7 }}
+        style={{
+          [isRTL ? "right" : "left"]: "900px",
+        }}
       >
         <div
           className="lg:w-[415px] lg:h-[400px] md:w-[315px] md:h-[300px] relative "
@@ -62,7 +75,9 @@ const TopSectionArticlesNew = () => {
             backgroundRepeat: "no-repeat",
             backgroundPosition: "10% 100%",
             backgroundSize: "85%",
+            
           }}
+          
         >
           <div
             className="lg:w-[486px] lg:h-[235px] md:w-[386px] md:h-[135px] absolute top-20 z-10"
@@ -71,6 +86,7 @@ const TopSectionArticlesNew = () => {
               backgroundRepeat: "no-repeat",
               backgroundPosition: "50% 50%",
               backgroundSize: "100%",
+              
             }}
           ></div>
           <div

@@ -24,6 +24,10 @@ import { getCourseDataByClick } from "./api/get-data-by-click/getCourseDataByCli
 import { getCommentOneData } from "./api/get-data/getCommentOneData";
 import { dislikeComment } from "./api/post-data/disLikeComment";
 import { reservCourse } from "./api/post-data/reservCourse";
+import { getLandinData } from "./api/get-data/getLandinData";
+import { likeAndDislikeNewsComment } from "./api/post-data/likeAndDislikeNewsComment";
+import { getCourseCommentData } from "./api/get-data/getCommentData";
+import { getMyCourse } from "./api/get-data/getMyCourse";
 
 
 export {
@@ -52,5 +56,9 @@ export {
   getCourseDataByClick,
   getCommentOneData,
   dislikeComment,
-  reservCourse
+  reservCourse,
+  getLandinData,
+  likeAndDislikeNewsComment,
+  getCourseCommentData,
+  getMyCourse
 };

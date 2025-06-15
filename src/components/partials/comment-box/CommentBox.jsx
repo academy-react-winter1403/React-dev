@@ -11,7 +11,12 @@ const CommentBox = ({
   replayLikeBtnClick,
   replayDeslikeBtnClick,
   addCommentBtnClick,
-  commentReplay,
+  // hideBox
+// <<<<<<< HEAD
+  // commentReplay
+// =======
+  // commentReplay,
+// >>>>>>> bfddc3b24ca4ff50f06f1eb483129d175a014749
 }) => {
   // const [commentLikeCountState, setCommentLikeCountState] = useState(null);
   // const [commentDislikeCountState, setCommentDislikeCountState] = useState(null);
@@ -19,7 +24,15 @@ const CommentBox = ({
   // const [replayDislikeCountState, setReplayDislikeCountState] = useState(null);
   const [showAddComment, setShowAddComment] = useState(false);
 
+  // const hideBox = () => {
+  //   setShowAddComment(!showAddComment)
+  // }
+
+// <<<<<<< HEAD
+  // console.log(commentData)
+// =======
   // console.log("commentData ==>", commentData);
+// >>>>>>> bfddc3b24ca4ff50f06f1eb483129d175a014749
 
   const toggleAddComment = () => {
     setShowAddComment((prev) => !prev);
@@ -56,7 +69,7 @@ const CommentBox = ({
 
   return (
     <div
-      className="commentBox-holder w-full bg-[#FFFFFF]
+      className="commentBox-holder w-full bg-(--article-detail-box)
         drop-shadow-[0_1px_2px_#00000040] rounded-[10px] mt-[20px] p-6"
     >
       {/* Button */}

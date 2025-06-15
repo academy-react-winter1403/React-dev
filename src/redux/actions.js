@@ -23,7 +23,9 @@ import {
   articleDetailCommentSlice,
   userPanelMyCourseFilterParamsSlice,
 } from "./slices";
+import { landingSearchSlice } from "./slices/landingSearchSlice";
 import { locationSlice } from "./slices/location";
+import { themeSlice } from "./slices/themeSlice";
 export const { firstAddCourseProduct } = coursesSlice.actions;
 export const { addCourseDetailData } = courseDetailSlice.actions;
 export const { addArticleData } = articleSlice.actions;
@@ -71,6 +73,7 @@ export const { firstAddArticleProduct } = allDataArticleSlice.actions;
 export const {
   addArticleAndNewsDetailCommentData,
   addArticleAndNewsDetailCommentReply,
+  changeArticleCommentFlag,
 } = articleDetailCommentSlice.actions;
 export const {
   changeQuery,
@@ -95,10 +98,26 @@ export const {
 } = articlesQueryFilter.actions;
 export const { SelectLatitude, SelectLongitude } = locationSlice.actions;
 
+export const { setMode } = themeSlice.actions;
+
 // user panel actions
 export const {
-  changeUserPanelQueryFilter,
-  changeUserPanelSortTypeFilter,
-  changeUserPanelSortingColFilter,
+  changeCourseReservedPageNumber,
+  changeCourseReservedQuery,
+  changeCourseReservedRowsOfPage,
+  changeCourseReservedSortType,
+  changeCourseReservedSortingCol
 } = userPanelMyCourseFilterParamsSlice.actions;
 // user panel actions
+
+// landing actions
+export const {
+  addDataToLandingSearchDataState,
+  changeLandingSearchFlag,
+  changeLandingSearchKey,
+  changeLandingSearchUrl,
+  changeLandingQuery,
+  changeStartSearchFlag,
+  changeSearchBoxFlag
+} = landingSearchSlice.actions;
+

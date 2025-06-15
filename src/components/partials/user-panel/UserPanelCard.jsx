@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import ImageFedback from "../image-fedback/imageFedback";
 import pic from "../../../assets/pics/userPanel/Ellipse48.png";
 import { FaRegTrashCan } from "react-icons/fa6";
+import ChangeMoment from "../changeMoment/changeMoment";
+import { SeparationPrice } from "../../../core";
+import { CiWallet } from "react-icons/ci";
 
 const UserPanelCard = ({
   imageAddress,
@@ -15,9 +18,37 @@ const UserPanelCard = ({
   staerDate,
   price,
   trashcanClick,
-  eyeClick
+  eyeClick,
+  statusText,
+  showStatus,
+  CiWalletFlag,
+  ciWalletClick
 }) => {
   const calc = bgCalc % 2;
+  const [date, setDate] = useState(null);
+  const [cost, setCost] = useState(null);
+
+  const changeDate = () => {
+    const newDate = ChangeMoment(staerDate, "YYYY/MM/DD", "persian");
+    setDate(newDate);
+  };
+
+  const changePrice = () => {
+    const newCost = SeparationPrice(price);
+    setCost(newCost);
+  };
+
+  useEffect(() => {
+    if (staerDate) {
+      changeDate();
+    }
+  }, [staerDate]);
+
+  useEffect(() => {
+    if (price) {
+      changePrice();
+    }
+  }, [price]);
 
   return (
     <div
@@ -37,30 +68,42 @@ const UserPanelCard = ({
             {courseName}
           </p>
           <p className="text-sm w-[146px] font-b-yekan text-[#555555]">
-            دکتر محمدحسین بحر العلومی
+            {teacherName ? teacherName : "محمد حسین بحرالعلوم"}
           </p>
           <p className="text-sm w-[96px] font-b-yekan text-[#555555]">
-            ۱۸ / ۰۳ / ۱۴۰۳
+            {date ? date : "۱۸ / ۰۳ / ۱۴۰۳"}
           </p>
           <p className="text-sm w-[107px] font-b-yekan text-center text-[#555555]">
-            ۲,۵۰۰,۰۰۰
+            {cost ? cost : "۲,۵۰۰,۰۰۰"}
           </p>
 
-          <p
+          {showStatus && <p
             className={`text-xs w-[72px] font-b-yekan ${
               statusFlag ? "text-[#00C070]" : "text-[#E48900]"
             } text-center`}
           >
             {statusFlag ? " تایید شده " : " در انتظار تایید "}
-          </p>
+          </p>}
         </div>
       </div>
       <div className="left w-[10%] flex justify-center items-center gap-x-3">
+        {
+          CiWalletFlag && (
+            <CiWallet color="#00726F" className="cursor-pointer" onClick={ciWalletClick}/>
+          )
+        }
+        {trashcanFlag && (
+          <FaRegTrashCan
+            className="text-[#E48900] cursor-pointer"
+            onClick={trashcanClick}
+          />
+        )}
         <FaEye
-          className={`${colorFlag ? "text-[#00BFB3]" : "text-[#E48900]"} cursor-pointer`}
+          className={`${
+            colorFlag ? "text-[#00BFB3]" : "text-[#E48900]"
+          } cursor-pointer`}
           onClick={eyeClick}
         />
-        {trashcanFlag && <FaRegTrashCan className="text-[#E48900] cursor-pointer" onClick={trashcanClick}/>}
       </div>
     </div>
   );

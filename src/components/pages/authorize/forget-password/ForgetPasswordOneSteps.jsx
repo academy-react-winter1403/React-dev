@@ -12,6 +12,7 @@ import { postData } from "../../../../core/services";
 import GoToEmailBtn from "../../../common/BtnText/GoToEmailBtn";
 import { motion } from "framer-motion";
 import { ToastContainer } from "react-toastify";
+import ForgetPasswordBg from "../../../partials/authorize/ForgetPasswordBg";
 
 const ForgetPasswordOneSteps = () => {
   const onSubmit = async (values) => {
@@ -36,10 +37,10 @@ const ForgetPasswordOneSteps = () => {
   return (
     <>
       <ToastContainer />
-      <LoginBg>
-        <div className="h-[400px] flex relative">
+      <ForgetPasswordBg>
+      <div className="h-[400px] flex relative">
           <motion.div
-            className="w-[377px] h-full bg-[#fcfcfc] rounded-[15px] flex flex-col gap-[15px] justify-center items-center"
+            className="w-[377px] h-full bg-(--bg-main) rounded-[15px] flex flex-col gap-[15px] justify-center items-center"
             initial={{ opacity: 0, scale: 0.6 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{
@@ -60,7 +61,8 @@ const ForgetPasswordOneSteps = () => {
                 <CustomInput
                   name={"email"}
                   placeholder={"ایمیل"}
-                  type={"text"}
+                  Toggle={false}
+                  originalType={"text"}
                 />
                 <div className="flex flex-col gap-[10px] justify-center items-center">
                   {/* <BtnGetCode text={"رفتن به صفحه ایمیل"} /> */}
@@ -74,7 +76,7 @@ const ForgetPasswordOneSteps = () => {
           </div>
         </div>
         <GoToOrgPage />
-      </LoginBg>
+      </ForgetPasswordBg>
     </>
   );
 };

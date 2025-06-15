@@ -56,9 +56,9 @@ const CardWrapper = ({ data, timeFlag, cardClick, viewFlag }) => {
           data-aos={viewFlag ? `flip-left` : `"flip-down"`}
           className={
             viewFlag
-              ? `card-container example slim-fade-in bg-[#FFFFFF]
+              ? `card-container example slim-fade-in bg-(--boxes)
              col-span-1 drop-shadow-[0_1px_2px_#00000040] rounded-[15px] px-[12px] pb-[12px]`
-              : `card-container example slim-fade-in bg-[#FFFFFF] 
+              : `card-container example slim-fade-in bg-(--boxes)
              col-span-1 drop-shadow-[0_1px_2px_#00000040] rounded-[15px] px-[12px] pb-[12px]`
           }
         >
@@ -115,7 +115,7 @@ const CardWrapper = ({ data, timeFlag, cardClick, viewFlag }) => {
                   />
                 </div>
                 {!viewFlag && (
-                  <div className="technologi-item-control flex font-b-yekan text-[#888888] text-[14px] my-4">
+                  <div className="technologi-item-control flex font-b-yekan text-[#8888888]  text-[14px] my-4">
                     <span> دسته بندی : </span>
                     <p>{`  ${technologyList}  `}</p>
                   </div>

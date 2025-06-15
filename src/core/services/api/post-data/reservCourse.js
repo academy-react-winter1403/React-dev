@@ -5,9 +5,13 @@ export const reservCourse = (key) => {
     return useMutation({
         mutationKey: key,
         mutationFn: async (data) => {
-            const [endUrl, dataObj] = data
-            const fullData = await htttp.post(endUrl, dataObj)
-            return fullData.data
+            try {
+                const [endUrl, dataObj] = data
+                const fullData = await htttp.post(endUrl, dataObj)
+                return fullData.data
+            } catch (error) {
+                return error
+            }
         }
     })
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { LuLayoutGrid } from "react-icons/lu";
 
-const GridIcon = ({ click }) => {
+const GridIcon = ({ click,view}) => {
 
   const clickHandler = () => {
     click()
@@ -9,10 +9,10 @@ const GridIcon = ({ click }) => {
 
   return (
     <button
-      className="gridBtn bg-[#E7E7E7] rounded-[10px_1px_1px_1px]"
+      className={view ? 'gridBtn bg-gray-200' : 'gridBtn  bg-(--course-filter)'}
       onClick={clickHandler}
     >
-      <LuLayoutGrid size={25} style={{ color: "#005B58" }} />
+      <LuLayoutGrid size={25} style={{ color: "#005B58"}} />
     </button>
   );
 };

@@ -8,6 +8,7 @@ import { userInformationData } from "./user-panel/userInformationData";
 import { myCourseMockApi } from "./user-panel/myCourseMockApi";
 import { sortCollingData } from "./courses-datas/sortCollingData";
 import { reservCourseSortingApi } from "./user-panel/reservCourseSortingApi";
+import { paymentHeaderTextData } from "./user-panel/paymentHeaderTextData";
 
 export {
   filterData,
@@ -19,5 +20,6 @@ export {
   userInformationData,
   myCourseMockApi,
   sortCollingData,
-  reservCourseSortingApi
+  reservCourseSortingApi,
+  paymentHeaderTextData
 };

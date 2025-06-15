@@ -11,6 +11,7 @@ import LoginBg from "../../../partials/authorize/LoginBg";
 import { getData, postData } from "../../../../core/services";
 import { motion } from "framer-motion";
 import { toast, ToastContainer } from "react-toastify";
+import ForgetPasswordBg from "../../../partials/authorize/ForgetPasswordBg";
 
 const ForgetPasswordTwoSteps = () => {
   const [rememberMe, setRememberMe] = useState(false);
@@ -72,7 +73,7 @@ const ForgetPasswordTwoSteps = () => {
   return (
     <>
       <ToastContainer />
-      <LoginBg>
+      <ForgetPasswordBg>
         <div className="h-[400px] flex relative">
           <motion.div
             className="w-[377px] h-full bg-[#fcfcfc] rounded-[15px] flex flex-col gap-[35px] justify-center items-center"
@@ -96,12 +97,14 @@ const ForgetPasswordTwoSteps = () => {
                 <CustomInput
                   name={"newPassword"}
                   placeholder={"رمز عبور"}
-                  type={"text"}
+                  Toggle={true}
+                  originalType={"password"}
                 />
                 <CustomInput
                   name={"confirmPassword"}
                   placeholder={"تایید رمز عبور"}
-                  type={"text"}
+                  Toggle={true}
+                  originalType={"password"}
                 />
                 <div className="flex w-[94px] h-[12px] ">
                   <label
@@ -128,7 +131,7 @@ const ForgetPasswordTwoSteps = () => {
           </div>
         </div>
         <GoToPrevPage />
-      </LoginBg>
+      </ForgetPasswordBg>
     </>
   );
 };
